@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:orientation="vertical"
+		android:divider="@drawable/listview_divider_simple"
+		android:id="@+id/layoutButtons">
+
+		<View style="@style/btnsInferiors_liniaSuperior" />
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+
+			android:orientation="horizontal"
+			android:gravity="center">
+
+			<Button
+				android:id="@+id/anterior"
+				android:text="@string/anterior"
+				style="@style/StepButton"/>
+
+			<View style="@style/btnsInferiors_liniaSeparadora" />
+
+			<Button
+				android:id="@+id/seguent"
+				android:text="@string/seguent"
+				style="@style/StepButton"/>
+
+		</LinearLayout>
+
+	</LinearLayout>
+</layout>

@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.j256.ormlite/ormlite-core/4.48/e579bd2905d0399af5029aaaf9817d5fa0ca88a5/ormlite-core-4.48.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e579bd2905d0399af5029aaaf9817d5fa0ca88a5">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/ormlite-core-4.48_ccdf23fa56cc7c8200bc89a512fd54a425308db3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/729c37a3085eb511fa4913e15e550c84863ee862/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_b271d45e0b1ee2d1068a96634fcfafeea849d1d9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Applications/Android Studio.app/Contents/gradle/m2repository/com/android/databinding/baseLibrary/2.3.3/baseLibrary-2.3.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="eb3399988a52099b0127e27fb5bed666eca86ace">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/baseLibrary-2.3.3_a13c89973c1c8bce4f7e9a2f1b7ba7e93f86f6c7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.flurry.android/analytics/6.4.2/4e6af3e20aff7888244687a9767b872e3881e822/analytics-6.4.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4e6af3e20aff7888244687a9767b872e3881e822">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/analytics-6.4.2_898d55992914106057e5a19726f8a11e0f6a0784/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/commons-net/commons-net/3.3/cd0d5510908225f76c5fe5a3f1df4fa44866f81e/commons-net-3.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="cd0d5510908225f76c5fe5a3f1df4fa44866f81e">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/commons-net-3.3_1d0129e42f8f72668495683f51820c37df7777f9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/Gesblue_Android/Jsoapp/build/intermediates/bundles/default/libs/ksoap2-android-assembly-3.3.0-jar-with-dependencies.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7798c9e4488d7c7f42a7621be1bf83583e4ef706">
+        <dex dex="/Users/miquelviladomat/Developer/android/Gesblue_Android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/8/ksoap2-android-assembly-3.3.0-jar-with-dependencies_cedeb1ae011a13a0a228d18e7991feb0798932f4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/6dfffb6b3d7b30457fe8d0b31028f3ad97bedc2e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_4a552cd65f555add502f83b3adccd0b73bc51554/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/incremental-classes/dev/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="57bd0d6b5503be0ae6bb7d93c1df1511fe82ca78">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10000/instant-run-bootstrap_4cf3bdd0aa3c9701e528c5638ad911bf37a2400b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/906bb76db460d8b883f62f039a23a72d1e2dbad5/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="95519720620b553f63afc789beba9ad582807f7c">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_4e7ca892f58473a7bb9be31ec0b72a4b2a151abb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/46e164fdf2ea4e7863d384ae8aee75f2f74f044f/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2b01eb5c797bd640f6138ff3ca9ea941e4247441">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_9c32dede11898c34f30b3df2dc0507dbcc13599c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/gesbluedroid/app/libs/com.datecs.api.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4d855249c21de5b98106d78241f798aa330ed98a">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/2/com.datecs.api_70358826c835f32defa89782cd728831596827a6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.j256.ormlite/ormlite-android/4.48/afa06f539a4026c10b247386312aa67404b80a16/ormlite-android-4.48.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="afa06f539a4026c10b247386312aa67404b80a16">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/ormlite-android-4.48_e615d7ca778689ff444ee522b008eebb775860d8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/gesbluedroid/Jsoapp/build/intermediates/bundles/default/libs/ksoap2-android-assembly-3.3.0-jar-with-dependencies.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7798c9e4488d7c7f42a7621be1bf83583e4ef706">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/8/ksoap2-android-assembly-3.3.0-jar-with-dependencies_c2c3da1e1e23a745bba18250ede42757a427a74c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/gson-2.7_7680104a9c9d618c98e56bce239ba1d1889eb261/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/gesbluedroid/spushnotificationsdroid/build/intermediates/bundles/default/libs/com.mobandme.ada_v2.4.4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="749c7e57244b26b3e524c377bac3ae97830aa951">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/8/com.mobandme.ada_v2.4.4_f4d6f439b0066a8802c4986ef8db84574631908d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/gesbluedroid/spushnotificationsdroid/build/intermediates/bundles/default/libs/gcm.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="500e26beaac0b4d2dcd1e7967cf1f6026f506ae5">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/8/gcm_38e9d513ee058714df06faef4fb784ce37b17d67/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/Gesblue_Android/spushnotificationsdroid/build/intermediates/bundles/default/libs/com.mobandme.ada_v2.4.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="749c7e57244b26b3e524c377bac3ae97830aa951">
+        <dex dex="/Users/miquelviladomat/Developer/android/Gesblue_Android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/8/com.mobandme.ada_v2.4.4_a48fecc075028dac6f177b2aebcf14b800caac3e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/e3a6f7eb31f6dd83b0027878fd1ff63b42899cae/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_58649fa85c78db85e8da3b94411f752213868b10/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.3.0/2b802460eea20f8f2ad9c08c74e0f14718e88aa9/okhttp-3.3.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2b802460eea20f8f2ad9c08c74e0f14718e88aa9">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okhttp-3.3.0_97ab1c2a0968b0cfcb3e07f9268dd46b3da7ccfe/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/14b03dd2e3e5291e0832b8d8de25adec1342588b/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_9f619030fbe0ce70694d8ad3f93c9780b209210b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/Gesblue_Android/app/build/intermediates/incremental-classes/dev/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="62a28d8faab5fd0628632e053bec374a008a3008">
+        <dex dex="/Users/miquelviladomat/Developer/android/Gesblue_Android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10000/instant-run-bootstrap_25415d17bae9f01e38cd79c36c5fd74d9076af80/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/10e6556ad87a0386e4dc3a39288eedc165b05373/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_dd42c64f77c8bf453abecd059a80040f666c74ce/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/2de7cd8b95b7021b1d597f049bcb422055119f2c/retrofit-2.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/retrofit-2.1.0_1b94294a6e2ba7b29d66db55e2bdfcc7d0be59bd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/fc772d9dbc24ce3e53ec342af6e59f55cee5029b/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_03b2fa63a03e930735d543f3aef05426dea6b29a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/support-annotations-25.3.1_640ee932576762130db77de687891457598ad427/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/picasso-2.5.2_d8bbf4210083c21e52dc1054af453f547781bb06/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/3.7.0/9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4/glide-3.7.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/glide-3.7.0_5e5be141f39df9803adf34fa54af3d2cb4eeb647/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Applications/Android Studio.app/Contents/gradle/m2repository/com/android/databinding/baseLibrary/2.3.3/baseLibrary-2.3.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="eb3399988a52099b0127e27fb5bed666eca86ace">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/baseLibrary-2.3.3_a13c89973c1c8bce4f7e9a2f1b7ba7e93f86f6c7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/a09f1c0c13712438e7489f90e0e2d7c2fb63c31d/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_f997c66285ef8fd6f512d99c491cb234c32f7a06/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.8.0/5ea7af56cc7c567ed9856d99efb30740e9b17ff/okio-1.8.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okio-1.8.0_0a1e20ab91c929fd1d1074aa6d9d2995e88c852e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.j256.ormlite/ormlite-core/4.48/e579bd2905d0399af5029aaaf9817d5fa0ca88a5/ormlite-core-4.48.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e579bd2905d0399af5029aaaf9817d5fa0ca88a5">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/ormlite-core-4.48_ccdf23fa56cc7c8200bc89a512fd54a425308db3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/Gesblue_Android/app/build/intermediates/incremental-runtime-classes/dev/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/miquelviladomat/Developer/android/Gesblue_Android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10000/instant-run_ee76841e9962c9d048a2c71b00753d46bbfe5c57/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/b6c63ec11ba29dcc24db485ca7b5d2f5c3f48184/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7f2f348b830f292429db987f74ba3e67c6752322">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_6affdda513ae52b37de1f1193d1fb66c6448a96a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/df16dc586ebce777c0708d1941408ba3066c492b/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_8d8cbf2709ee16c8cf3af6855c289874019bbba5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.flurry.android/analytics/6.4.2/4e6af3e20aff7888244687a9767b872e3881e822/analytics-6.4.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4e6af3e20aff7888244687a9767b872e3881e822">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/analytics-6.4.2_898d55992914106057e5a19726f8a11e0f6a0784/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.3.0/2b802460eea20f8f2ad9c08c74e0f14718e88aa9/okhttp-3.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2b802460eea20f8f2ad9c08c74e0f14718e88aa9">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okhttp-3.3.0_97ab1c2a0968b0cfcb3e07f9268dd46b3da7ccfe/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/commons-net/commons-net/3.3/cd0d5510908225f76c5fe5a3f1df4fa44866f81e/commons-net-3.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="cd0d5510908225f76c5fe5a3f1df4fa44866f81e">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/commons-net-3.3_1d0129e42f8f72668495683f51820c37df7777f9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/gesbluedroid/spushnotificationsdroid/build/intermediates/bundles/default/libs/com.mobandme.ada_v2.4.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="749c7e57244b26b3e524c377bac3ae97830aa951">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/8/com.mobandme.ada_v2.4.4_f4d6f439b0066a8802c4986ef8db84574631908d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/gesbluedroid/app/libs/com.datecs.api.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4d855249c21de5b98106d78241f798aa330ed98a">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/2/com.datecs.api_70358826c835f32defa89782cd728831596827a6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/Gesblue_Android/app/libs/com.datecs.api.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4d855249c21de5b98106d78241f798aa330ed98a">
+        <dex dex="/Users/miquelviladomat/Developer/android/Gesblue_Android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/2/com.datecs.api_606560872527e9100df84393645702175727b363/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/gesbluedroid/Jsoapp/build/intermediates/bundles/default/libs/ksoap2-android-assembly-3.3.0-jar-with-dependencies.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7798c9e4488d7c7f42a7621be1bf83583e4ef706">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/8/ksoap2-android-assembly-3.3.0-jar-with-dependencies_c2c3da1e1e23a745bba18250ede42757a427a74c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/01fb10374e85a1209a354ab1de036ea65f9618a4/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_634cd702ad89561f913da152f31fa7801333b03d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/2de7cd8b95b7021b1d597f049bcb422055119f2c/retrofit-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/retrofit-2.1.0_1b94294a6e2ba7b29d66db55e2bdfcc7d0be59bd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/3fc45edf7a5e1e28510148a7afd6cb29a70b0f7e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_8a5c93ead8d39eac4cd1e3085a594f76c649d1c5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/768d514dfbe25db939020a085151caf65b9eea06/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_f74adbaa2ab59c39994b599ed5a2f4a3ada89758/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/24a671a5dba766a1cfab8c3eca8941702010eb4c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="68956f5ba1517b7a3d513ba540548e257741cbae">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_88b4ac761b4547d8388dcc8ea16886326c4a41f4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.android/build-cache/e6dfd62448a100d74413226a09aeee2c032b5266/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/classes_81e5260be3be480eacabcc50d405d65de051ec3d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.j256.ormlite/ormlite-android/4.48/afa06f539a4026c10b247386312aa67404b80a16/ormlite-android-4.48.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="afa06f539a4026c10b247386312aa67404b80a16">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/ormlite-android-4.48_e615d7ca778689ff444ee522b008eebb775860d8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/gson-2.7_7680104a9c9d618c98e56bce239ba1d1889eb261/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/support-annotations-25.3.1_640ee932576762130db77de687891457598ad427/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/gesbluedroid/spushnotificationsdroid/build/intermediates/bundles/default/libs/gcm.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="500e26beaac0b4d2dcd1e7967cf1f6026f506ae5">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/8/gcm_38e9d513ee058714df06faef4fb784ce37b17d67/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/picasso-2.5.2_d8bbf4210083c21e52dc1054af453f547781bb06/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/Gesblue_Android/spushnotificationsdroid/build/intermediates/bundles/default/libs/gcm.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="500e26beaac0b4d2dcd1e7967cf1f6026f506ae5">
+        <dex dex="/Users/miquelviladomat/Developer/android/Gesblue_Android/app/build/intermediates/transforms/dex/dev/debug/folders/1000/8/gcm_16ca108d5e3fa0d88b23288b3faeb5cb1886e92b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.8.0/5ea7af56cc7c567ed9856d99efb30740e9b17ff/okio-1.8.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okio-1.8.0_0a1e20ab91c929fd1d1074aa6d9d2995e88c852e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/incremental-runtime-classes/dev/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10000/instant-run_c6559a7c5c6c475767996e0e5029c449f69f8eef/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/miquelviladomat/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/3.7.0/9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4/glide-3.7.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="/Users/miquelviladomat/Developer/android/gesbluedroid/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/glide-3.7.0_5e5be141f39df9803adf34fa54af3d2cb4eeb647/classes.dex" />
+    </item>
+
+</items>

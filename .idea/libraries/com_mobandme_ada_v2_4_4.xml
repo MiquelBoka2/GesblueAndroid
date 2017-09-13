@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="com.mobandme.ada_v2.4.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/spushnotificationsdroid/libs/com.mobandme.ada_v2.4.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

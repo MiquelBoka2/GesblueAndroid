@@ -1,0 +1,1 @@
+include ':app', ':sutils', ':sdatamanager', ':spushnotificationsdroid', ':sbaseobjects', ':Jsoapp', ':cameraview', ':dbDebugger'

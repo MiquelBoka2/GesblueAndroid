@@ -1,0 +1,38 @@
+{
+    "backgroundColor": "000000",
+    "strFontFamily":"Montserrat-Regular",
+    "fontSize":24.0,
+    "fontColor": "FFFFFF",
+    "loadingColor": "7F7F7F",
+    "pullDown": {
+        "loadingColor": "FFFFFF",
+        "strFontFamily":"Montserrat-Regular",
+        "fontSize":11.0,
+        "fontColor": "FFFFFF"
+    },
+    "navigation": {
+        "strFontFamily":"Montserrat-Bold",
+        "titleFontSize":34.0,
+        "buttonColor": "CF9C00",
+        "titleColor": "FFFFFF",
+        "backgroundColor": "000000"
+    },
+    "cell" : {
+        "strDescFontFamily":"Montserrat-Regular",
+        "descFontSize":30.0,
+        "strDateFontFamily":"Montserrat-Regular",
+        "dateFontSize":24.0,
+        "separatorColor": "E5E5E5",
+        "stateNormal": {
+            "backgroundColor": "FFFFFF",
+            "descColor": "333333",
+            "dateColor": "888888"
+        },
+        "stateUnread": {
+            "backgroundColor": "F2F2F2",
+            "unreadBarColor": "E64747",
+            "descColor": "888888",
+            "dateColor": "999999"
+        }
+    }
+}

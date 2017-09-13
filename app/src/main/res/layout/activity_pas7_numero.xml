@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools">
+	<RelativeLayout
+		android:id="@+id/activity_pas1_tipus"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/white"
+		tools:context="com.sixtemia.gesbluedroid.activities.passosformulari.Pas1TipusActivity">
+
+		<include
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			layout="@layout/toolbar" />
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/toolbar"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:id="@+id/linearSuperior"
+				android:layout_width="match_parent"
+				android:layout_height="56dp"
+				android:orientation="horizontal"
+				android:paddingLeft="20dp"
+				android:paddingRight="20dp"
+				android:background="@color/verdClar"
+				android:gravity="center_vertical">
+
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator_enabled"/>
+
+			</LinearLayout>
+
+			<EditText
+				android:id="@+id/etNum"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="15dp"
+				style="@style/EditTextCercador"
+				android:background="@color/buscadorBackground"
+				android:layout_below="@+id/linearSuperior"
+				android:textColor="@color/editTextFontColor"
+				android:textSize="18sp"
+				android:textColorHint="@color/buscadorTextColor"
+				android:hint="@string/hintBuscadorNumeroCarrer"
+				android:layout_marginBottom="50dp"
+				android:lines="1"
+				android:inputType="number" />
+
+
+			<include android:id="@+id/linearInferior"
+				layout="@layout/botons_anterior_siguiente" />
+
+			<include
+				android:id="@+id/linearConfirmar"
+				layout="@layout/linear_confirmar"
+				android:visibility="gone"/>
+
+		</RelativeLayout>
+
+	</RelativeLayout>
+</layout>

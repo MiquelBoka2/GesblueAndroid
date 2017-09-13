@@ -1,0 +1,3 @@
+rm -rf test
+mkdir test
+adb pull /sdcard/Android/data/com.sixtemia.gesbluedroid test

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- LLISTA NOTIFICACIONS -->
+    <string name="smodpushnotifications_list_notifications_title">Notificacions</string>   
+    
+    <string name="smodpushnotifications_loading_notifications">Actualitzant notificacions</string>
+    <string name="smodpushnotifications_no_notifications_available">No hi ha notificacions.</string>
+    <string name="smodpushnotifications_notificacions_download_error">No s\'han pogut actualitzar les dades de l\'aplicació, si us plau, revisi la seva connexió a internet.</string>
+        
+    <string name="smodpushnotifications_no_connection_available_title">Sense connexió</string>
+    <string name="smodpushnotifications_no_connection_available_text">No es pot connectar a internet. Comprova la configuració de la connexió i torna a intentar-ho.</string>
+    <string name="smodpushnotifications_no_connection_available_ok">Acceptar</string>
+    <string name="smodpushnotifications_no_connection_available_config">Configuració</string>
+    
+	<string name="smodpushnotifications_action_refresh">Actualitzar</string>
+	<string name="modpushnotifications_refresh_no_changes">El llistat ja està actualitzat.</string>
+    
+    <string name="dilluns">DILL</string>   
+	<string name="dimarts">DIM</string>   
+	<string name="dimecres">DMC</string>   
+	<string name="dijous">DIJ</string>   
+	<string name="divendres">DIV</string>   
+	<string name="dissabte">DIS</string>   
+	<string name="diumenge">DIU</string>
+	
+	
+	<!-- SModPushNotificationsWebview String -->
+    <string name="smodpushnotifications_smodwebview_error">Secció no disponible</string>
+    
+</resources>

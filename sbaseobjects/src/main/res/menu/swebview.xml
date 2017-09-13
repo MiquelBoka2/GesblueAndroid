@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/swebview_open"
+        android:showAsAction="never"
+        android:id="@+id/menu_open" />
+    <item android:title="@string/swebview_share"
+        android:showAsAction="never"
+        android:id="@+id/menu_share" />
+</menu>

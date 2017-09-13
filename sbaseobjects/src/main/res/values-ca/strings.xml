@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="swebview_open">Obrir al navegador</string>
+    <string name="swebview_share">Compartir enllaç</string>
+    <string name="no_media_file_available">No hi ha arxius disponibles.</string>
+    <string name="add_imatges_confirm">Afegir</string>
+</resources>

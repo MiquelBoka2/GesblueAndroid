@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- LLISTA NOTIFICACIONS -->
+    <string name="smodpushnotifications_list_notifications_title">Notificaciones</string>   
+    
+    <string name="smodpushnotifications_loading_notifications">Actualizando notificaciones</string>
+    <string name="smodpushnotifications_no_notifications_available">No hay notificaciones.</string>
+    <string name="smodpushnotifications_notificacions_download_error">No se han podido actualizar los datos de la aplicación. Por favor, revise su conexión a internet.</string>
+        
+    <string name="smodpushnotifications_no_connection_available_title">No hay conexión a internet.</string>
+    <string name="smodpushnotifications_no_connection_available_text">No se han podido actualizar los datos de la aplicación. Por favor, revise su conexión a internet.</string>
+    <string name="smodpushnotifications_no_connection_available_ok">Aceptar</string>
+    <string name="smodpushnotifications_no_connection_available_config">Configuración</string>
+    
+	<string name="smodpushnotifications_action_refresh">Actualizar</string>
+	<string name="modpushnotifications_refresh_no_changes">El listado ya está actualizado.</string>
+    
+    <string name="dilluns">LUN</string>   
+	<string name="dimarts">MAR</string>   
+	<string name="dimecres">MIE</string>   
+	<string name="dijous">JUE</string>   
+	<string name="divendres">VIE</string>   
+	<string name="dissabte">SAB</string>   
+	<string name="diumenge">DOM</string>
+	
+	
+	<!-- SModPushNotificationsWebview String -->
+    <string name="smodpushnotifications_smodwebview_error">Sección no disponible</string>
+    
+</resources>

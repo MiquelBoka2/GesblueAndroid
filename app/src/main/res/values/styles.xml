@@ -1,0 +1,81 @@
+<resources>
+
+	<!-- Base application theme. -->
+	<style name="AppTheme"
+	       parent="Theme.AppCompat.Light.NoActionBar">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:buttonStyle">@style/Button</item>
+	</style>
+
+	<style name="AppTheme.FAB">
+		<item name="colorAccent">@color/taronja</item>
+	</style>
+
+	<style name="AppTheme.Dialog" parent="Theme.AppCompat.Dialog">
+
+	</style>
+
+	<style name="Button" parent="Base.Widget.AppCompat.Button.Colored">
+		<item name="android:background">@drawable/button_selector</item>
+		<item name="android:textColor">@color/white</item>
+		<item name="android:minHeight">60dp</item>
+		<item name="android:textSize">18sp</item>
+	</style>
+
+	<style name="Button.White">
+		<item name="android:background">@drawable/button_white_selector</item>
+		<item name="android:textColor">@color/whiteButtonTextColor</item>
+	</style>
+
+	<style name="StepButton" parent="Base.Widget.AppCompat.Button">
+		<item name="android:background">@drawable/background_botons_inferiors</item>
+		<item name="android:textColor">@color/editTextFontColor</item>
+		<item name="android:textSize">14sp</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_weight">1</item>
+	</style>
+
+	<style name="StepButtonConfirmar" parent="Base.Widget.AppCompat.Button">
+		<item name="android:background">@drawable/background_boto_confirmar</item>
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textSize">14sp</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_weight">1</item>
+	</style>
+
+	<style name="EditTextCercador" parent="Base.Widget.AppCompat.EditText">
+		<item name="android:background">@drawable/buscador_underline</item>
+	</style>
+
+	<style name="Theme_Transparent" parent="Theme.AppCompat.Light.Dialog">
+		<item name="android:windowIsTranslucent">false</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="windowNoTitle">true</item>
+	</style>
+
+	<style name="linesFormulari">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_marginLeft">5dp</item>
+	</style>
+
+	<style name="btnsInferiors_liniaSeparadora">
+		<item name="android:layout_width">1px</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_marginTop">5dp</item>
+		<item name="android:layout_marginBottom">5dp</item>
+		<item name="android:background">@color/button_inferior_separador</item>
+	</style>
+
+	<style name="btnsInferiors_liniaSuperior">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">1px</item>
+		<item name="android:background">@color/button_inferior_separador</item>
+	</style>
+
+</resources>

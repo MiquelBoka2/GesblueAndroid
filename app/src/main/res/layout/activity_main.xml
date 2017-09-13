@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+		android:id="@+id/activity_main"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context="com.sixtemia.gesbluedroid.activities.MainActivity"
+        android:background="@color/white"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
+
+		<include
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			layout="@layout/toolbar" />
+
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_below="@+id/toolbar">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:paddingLeft="16dp"
+				android:paddingRight="16dp"
+				android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:orientation="vertical"
+				android:weightSum="1">
+
+				<RelativeLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+
+					<ImageView
+						android:layout_width="wrap_content"
+						android:layout_height="70dp"
+						android:layout_marginTop="10dp"
+						android:src="@drawable/gesblue_logo"
+						android:layout_gravity="center"
+						android:scaleType="fitCenter"/>
+
+					<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:id="@+id/textViewLocalitzacioConcessio"
+						android:textColor="@color/textLocalitzacio"
+						android:textSize="@dimen/textSize_login"
+						android:visibility="visible"
+						android:layout_marginTop="90dp"/>
+
+				</RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/marginTop_relative">
+
+                    <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+                        android:id="@+id/tvEstacionamentCorrecte"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/verdOK"
+                        android:textStyle="bold"
+                        android:text="@string/estacionament_correcte"
+                        android:textSize="@dimen/estacionament_size"
+                        android:padding="10dp"
+                        android:visibility="invisible"
+                        android:textColor="@color/white"/>
+
+                    <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+                        android:id="@+id/textViewEstacionamentIncorrecte"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/vermellKO"
+                        android:textStyle="bold"
+                        android:text="@string/estacionament_incorrecte"
+                        android:textSize="@dimen/estacionament_size"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:visibility="invisible"
+                        android:inAnimation="@anim/notifications_fade_in"/>
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/marginTop_linear"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/alcada_butons_denuncNoDenunc"
+                        android:textSize="@dimen/button_matricula_DenuncOrNotDenunc"
+                        android:text="@string/noDenunciar"
+                        android:id="@+id/buttonNoDenunciar"
+                        android:layout_weight="1"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:visibility="invisible"
+						style="@style/Button.White"/>
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/alcada_butons_denuncNoDenunc"
+                        android:textSize="@dimen/button_matricula_DenuncOrNotDenunc"
+                        android:text="@string/denunciar"
+                        android:id="@+id/buttonDenunciar"
+                        android:visibility="invisible"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@android:color/darker_gray"
+					android:id="@+id/separator"
+					android:visibility="invisible"/>
+
+                <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+                    android:text="@string/matricula"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="4dp"
+                    android:id="@+id/textViewMatricula"
+                    android:textColor="@color/textview_selector" />
+
+                <com.sixtemia.sbaseobjects.views.SEditText
+					app:clearDrawable="@drawable/edittext_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextMatricula"
+                    android:textSize="@dimen/editTextSize_login"
+                    android:textColor="@color/edittext_selector"
+                    android:maxLines="1"
+                    android:lines="1"
+					android:inputType="textVisiblePassword|textNoSuggestions"/>
+
+                <ViewSwitcher
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+					android:id="@+id/viewSwitcherButton"
+                    android:inAnimation="@anim/notifications_fade_in"
+                    android:outAnimation="@anim/notifications_fade_out">
+
+                    <ViewSwitcher
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inAnimation="@android:anim/fade_in"
+                        android:outAnimation="@anim/notifications_fade_out"
+                        android:id="@+id/viewSwitcherComprovaAnim">
+
+                        <Button
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/comprovar"
+                            android:id="@+id/buttonComprovar"
+                            android:layout_marginBottom="4dp"
+							android:layout_marginLeft="4dp"
+							android:layout_marginRight="4dp"
+							android:layout_marginTop="10dp"/>
+
+                        <com.sixtemia.sbaseobjects.views.SProgressBar
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_height="wrap_content"
+                            app:progressColor="@color/taronja"/>
+
+                    </ViewSwitcher>
+
+                    <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/accepta"
+                        android:id="@+id/buttonAcceptar"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp" />
+
+				</ViewSwitcher>
+
+			</LinearLayout>
+
+		</ScrollView>
+
+	</RelativeLayout>
+
+</layout>

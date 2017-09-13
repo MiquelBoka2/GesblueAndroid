@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Gesblue_Android.iml" filepath="$PROJECT_DIR$/Gesblue_Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Jsoapp/Jsoapp.iml" filepath="$PROJECT_DIR$/Jsoapp/Jsoapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cameraview/cameraview.iml" filepath="$PROJECT_DIR$/cameraview/cameraview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dbDebugger/dbDebugger.iml" filepath="$PROJECT_DIR$/dbDebugger/dbDebugger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbaseobjects/sbaseobjects.iml" filepath="$PROJECT_DIR$/sbaseobjects/sbaseobjects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdatamanager/sdatamanager.iml" filepath="$PROJECT_DIR$/sdatamanager/sdatamanager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spushnotificationsdroid/spushnotificationsdroid.iml" filepath="$PROJECT_DIR$/spushnotificationsdroid/spushnotificationsdroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sutils/sutils.iml" filepath="$PROJECT_DIR$/sutils/sutils.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/layoutBaseNotificacio"
+	android:layout_height="wrap_content"
+	android:layout_width="match_parent" >
+
+	<RelativeLayout android:id="@+id/layoutInfoNotificacio"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
+		android:paddingLeft="@dimen/smodpushnotifications_item_notification_content_padding_left"
+		android:paddingRight="@dimen/smodpushnotifications_item_notification_content_padding_right"
+		android:paddingTop="@dimen/smodpushnotifications_item_notification_content_padding_top"
+		android:paddingBottom="@dimen/smodpushnotifications_item_notification_content_padding_bottom"
+		android:layout_marginRight="@dimen/smodpushnotifications_item_notification_content_margin_right">
+
+		<com.sixtemia.spushnotifications.objects.TextViewCustomFont android:id="@+id/txtDescription"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="left" />
+
+		<com.sixtemia.spushnotifications.objects.TextViewCustomFont android:id="@+id/txtDate"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="left"
+			android:layout_marginTop="@dimen/smodpushnotifications_item_notification_text_content_margin_top"
+			android:layout_below="@+id/txtDescription"/>
+
+	</RelativeLayout>
+
+	<View android:id="@+id/viewCellSeparator"
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_below="@+id/layoutInfoNotificacio"/>
+
+
+
+</RelativeLayout>

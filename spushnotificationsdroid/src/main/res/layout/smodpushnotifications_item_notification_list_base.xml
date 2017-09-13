@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layoutBaseNotificacio"
+              android:orientation="vertical"
+              android:layout_height="wrap_content"
+              android:layout_width="match_parent" >
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:background="#fff"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<View android:id="@+id/viewNewMessageIndicator"
+		      android:layout_width="6dp"
+		      android:layout_height="match_parent"
+		      android:background="@color/notification_background_new_indicator" />
+
+		<LinearLayout android:id="@+id/layoutInfoNotificacio"
+		              android:layout_width="match_parent"
+		              android:layout_height="wrap_content"
+		              android:orientation="vertical"
+		              android:paddingLeft="@dimen/smodpushnotifications_item_notification_content_padding_left"
+		              android:paddingRight="@dimen/smodpushnotifications_item_notification_content_padding_right"
+		              android:paddingTop="@dimen/smodpushnotifications_item_notification_content_padding_top"
+		              android:paddingBottom="@dimen/smodpushnotifications_item_notification_content_padding_bottom">
+
+			<com.sixtemia.sbaseobjects.views.STextView android:id="@+id/txtDate"
+			                                           android:layout_width="match_parent"
+			                                           android:layout_height="wrap_content"
+			                                           android:layout_marginTop="12dp"
+			                                           android:layout_marginBottom="18dp"
+			                                           android:textColor="#878787" />
+
+			<com.sixtemia.sbaseobjects.views.STextView android:id="@+id/txtDescription"
+			                                           android:layout_width="match_parent"
+			                                           android:layout_height="wrap_content"
+			                                           android:layout_below="@+id/txtDate"
+			                                           android:textColor="#3d3d3c"
+			                                           android:layout_marginBottom="12dp"
+			                                           android:layout_marginRight="6dp"
+			                                           android:gravity="left" />
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+	<View android:id="@+id/viewCellSeparator"
+	      android:layout_width="match_parent"
+	      android:layout_height="3px"
+	      android:background="#dadada"
+	      android:layout_below="@+id/layoutInfoNotificacio"/>
+
+</LinearLayout>

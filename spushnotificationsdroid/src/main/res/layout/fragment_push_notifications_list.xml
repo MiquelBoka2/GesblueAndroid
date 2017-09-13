@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout android:layout_width="match_parent"
+	    android:layout_height="match_parent" >    
+	    
+	    <ProgressBar
+	        android:id="@+id/pbLoading"
+	        style="?android:attr/progressBarStyle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true" />
+	    
+	    <com.sixtemia.sbaseobjects.views.STextView
+	        android:id="@+id/txtLoading"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/pbLoading"
+	        android:layout_centerHorizontal="true"
+	        android:gravity="center_horizontal"
+	        android:layout_marginTop="5dp" />
+	    
+	    <com.sixtemia.sbaseobjects.views.STextView
+	        android:id="@+id/txtNoResults"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:text="@string/smodpushnotifications_no_notifications_available"
+	        android:visibility="gone" />
+	        
+	    <ListView
+	        android:id="@+id/listNotificacions"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_centerHorizontal="true"
+	        android:background="@android:color/transparent"
+	        android:cacheColorHint="@android:color/transparent"
+	        android:divider="@null" />
+	        
+	</RelativeLayout>
+    
+    
+</android.support.v4.widget.SwipeRefreshLayout>
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	<RelativeLayout
+		android:id="@+id/activity_pas1_tipus"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/white"
+		tools:context="com.sixtemia.gesbluedroid.activities.passosformulari.Pas1TipusActivity">
+
+		<include
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			layout="@layout/toolbar" />
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/toolbar"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:id="@+id/linearSuperior"
+				android:layout_width="match_parent"
+				android:layout_height="56dp"
+				android:orientation="horizontal"
+				android:paddingLeft="20dp"
+				android:paddingRight="20dp"
+				android:background="@color/verdClar"
+				android:gravity="center_vertical">
+
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator_enabled"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+
+
+			</LinearLayout>
+
+			<ListView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:divider="@drawable/listview_divider_simple"
+				android:dividerHeight="1dp"
+				android:id="@+id/lv"
+				android:layout_below="@+id/linearSuperior"
+				android:layout_above="@+id/linearInferior">
+
+			</ListView>
+
+			<include
+				android:id="@+id/linearInferior"
+				layout="@layout/botons_anterior_siguiente" />
+
+			<include
+				android:id="@+id/linearConfirmar"
+				layout="@layout/linear_confirmar"
+				android:visibility="gone"/>
+
+		</RelativeLayout>
+
+	</RelativeLayout>
+</layout>

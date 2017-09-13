@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	<RelativeLayout
+		android:id="@+id/activity_pas2_marca"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context="com.sixtemia.gesbluedroid.activities.passosformulari.Pas2MarcaActivity"
+		android:background="@android:color/white">
+
+		<include
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			layout="@layout/toolbar" />
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/toolbar"
+			android:orientation="vertical"
+			android:layout_above="@+id/linearInferior">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="56dp"
+				android:orientation="horizontal"
+				android:paddingLeft="20dp"
+				android:paddingRight="20dp"
+				android:background="@color/verdClar"
+				android:gravity="center_vertical">
+
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator_enabled"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+				<ImageView style="@style/linesFormulari"
+				           android:background="@drawable/step_indicator"/>
+
+			</LinearLayout>
+
+			<GridView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:id="@+id/gridView"
+				android:numColumns="3"
+				android:horizontalSpacing="2dp"
+				android:verticalSpacing="2dp"
+				android:gravity="center_horizontal"
+				android:layout_margin="10dp"/>
+
+		</LinearLayout>
+
+		<include
+			android:id="@+id/linearInferior"
+			layout="@layout/botons_anterior_siguiente" />
+
+		<include
+			android:id="@+id/linearConfirmar"
+			layout="@layout/linear_confirmar"
+			android:visibility="gone"/>
+
+	</RelativeLayout>
+</layout>

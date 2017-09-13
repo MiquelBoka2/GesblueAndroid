@@ -1,0 +1,191 @@
+<resources>
+	<string name="app_name">Gesblue</string>
+
+	<!-- Activity names -->
+	<string name="loginActivity_label">Login</string>
+	<string name="formulariActivity_label">Sanción</string>
+	<string name="mainActivity_label">Matrícula</string>
+	<string name="pas1TipusActivity_label">Sanción - TIPO DE VEHÍCULO</string>
+	<string name="pas2MarcaActivity_label">Sanción - MARCA</string>
+	<string name="pas3ModelActivity_label">Sanción - MODELO</string>
+	<string name="pas4ColorActivity_label">Sanción - COLOR</string>
+	<string name="pas5InfraccioActivity_label">Sanción - INFRACCIÓN</string>
+	<string name="pas6CarrerActivity_label">Sanción - CALLE</string>
+	<string name="pas7NumeroActivity_label">Sanción - NÚMERO</string>
+	<string name="dadesTiquetUsuari">Datos tíquet usuario</string>
+
+	<string name="usuari">USUARIO</string>
+	<string name="password">PASSWORD</string>
+	<string name="concessio">CONCESIÓN</string>
+	<string name="accepta">ACEPTAR</string>
+	<string name="editTextUsuariHint">Nombre de usuario</string>
+	<string name="editTextPasswordHint">Contraseña</string>
+	<string name="campsObligatoris">Faltan campos obligatorios</string>
+	<string name="ok">ACEPTAR</string>
+	<string name="atencio">Atención</string>
+
+	<string name="estacionament_incorrecte">ESTACIONAMIENTO INCORRECTO</string>
+	<string name="estacionament_correcte">ESTACIONAMIENTO CORRECTO</string>
+	<string name="noDenunciar">NO DENUNCIAR</string>
+	<string name="denunciar">DENUNCIAR</string>
+	<string name="matricula">MATRÍCULA</string>
+	<string name="comprovar">COMPRUEBA</string>
+
+	<string name="tipus">TIPO</string>
+	<string name="marca">MARCA</string>
+	<string name="model">MODELO</string>
+	<string name="color">COLOR</string>
+	<string name="sancio">SANCIÓN</string>
+	<string name="carrer">CALLE</string>
+	<string name="num">NUM</string>
+	<string name="imprimeix">IMPRIMIR</string>
+	<string name="networkError">Error de conexión</string>
+	<string name="otherError">Se ha producido un error</string>
+	<string name="seguent">SIGUIENTE</string>
+	<string name="anterior">ANTERIOR</string>
+	<string name="hintBuscadorMarca">Elige la marca del vehículo</string>
+	<string name="hintBuscadorModel">Elige el modelo del vehículo</string>
+	<string name="hintBuscadorCarrer">Elige la calle</string>
+	<string name="hintBuscadorNumeroCarrer">Introduce el núm. de la calle</string>
+	<string name="terminalDenegat">Terminal denegado</string>
+	<string name="errorLogin">Error de login</string>
+	<string name="terminalPendent">Terminal pendiente</string>
+	<string name="concessioNoValida">Concesión no válida</string>
+
+	<string name="actualitzantMarques">Actualizando Marcas&#8230;</string>
+	<string name="actualitzantModels">Actualizando Modelos&#8230;</string>
+	<string name="actualitzantColors">Actualizando Colores&#8230;</string>
+	<string name="actualitzantTipusVehicles">Actualizando Tipos Vehículos&#8230;</string>
+	<string name="actualitzantCarrers">Actualizando Calles&#8230;</string>
+	<string name="actualitzantInfraccions">Actualizando Infracciones&#8230;</string>
+	<string name="actualitzant">Actualizando&#8230;</string>
+	<string name="sincronitzant">Sincronizando&#8230;</string>
+
+	<string name="youShallNotPass">No puedes pasar al siguiente paso hasta que no selecciones una opción</string>
+	<string name="youShallNotPassNumber">No puedes pasar al siguiente paso hasta que no introduzcas un número</string>
+	<string name="foto_repetir">Repetir</string>
+	<string name="foto_confirmar">Confirmar</string>
+	<string name="foto_eliminar">Eliminar</string>
+	<string name="foto_error_guardar_desconocido">Error desconocido</string>
+	<string name="foto_error_guardar">Ha ocurrido un error al guardar la imagen: %1$s</string>
+
+	<string name="btnConfirmar">Confirmar</string>
+	<string name="errorEnDades">Error en los datos de la denuncia</string>
+
+	<!-- PRINTER -->
+	<string name="title_select_device">Selecciona un dispositivo para conectar</string>
+	<string name="title_scanning">Escaneando dispositivos&#8230;</string>
+	<string name="title_bluetooth_disabled">El Bluetooth está deshabilitado</string>
+	<string name="title_scan">Escanear dispositivos</string>
+	<string name="title_please_wait">Espere por favor</string>
+	<string name="title_warning">Atención</string>
+	<string name="title_address">Dirección</string>
+	<string name="title_connect">Conectar</string>
+	<string name="title_delete_all">Eliminar todos</string>
+	<string name="msg_connecting">Conectando al dispositivo&#8230;</string>
+	<!-- /PRINTER -->
+
+	<string name="textAnulacio">Anulación de la denuncia, la denuncia se podrá anular de la\n
+siguiente forma:\n\n
+1.- Si la infracción es por no tener o no poner en lugar\n
+visible el tíquet abonando 8€ y obteniendo tíquet de anulación\n
+en el parquímetro.\n\n
+2.- Dentro de las dos horas siguientes de la finalización del\n
+límite horario indicado en el tíquet abonando 5€ y obteniendo\n
+el tíquet de anulación en el parquímetro.\n\n
+3. Si han transcurrido más de 2 horas a la finalización del\n
+límite horario indicado en el tíquet de Anulación en el\n
+parquímetro.\n\n</string>
+	<string name="textPeu">Notificación de la denuncia y incoación del procedimiento: les\n
+notificamos esta denuncia como infractor titular del vehículo\n
+reseñado en la parte posterior y les hacemos saber que queda\n
+incoado el correspondiente procedimiento sancionador.\n\n
+En caso que usted no fuera el conductor, se le requiere para\n
+que en el plazo de los 15 días hábiles siguientes al de la\n
+fecha de  recepción de esta notificación proceda a identificar\n
+al conductor responsable de la infracción contra el que se\n
+iniciará el procedimiento sancionador.\n\n
+Procedimiento abreviado y procedimiento ordinario: Si se quiere\n
+acojer a la tramitación de este expediente por procedimiento\n
+abreviado, dispone de un plazo de 20 días naturales a contar\n
+desde el día siguiente de esta notificación para realizar el\n
+pago del importe de la sanción indicado en la denuncia, con un\n
+descuento del 50\%%. Este procedimiento implica: la renuncia a\n
+realizar alegaciones, la finalización del procedimiento sin\n
+necesidad de dictar resolución expresa y la certeza de la\n
+sanción desde el primer momento del pago. En caso de no\n
+realizar el pago con el descuento del 50\%% continua la\n
+tramitación por el procedimiento desde el día siguiente a la\n
+notificación. Estas se deberán presentar en el OAC del\n
+Ayuntamiento de Banyoles. Si no formula alegaciones ni abona el\n
+importe de la sanción esta denuncia tendrá efecto de acta\n
+resolutoria del procedimiento sancionador. Contra la sanción se\n
+podrá interponer recurso de reposición en el plazo de un mes.\n\n
+Para la tramitación del procedimiento sancionador actuará de\n
+órgano instructor del expediente el Jefe de la Policia Local\n
+siendo el órgano competente para su resolución la Alcaldia de\n
+esta Corporación.\n\n
+Pago de la multa: Presentando este boletín a cualquier cajero\n
+automático línea abierta o oficina de \"la caixa\".\n\n
+El/la secretario/a del Ayuntamiento.</string>
+	<string name="cela_vehicle">VEHICULO</string>
+	<string name="cela_marcaIModel">MARCA Y MODELO</string>
+	<string name="cela_color">COLOR</string>
+	<string name="cela_llocInfraccio">LUGAR DE LA INFRACCION</string>
+	<string name="cela_precepteInfringit">PRECEPTO INFRINGIDO</string>
+	<string name="cela_fetDenunciat">HECHO DENUNCIADO</string>
+	<string name="cela_import_dte">IMPORTE / DTO</string>
+	<string name="cela_agent">AGENTE</string>
+	<string name="cela_pagamentEntitatBancaria">PAGO EN ENTIDAD BANCARIA</string>
+	<string name="cela_emisora">EMISORA</string>
+	<string name="cela_mod">MOD</string>
+	<string name="cela_referencia">REFERENCIA</string>
+	<string name="cela_identificacio">IDENTIFICACIÓ</string>
+	<string name="cela_imp_dte">IMP. DTO.</string>
+	<string name="cela_dataLimitPagamentAmbAquestDoc">F. límite pago con este doc.:</string>
+	<string name="cela_codi_anulacio">CÓDIGO ANULACIÓN</string>
+	<string name="cela_import">IMPORTE</string>
+	<string name="cela_dataLimit">FECHA LÍMITE</string>
+	<string name="butlletaDeDenuncia">Boletín de denuncia</string>
+	<string name="print">Imprimir</string>
+	<string name="butlleta">BOLETÍN</string>
+	<string name="titol_data">FECHA</string>
+	<string name="titol_hora">HORA</string>
+	<string name="titol_matricula">MATRÍCULA</string>
+	<string name="introdueixNumeroTiquet">Introduce el número de tíquet</string>
+	<string name="IntrodueixLaData">Introduce la fecha</string>
+	<string name="IntrodueixImport">Introduce el importe</string>
+	<string name="errorPaper">Se ha agotado el papel</string>
+	<string name="errorTemperatura">La impresora se ha calentado, espere un rato antes de volverla a usar.</string>
+	<string name="errorBateria">Se está agotando la batería, carga la impresora tan pronto como puedas.</string>
+	<string name="errorAtencio">Atención</string>
+	<string name="dialogImprimint">Imprimiendo&#8230;</string>
+	<string name="enviantDenuncia">Enviando denuncia&#8230;</string>
+	<string name="butlletaEnviadaOk">Boletín enviado correctamente. ¿Quieres imprimir una copia?</string>
+	<string name="butlletaImpresaOk">Boletín impreso correctamente. ¿Quieres imprimir otra copia?</string>
+	<string name="butlletaImpresaOk_imprimir">Imprimir</string>
+	<string name="butlletaImpresaOk_enviar">Cancelar</string>
+	<string name="firma">Firma</string>
+
+	<!-- /13-10-2016 -->
+
+	<string name="pujarFotosTitle">Subiendo fotografías</string>
+
+	<string name="printerConnection_failedTitle">Error</string>
+	<string name="printerConnection_failedConnect">Se ha producido un error al conectar con la impresora. Por favor, reinicia la impresora para continuar.</string>
+	<string name="printerConnection_failedInitialize">Se ha producido un error al inicializar la conexión con la impresora. Por favor, reinicia la impresora para continuar.</string>
+	<string name="printerConnection_failedEngegaBluetooth">Por favor, activa tu conexión Bluetooth</string>
+	<string name="sense_especificar">S/E</string>
+	<string name="butlletaEnviadaOk_acceptar">Aceptar</string>
+	<string name="butlletaEnviadaOk_cancelar">Cancelar</string>
+
+	<string name="textAnulacioP">parquímetro.\n\n</string>
+	<string name="textPeuP">Notificación del Ayuntamiento.</string>
+
+	<string name="sendDenuncia_failed_title">Se ha producido un error al enviar la denúncia. Por favor, vuelve a enviarla.</string>
+	<string name="sendDenuncia_failed_send">Enviar</string>
+	<string name="sendDenuncia_failed_cancel">Cancelar</string>
+
+	<string name="printer_disconnected">Impresora desconectada</string>
+
+</resources>

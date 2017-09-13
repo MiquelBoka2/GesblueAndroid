@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="flurryApiKey" translatable="false">YFHGJHY3B5YNMMK58Z3N</string>
+	<string name="flurryApiKeyDebug" translatable="false">flurry_debug</string>
+</resources>

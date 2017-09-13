@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<RelativeLayout
+		android:id="@+id/activity_control_presencia_dni"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:fitsSystemWindows="false"
+		tools:context="com.sixtemia.gesbluedroid.activities.FormulariActivity">
+
+		<com.google.android.cameraview.CameraView
+			android:id="@+id/camera"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:adjustViewBounds="true" />
+
+		<android.support.design.widget.FloatingActionButton
+			android:id="@+id/take_picture"
+			app:backgroundTint="@color/textColorSuccess"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:layout_marginRight="16dp"
+			app:srcCompat="@drawable/ic_camera"/>
+
+		<LinearLayout
+			android:id="@+id/linearPreview"
+			android:visibility="gone"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="#9000"
+			android:elevation="8dp"
+			app:elevation="8dp"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="#fff"
+				android:layout_margin="24dp"
+				android:elevation="20dp"
+				app:elevation="20dp"
+				android:orientation="vertical">
+
+				<com.sixtemia.gesbluedroid.customstuff.views.imageZoom.ImageViewTouch
+					android:id="@+id/preview"
+					android:layout_width="match_parent"
+					android:layout_margin="4dp"
+					android:layout_height="0dp"
+					android:layout_weight="1"/>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">
+
+					<com.sixtemia.sbaseobjects.views.SButton
+						android:id="@+id/repetir"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						app:customFont="@string/font_regular"
+						android:background="@drawable/button_camera_preview"
+						android:text="@string/foto_repetir"
+						android:textColor="@color/text_btn_camera_confirm_selector"/>
+
+					<com.sixtemia.sbaseobjects.views.SButton
+						android:id="@+id/confirmar"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						app:customFont="@string/font_regular"
+						android:background="@drawable/button_camera_preview"
+						android:text="@string/foto_confirmar"
+						android:textColor="@color/text_btn_camera_confirm_selector"/>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</RelativeLayout>
+</layout>

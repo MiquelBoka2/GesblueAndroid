@@ -1,0 +1,4 @@
+<resources>
+    <string name="error_no_connection_available">No connection available. Please check your internet connection.</string>
+    <string name="error_json_parsing">"Error parsing JSON Result in DataManager, Empty JSON returned."</string>
+</resources>

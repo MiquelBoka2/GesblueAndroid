@@ -1,0 +1,11 @@
+<resources>
+	<!-- Default screen margins, per the Android Design guidelines. -->
+	<dimen name="login_screen_usuari_margin">24dp</dimen>
+	<dimen name="textSize_login">28sp</dimen>
+	<dimen name="editTextSize_login">30sp</dimen>
+	<dimen name="estacionament_size">26sp</dimen>
+	<dimen name="button_matricula_DenuncOrNotDenunc">18sp</dimen>
+	<dimen name="alcada_butons_denuncNoDenunc">60dp</dimen>
+	<dimen name="marginTop_relative">5dp</dimen>
+	<dimen name="marginTop_linear">10dp</dimen>
+</resources>

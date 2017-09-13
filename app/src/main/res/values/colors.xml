@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="colorPrimary">#159588</color>
+	<color name="colorPrimaryDark">#13867a</color>
+	<color name="colorAccent">#159588</color>
+
+	<color name="loginTextGreen">#009688</color>
+	<color name="white">#ffffff</color>
+	<color name="taronja">#ff7043</color>
+	<color name="taronjaApretat">#ff9c83</color>
+	<color name="taronjaDesactivat">#e0e0e0</color>
+	<color name="verdOK">#13ba3a</color>
+	<color name="vermellKO">#ff0000</color>
+	<color name="whiteButtonBackgroundPressed">#e9e9e9</color>
+	<color name="whiteButtonBackgroundDisabled">#e0e0e0</color>
+	<color name="whiteButtonBackground">#fbfbfb</color>
+	<color name="whiteButtonTextColor">#444444</color>
+	<color name="whiteButtonTextColorDisabled">#d6d6d6</color>
+	<color name="editTextFontColor">#4d4d4d</color>
+	<color name="textLocalitzacio">#707685</color>
+	<color name="verdClar">#70C0B7</color>
+	<color name="step_indicator">#dddddd</color>
+	<color name="itemColorBackground">#95989a</color>
+	<color name="itemColorTextViewBackground">#95989a</color>
+	<color name="stepButtonPressed">#c2c2c2</color>
+	<color name="black">#000000</color>
+	<color name="separadorSimple">#D8D8D8</color>
+	<color name="buscadorTextColor">#4f6179</color>
+	<color name="buscadorBackground">#fafafa</color>
+	<color name="buscadorUnderline">#d8d8d8</color>
+	<color name="separadorMarca">#95989a</color>
+	<color name="textViewGreyColor">#95989a</color>
+	<color name="textVirwGreenDisabled">#b7e0dc</color>
+	<color name="editTexitDisabled">#cacfd7</color>
+	<color name="textColorSuccess">#2BA53C</color>
+	<color name="button_inferior_separador">#ddd</color>
+</resources>

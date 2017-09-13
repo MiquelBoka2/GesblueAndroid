@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ADD MEDIA -->
+    <color name="addmedia_add_btn_background">#f1f1f1</color>
+    <color name="addmedia_background">#ffffff</color>
+    <color name="addmedia_edittext_background">#ffffff</color>
+    <color name="addmedia_separator">#edeff2</color>
+    <color name="addmedia_image_selected">#60B2B2B2</color>
+    <color name="dialog_text">#ffffff</color>
+
+    <!-- Això és temporal -->
+    <color name="colorPrimary">#e40e20</color>
+    <color name="colorPrimaryDark">#e40e20</color>
+    <color name="colorAccent">#800000</color>
+
+
+    <color name="orangeButtonNormal">#E89100</color>
+    <color name="orangeButtonPressed">#a96a00</color>
+
+</resources>

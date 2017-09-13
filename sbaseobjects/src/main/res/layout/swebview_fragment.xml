@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutWebView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:theme="@style/MyActionBarTheme">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/toolbarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:theme="@style/MyActionBarTheme">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:popupTheme="@style/ThemeOverlay.SWebView"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            style="@style/MyActionBarTheme">
+
+            <ImageView
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:id="@+id/btnClose"
+                android:background="@drawable/selector_clickable_transparent"
+                android:paddingLeft="6dp"
+                android:scaleType="center"
+                android:paddingRight="6dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txtWebTitle"
+                    android:textSize="@dimen/webview_title"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:visibility="gone"
+                    android:textStyle="bold"
+                    android:text=""
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txtWebUrl"
+                    android:text=""
+                    android:textSize="@dimen/webview_url_big"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_below="@+id/toolbarContainer"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.sixtemia.sbaseobjects.views.SProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_below="@+id/toolbarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:id="@+id/pbWebProgress"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0" />
+
+</RelativeLayout>

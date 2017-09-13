@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="125dp"
+	android:gravity="center">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/itemColorBackground">
+
+		<RelativeLayout
+			android:id="@+id/colorView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@color/white"
+			android:layout_margin="1dp"/>
+
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<RelativeLayout
+			android:id="@+id/selected"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@android:color/holo_orange_dark"
+			android:layout_above="@+id/tvColor"
+			android:visibility="visible">
+
+			<RelativeLayout
+				android:id="@+id/colorView2"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="@android:color/white"
+				android:layout_margin="5dp"/>
+
+		</RelativeLayout>
+
+		<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+			android:id="@+id/tvColor"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="blanc"
+			android:paddingTop="5dp"
+			android:paddingBottom="2dp"
+			android:paddingLeft="5dp"
+			android:paddingRight="5dp"
+			android:textColor="@color/white"
+			android:layout_alignParentBottom="true"
+			android:background="#dde9e9e9"/>
+
+	</RelativeLayout>
+
+</RelativeLayout>

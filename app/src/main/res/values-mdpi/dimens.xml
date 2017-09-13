@@ -1,0 +1,14 @@
+<resources>
+	<!-- Default screen margins, per the Android Design guidelines. -->
+	<dimen name="editTextTextSize">25sp</dimen>
+	<dimen name="imageViewWidth">130dp</dimen>
+	<dimen name="stepInficatorPadding">5dp</dimen>
+	<dimen name="login_screen_usuari_margin">10dp</dimen>
+	<dimen name="estacionament_size">24sp</dimen>
+	<dimen name="textSize_login">20sp</dimen>
+	<dimen name="editTextSize_login">24sp</dimen>
+	<dimen name="button_matricula_DenuncOrNotDenunc">16sp</dimen>
+	<dimen name="alcada_butons_denuncNoDenunc">50dp</dimen>
+	<dimen name="marginTop_relative">3dp</dimen>
+	<dimen name="marginTop_linear">5dp</dimen>
+</resources>

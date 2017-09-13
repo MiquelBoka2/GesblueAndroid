@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="SMODPUSHNOTIFICATIONS_APP_TOKEN_ID"></string>
+    <string name="SMODPUSHNOTIFICATIONS_GCM_SENDER_ID"></string>
+    <string name="SMODPUSHNOTIFICATIONS_RETURN_ACTIVITY"></string>
+
+    <string name="smodpushnotifications_url_base_webservices">http://client.sixtemialabs.com/ws/smodpushnotifications/</string>
+    <string name="smodpushnotifications_url_prefix_ws_1_1_register">notifications_register</string>
+    <string name="smodpushnotifications_url_prefix_ws_1_7_unregister_user">notifications_unregister_app_user</string>
+    <string name="smodpushnotifications_url_prefix_ws_4_2_count_new_notif">new_notifications_count</string>
+    <string name="smodpushnotifications_url_prefix_ws_4_1_notif_list">new_notifications_list</string>
+    <!-- FLURRY -->
+    <string name="STOPPO_FLURRY_API_KEY">dummykey</string>
+    <string name="STOPPO_FLURRY_API_KEY_DEBUG">dummykey</string>
+    
+    <string name="PREFERENCE_INSTALLATION_DATE">data_instalacio</string>
+
+</resources>

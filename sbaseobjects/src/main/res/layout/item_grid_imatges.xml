@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!--
+    <ImageView
+        android:id="@+id/imageViewFromMediaChooserGridItemRowView"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop" />
+    -->
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <ImageView
+        android:id="@+id/imgImatge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/imgVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:alpha="0.6"
+        android:scaleType="centerInside"
+        android:src="@drawable/play"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/viewSelected"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@color/addmedia_image_selected"
+        />
+
+    <ImageView
+        android:id="@+id/imgImatgeMask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/item_selected"
+        android:visibility="gone" />
+
+    <CheckedTextView
+        android:id="@+id/checkTextViewFromMediaChooserGridItemRowView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgImatge"
+        android:layout_alignRight="@id/imgImatge"
+        android:checkMark="@drawable/imatge_check_selector"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>
