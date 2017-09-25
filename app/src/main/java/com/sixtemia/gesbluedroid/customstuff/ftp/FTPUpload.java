@@ -20,8 +20,8 @@ public class FTPUpload extends AsyncTask<String,Void,String> {
         File path = new File("storage/emulated/0/Sixtemia/upload");
         if(path.exists()) {
             String[] fileNames = path.list();
-            if (fileNames.length > 0) {
-                String foto = fileNames[0];
+            if (fileNames.length > 1) {
+                String foto = fileNames[1];
                 String[] fotoParts = foto.split("-");
                 Log.d("EnviaFotos", "Foto " + foto);
 

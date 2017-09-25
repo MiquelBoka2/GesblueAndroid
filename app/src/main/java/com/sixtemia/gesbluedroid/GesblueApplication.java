@@ -64,7 +64,7 @@ public class GesblueApplication extends MultiDexApplication {
 			enviaDenuncia();
 			new FTPUpload().execute();
       /* and here comes the "trick" */
-			//handler.postDelayed(this, 5000);
+			handler.postDelayed(this, 10000);
 		}
 	};
 

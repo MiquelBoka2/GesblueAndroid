@@ -284,7 +284,7 @@ public class Utils {
 
         alertDialogBuilder.setTitle(title == -1 ? "" : context.getString(title))
                 .setMessage(context.getString(body))
-                .setPositiveButton("aaaaaaa", _listenerPositive)
+                .setPositiveButton(context.getString(R.string.ok), _listenerPositive)
                 .setNegativeButton(context.getString(negative), _listenerNegative)
                 .setCancelable(cancelable);
         AlertDialog alert = alertDialogBuilder.create();

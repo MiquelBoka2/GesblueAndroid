@@ -775,19 +775,19 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			photo.renameTo(newFile);
 		}
 		if (img2IsActive) {
-			File photo = new File(foto1);
+			File photo = new File(foto2);
 
 			String fileName = photo.getName();
 			String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-			File newFile = new File("storage/emulated/0/Sixtemia/upload/" + date + "-" + concessio + "-" + numDenuncia + "1.jpg");
+			File newFile = new File("storage/emulated/0/Sixtemia/upload/" + date + "-" + concessio + "-" + numDenuncia + "2.jpg");
 			photo.renameTo(newFile);
 		}
 		if (img3IsActive) {
-			File photo = new File(foto1);
+			File photo = new File(foto3);
 
 			String fileName = photo.getName();
 			String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-			File newFile = new File("storage/emulated/0/Sixtemia/upload/" + date + "-" + concessio + "-" + numDenuncia + "1.jpg");
+			File newFile = new File("storage/emulated/0/Sixtemia/upload/" + date + "-" + concessio + "-" + numDenuncia + "3.jpg");
 			photo.renameTo(newFile);
 		}
 	}
@@ -902,12 +902,18 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			String terminal = getTerminal(mContext);
 			int comptadorDenuncia = getComptadorDenuncia(mContext);
 			int control = getControl(mContext);
-
-			StringBuilder sb = new StringBuilder();
-			sb.append(String.format("%s%s", codiAgent, terminal));
-			int padding = 12 - sb.length(); //El màxim és 13 i al final sempre hi ha un caràcter de control
-			sb.append(String.format("%0" + padding + "d%s", comptadorDenuncia, control));
-			numeroTiquet = sb.toString();
+            StringBuilder sb = new StringBuilder();
+            sb.append("1");
+            int padding = 5 - String.valueOf(comptadorDenuncia).length();
+			for(int i=0;i<padding;i++){
+				sb.append("0");
+			}
+            sb.append(comptadorDenuncia);
+            if(terminal.length()<2){
+				sb.append("0");
+			}
+            sb.append(terminal);
+            numeroTiquet = sb.toString();
 
 			return numeroTiquet;
 		}
