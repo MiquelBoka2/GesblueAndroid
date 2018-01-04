@@ -21,6 +21,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Color;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Denuncia;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Infraccio;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Log;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Model;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_PosicioAgent;
@@ -43,7 +44,7 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_FOLDER = "sdatamanagerdb";
 
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // the DAO object we use to access the SimpleData table
     private ConcurrentHashMap<Class,RuntimeExceptionDao<? extends BasicWSResult,String>> table_map;
@@ -54,6 +55,7 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
 		    Model_Color.class,
 		    Model_Denuncia.class,
 		    Model_Infraccio.class,
+			Model_Log.class,
 		    Model_Marca.class,
 		    Model_Model.class,
 		    Model_PosicioAgent.class,
@@ -108,7 +110,13 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-
+		if(oldVersion<2) {try {
+			createTable(connectionSource,Model_Log.class);
+		} catch (SQLException e) {
+			Log.e(DatabaseModelHelper.class.getName(), "Can't create table", e);
+			throw new RuntimeException(e);
+		}
+		}
     }
 
     public void createTables(ConnectionSource connectionSource) throws SQLException {
@@ -116,7 +124,11 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, model);
 		}
     }
+	public void createTable(ConnectionSource connectionSource,Class model) throws SQLException {
 
+			TableUtils.createTable(connectionSource, model);
+
+	}
     public void dropTables(ConnectionSource connectionSource) throws SQLException {
 		for(Class model : table_map.keySet()) {
 			TableUtils.dropTable(connectionSource, model,true);

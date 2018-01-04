@@ -10,6 +10,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.helpers.CarrerHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.ColorHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.DenunciaHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.InfraccioHelper;
+import com.sixtemia.gesbluedroid.datamanager.database.helpers.LogHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.MarcaHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.ModelHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.PosicioAgentHelper;
@@ -21,6 +22,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Color;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Denuncia;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Infraccio;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Log;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Model;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_PosicioAgent;
@@ -215,6 +217,50 @@ public class DatabaseAPI {
 	}
 	/** /Infraccio **/
 
+
+	/** Log **/
+	private static BasicDBResult _getLogs(Context c) {
+		return executeDatabaseOperation(c, new LogHelper().getAllGroupById(c));
+	}
+
+	private static BasicDBResult _getLog(Context c, String id) {
+		return executeDatabaseOperation(c, new LogHelper().getField(c, Model_Log.ID, id));
+	}
+
+	public static ArrayList<Model_Log> getLogs(Context c) {
+		return (ArrayList<Model_Log>) _getLogs(c).getArray();
+	}
+
+	public static Model_Log getLog(Context c, String id) {
+		return _getLog(c, id).getFirst();
+	}
+	private static BasicDBResult _getLogPendent(Context c) {
+		return executeDatabaseOperation(c, new LogHelper().getField(c,"enviat","0"));
+	}
+	public static Model_Log getLogPendent(Context c) {
+
+		ArrayList<Model_Log> array= (ArrayList<Model_Log>) _getLogPendent(c).getArray();
+		if(array.size()>0){
+			return array.get(0);
+		}
+		else{
+			return null;
+		}
+	}
+	public static BasicDBResult insertLogs(Context c, List<Model_Log> list) {
+		return executeDatabaseOperation(c, new LogHelper().create(c, list));
+	}
+	public static void updateLogPendent(Context c,String id){
+		executeDatabaseOperation(c, new LogHelper().update(c,"codilog",id,"enviat",1));
+	}
+	public static BasicDBResult deleteAllLogs(Context c) {
+		return executeDatabaseOperation(c, new LogHelper().deleteAll(c));
+	}
+
+	public static BasicDBResult deleteLog(Context c, String log) {
+		return executeDatabaseOperation(c, new LogHelper().deleteWhere(c, "codilog", log));
+	}
+	/** /Log **/
 
 	/** Marca **/
 	private static BasicDBResult _getMarques(Context c) {

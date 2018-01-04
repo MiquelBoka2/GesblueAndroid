@@ -26,6 +26,8 @@ import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Pas3ModelActivity extends GesblueFragmentActivity {
 
@@ -48,12 +50,12 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 
 		final ArrayList<Model_Model> arrayAux = DatabaseAPI.getModelsByMarca(mContext, Integer.parseInt(mSancio.getModelMarca().getCodimarca()));
 
-//		Collections.sort(arrayAux, new Comparator<Model_Model>() {
-//			@Override
-//			public int compare(Model_Model o1, Model_Model o2) {
-//				return o1.getNommodel().compareTo(o2.getNommodel());
-//			}
-//		});
+		Collections.sort(arrayAux, new Comparator<Model_Model>() {
+			@Override
+			public int compare(Model_Model o1, Model_Model o2) {
+				return o1.getNommodel().compareTo(o2.getNommodel());
+			}
+		});
 
 		if(mAdapter == null) {
 			mAdapter = new SimpleAdapter(mContext, arrayAux);
@@ -73,6 +75,10 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 			}
 			mAdapter.setSelectedItem(index);
 			mAdapter.notifyDataSetChanged();
+		}
+		else{
+			mAdapter.setSelectedItem(0);
+
 		}
 
 		mBinding.lv.setOnItemClickListener( new AdapterView.OnItemClickListener() {

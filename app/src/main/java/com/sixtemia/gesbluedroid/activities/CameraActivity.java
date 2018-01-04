@@ -13,6 +13,7 @@ import com.google.android.cameraview.CameraView;
 import com.sixtemia.gesbluedroid.R;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.databinding.ActivityControlPresenciaDniBinding;
+import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,18 +23,27 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static android.text.TextUtils.isEmpty;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getCodiAgent;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getControl;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getPrefCodiExportadora;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getPrefCodiInstitucio;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getPrefCodiTipusButlleta;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getTerminal;
 import static com.sixtemia.sbaseobjects.tools.ImageTools.getFileAfterResize;
 
 public class CameraActivity extends GesblueFragmentActivity {
 	private ActivityControlPresenciaDniBinding mBinding;
 	private Handler mBackgroundHandler;
-
+	String position;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_control_presencia_dni);
 		setTitleWithFont("");
 		toggleFullscreen(true);
+
+		position = getIntent().getStringExtra("position");
 
 		initCamera();
 	}
@@ -90,15 +100,83 @@ public class CameraActivity extends GesblueFragmentActivity {
 			Toast.makeText(mContext, "Out of memory", Toast.LENGTH_SHORT).show();
 		}
 	}
+	private String generateCodiButlleta() {
+		String numeroTiquet="";
+		if(!isEmpty(numeroTiquet)) {
+			return numeroTiquet;
+		} else {
+			long codiAgent = getCodiAgent(mContext);
+			String terminal = getTerminal(mContext);
 
+			int comptadorDenuncia = PreferencesGesblue.getComptadorDenuncia(getApplicationContext())+1;
+			PreferencesGesblue.saveComptadorDenuncia(mContext, comptadorDenuncia);
+
+			int control = getControl(mContext);
+
+			DLog("comptadorDenuncia: "+comptadorDenuncia);
+			int codiexportadora = getPrefCodiExportadora(mContext);
+			String coditipusbutlleta = getPrefCodiTipusButlleta(mContext);
+			String codiinstitucio = getPrefCodiInstitucio(mContext);
+			StringBuilder sb = new StringBuilder();
+			//sb.append("1");
+			int padding = 0;
+			switch(codiexportadora) {
+				case 1://Consell Comarcal de la Selva
+					sb.append(coditipusbutlleta);
+					sb.append(codiinstitucio);
+					if (terminal.length() < 2) {
+						sb.append("0");
+					}
+					sb.append(terminal);
+					padding = 5 - String.valueOf(comptadorDenuncia).length();
+					for (int i = 0; i < padding; i++) {
+						sb.append("0");
+					}
+					sb.append(comptadorDenuncia);
+					break;
+				case 2://Consell Comarcal del Baix Empordà
+					sb.append(coditipusbutlleta);
+					sb.append(codiinstitucio);
+					if (terminal.length() < 2) {
+						sb.append("0");
+					}
+					sb.append(terminal);
+					padding = 6 - String.valueOf(comptadorDenuncia).length();
+					for (int i = 0; i < padding; i++) {
+						sb.append("0");
+					}
+					sb.append(comptadorDenuncia);
+					break;
+				case 3://Xaloc
+					sb.append(coditipusbutlleta);
+					sb.append(codiinstitucio);
+					if (terminal.length() < 2) {
+						sb.append("0");
+					}
+					sb.append(terminal);
+					padding = 5 - String.valueOf(comptadorDenuncia).length();
+					for (int i = 0; i < padding; i++) {
+						sb.append("0");
+					}
+					sb.append(comptadorDenuncia);
+					break;
+			}
+			numeroTiquet = sb.toString();
+
+			return numeroTiquet;
+		}
+	}
 	private void savePicture(final byte[] data) {
 		getBackgroundHandler().post(new Runnable() {
 			@Override
 			public void run() {
+
+				String concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
+				String numDenuncia = generateCodiButlleta();
 				DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 				String currentDateString = dateFormat.format(new Date());
 
-				File file = new File(getFilesDir(), currentDateString + ".jpg");
+				File file = new File(getFilesDir(), currentDateString  + "-" + concessio + "-" + numDenuncia + position + ".jpg");
 				OutputStream os = null;
 				String error = getString(R.string.foto_error_guardar_desconocido);
 				try {

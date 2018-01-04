@@ -96,6 +96,9 @@
 		    android:label="@string/dadesTiquetUsuari"
 		    android:screenOrientation="portrait">
 		</activity>
-	</application>
+	    <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="8c2b5a6214e6b01ec3f8a06199fe4b3cba3afb3e" />
+    </application>
 
 </manifest>

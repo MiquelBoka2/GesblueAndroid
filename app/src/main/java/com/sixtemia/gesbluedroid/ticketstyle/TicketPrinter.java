@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import static com.sixtemia.spushnotifications.db.DataContext.mContext;
 
@@ -96,11 +97,14 @@ public class TicketPrinter {
             //------------------
             // Dades Butlleta
             //------------------
-            Calendar calendar = printConfiguration.getData();
+            //
+            Date date = Calendar.getInstance().getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
             Cela[] dadesButlletaArray  = new Cela[]{
                     new Cela(mContext.getString(R.string.butlleta), printConfiguration.getButlleta(), 185),
-                    new Cela(mContext.getString(R.string.titol_data), getCalendarDataFormat(calendar), 145),
-                    new Cela(mContext.getString(R.string.titol_hora), getCalendarHourFormat(calendar), 89),
+                    new Cela(mContext.getString(R.string.titol_data), sdf.format(date), 145),
+                    new Cela(mContext.getString(R.string.titol_hora), sdf2.format(date), 89),
                     new Cela(mContext.getString(R.string.titol_matricula), printConfiguration.getMatricula())
             };
             printCellaBlancaArray(dadesButlletaArray, y);
@@ -131,7 +135,7 @@ public class TicketPrinter {
             //------------------
             // Precepte infringit
             //------------------
-           if(!TextUtils.isEmpty(PreferencesGesblue.getPrecepteInfringit(_context))) {
+           if(!TextUtils.isEmpty(printConfiguration.getPrecepteInfringit())) {
                String precepteInfringit = printConfiguration.getPrecepteInfringit();
                Integer numLines         = calcNumLines(precepteInfringit, MAX_CHAR_LINE);
                Cela[] precepteArray = new Cela[]{
@@ -226,16 +230,22 @@ public class TicketPrinter {
                     codiAnulacio = butlleta.substring(butlleta.length()-(butlleta.length()), butlleta.length());
                 }
 
-                printCelaNegreFontGran(0, y, PAGE_WIDTH, mContext.getString(R.string.cela_codi_anulacio), codiAnulacio);
-                y = newLine(y, 3.5f);
+                 printCelaNegreFontGran(0, y, PAGE_WIDTH, mContext.getString(R.string.cela_codi_anulacio), codiAnulacio);
+                 y = newLine(y, 3.5f);
 
                 DataAnulacio[] dataAnulacioArray = printConfiguration.getDataAnulacioArray();
                 if(PreferencesGesblue.getImportAnulacio(_context)) {
                     for(DataAnulacio dataAnulacio : dataAnulacioArray) {
                         if(dataAnulacio.getImport() != 0 && dataAnulacio.getData() != null) {
+
+                            Calendar now = Calendar.getInstance();
+
+                            Calendar tmp = (Calendar) now.clone();
+                            tmp.add(Calendar.MINUTE, 1440);
+                            SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yy HH:mm");
                             Cela[] celaArray = new Cela[]{
                                     new Cela(mContext.getString(R.string.cela_import), getFormatedImport(dataAnulacio.getImport()), sampleMilimetersToPixels(27)),
-                                    new Cela(mContext.getString(R.string.cela_dataLimit), getCalendarShortDataFormat(dataAnulacio.getData()) + " " + getCalendarHourFormat(dataAnulacio.getData()))
+                                    new Cela(mContext.getString(R.string.cela_dataLimit), formatter.format(tmp.getTime()))
                             };
                             printCellaNegraArray(celaArray, y);
                             y = newLine(y, 2);
@@ -295,7 +305,8 @@ public class TicketPrinter {
             if(PreferencesGesblue.getTextPeuVisible(_context)) {
                 String textPeu = printConfiguration.getTextpeu();
                 numLines       = calcNumLines(textPeu, MAX_CHAR_LINE);
-                printer.printTaggedText("{reset}{left}{s}" + textPeu, CHARSET_ENCODING);
+
+                printer.printTaggedText("{reset}{left}{s}" + textPeu + "{br}", CHARSET_ENCODING);
                 y = newLine(y, numLines + 1);
             }
 
@@ -458,8 +469,8 @@ public class TicketPrinter {
      * @throws IOException
      */
     private void printCellaNegraArray(Cela[] celaArray, Integer y) throws IOException {
-        printer.reset();
-        printer.selectPageMode();
+        //printer.reset();
+        //printer.selectPageMode();
 
         int lastX = 0;
 
@@ -474,9 +485,7 @@ public class TicketPrinter {
             lastX += width;
         }
 
-        printer.printPage();
-        printer.selectStandardMode();
-        printer.flush();
+
     }
 
     /**

@@ -26,6 +26,8 @@ import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -61,6 +63,12 @@ public class Pas4ColorActivity extends GesblueFragmentActivity {
 		}
 
 		final ArrayList<Model_Color> arrayAux = DatabaseAPI.getColors(mContext);
+		Collections.sort(arrayAux, new Comparator<Model_Color>() {
+			@Override
+			public int compare(Model_Color o1, Model_Color o2) {
+				return o1.getNomcolorcat().compareTo(o2.getNomcolorcat());
+			}
+		});
 		if(mAdapter == null) {
 			mAdapter = new Pas4ColorActivity.ColorAdapter(mContext, arrayAux);
 		}
@@ -225,6 +233,8 @@ public class Pas4ColorActivity extends GesblueFragmentActivity {
 			}
 
 			colorViewHolder.tvColor.setText(Utils.languageMultiplexer(color.getNomcolores(), color.getNomcolorcat()));
+			colorViewHolder.tvColor.setTextColor(Color.BLACK);
+			colorViewHolder.tvColor.setBackgroundColor(Color.WHITE);
 			try {
 				colorViewHolder.colorView.setBackgroundColor(Color.parseColor("#" + color.getHexcolor()));
 			} catch (Exception ex) {

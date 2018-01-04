@@ -106,6 +106,7 @@ public class SFragmentActivity extends AppCompatActivity {
 	protected void onResume() {
 		try {
 			mRunning = true;
+			mContext = this;
 			super.onResume();
 		} catch (Exception ex) {
 			Log.e(getClass().getSimpleName(), "Error OnResume: " + ex.getLocalizedMessage());

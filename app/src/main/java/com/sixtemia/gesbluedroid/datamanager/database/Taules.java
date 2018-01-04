@@ -12,6 +12,7 @@ public class Taules {
 	public static final String TAULA_COLOR = "color";
 	public static final String TAULA_DENUNCIA = "denuncia";
 	public static final String TAULA_INFRACCIO = "infraccio";
+	public static final String TAULA_LOG = "log";
 	public static final String TAULA_MARCA = "marca";
 	public static final String TAULA_MODEL = "model";
 	public static final String TAULA_POSICIOAGENT = "posicioAgent";

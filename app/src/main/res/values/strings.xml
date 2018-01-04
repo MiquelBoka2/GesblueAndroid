@@ -132,13 +132,13 @@ secretari/a de l\'Ajuntament.</string>
 	<string name="cela_agent">AGENT</string>
 	<string name="cela_codi_anulacio">CODI ANULACIÓ</string>
 	<string name="cela_color">COLOR</string>
-	<string name="cela_dataLimit">DATA LÍMIT</string>
+	<string name="cela_dataLimit">DATA LÍMIT ANULACIÓ</string>
 	<string name="cela_dataLimitPagamentAmbAquestDoc">D. límit pagament amb aquest doc.:</string>
 	<string name="cela_emisora">EMISSORA</string>
 	<string name="cela_fetDenunciat">FET DENUNCIAT</string>
 	<string name="cela_identificacio">IDENTIFICACIÓ</string>
 	<string name="cela_imp_dte">IMP. DTE.</string>
-	<string name="cela_import">IMPORT</string>
+	<string name="cela_import">IMPORT ANULACIÓ</string>
 	<string name="cela_import_dte">IMPORT / DTE</string>
 	<string name="cela_llocInfraccio">LLOC DE LA INFRACCIÓ</string>
 	<string name="cela_marcaIModel">MARCA I MODEL</string>
@@ -202,7 +202,7 @@ secretari/a de l\'Ajuntament.</string>
 	<string name="sendDenuncia_failed_cancel">Cancel·lar</string>
 
 	<string name="printer_disconnected">Impresora desconnectada</string>
-
+	<string name="tanca_concessio">Tancar Concessió</string>
 
 
 </resources>

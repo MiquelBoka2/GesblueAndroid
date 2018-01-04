@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.sixtemia.gesbluedroid.R;
@@ -15,6 +16,7 @@ import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Color;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Infraccio;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Log;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Model;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_TipusVehicle;
@@ -45,6 +47,7 @@ import com.sixtemia.gesbluedroid.global.Utils;
 import com.sixtemia.gesbluedroid.model.Models;
 import com.sixtemia.gesbluedroid.model.Tipus_Vehicle;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -84,11 +87,40 @@ public class LoginActivity extends GesblueFragmentActivity {
 			mBinding.editTextConcessio.setVisibility(View.GONE);
 
 			mBinding.textViewLocalitzacioConcessio.setVisibility(View.VISIBLE);
+
 			mBinding.textViewLocalitzacioConcessio.setText(concessioString);
+		}
+		else{
+			mBinding.viewSwitcherTancaConcessio.setVisibility(View.GONE);
+			mBinding.buttonTancaConcessio.setVisibility(View.GONE);
 		}
 
 		mBinding.editTextUsuari.setText(PreferencesGesblue.getUserName(mContext));
 
+		mBinding.buttonTancaConcessio.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				PreferencesGesblue.setConcessioString(mContext,"");
+				PreferencesGesblue.setConcessio(mContext,0);
+				PreferencesGesblue.saveDataSync(mContext,"0");
+				mBinding.viewSwitcherTancaConcessio.setVisibility(View.GONE);
+				mBinding.buttonTancaConcessio.setVisibility(View.GONE);
+				mBinding.textViewConcessio.setVisibility(View.VISIBLE);
+				mBinding.editTextConcessio.setVisibility(View.VISIBLE);
+
+				mBinding.textViewLocalitzacioConcessio.setVisibility(View.GONE);
+				isLoginConcessio = false;
+
+				DatabaseAPI.deleteAllMarques(mContext);
+				DatabaseAPI.deleteAllModels(mContext);
+				DatabaseAPI.deleteAllTipusVehicles(mContext);
+				DatabaseAPI.deleteAllTipusAnulacions(mContext);
+				DatabaseAPI.deleteAllCarrers(mContext);
+				DatabaseAPI.deleteAllInfraccions(mContext);
+
+
+			}
+		});
 		mBinding.buttonAccepta.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -111,7 +143,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 					if(isLoginConcessio) {
 						cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
 					} else {
-						cridaLogin(mBinding.editTextUsuari.getText().toString(), mBinding.editTextPassword.getText().toString(), TextUtils.isEmpty(concessio) ? 0 : Long.parseLong(concessio), null);
+						cridaLogin(mBinding.editTextUsuari.getText().toString(), mBinding.editTextPassword.getText().toString(), TextUtils.isEmpty(concessio) ? 0 : Long.parseLong(concessio),PreferencesGesblue.getDataSync(mContext));
 					}
 				}
 			}
@@ -214,6 +246,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 		PreferencesGesblue.setAgentId(mContext, username);
 		PreferencesGesblue.saveCodiBarresVisible(mContext, nt.hasCodiBarresVisible());
 		PreferencesGesblue.saveTextPeuVisible(mContext, nt.hasTextPeuVisible());
+		PreferencesGesblue.saveTextPeu(mContext, nt.hasTextPeu());
 		PreferencesGesblue.saveImportAnulacio(mContext, nt.hasImportAnulacio());
 		PreferencesGesblue.saveLogosMarques(mContext, nt.hasLogosMarques());
 		PreferencesGesblue.saveLogoQr(mContext, nt.hasLogoQr());
@@ -229,12 +262,16 @@ public class LoginActivity extends GesblueFragmentActivity {
 		PreferencesGesblue.savePrecepteInfringit(mContext, nt.getPrecepteinfringit());
 		PreferencesGesblue.saveLongitudInfraccio(mContext, nt.getLongitudinfraccio());
 		PreferencesGesblue.saveTiquetUsuari(mContext, nt.hasTiquetUsuari());
+		PreferencesGesblue.savePrefCodiExportadora(mContext, nt.hasCodiExportadora());
+		PreferencesGesblue.savePrefCodiTipusButlleta(mContext, nt.hasCodiTipusButlleta());
+		PreferencesGesblue.savPrefCodiInstitucio(mContext, nt.hasCodiInstitucio());
 	}
 
 	private void cridaLogin(final String username, final String password, final long concessio, @Nullable final String _data) {
 
 		showLoadingAnimButton(true);
-		Long data = (TextUtils.isEmpty(_data) ? Utils.getCurrentTimeLong(mContext) : Long.parseLong(_data));
+		//mContext=null;
+		Long data =  Long.parseLong(PreferencesGesblue.getDataSync(mContext));
 
 
 		DatamanagerAPI.crida_Login(new LoginRequest(username, password, concessio, Utils.getDeviceId(mContext), Utils.getAndroidVersion(), Utils.getAppVersion(mContext), data), new JSoapCallback() {
@@ -258,6 +295,30 @@ public class LoginActivity extends GesblueFragmentActivity {
 						PreferencesGesblue.setCodiAgent(mContext, Long.parseLong(response.getCodiagent()));
 						PreferencesGesblue.saveIdAgent(mContext, response.getAgent());
 
+
+						Model_Log model_log = new Model_Log();
+						model_log.setFechalog("");
+						model_log.setConcessiolog(String.valueOf(concessio));
+						model_log.setIdagent(Integer.parseInt(response.getCodiagent()));
+						model_log.setCodiacciolog(1);//Login
+						model_log.setVersioapp(Utils.getAppVersion(mContext));
+						model_log.setInfo("");
+						model_log.setEnviat(0);
+
+						final ArrayList<Model_Log> arrayLogs = new ArrayList<Model_Log>();
+
+						arrayLogs.add(model_log);
+
+						DatabaseAPI.insertLogs(mContext,arrayLogs);
+
+						DatabaseAPI.insertLogs(mContext,arrayLogs);
+
+						DatabaseAPI.insertLogs(mContext,arrayLogs);
+
+						final ArrayList<Model_Log> listLogs = DatabaseAPI.getLogs(mContext);
+
+						Log.d("Num logs locals",""+listLogs.size());
+
 						if(isLoginConcessio) {
 							Intent intent = new Intent(mContext, MainActivity.class);
 							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -265,7 +326,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 						}
 						else {
-							String d = (!TextUtils.isEmpty(_data) ? _data : Long.toString(Utils.getCurrentTimeLong(mContext)));
+							String d = PreferencesGesblue.getDataSync(mContext);
 							sincronitzarTot(response, concessio, d);
 						}
 
@@ -323,7 +384,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarMarques(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showMarques()) {
 			progress.setMessage(getString(R.string.actualitzantMarques));
-			String data = Utils.getCurrentTimeString(mContext);
+			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_Marques(new MarquesRequest(data), new JSoapCallback() {
 				@Override
@@ -368,7 +429,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarModels(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showColors()) {
 			progress.setMessage(getString(R.string.actualitzantModels));
-			String data = Utils.getCurrentTimeString(mContext);
+			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_Models(new ModelsRequest(data), new JSoapCallback() {
 				@Override
@@ -410,7 +471,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarColors(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showModels()) {
 			progress.setMessage(getString(R.string.actualitzantColors));
-			String data = Utils.getCurrentTimeString(mContext);
+			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_Colors(new ColorsRequest(Long.parseLong(data)), new JSoapCallback() {
 				@Override
@@ -451,7 +512,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarTipusVehicles(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showTipusVehicles()) {
 			progress.setMessage(getString(R.string.actualitzantTipusVehicles));
-			String data = Utils.getCurrentTimeString(mContext);
+			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_TipusVehicles(new TipusVehiclesRequest(data), new JSoapCallback() {
 				@Override
@@ -493,7 +554,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarCarrers(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showCarrers()) {
 			progress.setMessage(getString(R.string.actualitzantCarrers));
-			String data = Utils.getCurrentTimeString(mContext);
+			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_Carrers(new CarrersRequest(concessio, Long.parseLong(data)), new JSoapCallback() {
 				@Override
@@ -538,7 +599,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarInfraccions(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showInfraccions()) {
 			progress.setMessage(getString(R.string.actualitzantInfraccions));
-			String data = Utils.getCurrentTimeString(mContext);
+			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_Infraccions(new InfraccionsRequest(concessio, data), new JSoapCallback() {
 				@Override
@@ -598,6 +659,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 					int comptadorLocal = PreferencesGesblue.getComptadorDenuncia(mContext);
 					int comptadorServer = TextUtils.isEmpty(response.getComptador()) ? 0 : Integer.parseInt(response.getComptador());
 
+					DLog("comptadorLocal: "+comptadorLocal);
+					DLog("comptadorServer: "+comptadorServer);
 					if(comptadorServer > comptadorLocal) {
 						PreferencesGesblue.saveComptadorDenuncia(mContext, comptadorServer);
 						if(isLoginConcessio) {
@@ -610,7 +673,9 @@ public class LoginActivity extends GesblueFragmentActivity {
 					} else {
 						crida_establirComptadorDenuncia();
 					}
+					DLog("comptador final: "+PreferencesGesblue.getComptadorDenuncia(mContext));
 					DLog("Surto del onSuccess de crida_RecuperaComptadorDenuncia");
+
 				}
 
 				@Override
@@ -634,6 +699,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 	}
 
 	private void crida_establirComptadorDenuncia() {
+		PreferencesGesblue.saveDataSync(mContext,Utils.getCurrentTimeStringShort(mContext));
+		Log.d("DataSync",""+PreferencesGesblue.getDataSync(mContext));
 		DatamanagerAPI.crida_EstablirComptadorDenuncia(new EstablirComptadorDenunciaRequest(Long.parseLong(concessio), PreferencesGesblue.getTerminal(mContext), PreferencesGesblue.getAgentId(mContext), PreferencesGesblue.getComptadorDenuncia(mContext)), new JSoapCallback() {
 			@Override
 			public void onSuccess(String result) {
@@ -646,8 +713,13 @@ public class LoginActivity extends GesblueFragmentActivity {
 					onError(PARSE_ERROR);
 					return;
 				}
-				PreferencesGesblue.saveComptadorDenuncia(mContext, (int)response.getResultat());
+				//PreferencesGesblue.saveComptadorDenuncia(mContext, (int)response.getResultat());
+				DLog("saveComptadorDenuncia: "+(int)response.getResultat());
+
 				DLog("Surto del onSuccess de crida_establirComptadorDenuncia");
+
+
+
 				if(progress != null && progress.isShowing()) progress.dismiss();
 				if(isLoginConcessio) {
 					cridaLogin(PreferencesGesblue.getUserName(mContext), PreferencesGesblue.getPassword(mContext), Long.parseLong(concessio), initialDate);

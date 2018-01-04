@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -35,15 +34,10 @@ import com.sixtemia.gesbluedroid.activities.passosformulari.Pas6CarrerActivity;
 import com.sixtemia.gesbluedroid.activities.passosformulari.Pas7NumeroActivity;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.customstuff.dialogs.DeviceListActivity;
-import com.sixtemia.gesbluedroid.customstuff.ftp.FTPListener;
 import com.sixtemia.gesbluedroid.customstuff.ftp.GBFTP;
-import com.sixtemia.gesbluedroid.customstuff.ftp.GBFileUpload;
 import com.sixtemia.gesbluedroid.databinding.ActivityFormulariBinding;
 import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Denuncia;
-import com.sixtemia.gesbluedroid.datamanager.webservices.DatamanagerAPI;
-import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.NovaDenunciaRequest;
-import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.NovaDenunciaResponse;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
 import com.sixtemia.gesbluedroid.network.PrinterServer;
@@ -58,20 +52,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
-
-import pt.joaocruz04.lib.misc.JSoapCallback;
 
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getCodiAgent;
-import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getComptadorDenuncia;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getControl;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getPrefCodiExportadora;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getPrefCodiInstitucio;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getPrefCodiTipusButlleta;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getTerminal;
-import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
 public class FormulariActivity extends GesblueFragmentActivity implements View.OnClickListener{
 
@@ -371,12 +363,16 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				intent = new Intent(mContext, CameraActivity.class);
 
 				if(isEmpty(foto1)) {
+					intent.putExtra("position", "1");
 					startActivityForResult(intent, RESULT_FOTO_1);
 				} else if(isEmpty(foto2)) {
+					intent.putExtra("position", "2");
 					startActivityForResult(intent, RESULT_FOTO_2);
 				} else if(isEmpty(foto3)) {
+					intent.putExtra("position", "3");
 					startActivityForResult(intent, RESULT_FOTO_3);
 				} else {
+					intent.putExtra("position", "1");
 					startActivityForResult(intent, RESULT_FOTO_1);
 				}
 				break;
@@ -407,6 +403,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					});
 				} else {
 					intent = new Intent(mContext, CameraActivity.class);
+					intent.putExtra("position", "1");
 					startActivityForResult(intent, RESULT_FOTO_1);
 				}
 				break;
@@ -423,6 +420,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					});
 				} else {
 					intent = new Intent(mContext, CameraActivity.class);
+					intent.putExtra("position", "2");
 					startActivityForResult(intent, RESULT_FOTO_2);
 				}
 
@@ -440,6 +438,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					});
 				} else {
 					intent = new Intent(mContext, CameraActivity.class);
+					intent.putExtra("position", "3");
 					startActivityForResult(intent, RESULT_FOTO_3);
 				}
 
@@ -645,7 +644,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		denuncia.setFechacreacio(date);
 		denuncia.setAgent(PreferencesGesblue.getIdAgent(mContext));
 		denuncia.setAdrecacarrer(sancio.getModelCarrer().getCodicarrer());
-		denuncia.setAdrecanum(Double.parseDouble(sancio.getNumero()));
+		if(sancio.getNumero().equals("S/N")) {
+			denuncia.setAdrecanum(0);
+		}else {
+			denuncia.setAdrecanum(Double.parseDouble(sancio.getNumero()));
+		}
 		denuncia.setPosicio("");
 		denuncia.setMatricula (sancio.getMatricula());
 		denuncia.setTipusvehicle (sancio.getModelTipusVehicle().getCoditipusvehicle());
@@ -900,19 +903,60 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		} else {
 			long codiAgent = getCodiAgent(mContext);
 			String terminal = getTerminal(mContext);
-			int comptadorDenuncia = getComptadorDenuncia(mContext);
+
+			int comptadorDenuncia = PreferencesGesblue.getComptadorDenuncia(getApplicationContext())+1;
+			PreferencesGesblue.saveComptadorDenuncia(mContext, comptadorDenuncia);
+
 			int control = getControl(mContext);
+
+			DLog("comptadorDenuncia: "+comptadorDenuncia);
+			int codiexportadora = getPrefCodiExportadora(mContext);
+			String coditipusbutlleta = getPrefCodiTipusButlleta(mContext);
+			String codiinstitucio = getPrefCodiInstitucio(mContext);
             StringBuilder sb = new StringBuilder();
-            sb.append("1");
-            int padding = 5 - String.valueOf(comptadorDenuncia).length();
-			for(int i=0;i<padding;i++){
-				sb.append("0");
+            //sb.append("1");
+			int padding = 0;
+			switch(codiexportadora) {
+				case 1://Consell Comarcal de la Selva
+					sb.append(coditipusbutlleta);
+					sb.append(codiinstitucio);
+					if (terminal.length() < 2) {
+						sb.append("0");
+					}
+					sb.append(terminal);
+					padding = 5 - String.valueOf(comptadorDenuncia).length();
+					for (int i = 0; i < padding; i++) {
+						sb.append("0");
+					}
+					sb.append(comptadorDenuncia);
+					break;
+				case 2://Consell Comarcal del Baix Empordà
+					sb.append(coditipusbutlleta);
+					sb.append(codiinstitucio);
+					if (terminal.length() < 2) {
+						sb.append("0");
+					}
+					sb.append(terminal);
+					padding = 6 - String.valueOf(comptadorDenuncia).length();
+						for (int i = 0; i < padding; i++) {
+							sb.append("0");
+						}
+						sb.append(comptadorDenuncia);
+					break;
+				case 3://Xaloc
+					sb.append(coditipusbutlleta);
+					sb.append(codiinstitucio);
+					if (terminal.length() < 2) {
+						sb.append("0");
+					}
+					sb.append(terminal);
+					padding = 5 - String.valueOf(comptadorDenuncia).length();
+					for (int i = 0; i < padding; i++) {
+						sb.append("0");
+					}
+					sb.append(comptadorDenuncia);
+					break;
 			}
-            sb.append(comptadorDenuncia);
-            if(terminal.length()<2){
-				sb.append("0");
-			}
-            sb.append(terminal);
             numeroTiquet = sb.toString();
 
 			return numeroTiquet;
