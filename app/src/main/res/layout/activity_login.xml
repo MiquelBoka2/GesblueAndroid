@@ -45,14 +45,16 @@
 		                android:layout_gravity="center"
 		                android:scaleType="fitCenter"/>
 
-	                <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:id="@+id/textViewLocalitzacioConcessio"
-		                android:textColor="@color/textLocalitzacio"
-		                android:textSize="@dimen/textSize_login"
-		                android:visibility="visible"
-		                android:layout_marginTop="105dp"/>
+					<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+						android:id="@+id/textViewLocalitzacioConcessio"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="105dp"
+						android:lines="2"
+						android:maxLines="2"
+						android:textColor="@color/textLocalitzacio"
+						android:textSize="@dimen/textSize_login"
+						android:visibility="visible" />
 
                 </RelativeLayout>
 
@@ -152,7 +154,34 @@
                     </ViewSwitcher>
 
                 </LinearLayout>
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:weightSum="2">
 
+
+
+					<ViewSwitcher
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:inAnimation="@android:anim/fade_in"
+						android:outAnimation="@anim/notifications_fade_out"
+						android:id="@+id/viewSwitcherTancaConcessio">
+
+						<Button
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:text="@string/tanca_concessio"
+							android:id="@+id/buttonTancaConcessio"
+							android:layout_margin="4dp"/>
+
+
+
+					</ViewSwitcher>
+
+				</LinearLayout>
             </LinearLayout>
 
         </ScrollView>

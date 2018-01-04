@@ -54,7 +54,7 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 					PreferencesGesblue.clearFormulari(mContext);
 					Intent intent = new Intent(mContext, FormulariActivity.class);
 
-					mSelected = (TextUtils.isEmpty(mBinding.etNum.getText().toString()) ? getString(R.string.sense_especificar) : mBinding.etNum.getText().toString());
+					mSelected = (TextUtils.isEmpty(mBinding.etNum.getText().toString()) ? "S/N" : mBinding.etNum.getText().toString());
 					mSancio.setNumero(mSelected);
 					intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
 					startActivity(intent);

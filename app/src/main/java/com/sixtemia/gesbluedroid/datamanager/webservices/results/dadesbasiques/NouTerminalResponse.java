@@ -110,6 +110,15 @@ public class NouTerminalResponse {
 	@JSoapResField(name = "tiquetusuari")
 	@SerializedName("tiquetusuari")
 	private String tiquetusuari;
+	@JSoapResField(name = "codiexportadora")
+	@SerializedName("codiexportadora")
+	private int codiexportadora;
+	@JSoapResField(name = "coditipusbutlleta")
+	@SerializedName("coditipusbutlleta")
+	private String coditipusbutlleta;
+	@JSoapResField(name = "codiinstitucio")
+	@SerializedName("codiinstitucio")
+	private String codiinstitucio;
 
 	public NouTerminalResponse() {
 
@@ -123,6 +132,9 @@ public class NouTerminalResponse {
 		return isTrue(getTextpeuvisible());
 	}
 
+	public String hasTextPeu() {
+		return getTextpeu();
+	}
 	public boolean hasImportAnulacio() {
 		return isTrue(getImportanulacio());
 	}
@@ -161,6 +173,17 @@ public class NouTerminalResponse {
 
 	public boolean hasTiquetUsuari() {
 		return isTrue(getTiquetusuari());
+	}
+
+	public int hasCodiExportadora() {
+		return getCodiExportadora();
+	}
+
+	public String hasCodiTipusButlleta() {
+		return getCodiTipusButlleta();
+	}
+	public String hasCodiInstitucio() {
+		return getCodiInstitucio();
 	}
 
 	public boolean hasLogoQr() {
@@ -351,6 +374,17 @@ public class NouTerminalResponse {
 		return tiquetusuari;
 	}
 
+	public int getCodiExportadora() {
+		return codiexportadora;
+	}
+
+	public String getCodiTipusButlleta() {
+		return coditipusbutlleta;
+	}
+	public String getCodiInstitucio() {
+		return codiinstitucio;
+	}
+
 	public void setTiquetusuari(String tiquetusuari) {
 		this.tiquetusuari = tiquetusuari;
 	}
@@ -386,6 +420,9 @@ public class NouTerminalResponse {
 				", longitudinfraccio=" + longitudinfraccio +
 				", comptadordenuncia='" + comptadordenuncia + '\'' +
 				", tiquetusuari='" + tiquetusuari + '\'' +
+				", codiexportadora='" + codiexportadora + '\'' +
+				", coditipusbutlleta='" + coditipusbutlleta + '\'' +
+				", codiinstitucio='" + codiinstitucio + '\'' +
 				'}';
 	}
 }

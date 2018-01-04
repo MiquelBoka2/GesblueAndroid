@@ -47,13 +47,15 @@
 						android:scaleType="fitCenter"/>
 
 					<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+						android:id="@+id/textViewLocalitzacioConcessio"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:id="@+id/textViewLocalitzacioConcessio"
+						android:layout_marginTop="90dp"
+						android:lines="2"
+						android:maxLines="2"
 						android:textColor="@color/textLocalitzacio"
 						android:textSize="@dimen/textSize_login"
-						android:visibility="visible"
-						android:layout_marginTop="90dp"/>
+						android:visibility="visible" />
 
 				</RelativeLayout>
 
@@ -74,18 +76,18 @@
                         android:visibility="invisible"
                         android:textColor="@color/white"/>
 
-                    <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
-                        android:id="@+id/textViewEstacionamentIncorrecte"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/vermellKO"
-                        android:textStyle="bold"
-                        android:text="@string/estacionament_incorrecte"
-                        android:textSize="@dimen/estacionament_size"
-                        android:padding="10dp"
-                        android:textColor="@color/white"
-                        android:visibility="invisible"
-                        android:inAnimation="@anim/notifications_fade_in"/>
+					<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+						android:id="@+id/textViewEstacionamentIncorrecte"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="@color/vermellKO"
+						android:inAnimation="@anim/notifications_fade_in"
+						android:padding="10dp"
+						android:text="@string/estacionament_incorrecte"
+						android:textColor="@color/white"
+						android:textSize="@dimen/estacionament_size"
+						android:textStyle="bold"
+						android:visibility="invisible" />
 
                 </RelativeLayout>
 

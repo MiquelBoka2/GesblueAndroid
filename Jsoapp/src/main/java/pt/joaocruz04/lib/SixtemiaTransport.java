@@ -189,7 +189,7 @@ public class SixtemiaTransport extends Transport {
 		if(this.debug) {
 			var22 = this.readDebug((InputStream)var22, contentLength, outputFile);
 		}
-
+Log.d("debug",""+(InputStream)var22);
 		this.parseResponse(envelope, (InputStream)var22);
 		is = null;
 		var21 = null;

@@ -103,8 +103,10 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 					}
 					ticketConfiguration
 					.setTextAnulacio(mContext.getString(SSystemUtils.isDebugging(mContext) ? R.string.textAnulacioP : R.string.textAnulacio))
-					.setTextPeu(mContext.getString(SSystemUtils.isDebugging(mContext) ? R.string.textPeuP : R.string.textPeu))
+					.setTextPeu(PreferencesGesblue.getTextPeu(mContext))
 					.setQr(PreferencesGesblue.getAdrecaQr(mContext));
+
+					Boolean b= PreferencesGesblue.getTextPeuVisible(mContext);
 
 			return ticketPrinter.print(mContext, ticketConfiguration);
 		} catch (IOException e) {

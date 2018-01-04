@@ -41,7 +41,9 @@ public class MainActivity extends GesblueFragmentActivity {
 		new Thread(runnable).start();
 		Glide.get(mContext).clearMemory();
 
-		mBinding.textViewLocalitzacioConcessio.setText(PreferencesGesblue.getConcessioString(mContext));
+		String concessio = PreferencesGesblue.getConcessioString(mContext);
+
+		mBinding.textViewLocalitzacioConcessio.setText(concessio);
 
 		mBinding.buttonComprovar.setOnClickListener(new View.OnClickListener() {
 			@Override

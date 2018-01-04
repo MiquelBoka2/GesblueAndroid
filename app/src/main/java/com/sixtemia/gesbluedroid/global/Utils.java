@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
@@ -99,7 +98,26 @@ public class Utils {
 
         return s.toString();
     }
+    public static String getCurrentTimeStringShort(Context context) {
+        Calendar calendar = getCurrentTime(context);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH)+1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        StringBuilder s = new StringBuilder(14);
+
+        s.append(year);
+
+        if(month < 10) s.append("0");
+        s.append(month);
+
+        if(day < 10 ) s.append("0");
+        s.append(day);
+
+
+
+        return s.toString();
+    }
     public static long getCurrentTimeLong(Context context) {
         return Long.parseLong(getCurrentTimeString(context));
     }

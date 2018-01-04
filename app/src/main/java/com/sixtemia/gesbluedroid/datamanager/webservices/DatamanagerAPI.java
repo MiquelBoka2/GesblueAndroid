@@ -16,6 +16,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.TipusVehiclesRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.ComprovaMatriculaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.EstablirComptadorDenunciaRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.NouLogRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.NovaDenunciaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.PosicioRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.RecuperaComptadorDenunciaRequest;
@@ -30,6 +31,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.N
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.TipusVehiclesResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.ComprovaMatriculaResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.EstablirComptadorDenunciaResponse;
+import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.NouLogResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.NovaDenunciaResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.PosicioResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.RecuperaComptadorDenunciaResponse;
@@ -78,6 +80,9 @@ public class DatamanagerAPI {
 	}
 	public static AsyncTask crida_NovaDenuncia(NovaDenunciaRequest _novaDenunciaRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_NOVADENUNCIA_METHOD, Constants.OPERATIVA_NOVADENUNCIA_SOAPACTION, _novaDenunciaRequest, NovaDenunciaResponse.class, _listener);
+	}
+	public static AsyncTask crida_NouLog(NouLogRequest _nouLogRequest, JSoapCallback _listener) {
+		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_NOULOG_METHOD, Constants.OPERATIVA_NOULOG_SOAPACTION, _nouLogRequest, NouLogResponse.class, _listener);
 	}
 	public static AsyncTask crida_Posicio(PosicioRequest _posicioRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_POSICIO_METHOD, Constants.OPERATIVA_POSICIO_SOAPACTION, _posicioRequest, PosicioResponse.class, _listener);

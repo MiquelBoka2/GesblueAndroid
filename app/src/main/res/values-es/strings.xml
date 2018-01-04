@@ -144,8 +144,8 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="cela_imp_dte">IMP. DTO.</string>
 	<string name="cela_dataLimitPagamentAmbAquestDoc">F. límite pago con este doc.:</string>
 	<string name="cela_codi_anulacio">CÓDIGO ANULACIÓN</string>
-	<string name="cela_import">IMPORTE</string>
-	<string name="cela_dataLimit">FECHA LÍMITE</string>
+	<string name="cela_import">IMPORTE ANULACIÓN</string>
+	<string name="cela_dataLimit">FECHA LÍMITE ANULACIÓN</string>
 	<string name="butlletaDeDenuncia">Boletín de denuncia</string>
 	<string name="print">Imprimir</string>
 	<string name="butlleta">BOLETÍN</string>
@@ -176,6 +176,7 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="printerConnection_failedInitialize">Se ha producido un error al inicializar la conexión con la impresora. Por favor, reinicia la impresora para continuar.</string>
 	<string name="printerConnection_failedEngegaBluetooth">Por favor, activa tu conexión Bluetooth</string>
 	<string name="sense_especificar">S/E</string>
+	<string name="sense_numero">S/N</string>
 	<string name="butlletaEnviadaOk_acceptar">Aceptar</string>
 	<string name="butlletaEnviadaOk_cancelar">Cancelar</string>
 
@@ -187,5 +188,6 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="sendDenuncia_failed_cancel">Cancelar</string>
 
 	<string name="printer_disconnected">Impresora desconectada</string>
+    <string name="tanca_concessio">Cerrar Concesión</string>
 
 </resources>

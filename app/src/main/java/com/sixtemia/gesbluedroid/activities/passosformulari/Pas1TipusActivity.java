@@ -24,6 +24,8 @@ import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Pas1TipusActivity extends GesblueFragmentActivity {
 
@@ -48,12 +50,13 @@ public class Pas1TipusActivity extends GesblueFragmentActivity {
 
 		final ArrayList<Model_TipusVehicle> arrayAux = DatabaseAPI.getTipusVehicles(mContext);
 
-//		Collections.sort(arrayAux, new Comparator<Model_TipusVehicle>() {
-//			@Override
-//			public int compare(Model_TipusVehicle o1, Model_TipusVehicle o2) {
-//				return Utils.languageMultiplexer(o1.getNomtipusvehiclees(),o1.getNomtipusvehiclecat()).compareTo(Utils.languageMultiplexer(o2.getNomtipusvehiclees(),o2.getNomtipusvehiclecat()));
-//			}
-//		});
+		Collections.sort(arrayAux, new Comparator<Model_TipusVehicle>() {
+			@Override
+			public int compare(Model_TipusVehicle o1, Model_TipusVehicle o2) {
+
+				return Long.compare(o1.getCoditipusvehicle(),o2.getCoditipusvehicle());
+			}
+		});
 
 		if(mAdapter == null) {
 			mAdapter = new SimpleAdapter(mContext, arrayAux);

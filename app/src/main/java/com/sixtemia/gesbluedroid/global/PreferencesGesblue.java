@@ -34,6 +34,7 @@ public class PreferencesGesblue extends Preferences {
 	private static final String PREF_CONTROL = "digitControl";
 	private static final String PREF_CODIBARRES_VISIBLE = "codiBarresVisible";
 	private static final String PREF_TEXTPEU_VISIBLE = "textPeuVisible";
+	private static final String PREF_TEXTPEU = "textPeu";
 	private static final String PREF_IMPORTANULACIO = "importAnulacio";
 	private static final String PREF_LOGOSMARQUES = "logosMarques";
 	private static final String PREF_LOGOQR = "logoQr";
@@ -71,7 +72,42 @@ public class PreferencesGesblue extends Preferences {
 	private static final String PREF_INFRACCIO_DEFAULTVALUE = "InfraccioDefaultValue";
 	private static final String PREF_CARRER_DEFAULTVALUE = "carrerDefaultValue";
 	private static final String PREF_ID_AGENT = "idAgent";
+	private static final String PREF_DATA_SYNC = "dataSync";
+	private static final String PREF_CODI_EXPORTADORA = "codiexportadora";
+    private static final String PREF_CODI_TIPUS_BUTLLETA = "coditipusbutlleta";
+    private static final String PREF_CODI_INSTITUCIO = "codiinstitucio";
 
+    public static void savePrefCodiExportadora(Context _context, int i) {
+        put(_context, PREF_CODI_EXPORTADORA, i);
+    }
+
+    public static int getPrefCodiExportadora(Context _context) {
+
+        return getInt(_context, PREF_CODI_EXPORTADORA,0);
+    }
+    public static void savePrefCodiTipusButlleta(Context _context, String s) {
+        put(_context, PREF_CODI_TIPUS_BUTLLETA, s);
+    }
+
+    public static String getPrefCodiTipusButlleta(Context _context) {
+
+        return getString(_context, PREF_CODI_TIPUS_BUTLLETA,BUIT);
+    }
+	public static void savPrefCodiInstitucio(Context _context, String s) {
+		put(_context, PREF_CODI_INSTITUCIO, s);
+	}
+
+	public static String getPrefCodiInstitucio(Context _context) {
+
+		return getString(_context, PREF_CODI_INSTITUCIO,BUIT);
+	}
+
+	public static void saveDataSync(Context _context, String s) {
+		put(_context, PREF_DATA_SYNC, s);
+	}
+	public static String getDataSync(Context _context) {
+		return getString(_context, PREF_DATA_SYNC, "0");
+	}
 	public static void saveCodiBarresVisible(Context _context, boolean b) {
 		put(_context, PREF_CODIBARRES_VISIBLE, b);
 	}
@@ -86,6 +122,12 @@ public class PreferencesGesblue extends Preferences {
 		return getBool(_context, PREF_TEXTPEU_VISIBLE, false);
 	}
 
+	public static void saveTextPeu(Context _context, String s) {
+		put(_context, PREF_TEXTPEU, s);
+	}
+	public static String getTextPeu(Context _context) {
+		return getString(_context, PREF_TEXTPEU, BUIT);
+	}
 	public static void saveImportAnulacio(Context _context, boolean b) {
 		put(_context, PREF_IMPORTANULACIO, b);
 	}
@@ -217,9 +259,9 @@ public class PreferencesGesblue extends Preferences {
 	}
 
 	public static int getComptadorDenuncia(Context _context) {
-		int comptador = getInt(_context,PREF_COMPTADOR_DENUNCIA, ZERO);
-		int comptadorFinal = comptador+1;
-		put(_context, PREF_COMPTADOR_DENUNCIA, comptadorFinal);
+		int comptador = getInt(_context,PREF_COMPTADOR_DENUNCIA, 1);
+		int comptadorFinal = comptador;
+		//put(_context, PREF_COMPTADOR_DENUNCIA, comptadorFinal);
 		return comptadorFinal;
 	}
 

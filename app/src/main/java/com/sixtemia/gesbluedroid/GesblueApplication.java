@@ -1,42 +1,31 @@
 package com.sixtemia.gesbluedroid;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
 import com.sixtemia.gesbluedroid.activities.LoginActivity;
-import com.sixtemia.gesbluedroid.customstuff.ftp.FTPListener;
 import com.sixtemia.gesbluedroid.customstuff.ftp.FTPUpload;
-import com.sixtemia.gesbluedroid.customstuff.ftp.GBFTP;
-import com.sixtemia.gesbluedroid.customstuff.ftp.GBFileUpload;
 import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Denuncia;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Log;
 import com.sixtemia.gesbluedroid.datamanager.webservices.DatamanagerAPI;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.NouLogRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.NovaDenunciaRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.NouLogResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.NovaDenunciaResponse;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
 
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
 import pt.joaocruz04.lib.misc.JSoapCallback;
 
-import static android.text.TextUtils.isEmpty;
 import static com.sixtemia.sutils.classes.SSystemUtils.isDebugging;
 import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
@@ -45,11 +34,16 @@ import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
  */
 
 public class GesblueApplication extends MultiDexApplication {
+
+	private static GesblueApplication instance;
 	private Handler handler = new Handler();
-	private Context aContext = null;
+	public Context aContext = null;
+	static Context cont=null;
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		cont=getApplicationContext();
+		Fabric.with(this, new Crashlytics());
 		aContext = getApplicationContext();
 		getApplicationContext();
 		FlurryAgent.init(this, getString(isDebugging(this) ? R.string.flurryApiKeyDebug : R.string.flurryApiKey));
@@ -57,23 +51,30 @@ public class GesblueApplication extends MultiDexApplication {
 		handler.postDelayed(runnable, 5000);
 
 	}
+	public static Context getContext(){
+		//return instance;
+		return cont;
+	}
 	private Runnable runnable = new Runnable() {
 		@Override
 		public void run() {
       /* do what you need to do */
 			enviaDenuncia();
+			enviaLog();
 			new FTPUpload().execute();
       /* and here comes the "trick" */
-			handler.postDelayed(this, 10000);
+			handler.postDelayed(this, 60000);
 		}
 	};
 
 	private void enviaDenuncia(){
-		final Model_Denuncia denuncia = DatabaseAPI.getDenunciaPendent(aContext);
-		SimpleDateFormat simpleDate =  new SimpleDateFormat("yyyyMMddhhmmss");
-		if(denuncia!=null){
+		Model_Denuncia denuncia;
+		denuncia = DatabaseAPI.getDenunciaPendent(aContext);
+		while(denuncia!=null) {
+			final Model_Denuncia den = denuncia;
+			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss");
 
-			Log.d("Enviant denuncia",""+denuncia.getCodidenuncia());
+			Log.d("Enviant denuncia", "" + denuncia.getCodidenuncia());
 			NovaDenunciaRequest ndr = new NovaDenunciaRequest(
 					denuncia.getCodidenuncia(),
 					Long.parseLong(simpleDate.format(denuncia.getFechacreacio())),
@@ -95,7 +96,6 @@ public class GesblueApplication extends MultiDexApplication {
 					Utils.getAppVersion(aContext));                         //-- APP VERSION
 
 
-
 			DatamanagerAPI.crida_NovaDenuncia(ndr,
 					new JSoapCallback() {
 						@Override
@@ -107,12 +107,12 @@ public class GesblueApplication extends MultiDexApplication {
 							try {
 								response = DatamanagerAPI.parseJson(result, NovaDenunciaResponse.class);
 							} catch (Exception ex) {
-								Log.e("",""+ex);
+								Log.e("", "" + ex);
 								onError(PARSE_ERROR);
 								return;
 							}
 
-							switch((int) response.getResultat()) {
+							switch ((int) response.getResultat()) {
 								case -1:
 									Utils.showCustomDialog(aContext, R.string.atencio, R.string.errorEnDades);
 									break;
@@ -124,7 +124,69 @@ public class GesblueApplication extends MultiDexApplication {
 								default:
 									//denunciaSent = true;
 									//sendPhotos();
-									DatabaseAPI.updateDenunciaPendent(aContext,denuncia.getCodidenuncia());
+									DatabaseAPI.updateDenunciaPendent(aContext, den.getCodidenuncia());
+									return; //Return aqui per no tancar el ProgressDialog
+							}
+
+						}
+
+						@Override
+						public void onError(int error) {
+							Log.e("Formulari", "Error NovaDenuncia: " + error);
+
+						}
+					}
+			);
+
+			denuncia = DatabaseAPI.getDenunciaPendent(aContext);
+		}
+
+	}
+	private void enviaLog(){
+		final Model_Log model_log = DatabaseAPI.getLogPendent(aContext);
+		SimpleDateFormat simpleDate =  new SimpleDateFormat("yyyyMMddhhmmss");
+		if(model_log!=null){
+
+			Log.d("Enviant log",""+model_log.getID());
+			NouLogRequest ndr = new NouLogRequest(
+					model_log.getCodiacciolog(),
+					0,//Long.parseLong(model_log.getFechalog()),
+					(long) model_log.getIdagent(),              //-- ID D'AGENT
+					Long.parseLong(PreferencesGesblue.getTerminal(aContext)),            //-- TERMINAL ID
+					(long) Long.parseLong(model_log.getConcessiolog()),                //-- CONCESSIO
+					"",                                                     //-- TODO COORDENADES?
+					Utils.getAppVersion(aContext),                        //-- APP VERSION
+					model_log.getInfo());                                  //-- INFO
+
+
+
+			DatamanagerAPI.crida_NouLog(ndr,
+					new JSoapCallback() {
+						@Override
+						public void onSuccess(String result) {
+							Intent intent = new Intent(aContext, LoginActivity.class);
+							intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+							final NouLogResponse response;
+							try {
+								response = DatamanagerAPI.parseJson(result, NouLogResponse.class);
+							} catch (Exception ex) {
+								Log.e("",""+ex);
+								onError(PARSE_ERROR);
+								return;
+							}
+
+							switch((int) response.getResultat()) {
+								case -1:
+
+								case -2:
+								case -3:
+
+									break;
+								default:
+									//denunciaSent = true;
+									//sendPhotos();
+									DatabaseAPI.updateLogPendent(aContext,model_log.getID());
 									return; //Return aqui per no tancar el ProgressDialog
 							}
 
