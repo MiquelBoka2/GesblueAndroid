@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu1"
+        android:id="@+id/buttonTancaConcessio"
         android:orderInCategory="100"
-        android:title="menu1"
+        android:title="@string/tanca_concessio"
         app:showAsAction="never" />
 </menu>

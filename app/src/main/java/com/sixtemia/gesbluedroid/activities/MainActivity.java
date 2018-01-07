@@ -3,8 +3,6 @@ package com.sixtemia.gesbluedroid.activities;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -86,11 +84,6 @@ public class MainActivity extends GesblueFragmentActivity {
 				changeViewComprovarMatricula();
 			}
 		});
-	}
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
-		return true;
 	}
 	private void comprovarMatricula(String matricula) {
 		amagarTeclat();

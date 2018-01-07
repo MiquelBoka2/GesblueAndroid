@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.sixtemia.gesbluedroid.R;
@@ -92,31 +95,16 @@ public class LoginActivity extends GesblueFragmentActivity {
 		}
 		else{
 			mBinding.viewSwitcherTancaConcessio.setVisibility(View.GONE);
-			mBinding.buttonTancaConcessio.setVisibility(View.GONE);
 		}
+
+		mBinding.buttonTancaConcessio.setVisibility(View.GONE);
 
 		mBinding.editTextUsuari.setText(PreferencesGesblue.getUserName(mContext));
 
 		mBinding.buttonTancaConcessio.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				PreferencesGesblue.setConcessioString(mContext,"");
-				PreferencesGesblue.setConcessio(mContext,0);
-				PreferencesGesblue.saveDataSync(mContext,"0");
-				mBinding.viewSwitcherTancaConcessio.setVisibility(View.GONE);
-				mBinding.buttonTancaConcessio.setVisibility(View.GONE);
-				mBinding.textViewConcessio.setVisibility(View.VISIBLE);
-				mBinding.editTextConcessio.setVisibility(View.VISIBLE);
 
-				mBinding.textViewLocalitzacioConcessio.setVisibility(View.GONE);
-				isLoginConcessio = false;
-
-				DatabaseAPI.deleteAllMarques(mContext);
-				DatabaseAPI.deleteAllModels(mContext);
-				DatabaseAPI.deleteAllTipusVehicles(mContext);
-				DatabaseAPI.deleteAllTipusAnulacions(mContext);
-				DatabaseAPI.deleteAllCarrers(mContext);
-				DatabaseAPI.deleteAllInfraccions(mContext);
 
 
 			}
@@ -150,6 +138,40 @@ public class LoginActivity extends GesblueFragmentActivity {
 		});
 	}
 
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		return true;
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+			case R.id.buttonTancaConcessio:
+				PreferencesGesblue.setConcessioString(mContext,"");
+				PreferencesGesblue.setConcessio(mContext,0);
+				PreferencesGesblue.saveDataSync(mContext,"0");
+				mBinding.viewSwitcherTancaConcessio.setVisibility(View.GONE);
+				mBinding.buttonTancaConcessio.setVisibility(View.GONE);
+				mBinding.textViewConcessio.setVisibility(View.VISIBLE);
+				mBinding.editTextConcessio.setVisibility(View.VISIBLE);
+
+				mBinding.textViewLocalitzacioConcessio.setVisibility(View.GONE);
+				isLoginConcessio = false;
+
+				DatabaseAPI.deleteAllMarques(mContext);
+				DatabaseAPI.deleteAllModels(mContext);
+				DatabaseAPI.deleteAllTipusVehicles(mContext);
+				DatabaseAPI.deleteAllTipusAnulacions(mContext);
+				DatabaseAPI.deleteAllCarrers(mContext);
+				DatabaseAPI.deleteAllInfraccions(mContext);
+				return true;
+
+			default:
+				return true;
+
+		}
+	}
 	private void showLoadingAnimButton(boolean show) {
 		boolean showingLoading = mBinding.viewSwitcherLoginAnim.getCurrentView() != mBinding.buttonAccepta;
 
