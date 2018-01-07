@@ -3,6 +3,7 @@ package com.sixtemia.gesbluedroid.ticketstyle;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.datecs.api.printer.Printer;
 import com.sixtemia.gesbluedroid.R;
@@ -177,7 +178,7 @@ public class TicketPrinter {
                 int dia, mes, any;
                 Calendar c = printConfiguration.getDataLimitPagament();
                 dia = c.get(Calendar.DAY_OF_MONTH);
-                mes = c.get(Calendar.MONTH)+1;
+                mes = c.get(Calendar.MONTH);
                 any = c.get(Calendar.YEAR);
                 String data = "";
                 if(dia < 10) data += "0";
@@ -204,7 +205,7 @@ public class TicketPrinter {
                         new Cela(mContext.getString(R.string.cela_mod), String.valueOf(mod), sampleMilimetersToPixels(5)),
                         new Cela(mContext.getString(R.string.cela_referencia), PreferencesGesblue.getReferencia(mContext), sampleMilimetersToPixels(18)),
                         new Cela(mContext.getString(R.string.cela_identificacio), PreferencesGesblue.getIdentificacio(mContext), sampleMilimetersToPixels(20)),
-                        new Cela(mContext.getString(R.string.cela_imp_dte), getFormatedImport(impDte))
+                        new Cela(mContext.getString(R.string.cela_imp_dte),toEuros(dte))
                 };
 
                 printCellaBlancaArray(celaArray, y);
@@ -216,6 +217,19 @@ public class TicketPrinter {
                 y = newLine(y, 2);
             }
 
+            //------------------
+            // Codi barres servicaixa
+            //------------------
+            if(PreferencesGesblue.getCodiBarresServiCaixa(_context) && !TextUtils.isEmpty(printConfiguration.getCodiBarresServiCaixa())) {
+                int heightCodi = LINE_HEIGHT*BARCODE_NUM_LINES;
+                printer.drawPageFrame(0, y, PAGE_WIDTH, heightCodi + 2, Printer.FILL_WHITE, 1);
+                printer.setBarcode(Printer.ALIGN_CENTER, false, 2, Printer.HRI_BELOW, heightCodi);
+                printer.printBarcode(Printer.BARCODE_EAN128, printConfiguration.getCodiBarresServiCaixa());
+                y = newLine(y, BARCODE_NUM_LINES + 0.5f);
+                Log.d("Servicaixa: ",printConfiguration.getCodiBarresServiCaixa());
+            }
+
+            y = newLine(y, 1);
 
 
             //------------------
@@ -253,20 +267,9 @@ public class TicketPrinter {
                     }
                 }
             }
-            y = newLine(y, 0.4f);
+            y = newLine(y, 2);
 
-            //------------------
-            // Codi barres servicaixa
-            //------------------
-            if(PreferencesGesblue.getCodiBarresServiCaixa(_context) && !TextUtils.isEmpty(printConfiguration.getCodiBarresServiCaixa())) {
-                int heightCodi = LINE_HEIGHT*BARCODE_NUM_LINES;
-                printer.drawPageFrame(0, y, PAGE_WIDTH, heightCodi + 2, Printer.FILL_WHITE, 1);
-                printer.setBarcode(Printer.ALIGN_CENTER, false, 2, Printer.HRI_BELOW, heightCodi);
-                printer.printBarcode(Printer.BARCODE_EAN128, printConfiguration.getCodiBarresServiCaixa());
-                y = newLine(y, BARCODE_NUM_LINES + 0.5f);
-            }
 
-            y = newLine(y, 1);
 
             //------------------
             // Codi barres estàndard

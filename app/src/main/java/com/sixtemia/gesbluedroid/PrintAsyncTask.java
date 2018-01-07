@@ -3,6 +3,7 @@ package com.sixtemia.gesbluedroid;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.datecs.api.printer.Printer;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
@@ -136,27 +137,66 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 		PreferencesGesblue.setMod(mContext, "2");
 
 		//Referencia TODO CANVIAR PER UN DINÀMIC! Identificación Documento(10)/control(2)
-		String referencia = "003160083555";
+		String referencia = numeroButlleta.substring(numeroButlleta.length()-10, numeroButlleta.length());
 		PreferencesGesblue.setReferencia(mContext, referencia);
 		code.append(PreferencesGesblue.getReferencia(mContext));
 
 		//Identificación TODO (10)
-			String identificacion = "";
-			//Discriminante del Periodo (1)
-			identificacion += "1";
-			//Tributo (Según Anexo 6 del Cuaderno 60)
-			identificacion += getTributoFromValorsServicaixa();
-			//Ejercicio de devengo
-			identificacion += getEjercicioDevengo();
-			//Año de la fecha límite (último dígito)
-			identificacion += getLastDigitDataLimit();
-			//Fecha juliana límite de pago //TODO CANVIAR PER UN DINÀMIC!
-			identificacion += convertToJulian(createCalendar(20));
+		String identificacion = "";
+		//Discriminante del Periodo (1)
+		identificacion += "1";
+		//Tributo (Según Anexo 6 del Cuaderno 60)
+		identificacion += getTributoFromValorsServicaixa();
+		//Ejercicio de devengo
+		identificacion += getEjercicioDevengo();
+		//Año de la fecha límite (último dígito)
+		identificacion += getLastDigitDataLimit();
+		//Fecha juliana límite de pago //TODO CANVIAR PER UN DINÀMIC!
+		String limit = String.valueOf(convertToJulian(createCalendar(20)));
+		while(limit.length() < 3) {
+			limit = 0 + limit;
+		}
+		identificacion += limit;
 		PreferencesGesblue.setIdentificacio(mContext, identificacion);
+
+		float importe = Float.parseFloat(sancio.getModelInfraccio().getImporte());
+
+		long calculcontrol0 = (Long.parseLong(emisora)*76);
+		long cc = Long.parseLong(numeroButlleta.substring(numeroButlleta.length()-10, numeroButlleta.length()));
+		long codicurt = cc * 9;
+		calculcontrol0 = calculcontrol0 + codicurt;
+		long ic = (long)importe/2*100;
+		long fide = Long.parseLong(identificacion);
+		long ide = (fide+ic-1)*55;
+		calculcontrol0 = calculcontrol0 + (long)ide;
+
+		double calculcontrol = (double)calculcontrol0/97;
+
+		double f2 = calculcontrol % 1;
+		int i = (int)(f2 * 100);
+		Log.d("numberD",calculcontrol0+" - "+i);
+		/*String numberD = String.valueOf(calculcontrol);
+		Log.d("numberD",numberD.length()+" - "+numberD.indexOf(".")+" - "+(numberD.length()-(numberD.indexOf(".") + 1)));
+		if(numberD.indexOf ( "." )>-1) {
+			numberD = numberD.substring(numberD.indexOf(".") + 1, numberD.indexOf ( "." )+Math.min(2,numberD.length()-(numberD.indexOf(".") + 1)));
+		}
+		else{
+			numberD = "0";
+		}
+		Log.d("numberD2: ", numberD);*/
+		String control = String.valueOf(99-i);
+		//String[] control_parts=control.split(".");
+		//control = control_parts[0];
+		while(control.length() < 2) {
+			control = 0 + control;
+		}
+		code.append(control);
+
+
 		code.append(PreferencesGesblue.getIdentificacio(mContext));
 
 		//Importe (cents)
-		PreferencesGesblue.setImpDte(mContext, sancio.getModelInfraccio().getImporte());
+		PreferencesGesblue.setImpDte(mContext,  String.valueOf(Float.parseFloat(sancio.getModelInfraccio().getImporte())/2*100));
 		code.append(fill8Digits(sancio.getModelInfraccio().getImporte()));
 
 		//Dígito de Paridad (1)

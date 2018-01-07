@@ -70,7 +70,7 @@ public class GesblueApplication extends MultiDexApplication {
 	private void enviaDenuncia(){
 		Model_Denuncia denuncia;
 		denuncia = DatabaseAPI.getDenunciaPendent(aContext);
-		while(denuncia!=null) {
+		if(denuncia!=null){
 			final Model_Denuncia den = denuncia;
 			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss");
 
@@ -125,7 +125,7 @@ public class GesblueApplication extends MultiDexApplication {
 									//denunciaSent = true;
 									//sendPhotos();
 									DatabaseAPI.updateDenunciaPendent(aContext, den.getCodidenuncia());
-									return; //Return aqui per no tancar el ProgressDialog
+									enviaDenuncia();
 							}
 
 						}
@@ -137,8 +137,9 @@ public class GesblueApplication extends MultiDexApplication {
 						}
 					}
 			);
-
-			denuncia = DatabaseAPI.getDenunciaPendent(aContext);
+		}
+		else{
+			return;
 		}
 
 	}
