@@ -976,7 +976,19 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			return calendar;
 		}
 	}
+	public static Calendar createCalendarCount(int aSumar) {
+		if(aSumar == -1) {
+			return null;
+		} else {
+			Calendar calendar = Calendar.getInstance();
 
+			calendar.setTime(new Date());
+			//calendar.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
+			calendar.add(Calendar.DATE, aSumar);
+
+			return calendar;
+		}
+	}
 	private synchronized void waitForConnection() {
 //		closeActiveConnection();
 

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.Calendar;
 
 import static com.sixtemia.gesbluedroid.activities.FormulariActivity.createCalendar;
+import static com.sixtemia.gesbluedroid.activities.FormulariActivity.createCalendarCount;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getEmisora;
 
 /**
@@ -90,7 +91,7 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
                             .setImpDte(Float.parseFloat(PreferencesGesblue.getImpDte(mContext))/100);
 					}
 					ticketConfiguration
-					.setDataLimitPagament(createCalendar(20))
+					.setDataLimitPagament(createCalendar(35))
 					.setDataAnulacioArray(new DataAnulacio[]{
 											new DataAnulacio(
 												Float.parseFloat(sancio.getModelInfraccio().getAnulacio()),
@@ -152,7 +153,7 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 		//Año de la fecha límite (último dígito)
 		identificacion += getLastDigitDataLimit();
 		//Fecha juliana límite de pago //TODO CANVIAR PER UN DINÀMIC!
-		String limit = String.valueOf(convertToJulian(createCalendar(20)));
+		String limit = String.valueOf(convertToJulian(createCalendarCount(35)));
 		while(limit.length() < 3) {
 			limit = 0 + limit;
 		}

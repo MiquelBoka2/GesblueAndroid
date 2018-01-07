@@ -275,11 +275,11 @@ public class TicketPrinter {
             // Codi barres estàndard
             //------------------
             if(PreferencesGesblue.getCodiBarresVisible(_context) && !TextUtils.isEmpty(butlleta)) {
-                int heightCodiBarres = LINE_HEIGHT*BARCODE_NUM_LINES;
+             /*   int heightCodiBarres = LINE_HEIGHT*BARCODE_NUM_LINES;
                 printer.drawPageFrame(0, y, PAGE_WIDTH, heightCodiBarres + 2, Printer.FILL_WHITE, 1);
                 printer.setBarcode(Printer.ALIGN_CENTER, false, 2, Printer.HRI_BELOW, heightCodiBarres);
                 printer.printBarcode(Printer.BARCODE_EAN128, butlleta);
-                y = newLine(y, BARCODE_NUM_LINES + 0.5f);
+                y = newLine(y, BARCODE_NUM_LINES + 0.5f);*/
             }
 
             y = newLine(y, 1);
