@@ -34,7 +34,6 @@ import com.sixtemia.gesbluedroid.activities.passosformulari.Pas6CarrerActivity;
 import com.sixtemia.gesbluedroid.activities.passosformulari.Pas7NumeroActivity;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.customstuff.dialogs.DeviceListActivity;
-import com.sixtemia.gesbluedroid.customstuff.ftp.GBFTP;
 import com.sixtemia.gesbluedroid.databinding.ActivityFormulariBinding;
 import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Denuncia;
@@ -683,7 +682,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		}, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				GBFTP.close();
+				//GBFTP.close();
 				goToMain();
 			}
 		}, false);

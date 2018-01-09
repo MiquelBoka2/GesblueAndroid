@@ -2,6 +2,7 @@ package com.sixtemia.gesbluedroid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
@@ -21,7 +22,11 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.NovaD
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import io.fabric.sdk.android.Fabric;
 import pt.joaocruz04.lib.misc.JSoapCallback;
@@ -48,9 +53,48 @@ public class GesblueApplication extends MultiDexApplication {
 		getApplicationContext();
 		FlurryAgent.init(this, getString(isDebugging(this) ? R.string.flurryApiKeyDebug : R.string.flurryApiKey));
 
+		if ( isExternalStorageWritable() ) {
+
+			File appDirectory = new File( Environment.getExternalStorageDirectory() + "/MyPersonalAppFolder" );
+			File logDirectory = new File( appDirectory + "/gesblue_log" );
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
+			Date date = new Date();
+			File logFile = new File( logDirectory, "logcat-" + dateFormat.format(date) + ".txt" );
+
+			// create app folder
+			if ( !appDirectory.exists() ) {
+				appDirectory.mkdir();
+			}
+
+			// create log folder
+			if ( !logDirectory.exists() ) {
+				logDirectory.mkdir();
+			}
+
+			// clear the previous logcat and then write the new one to the file
+			try {
+				Process process = Runtime.getRuntime().exec("logcat -c");
+				process = Runtime.getRuntime().exec("logcat -f " + logFile);
+			} catch ( IOException e ) {
+				e.printStackTrace();
+			}
+
+		} else {
+			// not accessible
+		}
+
 		handler.postDelayed(runnable, 5000);
 
 	}
+	/* Checks if external storage is available for read and write */
+	public boolean isExternalStorageWritable() {
+		String state = Environment.getExternalStorageState();
+		if ( Environment.MEDIA_MOUNTED.equals( state ) ) {
+			return true;
+		}
+		return false;
+	}
+
 	public static Context getContext(){
 		//return instance;
 		return cont;
