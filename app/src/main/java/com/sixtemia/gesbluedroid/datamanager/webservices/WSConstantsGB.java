@@ -27,6 +27,7 @@ public class WSConstantsGB extends WSConstants {
 	public static final String REQUEST_COMPROVAMATRICULA = "ComprovaMatricula";
 	public static final String REQUEST_NOVADENUNCIA = "NovaDenuncia";
 	public static final String REQUEST_NOULOG = "NouLog";
+	public static final String REQUEST_PUJAFOTO = "PujaFoto";
 	public static final String REQUEST_POSICIO = "Posicio";
 	public static final String REQUEST_RECUPERADENUNCIA = "RecuperaDenuncia";
 	public static final String REQUEST_ESTABLIRCOMPTADORDENUNCIA = "EstablirComptadorDenuncia";

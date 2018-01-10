@@ -2,6 +2,8 @@ package com.sixtemia.gesbluedroid.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -69,6 +71,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	private ProgressDialog progress;
 
+	private Menu menu;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -141,6 +144,16 @@ public class LoginActivity extends GesblueFragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
+		this.menu = menu;
+
+		String menuTitle = "";
+		try {
+			PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+			menuTitle = pInfo.versionName;
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		menu.findItem(R.id.versionNumber).setTitle(menuTitle);
 		return true;
 	}
 	@Override

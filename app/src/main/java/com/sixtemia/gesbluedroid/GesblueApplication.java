@@ -10,20 +10,24 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
 import com.sixtemia.gesbluedroid.activities.LoginActivity;
-import com.sixtemia.gesbluedroid.customstuff.ftp.FTPUpload;
 import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Denuncia;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Log;
 import com.sixtemia.gesbluedroid.datamanager.webservices.DatamanagerAPI;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.NouLogRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.NovaDenunciaRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.PujaFotoRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.NouLogResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.NovaDenunciaResponse;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.net.util.Base64;
+
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,6 +47,7 @@ public class GesblueApplication extends MultiDexApplication {
 	private static GesblueApplication instance;
 	private Handler handler = new Handler();
 	public Context aContext = null;
+	private int intentsEnviaDenuncia =0;
 	static Context cont=null;
 	@Override
 	public void onCreate() {
@@ -104,10 +109,11 @@ public class GesblueApplication extends MultiDexApplication {
 		public void run() {
       /* do what you need to do */
 			enviaDenuncia();
-			enviaLog();
-			new FTPUpload().execute();
+			//enviaLog();
+			//new FTPUpload().execute();
+			pujaFoto();
       /* and here comes the "trick" */
-			handler.postDelayed(this, 60000);
+			handler.postDelayed(this, 120000);
 		}
 	};
 
@@ -115,6 +121,7 @@ public class GesblueApplication extends MultiDexApplication {
 		Model_Denuncia denuncia;
 		denuncia = DatabaseAPI.getDenunciaPendent(aContext);
 		if(denuncia!=null){
+			intentsEnviaDenuncia++;
 			final Model_Denuncia den = denuncia;
 			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss");
 
@@ -169,7 +176,12 @@ public class GesblueApplication extends MultiDexApplication {
 									//denunciaSent = true;
 									//sendPhotos();
 									DatabaseAPI.updateDenunciaPendent(aContext, den.getCodidenuncia());
-									enviaDenuncia();
+									if(intentsEnviaDenuncia<5) {
+										enviaDenuncia();
+									}else{
+										intentsEnviaDenuncia=0;
+										return;
+									}
 							}
 
 						}
@@ -182,6 +194,78 @@ public class GesblueApplication extends MultiDexApplication {
 					}
 			);
 		}
+		else{
+			intentsEnviaDenuncia=0;
+			return;
+		}
+
+	}
+
+	private void pujaFoto(){
+
+		File path = new File("storage/emulated/0/Sixtemia/upload");
+
+		if(path.exists()) {
+			String[] fileNames = path.list();
+			final File[] files = path.listFiles();
+			int i=0;
+			for (File file : files) {
+				final File f = file;
+				if (file.isDirectory() == false) {
+					i++;
+					try {
+						byte[] encoded = Base64.encodeBase64(FileUtils.readFileToByteArray(file));
+						String str_encoded = new String(encoded, StandardCharsets.US_ASCII);
+
+
+						PujaFotoRequest pjr = new PujaFotoRequest(
+								PreferencesGesblue.getConcessio(aContext),
+								str_encoded,
+								file.getName()
+								);
+						DatamanagerAPI.crida_PujaFoto(pjr,
+								new JSoapCallback() {
+									@Override
+									public void onSuccess(String result) {
+										File direct = new File("storage/emulated/0/Sixtemia/upload/done");
+
+										if (!direct.exists()) {
+											File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/done");
+											wallpaperDirectory.mkdirs();
+										}
+										File from = new File("storage/emulated/0/Sixtemia/upload/" + f.getName());
+										File to = new File("storage/emulated/0/Sixtemia/upload/done/" + f.getName());
+										from.renameTo(to);
+
+									}
+									@Override
+									public void onError(int error) {
+										Log.e("Formulari", "Error PujaFoto: " + error);
+										File direct = new File("storage/emulated/0/Sixtemia/upload/error");
+
+										if (!direct.exists()) {
+											File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/error");
+											wallpaperDirectory.mkdirs();
+										}
+										File from = new File("storage/emulated/0/Sixtemia/upload/" + f.getName());
+										File to = new File("storage/emulated/0/Sixtemia/upload/error/" + f.getName());
+										from.renameTo(to);
+
+									}
+								});
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+					if(i>5){
+						return;
+					}
+
+				}
+			}
+		}
+
 		else{
 			return;
 		}

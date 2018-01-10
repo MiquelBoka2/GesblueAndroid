@@ -6,4 +6,14 @@
         android:orderInCategory="100"
         android:title="@string/tanca_concessio"
         app:showAsAction="never" />
+    <item
+    android:id="@+id/space1"
+    android:orderInCategory="100"
+    android:title=""
+    app:showAsAction="never" />
+    <item
+        android:id="@+id/versionNumber"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="never" />
 </menu>

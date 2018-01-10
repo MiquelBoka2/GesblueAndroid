@@ -29,8 +29,8 @@ android {
         applicationId "com.sixtemia.gesbluedroid"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 8
-        versionName "1.0.34"
+        versionCode 9
+        versionName "1.0.35"
         multiDexEnabled true
 
         archivesBaseName = "$appName-$versionName.$buildNumber($versionCode)"
@@ -125,4 +125,5 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {
         transitive = true;
     }
+    implementation files('libs/commons-io-2.6.jar')
 }
