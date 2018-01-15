@@ -37,6 +37,7 @@ import com.sixtemia.gesbluedroid.customstuff.dialogs.DeviceListActivity;
 import com.sixtemia.gesbluedroid.customstuff.ftp.GBFTP;
 import com.sixtemia.gesbluedroid.databinding.ActivityFormulariBinding;
 import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Denuncia;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
@@ -174,7 +175,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		if(!isEmpty(intent.getStringExtra(KEY_NUMERO_TIQUET))) {
 			numeroTiquet = intent.getStringExtra(KEY_NUMERO_TIQUET);
 		}
+		Model_Carrer carrer = DatabaseAPI.getCarrer(mContext, String.valueOf(PreferencesGesblue.getCodiCarrer(mContext)));
 
+		sancio.setModelCarrer(carrer);
 		if(intent.getBooleanExtra(KEY_VINC_DE_MATRICULA, false)) {
 			intent = new Intent(mContext, Pas1TipusActivity.class);
 			intent.putExtra(INTENT_SANCIO, sancio);

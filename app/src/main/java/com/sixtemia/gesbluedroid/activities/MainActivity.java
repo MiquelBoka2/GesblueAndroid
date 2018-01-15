@@ -8,6 +8,7 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.sixtemia.gesbluedroid.R;
 import com.sixtemia.gesbluedroid.Sancio;
+import com.sixtemia.gesbluedroid.activities.passosformulari.Pas6CarrerActivity;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.databinding.ActivityMainBinding;
 import com.sixtemia.gesbluedroid.datamanager.webservices.DatamanagerAPI;
@@ -45,6 +46,18 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.textViewLocalitzacioConcessio.setText(concessio);
 
+		mBinding.tvCarrer.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				Intent intent = new Intent(mContext, Pas6CarrerActivity.class);
+				intent.putExtra("formPrimerCop", false);
+				startActivityForResult(intent,1);
+			}
+		});
+
+
+		//mBinding.tv.setOnClickListener(this);
 		mBinding.buttonComprovar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -85,6 +98,17 @@ public class MainActivity extends GesblueFragmentActivity {
 			}
 		});
 	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+
+
+			mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
+
+		}
+	}
 	private void comprovarMatricula(String matricula) {
 		amagarTeclat();
 		mBinding.viewSwitcherComprovaAnim.showNext();
@@ -92,7 +116,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		final boolean multable = true;
 
-		DatamanagerAPI.crida_ComprovaMatricula(new ComprovaMatriculaRequest(PreferencesGesblue.getConcessio(mContext), Utils.getDeviceId(mContext), matricula, Utils.getCurrentTimeLong(mContext)), new JSoapCallback() {
+		DatamanagerAPI.crida_ComprovaMatricula(new ComprovaMatriculaRequest(PreferencesGesblue.getConcessio(mContext), Utils.getDeviceId(mContext), matricula, Utils.getCurrentTimeLong(mContext),PreferencesGesblue.getCodiCarrer(mContext),0), new JSoapCallback() {
 			@Override
 			public void onSuccess(String result) {
 				final ComprovaMatriculaResponse response;

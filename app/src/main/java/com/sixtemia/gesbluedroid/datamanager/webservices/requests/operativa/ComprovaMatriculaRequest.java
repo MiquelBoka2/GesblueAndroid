@@ -16,12 +16,19 @@ public class ComprovaMatriculaRequest {
 	private String matricula;
 	@JSoapReqField(order = 3, fieldName = "datahora")
 	private long datahora;
+	@JSoapReqField(order = 4, fieldName = "adrecacarrer")
+	private long adrecacarrer;
+	@JSoapReqField(order = 5, fieldName = "zona")
+	private long zona;
 
-	public ComprovaMatriculaRequest(long concessio, String uuid, String matricula, long datahora) {
+
+	public ComprovaMatriculaRequest(long concessio, String uuid, String matricula, long datahora, long adrecacarrer, long zona) {
 		this.concessio = concessio;
 		this.uuid = uuid;
 		this.matricula = matricula;
 		this.datahora = datahora;
+		this.adrecacarrer = adrecacarrer;
+		this.zona = zona;
 	}
 
 	public long getConcessio() {
@@ -54,5 +61,22 @@ public class ComprovaMatriculaRequest {
 
 	public void setDatahora(long datahora) {
 		this.datahora = datahora;
+	}
+
+
+	public long getAdrecacarrer() {
+		return adrecacarrer;
+	}
+
+	public void setAdrecacarrer(long adrecacarrer) {
+		this.adrecacarrer = adrecacarrer;
+	}
+
+	public long getZona() {
+		return zona;
+	}
+
+	public void setZona(long zona) {
+		this.zona = zona;
 	}
 }

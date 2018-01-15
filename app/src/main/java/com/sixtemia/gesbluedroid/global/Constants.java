@@ -51,7 +51,7 @@ public class Constants {
         public static final String DADESBA_INFRACCIONS_METHOD = "InfraccionsRequest";
         public static final String DADESBA_CARRERS_METHOD = "CarrersRequest";
         //- Operativa
-        public static final String OPERATIVA_COMPROVAMATRICULA_METHOD = "ComprovaMatricula";
+        public static final String OPERATIVA_COMPROVAMATRICULA_METHOD = "ComprovaMatriculaCarrerZona";
         public static final String OPERATIVA_NOVADENUNCIA_METHOD = "NovaDenuncia";
         public static final String OPERATIVA_NOULOG_METHOD = "NouLog";
         public static final String OPERATIVA_POSICIO_METHOD = "Posicio";

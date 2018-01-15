@@ -125,7 +125,7 @@
                 </LinearLayout>
 
                 <View
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginLeft="4dp"
@@ -154,7 +154,29 @@
                     android:lines="1"
 					android:inputType="textVisiblePassword|textNoSuggestions"/>
 
-                <ViewSwitcher
+				<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+					android:text="@string/carrer"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:layout_marginLeft="4dp"
+					android:id="@+id/textViewCarrer"
+					android:textColor="@color/textview_selector" />
+
+				<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+					android:id="@+id/tvCarrer"
+					style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="7"
+					android:ellipsize="end"
+					android:hint="@string/carrer"
+					android:lines="1"
+					android:textColor="@color/textview_formulari"
+					android:textColorHint="@color/textview_formulari"
+					android:textSize="@dimen/editTextTextSize" />
+
+				<ViewSwitcher
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 					android:id="@+id/viewSwitcherButton"

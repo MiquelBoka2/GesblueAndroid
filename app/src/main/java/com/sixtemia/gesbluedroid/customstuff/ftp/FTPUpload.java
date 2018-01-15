@@ -81,6 +81,17 @@ public class FTPUpload extends AsyncTask<String,Void,String> {
                                     File to = new File("storage/emulated/0/Sixtemia/upload/done/" + fotoParts[2]);
                                     from.renameTo(to);
                                 }
+                                else{
+                                    File direct = new File("storage/emulated/0/Sixtemia/upload/error");
+
+                                    if (!direct.exists()) {
+                                        File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/error");
+                                        wallpaperDirectory.mkdirs();
+                                    }
+                                    File from = new File("storage/emulated/0/Sixtemia/upload/" + foto);
+                                    File to = new File("storage/emulated/0/Sixtemia/upload/error/" + foto);
+                                    from.renameTo(to);
+                                }
 
 
 
@@ -118,6 +129,16 @@ public class FTPUpload extends AsyncTask<String,Void,String> {
                                             File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/done");
                                             wallpaperDirectory.mkdirs();
                                         }
+                                        File direct2 = new File("storage/emulated/0/Sixtemia/upload/error");
+                                        if (!direct2.exists()) {
+                                            File wallpaperDirectory2 = new File("storage/emulated/0/Sixtemia/upload/error");
+                                            wallpaperDirectory2.mkdirs();
+                                        }
+                                        File from = new File("storage/emulated/0/Sixtemia/upload/" + foto);
+                                        File to = new File("storage/emulated/0/Sixtemia/upload/error/" + foto);
+                                        from.renameTo(to);
+                                    }
+                                    else{
                                         File direct2 = new File("storage/emulated/0/Sixtemia/upload/error");
                                         if (!direct2.exists()) {
                                             File wallpaperDirectory2 = new File("storage/emulated/0/Sixtemia/upload/error");
