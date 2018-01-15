@@ -121,7 +121,7 @@ public class Pas5InfraccioActivity extends GesblueFragmentActivity {
 			mBinding.linearInferior.seguent.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(mContext, Pas6CarrerActivity.class);
+					Intent intent = new Intent(mContext, Pas7NumeroActivity.class);
 					if(mSelected == null) {
 						Utils.showDialogNoPotsPassar(mContext);
 					} else {

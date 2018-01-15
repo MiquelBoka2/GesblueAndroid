@@ -159,9 +159,11 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 			mBinding.linearConfirmar.btnConfirmar.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					PreferencesGesblue.clearFormulari(mContext);
-					mSancio.setModelCarrer(mSelected);
-					getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSancio);
+					//PreferencesGesblue.clearFormulari(mContext);
+					//mSancio.setModelCarrer(mSelected);
+					PreferencesGesblue.setCodiCarrer(mContext,mSelected.getCodicarrer());
+					PreferencesGesblue.setNomCarrer(mContext,mSelected.getNomcarrer());
+					getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSelected.getCodicarrer());
 					setResult(RESULT_OK, getIntent());
 					finish();
 				}
