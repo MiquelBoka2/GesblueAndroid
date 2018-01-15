@@ -203,7 +203,7 @@ public class TicketPrinter {
                 Cela[] celaArray = new Cela[]{
                         new Cela(mContext.getString(R.string.cela_emisora), PreferencesGesblue.getEmisora(mContext), sampleMilimetersToPixels(12)),
                         new Cela(mContext.getString(R.string.cela_mod), String.valueOf(mod), sampleMilimetersToPixels(5)),
-                        new Cela(mContext.getString(R.string.cela_referencia), PreferencesGesblue.getReferencia(mContext), sampleMilimetersToPixels(18)),
+                        new Cela(mContext.getString(R.string.cela_referencia), PreferencesGesblue.getReferencia(mContext)+PreferencesGesblue.getPrefCodiControl(mContext), sampleMilimetersToPixels(18)),
                         new Cela(mContext.getString(R.string.cela_identificacio), PreferencesGesblue.getIdentificacio(mContext), sampleMilimetersToPixels(20)),
                         new Cela(mContext.getString(R.string.cela_imp_dte),toEuros(dte))
                 };

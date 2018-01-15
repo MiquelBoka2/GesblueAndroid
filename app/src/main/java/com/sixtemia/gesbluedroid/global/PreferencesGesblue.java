@@ -76,6 +76,7 @@ public class PreferencesGesblue extends Preferences {
 	private static final String PREF_CODI_EXPORTADORA = "codiexportadora";
     private static final String PREF_CODI_TIPUS_BUTLLETA = "coditipusbutlleta";
     private static final String PREF_CODI_INSTITUCIO = "codiinstitucio";
+	private static final String PREF_CODI_CONTROL = "codicontrol";
 
 
 	private static final String PREF_CODI_CARRER = "codiCarrer";
@@ -533,5 +534,12 @@ public class PreferencesGesblue extends Preferences {
 	}
 	public static String getNomCarrer(Context _context) {
 		return getString(_context, PREF_NOM_CARRER, BUIT);
+	}
+
+	public static void setPrefCodiControl(Context _context, String codiControl) {
+		put(_context, PREF_CODI_CONTROL, codiControl);
+	}
+	public static String getPrefCodiControl(Context _context) {
+		return getString(_context, PREF_CODI_CONTROL, BUIT);
 	}
 }

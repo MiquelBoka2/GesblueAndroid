@@ -193,13 +193,17 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 		}
 		code.append(control);
 
+		PreferencesGesblue.setPrefCodiControl(mContext,control);
+
 
 		code.append(PreferencesGesblue.getIdentificacio(mContext));
 
 		//Importe (cents)
 		PreferencesGesblue.setImpDte(mContext,  String.valueOf(Float.parseFloat(sancio.getModelInfraccio().getImporte())/2*100));
-		code.append(fill8Digits(sancio.getModelInfraccio().getImporte()));
 
+		String imp=String.format("%.02f", Float.parseFloat(sancio.getModelInfraccio().getImporte())/2);
+
+		code.append(fill8Digits(imp));
 		//Dígito de Paridad (1)
 		code.append("0");
 
@@ -254,8 +258,8 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 
 	private String fill8Digits(String d) {
 		String aRetornar = "";
-		if(d.contains(".")) {
-			String[] splitted = d.split("\\.");
+		if(d.contains(",")) {
+			String[] splitted = d.split("\\,");
 			aRetornar = splitted[0];
 			aRetornar+= splitted[1];
 		}
