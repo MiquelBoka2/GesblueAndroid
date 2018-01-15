@@ -135,7 +135,7 @@ public class Pas2MarcaActivity extends GesblueFragmentActivity {
 			mBinding.linearInferior.seguent.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(mContext, Pas3ModelActivity.class);
+					Intent intent = new Intent(mContext, Pas4ColorActivity.class);
 					if(mSelected == null) {
 						Utils.showDialogNoPotsPassar(mContext);
 					} else {

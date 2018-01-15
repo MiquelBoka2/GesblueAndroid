@@ -29,8 +29,8 @@ android {
         applicationId "com.sixtemia.gesbluedroid"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 9
-        versionName "1.0.35"
+        versionCode 10
+        versionName "1.0.36"
         multiDexEnabled true
 
         archivesBaseName = "$appName-$versionName.$buildNumber($versionCode)"

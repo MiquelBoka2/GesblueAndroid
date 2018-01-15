@@ -72,7 +72,7 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 						e.printStackTrace();
 					}
 					ticketConfiguration = ticketConfiguration.setVehicle(Utils.languageMultiplexer(sancio.getModelTipusVehicle().getNomtipusvehiclees(), sancio.getModelTipusVehicle().getNomtipusvehiclecat()))
-					.setMarcaModel(sancio.getModelMarca().getImatgemarca(), sancio.getModelMarca().getNommarca() + " " + sancio.getModelModel().getNommodel())
+					.setMarcaModel(sancio.getModelMarca().getImatgemarca(), sancio.getModelMarca().getNommarca() + " " + "")
 					.setColor(Utils.languageMultiplexer(sancio.getModelColor().getNomcolores(), sancio.getModelColor().getNomcolorcat()))
 					.setLlocInfraccio(sancio.getModelCarrer().getNomcarrer() + " " + sancio.getNumero())
 					.setPrecepteInfringit(sancio.getModelInfraccio().getPrecepte())
