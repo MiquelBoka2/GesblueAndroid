@@ -166,9 +166,9 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 		long cc = Long.parseLong(numeroButlleta.substring(numeroButlleta.length()-10, numeroButlleta.length()));
 		long codicurt = cc * 9;
 		calculcontrol0 = calculcontrol0 + codicurt;
-		long ic = (long)importe/2*100;
+		float ic = importe/2*100;
 		long fide = Long.parseLong(identificacion);
-		long ide = (fide+ic-1)*55;
+		long ide = (fide+(long)ic-1)*55;
 		calculcontrol0 = calculcontrol0 + (long)ide;
 
 		double calculcontrol = (double)calculcontrol0/97;
