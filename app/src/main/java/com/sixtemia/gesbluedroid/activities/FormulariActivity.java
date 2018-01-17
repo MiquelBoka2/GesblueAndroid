@@ -159,7 +159,6 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_formulari);
 		setupVisibleToolbar(mBinding.toolbar);
 		getFromIntent();
-		mBinding.tvModel.setVisibility(View.GONE);
 		fillAll();
 		disableViews();
 		initOnClicks();
@@ -190,7 +189,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		fillMatricula();
 		fillTipus();
 		fillMarca();
-		//fillModel();
+		fillModel();
 		fillColor();
 		fillSancio();
 		fillCarrer();
@@ -459,12 +458,12 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						!isEmpty(sancio.getMatricula()) &&
 						sancio.getModelTipusVehicle() != null &&
 						sancio.getModelMarca() != null &&
-						//sancio.getModelModel() != null &&
+						sancio.getModelModel() != null &&
 						sancio.getModelColor() != null &&
 						sancio.getModelInfraccio() != null &&
 						(sancio.getModelTipusVehicle().getCoditipusvehicle() != 0) &&
 						!isEmpty(sancio.getModelMarca().getCodimarca()) &&
-						//!isEmpty(sancio.getModelModel().getCodimodel()) &&
+						!isEmpty(sancio.getModelModel().getCodimodel()) &&
 						!isEmpty(sancio.getModelColor().getCodicolor()) &&
 						(sancio.getModelInfraccio().getCodi() != 0) &&
 						!isEmpty(sancio.getModelInfraccio().getImporte())
@@ -613,7 +612,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 	public void disableViews() {
 		mBinding.tvMarca.setEnabled(comprovarDependenciesMarca());
-		//mBinding.tvModel.setEnabled(comprovarDependenciesModel());
+		mBinding.tvModel.setEnabled(comprovarDependenciesModel());
 		mBinding.tvNum.setEnabled(comprovarDependenciesNumero());
 	}
 
@@ -656,7 +655,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		denuncia.setMatricula (sancio.getMatricula());
 		denuncia.setTipusvehicle (sancio.getModelTipusVehicle().getCoditipusvehicle());
 		denuncia.setMarca (Long.parseLong(sancio.getModelMarca().getCodimarca()));
-		denuncia.setModel (0);//Long.parseLong(sancio.getModelModel().getCodimodel()));
+		denuncia.setModel (Long.parseLong(sancio.getModelModel().getCodimodel()));
 		denuncia.setColor(Long.parseLong(sancio.getModelColor().getCodicolor()));
 		denuncia.setInfraccio(sancio.getModelInfraccio().getCodi());
 		denuncia.setTerminal(Long.parseLong(PreferencesGesblue.getTerminal(mContext)));

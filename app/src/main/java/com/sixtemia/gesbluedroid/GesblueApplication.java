@@ -136,7 +136,7 @@ public class GesblueApplication extends MultiDexApplication {
 					denuncia.getMatricula(),                                  //-- MATRICULA
 					(long) denuncia.getTipusvehicle(),    //-- CODI TIPUS VEHICLE
 					(long) denuncia.getMarca(),  //-- CODI MARCA
-					0,  //-- CODI MODEL
+					(long) denuncia.getModel(),  //-- CODI MODEL
 					(long) denuncia.getColor(),  //-- CODI COLOR
 					(long) denuncia.getInfraccio(),                   //-- MATRICULA
 					0,             //-- HORA ACTUAL
