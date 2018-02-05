@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -42,6 +43,14 @@ public class CameraActivity extends GesblueFragmentActivity {
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_control_presencia_dni);
 		setTitleWithFont("");
 		toggleFullscreen(true);
+		if(PreferencesGesblue.getPrefFlash(mContext)==CameraView.FLASH_ON){
+			mBinding.flash.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_flash));
+			mBinding.camera.setFlash(CameraView.FLASH_ON);
+		}
+		else{
+			mBinding.flash.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_flash_off));
+			mBinding.camera.setFlash(CameraView.FLASH_OFF);
+		}
 
 		position = getIntent().getStringExtra("position");
 
@@ -76,6 +85,24 @@ public class CameraActivity extends GesblueFragmentActivity {
 			@Override
 			public void onClick(View v) {
 				mBinding.camera.takePicture();
+			}
+		});
+
+		mBinding.flash.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(mBinding.camera.getFlash()==CameraView.FLASH_OFF) {
+					mBinding.camera.setFlash(CameraView.FLASH_ON);
+					mBinding.flash.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_flash));
+					PreferencesGesblue.setPrefFlash(mContext,CameraView.FLASH_ON);
+
+				}
+				else{
+					mBinding.camera.setFlash(CameraView.FLASH_OFF);
+					mBinding.flash.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_flash_off));
+					PreferencesGesblue.setPrefFlash(mContext,CameraView.FLASH_OFF);
+				}
+
 			}
 		});
 	}

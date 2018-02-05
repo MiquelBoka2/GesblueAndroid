@@ -27,6 +27,17 @@
 			android:layout_marginRight="16dp"
 			app:srcCompat="@drawable/ic_camera"/>
 
+
+		<android.support.design.widget.FloatingActionButton
+			android:id="@+id/flash"
+			app:backgroundTint="@color/textColorSuccess"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_alignParentLeft="true"
+			android:layout_centerVertical="true"
+			android:layout_marginRight="16dp"
+			app:srcCompat="@drawable/ic_flash_off"/>
 		<LinearLayout
 			android:id="@+id/linearPreview"
 			android:visibility="gone"

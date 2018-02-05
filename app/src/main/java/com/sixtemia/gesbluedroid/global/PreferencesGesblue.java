@@ -81,6 +81,7 @@ public class PreferencesGesblue extends Preferences {
 
 	private static final String PREF_CODI_CARRER = "codiCarrer";
 	private static final String PREF_NOM_CARRER = "nomCarrer";
+	private static final String PREF_FLASH = "flash";
 
 
 
@@ -541,5 +542,13 @@ public class PreferencesGesblue extends Preferences {
 	}
 	public static String getPrefCodiControl(Context _context) {
 		return getString(_context, PREF_CODI_CONTROL, BUIT);
+	}
+
+	public static void setPrefFlash(Context _context, int idFlash){
+		put(_context,PREF_FLASH, idFlash);
+	}
+
+	public static int getPrefFlash(Context _context) {
+		return getInt(_context,PREF_FLASH,ZERO);
 	}
 }
