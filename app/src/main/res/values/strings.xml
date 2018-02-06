@@ -23,6 +23,7 @@
 	<string name="editTextUsuariHint">Nom d\'usuari</string>
 	<string name="editTextPasswordHint">Contrasenya</string>
 	<string name="campsObligatoris">Falten camps obligatoris</string>
+	<string name="fotosObligatories">Cal fer 2 fotos com a mínim</string>
 	<string name="ok">ACCEPTAR</string>
 	<string name="atencio">Atenció</string>
 

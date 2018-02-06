@@ -339,6 +339,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	@Override
 	public void onClick(View v) {
 		Intent intent;
+		int totalfotos;
 		switch (v.getId()) {
 			case R.id.tvTipus:
 				startActivityFromIntent(new Intent(mContext, Pas1TipusActivity.class));
@@ -379,17 +380,49 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				}
 				break;
 			case R.id.buttonAccepta:
-				if(checkCamps()) {
-					print();
-				} else {
-					Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
+				totalfotos=0;
+				if((foto1!=null)&&(foto1!="")) {
+					totalfotos++;
+				}
+				if((foto2!=null)&&(foto2!="")) {
+					totalfotos++;
+				}
+				if((foto3!=null)&&(foto3!="")) {
+					totalfotos++;
+				}
+
+				if(totalfotos<2){
+					Utils.showCustomDialog(mContext, R.string.atencio, R.string.fotosObligatories);
+				}
+				else {
+					if (checkCamps()) {
+						print();
+					} else {
+						Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
+					}
 				}
 				break;
 			case R.id.buttonPrint:
-				if(checkCamps()) {
-					print();
-				} else {
-					Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
+				totalfotos=0;
+				if((foto1!=null)&&(foto1!="")) {
+					totalfotos++;
+				}
+				if((foto2!=null)&&(foto2!="")) {
+					totalfotos++;
+				}
+				if((foto3!=null)&&(foto3!="")) {
+					totalfotos++;
+				}
+
+				if(totalfotos<2){
+					Utils.showCustomDialog(mContext, R.string.atencio, R.string.fotosObligatories);
+				}
+				else {
+					if (checkCamps()) {
+						print();
+					} else {
+						Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
+					}
 				}
 				break;
 			case R.id.imageViewA:
@@ -1130,11 +1163,6 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			mPrinter = new com.datecs.api.printer.Printer(mPrinterChannel.getInputStream(), mPrinterChannel.getOutputStream());
 			isLinked = true;
 
-			if(checkCamps()) {
-				print();
-			} else {
-				Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
-			}
 		} else {
 			Log.i(LOG_TAG, "Protocol mode is disabled");
 

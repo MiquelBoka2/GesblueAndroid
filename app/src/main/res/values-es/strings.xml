@@ -21,6 +21,7 @@
 	<string name="editTextUsuariHint">Nombre de usuario</string>
 	<string name="editTextPasswordHint">Contraseña</string>
 	<string name="campsObligatoris">Faltan campos obligatorios</string>
+	<string name="fotosObligatories">Hacen falta 2 fotos como mínimo</string>
 	<string name="ok">ACEPTAR</string>
 	<string name="atencio">Atención</string>
 
