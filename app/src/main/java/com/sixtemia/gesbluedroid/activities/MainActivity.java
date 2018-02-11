@@ -3,6 +3,7 @@ package com.sixtemia.gesbluedroid.activities;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -11,11 +12,15 @@ import com.sixtemia.gesbluedroid.Sancio;
 import com.sixtemia.gesbluedroid.activities.passosformulari.Pas6CarrerActivity;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.databinding.ActivityMainBinding;
+import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Agent;
 import com.sixtemia.gesbluedroid.datamanager.webservices.DatamanagerAPI;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.ComprovaMatriculaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.ComprovaMatriculaResponse;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
+
+import java.util.ArrayList;
 
 import pt.joaocruz04.lib.misc.JSoapCallback;
 import pt.joaocruz04.lib.misc.JsoapError;
@@ -97,6 +102,12 @@ public class MainActivity extends GesblueFragmentActivity {
 				changeViewComprovarMatricula();
 			}
 		});
+
+
+		final ArrayList<Model_Agent> listLogs = DatabaseAPI.getAgents(mContext);
+
+		Log.d("Num agent locals",""+listLogs.size());
+
 	}
 
 	@Override

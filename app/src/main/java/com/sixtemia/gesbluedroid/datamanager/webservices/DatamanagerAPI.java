@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.MalformedJsonException;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.AgentsRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.CarrersRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.ColorsRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.InfraccionsRequest;
@@ -22,6 +23,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.Posi
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.PujaFotoRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.RecuperaComptadorDenunciaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.RecuperaDenunciaRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.AgentsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.CarrersResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ColorsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.InfraccionsResponse;
@@ -56,6 +58,9 @@ public class DatamanagerAPI {
 	}
 	public static AsyncTask crida_TipusVehicles(TipusVehiclesRequest _tipusVehiclesRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_TIPUSVEHICLE_METHOD, Constants.DADESBA_TIPUSVEHICLES_SOAPACTION, _tipusVehiclesRequest, TipusVehiclesResponse.class, _listener);
+	}
+	public static AsyncTask crida_Agents(AgentsRequest _agentsRequest, JSoapCallback _listener) {
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_AGENTS_METHOD, Constants.DADESBA_AGENTS_SOAPACTION, _agentsRequest, AgentsResponse.class, _listener);
 	}
 	public static AsyncTask crida_Marques(MarquesRequest _marquesRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_MARQUES_METHOD, Constants.DADESBA_MARQUES_SOAPACTION, _marquesRequest, MarquesResponse.class, _listener);

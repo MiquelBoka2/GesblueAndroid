@@ -53,6 +53,7 @@
 	<string name="terminalPendent">Terminal pendiente</string>
 	<string name="concessioNoValida">Concesión no válida</string>
 
+	<string name="actualitzantAgents">Actualizando Agentes&#8230;</string>
 	<string name="actualitzantMarques">Actualizando Marcas&#8230;</string>
 	<string name="actualitzantModels">Actualizando Modelos&#8230;</string>
 	<string name="actualitzantColors">Actualizando Colores&#8230;</string>

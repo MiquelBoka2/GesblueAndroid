@@ -22,6 +22,10 @@ public class LoginResponse extends WSResult {
 	@SerializedName("codiagent")
 	private String codiagent;
 
+	@JSoapResField(name = "agents")
+	@SerializedName("agents")
+	private int agents;
+
 	@JSoapResField(name = "marques")
 	@SerializedName("marques")
 	private int marques;
@@ -49,6 +53,7 @@ public class LoginResponse extends WSResult {
 	public LoginResponse() {
 		resultat = 0;
 		agent = 0;
+		agents = 0;
 		codiagent = "";
 		marques = 0;
 		models = 0;
@@ -58,9 +63,10 @@ public class LoginResponse extends WSResult {
 		infraccions = 0;
 	}
 
-	public LoginResponse(long resultat, long agent, String codiagent, int marques, int models, int colors, int tipusvehicles, int carrers, int infraccions) {
+	public LoginResponse(long resultat, long agent, String codiagent, int agents,int marques, int models, int colors, int tipusvehicles, int carrers, int infraccions) {
 		this.resultat = resultat;
 		this.agent = agent;
+		this.agents = agents;
 		this.codiagent = codiagent;
 		this.marques = marques;
 		this.models = models;
@@ -70,6 +76,9 @@ public class LoginResponse extends WSResult {
 		this.infraccions = infraccions;
 	}
 
+	public boolean showAgents() {
+		return isTrue(getAgents());
+	}
 	public boolean showMarques() {
 		return isTrue(getMarques());
 	}
@@ -108,6 +117,14 @@ public class LoginResponse extends WSResult {
 
 	public void setCodiagent(String codiagent) {
 		this.codiagent = codiagent;
+	}
+
+	public int getAgents() {
+		return agents;
+	}
+
+	public void setAgents(int agents) {
+		this.agents = agents;
 	}
 
 	public int getMarques() {

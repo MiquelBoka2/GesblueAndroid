@@ -44,6 +44,7 @@ public class Constants {
         public static final String DADESBA_NOUTERMINAL_METHOD = "NouTerminalRequest";
         public static final String DADESBA_LOGIN_METHOD = "LoginRequest";
         public static final String DADESBA_TIPUSVEHICLE_METHOD = "TipusVehiclesRequest";
+        public static final String DADESBA_AGENTS_METHOD = "AgentsRequest";
         public static final String DADESBA_MARQUES_METHOD = "MarquesRequest";
         public static final String DADESBA_MODELS_METHOD = "ModelsRequest";
         public static final String DADESBA_COLORS_METHOD = "ColorsRequest";
@@ -65,6 +66,7 @@ public class Constants {
         public static final String DADESBA_NOUTERMINAL_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_NOUTERMINAL;
         public static final String DADESBA_LOGIN_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_LOGIN;
         public static final String DADESBA_TIPUSVEHICLES_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_TIPUSVEHICLES;
+        public static final String DADESBA_AGENTS_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_AGENTS;
         public static final String DADESBA_MARQUES_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_MARQUES;
         public static final String DADESBA_MODELS_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_MODELS;
         public static final String DADESBA_COLORS_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_COLORS;

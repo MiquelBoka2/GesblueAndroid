@@ -13,6 +13,8 @@ import com.sixtemia.gesbluedroid.datamanager.database.Taules;
 @DatabaseTable(tableName = Taules.TAULA_AGENT)
 public class Model_Agent implements Parcelable {
 
+	public static final String ID = "codiagent";
+
 	@DatabaseField(generatedId = true, columnName = "codiagent")
 	private long codiagent;
 

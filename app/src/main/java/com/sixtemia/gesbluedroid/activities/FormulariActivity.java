@@ -515,6 +515,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private void link() {
 		if(!isEmpty(PreferencesGesblue.getAddressBluetoothPrinter(mContext))) {
 			establishBluetoothConnection(PreferencesGesblue.getAddressBluetoothPrinter(mContext));
+
 		} else {
 			waitForConnection();
 		}
@@ -1263,6 +1264,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				} finally {
 					DLog("Tancant dialeg a establishBluetoothConnection");
 					dismissDialog();
+
+					printFinal(true);
 				}
 			}
 		});

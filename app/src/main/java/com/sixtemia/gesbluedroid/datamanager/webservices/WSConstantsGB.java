@@ -12,6 +12,7 @@ public class WSConstantsGB extends WSConstants {
 	public static final String REQUEST_NOUTERMINAL = "NouTerminal";
 	public static final String REQUEST_LOGIN = "Login";
 	public static final String REQUEST_TIPUSVEHICLES = "TipusVehicles";
+	public static final String REQUEST_AGENTS = "Agents";
 	public static final String REQUEST_MARQUES = "Marques";
 	public static final String REQUEST_MODELS = "Models";
 	public static final String REQUEST_COLORS = "Colors";

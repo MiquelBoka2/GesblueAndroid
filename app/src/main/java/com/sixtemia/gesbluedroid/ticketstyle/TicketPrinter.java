@@ -69,7 +69,7 @@ public class TicketPrinter {
             // inicialitzem a 40 perquè és el número de línies que hi ha fixes(no dinàmiques)
             // al tiquet si s'imprimeixen tots els blocs, s'afegeix un bloc, que no sigui
             // dinàmic s'haurà de modificar aquest valor.
-            Integer pageHeight = calcPageHeight(_context, 40, printConfiguration);
+            Integer pageHeight = calcPageHeight(_context, 80, printConfiguration);
             printer.setPageRegion(0, y, PAGE_WIDTH, pageHeight, Printer.PAGE_LEFT);
 
             //------------------
