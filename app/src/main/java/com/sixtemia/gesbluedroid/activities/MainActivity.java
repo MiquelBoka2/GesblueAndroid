@@ -148,6 +148,9 @@ public class MainActivity extends GesblueFragmentActivity {
 					case -1: //Matricula no correcta(possibilitat de denunciar)
 						changeViewMultable();
 						break;
+					case -3: //Vehicle ja denunciat
+						changeViewJaDenunciat();
+						break;
 					case -2: //Error de comprovació
 					default:
 						Utils.showDatamanagerError(mContext, JsoapError.OTHER_ERROR);
@@ -164,14 +167,15 @@ public class MainActivity extends GesblueFragmentActivity {
 				mBinding.viewSwitcherComprovaAnim.showNext();
 				mBinding.editTextMatricula.setEnabled(true);
 
-				Utils.showDatamanagerError(mContext, error);
+				//Utils.showDatamanagerError(mContext, error);
 
-				changeViewMultable();
+				changeViewNoComprovat();
 			}
 		});
 	}
 
 	private void changeViewNoMultable() {
+		mBinding.tvEstacionamentCorrecte.setText(R.string.estacionament_correcte);
 		mBinding.tvEstacionamentCorrecte.setVisibility(View.VISIBLE);
 
 		mBinding.separator.setVisibility(View.VISIBLE);
@@ -179,7 +183,37 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.viewSwitcherButton.showNext();
 	}
 
+	private void changeViewJaDenunciat() {
+		mBinding.tvEstacionamentCorrecte.setText(R.string.vehicle_ja_denunciat);
+		mBinding.tvEstacionamentCorrecte.setVisibility(View.VISIBLE);
+
+		mBinding.buttonDenunciar.setVisibility(View.VISIBLE);
+		mBinding.buttonNoDenunciar.setVisibility(View.VISIBLE);
+
+		mBinding.separator.setVisibility(View.VISIBLE);
+
+		mBinding.textViewMatricula.setEnabled(false);
+		mBinding.editTextMatricula.setEnabled(false);
+		mBinding.buttonComprovar.setEnabled(false);
+	}
+
 	private void changeViewMultable() {
+
+		mBinding.textViewEstacionamentIncorrecte.setText(R.string.estacionament_incorrecte);
+		mBinding.textViewEstacionamentIncorrecte.setVisibility(View.VISIBLE);
+
+		mBinding.buttonDenunciar.setVisibility(View.VISIBLE);
+		mBinding.buttonNoDenunciar.setVisibility(View.VISIBLE);
+
+		mBinding.separator.setVisibility(View.VISIBLE);
+
+		mBinding.textViewMatricula.setEnabled(false);
+		mBinding.editTextMatricula.setEnabled(false);
+		mBinding.buttonComprovar.setEnabled(false);
+	}
+	private void changeViewNoComprovat() {
+		mBinding.textViewEstacionamentIncorrecte.setText(R.string.estacionament_sense_internet);
+
 		mBinding.textViewEstacionamentIncorrecte.setVisibility(View.VISIBLE);
 
 		mBinding.buttonDenunciar.setVisibility(View.VISIBLE);

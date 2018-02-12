@@ -26,7 +26,9 @@
 	<string name="atencio">Atención</string>
 
 	<string name="estacionament_incorrecte">ESTACIONAMIENTO INCORRECTO</string>
+	<string name="estacionament_sense_internet">SIN INTERNET. MATRICULA NO COMPROBADA</string>
 	<string name="estacionament_correcte">ESTACIONAMIENTO CORRECTO</string>
+	<string name="vehicle_ja_denunciat">VEHICULO YA DENUNCIADO HOY</string>
 	<string name="noDenunciar">NO DENUNCIAR</string>
 	<string name="denunciar">DENUNCIAR</string>
 	<string name="matricula">MATRÍCULA</string>
