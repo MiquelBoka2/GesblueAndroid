@@ -11,4 +11,6 @@ public class DenunciaHelper extends SimpleHelper {
 	public Class getModel() {
 		return Model_Denuncia.class;
 	}
+
+
 }

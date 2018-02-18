@@ -149,7 +149,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
+		inflater.inflate(R.menu.login, menu);
 		this.menu = menu;
 
 		String menuTitle = "";

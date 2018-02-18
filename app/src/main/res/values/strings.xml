@@ -2,7 +2,6 @@
 	<string name="app_name">Gesblue</string>
 
 
-
 	<!-- Activity names -->
 	<string name="loginActivity_label">Login</string>
 	<string name="formulariActivity_label">Sanció</string>
@@ -207,6 +206,8 @@ secretari/a de l\'Ajuntament.</string>
 
 	<string name="printer_disconnected">Impresora desconnectada</string>
 	<string name="tanca_concessio">Tancar Concessió</string>
+	<string name="recuperar_denuncia">Recuperar Denuncia</string>
+	<string name="buscar">Buscar</string>
 
 
 </resources>

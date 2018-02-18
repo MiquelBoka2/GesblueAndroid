@@ -16,9 +16,9 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 
 import static com.sixtemia.gesbluedroid.activities.FormulariActivity.createCalendar;
-import static com.sixtemia.gesbluedroid.activities.FormulariActivity.createCalendarCount;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getEmisora;
 
 /**
@@ -32,6 +32,7 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 	private Boolean isFirstTime;
 	private PrintListener mListener;
 	private Exception exception;
+	private Date dataCreacio;
 
 	public interface PrintListener {
 		void onFinish(Exception ex, boolean isFirstTime);
@@ -39,13 +40,14 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 	}
 
 
-	public PrintAsyncTask(Printer _printer, Context _context, Sancio _sancio, String _numeroButlleta,boolean _isFirstTime, PrintListener _listener) {
+	public PrintAsyncTask(Printer _printer, Context _context, Sancio _sancio, String _numeroButlleta, Date _fecha, boolean _isFirstTime, PrintListener _listener) {
 		mPrinter = _printer;
 		mContext = _context;
 		sancio = _sancio;
 		numeroButlleta = _numeroButlleta;
 		isFirstTime = _isFirstTime;
 		mListener = _listener;
+		dataCreacio = _fecha;
 	}
 
 	@Override
@@ -70,6 +72,7 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 						if(sancio.getModelMarca() != null && !TextUtils.isEmpty(sancio.getModelMarca().getImatgemarca())) ticketConfiguration = ticketConfiguration.setLogoCotxe(Picasso.with(mContext).load(sancio.getModelMarca().getImatgemarca()).get());
 					} catch(IOException e) {
 						e.printStackTrace();
+						e.printStackTrace();
 					}
 					ticketConfiguration = ticketConfiguration.setVehicle(Utils.languageMultiplexer(sancio.getModelTipusVehicle().getNomtipusvehiclees(), sancio.getModelTipusVehicle().getNomtipusvehiclecat()))
 					.setMarcaModel(sancio.getModelMarca().getImatgemarca(), sancio.getModelMarca().getNommarca() + " " + sancio.getModelModel().getNommodel())
@@ -81,6 +84,8 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 					.setDte(Float.parseFloat(sancio.getModelInfraccio().getImporte())/2)
 					.setAgent(Long.toString(PreferencesGesblue.getCodiAgent(mContext)));
 
+					ticketConfiguration.setDataCreacio(dataCreacio);
+
 					if(PreferencesGesblue.getCodiBarresServiCaixa(mContext)) {
 						ticketConfiguration.setCodiBarresServiCaixa(generarServiCaixa());
 						ticketConfiguration
@@ -90,15 +95,34 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
                             .setIdentificacio(PreferencesGesblue.getIdentificacio(mContext))
                             .setImpDte(Float.parseFloat(PreferencesGesblue.getImpDte(mContext))/100);
 					}
-					ticketConfiguration
-					.setDataLimitPagament(createCalendar(35))
+					Calendar calendar = Calendar.getInstance();
+					Calendar calendar1 = Calendar.getInstance();
+					Calendar calendar2 = Calendar.getInstance();
+
+					calendar.setTime((Date)dataCreacio);
+					calendar.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
+					calendar.add(Calendar.DATE, 35);
+
+
+			calendar1.setTime((Date)dataCreacio);
+			calendar1.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
+			calendar1.add(Calendar.DATE, Integer.parseInt(sancio.getModelInfraccio().getTempsanulacio()));
+
+
+			calendar2.setTime((Date)dataCreacio);
+			calendar2.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
+			calendar2.add(Calendar.DATE, 35);
+
+
+			ticketConfiguration
+					.setDataLimitPagament(calendar)
 					.setDataAnulacioArray(new DataAnulacio[]{
 											new DataAnulacio(
 												Float.parseFloat(sancio.getModelInfraccio().getAnulacio()),
-												createCalendar(Integer.parseInt(sancio.getModelInfraccio().getTempsanulacio()))),
+													calendar1),
 											new DataAnulacio(
 												Float.parseFloat(sancio.getModelInfraccio().getAnulacio2()),
-												createCalendar(Integer.parseInt(sancio.getModelInfraccio().getTempsanulacio2())))});
+													calendar2)});
 
 					if(PreferencesGesblue.getCodiBarresVisible(mContext)) {
 						ticketConfiguration.setCodiBarres(numeroButlleta);
@@ -153,7 +177,12 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 		//Año de la fecha límite (último dígito)
 		identificacion += getLastDigitDataLimit();
 		//Fecha juliana límite de pago //TODO CANVIAR PER UN DINÀMIC!
-		String limit = String.valueOf(convertToJulian(createCalendarCount(35)));
+		Calendar calendar = Calendar.getInstance();
+
+		calendar.setTime((Date)dataCreacio);
+		//calendar.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
+		calendar.add(Calendar.DATE, 35);
+		String limit = String.valueOf(convertToJulian(calendar));
 		while(limit.length() < 3) {
 			limit = 0 + limit;
 		}
@@ -211,8 +240,12 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 	}
 
 	private int getLastDigitDataLimit() {
+		Calendar calendar = Calendar.getInstance();
 
-		int year = createCalendar(20).get(Calendar.YEAR);
+		calendar.setTime((Date)dataCreacio);
+		//calendar.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
+		calendar.add(Calendar.DATE, 35);
+		int year = calendar.get(Calendar.YEAR);
 
 		return year % 10;
 	}
@@ -245,6 +278,7 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 
 	private int getEjercicioDevengo() {
 		Calendar c = Calendar.getInstance();
+		c.setTime((Date)dataCreacio);
 		int any = c.get(Calendar.YEAR);
 		return (any % 100);
 	}

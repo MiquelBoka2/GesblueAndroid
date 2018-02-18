@@ -1,9 +1,14 @@
 package com.sixtemia.gesbluedroid.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -30,6 +35,7 @@ import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 public class MainActivity extends GesblueFragmentActivity {
 
 	private ActivityMainBinding mBinding;
+	private Menu menu;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +123,34 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 			mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
+
+		}
+	}
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		this.menu = menu;
+
+		String menuTitle = "";
+		try {
+			PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+			menuTitle = pInfo.versionName;
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		menu.findItem(R.id.versionNumber).setTitle(menuTitle);
+		return true;
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+			case R.id.buttonRecuperarDenuncia:
+				Intent intent = new Intent(mContext, RecuperarDenunciaActivity.class);
+				startActivity(intent);
+
+			default:
+				return true;
 
 		}
 	}

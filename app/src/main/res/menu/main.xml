@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/buttonTancaConcessio"
+        android:id="@+id/buttonRecuperarDenuncia"
         android:orderInCategory="100"
-        android:title="@string/tanca_concessio"
+        android:title="@string/recuperar_denuncia"
         app:showAsAction="never" />
     <item
-    android:id="@+id/space1"
+    android:id="@+id/space2"
     android:orderInCategory="100"
     android:title=""
     app:showAsAction="never" />

@@ -193,5 +193,7 @@ El/la secretario/a del Ayuntamiento.</string>
 
 	<string name="printer_disconnected">Impresora desconectada</string>
     <string name="tanca_concessio">Cerrar Concesión</string>
+	<string name="recuperar_denuncia">Recuperar Denuncia</string>
+	<string name="buscar">Buscar</string>
 
 </resources>
