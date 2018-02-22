@@ -99,7 +99,7 @@ public class TicketPrinter {
             // Dades Butlleta
             //------------------
             //
-            Date date = Calendar.getInstance().getTime();
+            Date date = printConfiguration.getDataCreacio();//Calendar.getInstance().getTime();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
             Cela[] dadesButlletaArray  = new Cela[]{
@@ -253,7 +253,7 @@ public class TicketPrinter {
                         if(dataAnulacio.getImport() != 0 && dataAnulacio.getData() != null) {
 
                             Calendar now = Calendar.getInstance();
-
+                            now.setTime(printConfiguration.getDataCreacio());
                             Calendar tmp = (Calendar) now.clone();
                             tmp.add(Calendar.MINUTE, 1440);
                             SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yy HH:mm");

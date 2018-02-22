@@ -2,6 +2,8 @@ package com.sixtemia.gesbluedroid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.multidex.MultiDexApplication;
@@ -108,10 +110,16 @@ public class GesblueApplication extends MultiDexApplication {
 		@Override
 		public void run() {
       /* do what you need to do */
-			enviaDenuncia();
-			//enviaLog();
-			//new FTPUpload().execute();
-			pujaFoto();
+			ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+			if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+					connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+				//we are connected to a network
+
+				enviaDenuncia();
+				//enviaLog();
+				//new FTPUpload().execute();
+				pujaFoto();
+			}
       /* and here comes the "trick" */
 			handler.postDelayed(this, 120000);
 		}

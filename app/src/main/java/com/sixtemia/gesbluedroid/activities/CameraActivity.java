@@ -136,7 +136,7 @@ public class CameraActivity extends GesblueFragmentActivity {
 			String terminal = getTerminal(mContext);
 
 			int comptadorDenuncia = PreferencesGesblue.getComptadorDenuncia(getApplicationContext())+1;
-			PreferencesGesblue.saveComptadorDenuncia(mContext, comptadorDenuncia);
+			//PreferencesGesblue.saveComptadorDenuncia(mContext, comptadorDenuncia);
 
 			int control = getControl(mContext);
 

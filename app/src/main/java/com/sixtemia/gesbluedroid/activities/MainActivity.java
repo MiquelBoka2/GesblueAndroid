@@ -117,6 +117,11 @@ public class MainActivity extends GesblueFragmentActivity {
 	}
 
 	@Override
+	protected void onResume(){
+		super.onResume();
+		mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
+	}
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
