@@ -1,13 +1,10 @@
 package com.sixtemia.gesbluedroid.customstuff.ftp;
 
-import android.os.Handler;
-import android.os.Looper;
-
 /**
  * Created by rubengonzalez on 10/10/16.
  */
 public abstract class FTPListener {
-	private Handler mHandler;
+	/*private Handler mHandler;
 
 	public FTPListener() {
 		mHandler = new Handler(Looper.getMainLooper());
@@ -79,5 +76,5 @@ public abstract class FTPListener {
 
 	public abstract void onUploadComplete();
 
-	public abstract void onConnectionError(Exception ex);
+	public abstract void onConnectionError(Exception ex);*/
 }

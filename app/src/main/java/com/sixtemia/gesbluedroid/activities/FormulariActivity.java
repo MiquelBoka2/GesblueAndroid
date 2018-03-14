@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -34,7 +35,6 @@ import com.sixtemia.gesbluedroid.activities.passosformulari.Pas6CarrerActivity;
 import com.sixtemia.gesbluedroid.activities.passosformulari.Pas7NumeroActivity;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.customstuff.dialogs.DeviceListActivity;
-import com.sixtemia.gesbluedroid.customstuff.ftp.GBFTP;
 import com.sixtemia.gesbluedroid.databinding.ActivityFormulariBinding;
 import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
@@ -45,6 +45,7 @@ import com.sixtemia.gesbluedroid.network.PrinterServer;
 import com.sixtemia.gesbluedroid.network.PrinterServerListener;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -54,6 +55,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.GONE;
@@ -68,7 +70,10 @@ import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getTerminal;
 
 public class FormulariActivity extends GesblueFragmentActivity implements View.OnClickListener{
 
+	public static final String INTENT_RECUPERADA = "recuperada";
 	public static final String INTENT_SANCIO = "sancio";
+	public static final String INTENT_NUM_DENUNCIA = "numDenuncia";
+	public static final String INTENT_DATA_CREACIO = "dataCreacio";
 
 	private ActivityFormulariBinding mBinding;
 	private Sancio sancio;
@@ -106,6 +111,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private boolean denunciaSent = false;
 	private String dataInfraccio = "";
 	private String numeroTiquet = "";
+	private boolean recuperada = false;
+	private String numDenuncia = "";
+	private Date dataCreacio;
 
 	private ProgressDialog mDialog;
 
@@ -164,20 +172,45 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		disableViews();
 		initOnClicks();
 	}
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
 
+
+			borra(foto1);
+
+			borra(foto2);
+
+			borra(foto3);
+
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 	private void getFromIntent() {
 		Intent intent = getIntent();
 
 		sancio = intent.getParcelableExtra(INTENT_SANCIO);
+
+		if(intent.getBooleanExtra(INTENT_RECUPERADA,false)) {
+			recuperada = true;
+		}
+		if(!isEmpty(intent.getStringExtra(INTENT_NUM_DENUNCIA))) {
+			numDenuncia = intent.getStringExtra(INTENT_NUM_DENUNCIA);
+		}
+		if(recuperada==true){
+			dataCreacio =(Date)intent.getSerializableExtra(INTENT_DATA_CREACIO);
+		}
+		else{
+
+			Model_Carrer carrer = DatabaseAPI.getCarrer(mContext, String.valueOf(PreferencesGesblue.getCodiCarrer(mContext)));
+
+			sancio.setModelCarrer(carrer);
+		}
 		if(!isEmpty(intent.getStringExtra(KEY_DATA_INFRACCIO))) {
 			dataInfraccio = intent.getStringExtra(KEY_DATA_INFRACCIO);
 		}
 		if(!isEmpty(intent.getStringExtra(KEY_NUMERO_TIQUET))) {
 			numeroTiquet = intent.getStringExtra(KEY_NUMERO_TIQUET);
 		}
-		Model_Carrer carrer = DatabaseAPI.getCarrer(mContext, String.valueOf(PreferencesGesblue.getCodiCarrer(mContext)));
-
-		sancio.setModelCarrer(carrer);
 		if(intent.getBooleanExtra(KEY_VINC_DE_MATRICULA, false)) {
 			intent = new Intent(mContext, Pas1TipusActivity.class);
 			intent.putExtra(INTENT_SANCIO, sancio);
@@ -195,6 +228,57 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		fillSancio();
 		fillCarrer();
 		fillNum();
+		if(recuperada==true) {
+			File f = new File("storage/emulated/0/Sixtemia/upload/done");
+			if (f.exists() && f.isDirectory()){
+				final Pattern p = Pattern.compile(".*-"+numDenuncia+"1.jpg"); // I know I really have a stupid mistake on the regex;
+
+				File[] flists = f.listFiles(new FileFilter(){
+					@Override
+					public boolean accept(File file) {
+						return p.matcher(file.getName()).matches();
+					}
+				});
+				if(flists.length>0){
+					File f1 = flists[0];
+					pinta("storage/emulated/0/Sixtemia/upload/done/"+f1.getName(), mBinding.imageViewA);
+					img1IsActive = true;
+					foto1 = "storage/emulated/0/Sixtemia/upload/done/"+f1.getName();
+				}
+
+				final Pattern p2 = Pattern.compile(".*-"+numDenuncia+"2.jpg"); // I know I really have a stupid mistake on the regex;
+
+				File[] flists2 = f.listFiles(new FileFilter(){
+					@Override
+					public boolean accept(File file) {
+						return p2.matcher(file.getName()).matches();
+					}
+				});
+				if(flists2.length>0){
+					File f2 = flists2[0];
+					pinta("storage/emulated/0/Sixtemia/upload/done/"+f2.getName(), mBinding.imageViewB);
+					img2IsActive = true;
+					foto2 = "storage/emulated/0/Sixtemia/upload/done/"+f2.getName();
+				}
+
+
+				final Pattern p3 = Pattern.compile(".*-"+numDenuncia+"3.jpg"); // I know I really have a stupid mistake on the regex;
+
+				File[] flists3 = f.listFiles(new FileFilter(){
+					@Override
+					public boolean accept(File file) {
+						return p3.matcher(file.getName()).matches();
+					}
+				});
+				if(flists3.length>0){
+					File f3 = flists3[0];
+					pinta("storage/emulated/0/Sixtemia/upload/done/"+f3.getName(), mBinding.imageViewC);
+					img3IsActive = true;
+					foto3 = "storage/emulated/0/Sixtemia/upload/done/"+f3.getName();
+				}
+
+			}
+		}
 
 	}
 
@@ -340,78 +424,135 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	@Override
 	public void onClick(View v) {
 		Intent intent;
+		int totalfotos;
 		switch (v.getId()) {
 			case R.id.tvTipus:
-				startActivityFromIntent(new Intent(mContext, Pas1TipusActivity.class));
+				if(!recuperada) {
+					startActivityFromIntent(new Intent(mContext, Pas1TipusActivity.class));
+				}
 				break;
 			case R.id.tvMarca:
-				startActivityFromIntent(new Intent(mContext, Pas2MarcaActivity.class));
+				if(!recuperada) {
+					startActivityFromIntent(new Intent(mContext, Pas2MarcaActivity.class));
+				}
 				break;
 			case R.id.tvModel:
-				startActivityFromIntent(new Intent(mContext, Pas3ModelActivity.class));
+				if(!recuperada) {
+					startActivityFromIntent(new Intent(mContext, Pas3ModelActivity.class));
+				}
 				break;
 			case R.id.tvColor:
-				startActivityFromIntent(new Intent(mContext, Pas4ColorActivity.class));
+				if(!recuperada) {
+					startActivityFromIntent(new Intent(mContext, Pas4ColorActivity.class));
+				}
 				break;
 			case R.id.tvInfraccio:
-				startActivityFromIntent(new Intent(mContext, Pas5InfraccioActivity.class));
+				if(!recuperada) {
+					startActivityFromIntent(new Intent(mContext, Pas5InfraccioActivity.class));
+				}
 				break;
 			case R.id.tvCarrer:
-				startActivityFromIntent(new Intent(mContext, Pas6CarrerActivity.class));
+				if(!recuperada) {
+					startActivityFromIntent(new Intent(mContext, Pas6CarrerActivity.class));
+				}
 				break;
 			case R.id.tvNum:
-				startActivityFromIntent(new Intent(mContext, Pas7NumeroActivity.class));
+				if(!recuperada) {
+					startActivityFromIntent(new Intent(mContext, Pas7NumeroActivity.class));
+				}
 				break;
 			case R.id.btnCamera:
-				intent = new Intent(mContext, CameraActivity.class);
+				if(!recuperada) {
+					intent = new Intent(mContext, CameraActivity.class);
 
-				if(isEmpty(foto1)) {
-					intent.putExtra("position", "1");
-					startActivityForResult(intent, RESULT_FOTO_1);
-				} else if(isEmpty(foto2)) {
-					intent.putExtra("position", "2");
-					startActivityForResult(intent, RESULT_FOTO_2);
-				} else if(isEmpty(foto3)) {
-					intent.putExtra("position", "3");
-					startActivityForResult(intent, RESULT_FOTO_3);
-				} else {
-					intent.putExtra("position", "1");
-					startActivityForResult(intent, RESULT_FOTO_1);
+					if (isEmpty(foto1)) {
+						intent.putExtra("position", "1");
+						startActivityForResult(intent, RESULT_FOTO_1);
+					} else if (isEmpty(foto2)) {
+						intent.putExtra("position", "2");
+						startActivityForResult(intent, RESULT_FOTO_2);
+					} else if (isEmpty(foto3)) {
+						intent.putExtra("position", "3");
+						startActivityForResult(intent, RESULT_FOTO_3);
+					} else {
+						intent.putExtra("position", "1");
+						startActivityForResult(intent, RESULT_FOTO_1);
+					}
 				}
 				break;
 			case R.id.buttonAccepta:
-				if(checkCamps()) {
-					print();
-				} else {
-					Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
+				totalfotos=0;
+				if((foto1!=null)&&(foto1!="")) {
+					totalfotos++;
+				}
+				if((foto2!=null)&&(foto2!="")) {
+					totalfotos++;
+				}
+				if((foto3!=null)&&(foto3!="")) {
+					totalfotos++;
+				}
+
+				if((totalfotos<2)&&(recuperada==false)){
+					Utils.showCustomDialog(mContext, R.string.atencio, R.string.fotosObligatories);
+				}
+				else {
+					if (checkCamps()) {
+						print();
+					} else {
+						Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
+					}
 				}
 				break;
 			case R.id.buttonPrint:
-				if(checkCamps()) {
-					print();
-				} else {
-					Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
+				totalfotos=0;
+				if((foto1!=null)&&(foto1!="")) {
+					totalfotos++;
+				}
+				if((foto2!=null)&&(foto2!="")) {
+					totalfotos++;
+				}
+				if((foto3!=null)&&(foto3!="")) {
+					totalfotos++;
+				}
+
+				if((totalfotos<2)&&(recuperada==false)){
+					Utils.showCustomDialog(mContext, R.string.atencio, R.string.fotosObligatories);
+				}
+				else {
+					if (checkCamps()) {
+						print();
+					} else {
+						Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
+					}
 				}
 				break;
 			case R.id.imageViewA:
-				if(img1IsActive) {
+
+				if (img1IsActive) {
 					confirmPicture(mBinding.imageViewA, foto1, new Runnable() {
 						@Override
 						public void run() {
+
 							borra(foto1);
 							foto1 = null;
 							img1IsActive = false;
 							checkBotoCamera();
+
 						}
 					});
 				} else {
-					intent = new Intent(mContext, CameraActivity.class);
-					intent.putExtra("position", "1");
-					startActivityForResult(intent, RESULT_FOTO_1);
+
+					if(!recuperada) {
+						intent = new Intent(mContext, CameraActivity.class);
+						intent.putExtra("position", "1");
+						startActivityForResult(intent, RESULT_FOTO_1);
+					}
 				}
+
 				break;
 			case R.id.imageViewB:
-				if(img2IsActive) {
+
+				if (img2IsActive) {
 					confirmPicture(mBinding.imageViewB, foto2, new Runnable() {
 						@Override
 						public void run() {
@@ -422,28 +563,32 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						}
 					});
 				} else {
-					intent = new Intent(mContext, CameraActivity.class);
-					intent.putExtra("position", "2");
-					startActivityForResult(intent, RESULT_FOTO_2);
+					if(!recuperada) {
+						intent = new Intent(mContext, CameraActivity.class);
+						intent.putExtra("position", "2");
+						startActivityForResult(intent, RESULT_FOTO_2);
+					}
 				}
 
 				break;
 			case R.id.imageViewC:
-				if(img3IsActive) {
-					confirmPicture(mBinding.imageViewC, foto3, new Runnable() {
-						@Override
-						public void run() {
-							borra(foto3);
-							foto3 = null;
-							img3IsActive = false;
-							checkBotoCamera();
+					if (img3IsActive) {
+						confirmPicture(mBinding.imageViewC, foto3, new Runnable() {
+							@Override
+							public void run() {
+								borra(foto3);
+								foto3 = null;
+								img3IsActive = false;
+								checkBotoCamera();
+							}
+						});
+					} else {
+						if(!recuperada) {
+							intent = new Intent(mContext, CameraActivity.class);
+							intent.putExtra("position", "3");
+							startActivityForResult(intent, RESULT_FOTO_3);
 						}
-					});
-				} else {
-					intent = new Intent(mContext, CameraActivity.class);
-					intent.putExtra("position", "3");
-					startActivityForResult(intent, RESULT_FOTO_3);
-				}
+					}
 
 				break;
 
@@ -483,6 +628,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private void link() {
 		if(!isEmpty(PreferencesGesblue.getAddressBluetoothPrinter(mContext))) {
 			establishBluetoothConnection(PreferencesGesblue.getAddressBluetoothPrinter(mContext));
+
 		} else {
 			waitForConnection();
 		}
@@ -583,6 +729,14 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 	private void confirmPicture(final ImageView iv, String path, final Runnable onDelete) {
 		try {
+			if(!recuperada) {
+				mBinding.repetir.setVisibility(VISIBLE);
+			}
+			else{
+				mBinding.repetir.setVisibility(INVISIBLE);
+
+			}
+
 			Glide.with(mContext).load(path).asBitmap().into(mBinding.preview);
 			mBinding.repetir.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -639,11 +793,18 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		DLog("Començo a fer la crida!!!");
 		//getDialog(R.string.enviantDenuncia);
 
-
-
-		Date date = new Date();
 		Model_Denuncia denuncia = new Model_Denuncia();
-		denuncia.setCodidenuncia(generateCodiButlleta());
+		Date date;
+		if(recuperada==false) {
+			date = new Date();
+			denuncia.setCodidenuncia(generateCodiButlleta());
+		}
+		else{
+			date = dataCreacio;
+			denuncia.setCodidenuncia(numDenuncia);
+		}
+
+
 		denuncia.setFechacreacio(date);
 		denuncia.setAgent(PreferencesGesblue.getIdAgent(mContext));
 		denuncia.setAdrecacarrer(sancio.getModelCarrer().getCodicarrer());
@@ -674,8 +835,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 		arrayDenuncies.add(denuncia);
 
-		DatabaseAPI.insertDenuncies(mContext,arrayDenuncies);
-		sendPhotos();
+		if(!recuperada) {
+
+			DatabaseAPI.insertDenuncies(mContext,arrayDenuncies);
+			sendPhotos();
+		}
 		Utils.showCustomDialog(mContext, R.string.atencio, R.string.butlletaEnviadaOk, R.string.butlletaEnviadaOk_acceptar, R.string.butlletaEnviadaOk_cancelar, new DialogInterface.OnClickListener()
 		{
 			@Override
@@ -686,7 +850,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		}, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				GBFTP.close();
+				//GBFTP.close();
 				goToMain();
 			}
 		}, false);
@@ -832,7 +996,17 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			PrintAsyncTask p = new PrintAsyncTask(mPrinter, mContext, sancio, generateCodiButlleta(), isFirstTime, new PrintAsyncTask.PrintListener() {
+			String codibutlleta;
+			Date fecha;
+			if(recuperada){
+				codibutlleta=numDenuncia;
+				fecha = dataCreacio;
+			}
+			else{
+				codibutlleta=generateCodiButlleta();
+				fecha = new Date();
+			}
+			PrintAsyncTask p = new PrintAsyncTask(mPrinter, mContext, sancio, codibutlleta, fecha, isFirstTime, new PrintAsyncTask.PrintListener() {
 				@Override
 				public void onFinish(Exception ex, boolean isFirstTime) {
 					if(null == ex) {
@@ -1131,11 +1305,6 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			mPrinter = new com.datecs.api.printer.Printer(mPrinterChannel.getInputStream(), mPrinterChannel.getOutputStream());
 			isLinked = true;
 
-			if(checkCamps()) {
-				print();
-			} else {
-				Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
-			}
 		} else {
 			Log.i(LOG_TAG, "Protocol mode is disabled");
 
@@ -1236,6 +1405,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				} finally {
 					DLog("Tancant dialeg a establishBluetoothConnection");
 					dismissDialog();
+
+					printFinal(true);
 				}
 			}
 		});

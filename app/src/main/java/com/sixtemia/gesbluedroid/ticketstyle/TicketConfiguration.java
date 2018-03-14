@@ -3,6 +3,7 @@ package com.sixtemia.gesbluedroid.ticketstyle;
 import android.graphics.Bitmap;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -56,6 +57,8 @@ public class TicketConfiguration {
     private String textpeu;
 
     private String qr;
+
+    private Date dataCreacio;
 
     public TicketConfiguration() {
     }
@@ -350,5 +353,11 @@ public class TicketConfiguration {
         return this;
     }
 
+    public Date getDataCreacio() {
+        return dataCreacio;
+    }
 
+    public void setDataCreacio(Date dataCreacio) {
+        this.dataCreacio = dataCreacio;
+    }
 }

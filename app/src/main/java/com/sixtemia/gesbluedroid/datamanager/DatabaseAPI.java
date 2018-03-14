@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.sixtemia.gesbluedroid.datamanager.database.executors.OperationExecutorHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.executors.TransactionAsyncTask;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.AccioPosicioHelper;
+import com.sixtemia.gesbluedroid.datamanager.database.helpers.AgentHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.CarrerHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.ColorHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.DenunciaHelper;
@@ -18,6 +19,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.helpers.TerminalHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.TipusAnulacioHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.TipusVehicleHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_AccioPosicio;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Agent;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Color;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Denuncia;
@@ -261,6 +263,46 @@ public class DatabaseAPI {
 		return executeDatabaseOperation(c, new LogHelper().deleteWhere(c, "codilog", log));
 	}
 	/** /Log **/
+
+
+	/** Agent **/
+	private static BasicDBResult _getAgents(Context c) {
+		return executeDatabaseOperation(c, new AgentHelper().getAllGroupById(c));
+	}
+
+	private static BasicDBResult _getAgent(Context c, String id) {
+		return executeDatabaseOperation(c, new AgentHelper().getField(c, Model_Agent.ID, id));
+	}
+	private static BasicDBResult _findAgent(Context c, String login, String password) {
+		String[] fields =  {"login","password"};
+		Object[] values = {login,password};
+		return executeDatabaseOperation(c, new AgentHelper().getFields(c, fields, values));
+	}
+
+	public static ArrayList<Model_Agent> getAgents(Context c) {
+		return (ArrayList<Model_Agent>) _getAgents(c).getArray();
+	}
+
+	public static Model_Agent getAgent(Context c, String id) {
+		return _getAgent(c, id).getFirst();
+	}
+
+	public static Model_Agent findAgent(Context c, String login,String password) {
+		return _findAgent(c, login, password).getFirst();
+	}
+
+	public static BasicDBResult insertAgents(Context c, List<Model_Agent> list) {
+		return executeDatabaseOperation(c, new AgentHelper().create(c, list));
+	}
+
+	public static BasicDBResult deleteAllAgents(Context c) {
+		return executeDatabaseOperation(c, new AgentHelper().deleteAll(c));
+	}
+
+	public static BasicDBResult deleteAgent(Context c, String codi) {
+		return executeDatabaseOperation(c, new AgentHelper().deleteWhere(c, "codiagent", codi));
+	}
+	/** /Agent **/
 
 	/** Marca **/
 	private static BasicDBResult _getMarques(Context c) {

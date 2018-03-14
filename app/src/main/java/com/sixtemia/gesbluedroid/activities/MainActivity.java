@@ -1,8 +1,14 @@
 package com.sixtemia.gesbluedroid.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -11,11 +17,15 @@ import com.sixtemia.gesbluedroid.Sancio;
 import com.sixtemia.gesbluedroid.activities.passosformulari.Pas6CarrerActivity;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.databinding.ActivityMainBinding;
+import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Agent;
 import com.sixtemia.gesbluedroid.datamanager.webservices.DatamanagerAPI;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.ComprovaMatriculaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.ComprovaMatriculaResponse;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
+
+import java.util.ArrayList;
 
 import pt.joaocruz04.lib.misc.JSoapCallback;
 import pt.joaocruz04.lib.misc.JsoapError;
@@ -25,6 +35,7 @@ import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 public class MainActivity extends GesblueFragmentActivity {
 
 	private ActivityMainBinding mBinding;
+	private Menu menu;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +108,19 @@ public class MainActivity extends GesblueFragmentActivity {
 				changeViewComprovarMatricula();
 			}
 		});
+
+
+		final ArrayList<Model_Agent> listLogs = DatabaseAPI.getAgents(mContext);
+
+		Log.d("Num agent locals",""+listLogs.size());
+
 	}
 
+	@Override
+	protected void onResume(){
+		super.onResume();
+		mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
+	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -106,6 +128,34 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 			mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
+
+		}
+	}
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		this.menu = menu;
+
+		String menuTitle = "";
+		try {
+			PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+			menuTitle = pInfo.versionName;
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		menu.findItem(R.id.versionNumber).setTitle(menuTitle);
+		return true;
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+			case R.id.buttonRecuperarDenuncia:
+				Intent intent = new Intent(mContext, RecuperarDenunciaActivity.class);
+				startActivity(intent);
+
+			default:
+				return true;
 
 		}
 	}
@@ -137,6 +187,9 @@ public class MainActivity extends GesblueFragmentActivity {
 					case -1: //Matricula no correcta(possibilitat de denunciar)
 						changeViewMultable();
 						break;
+					case -3: //Vehicle ja denunciat
+						changeViewJaDenunciat();
+						break;
 					case -2: //Error de comprovació
 					default:
 						Utils.showDatamanagerError(mContext, JsoapError.OTHER_ERROR);
@@ -153,14 +206,15 @@ public class MainActivity extends GesblueFragmentActivity {
 				mBinding.viewSwitcherComprovaAnim.showNext();
 				mBinding.editTextMatricula.setEnabled(true);
 
-				Utils.showDatamanagerError(mContext, error);
+				//Utils.showDatamanagerError(mContext, error);
 
-				changeViewMultable();
+				changeViewNoComprovat();
 			}
 		});
 	}
 
 	private void changeViewNoMultable() {
+		mBinding.tvEstacionamentCorrecte.setText(R.string.estacionament_correcte);
 		mBinding.tvEstacionamentCorrecte.setVisibility(View.VISIBLE);
 
 		mBinding.separator.setVisibility(View.VISIBLE);
@@ -168,7 +222,37 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.viewSwitcherButton.showNext();
 	}
 
+	private void changeViewJaDenunciat() {
+		mBinding.tvEstacionamentCorrecte.setText(R.string.vehicle_ja_denunciat);
+		mBinding.tvEstacionamentCorrecte.setVisibility(View.VISIBLE);
+
+		mBinding.buttonDenunciar.setVisibility(View.VISIBLE);
+		mBinding.buttonNoDenunciar.setVisibility(View.VISIBLE);
+
+		mBinding.separator.setVisibility(View.VISIBLE);
+
+		mBinding.textViewMatricula.setEnabled(false);
+		mBinding.editTextMatricula.setEnabled(false);
+		mBinding.buttonComprovar.setEnabled(false);
+	}
+
 	private void changeViewMultable() {
+
+		mBinding.textViewEstacionamentIncorrecte.setText(R.string.estacionament_incorrecte);
+		mBinding.textViewEstacionamentIncorrecte.setVisibility(View.VISIBLE);
+
+		mBinding.buttonDenunciar.setVisibility(View.VISIBLE);
+		mBinding.buttonNoDenunciar.setVisibility(View.VISIBLE);
+
+		mBinding.separator.setVisibility(View.VISIBLE);
+
+		mBinding.textViewMatricula.setEnabled(false);
+		mBinding.editTextMatricula.setEnabled(false);
+		mBinding.buttonComprovar.setEnabled(false);
+	}
+	private void changeViewNoComprovat() {
+		mBinding.textViewEstacionamentIncorrecte.setText(R.string.estacionament_sense_internet);
+
 		mBinding.textViewEstacionamentIncorrecte.setVisibility(View.VISIBLE);
 
 		mBinding.buttonDenunciar.setVisibility(View.VISIBLE);

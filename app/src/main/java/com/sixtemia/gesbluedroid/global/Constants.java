@@ -44,6 +44,7 @@ public class Constants {
         public static final String DADESBA_NOUTERMINAL_METHOD = "NouTerminalRequest";
         public static final String DADESBA_LOGIN_METHOD = "LoginRequest";
         public static final String DADESBA_TIPUSVEHICLE_METHOD = "TipusVehiclesRequest";
+        public static final String DADESBA_AGENTS_METHOD = "AgentsRequest";
         public static final String DADESBA_MARQUES_METHOD = "MarquesRequest";
         public static final String DADESBA_MODELS_METHOD = "ModelsRequest";
         public static final String DADESBA_COLORS_METHOD = "ColorsRequest";
@@ -54,6 +55,7 @@ public class Constants {
         public static final String OPERATIVA_COMPROVAMATRICULA_METHOD = "ComprovaMatriculaCarrerZona";
         public static final String OPERATIVA_NOVADENUNCIA_METHOD = "NovaDenuncia";
         public static final String OPERATIVA_NOULOG_METHOD = "NouLog";
+        public static final String OPERATIVA_PUJAFOTO_METHOD = "PujaFoto";
         public static final String OPERATIVA_POSICIO_METHOD = "Posicio";
         public static final String OPERATIVA_RECUPERADENUNCIA_METHOD = "RecuperaDenuncia";
         public static final String OPERATIVA_ESTABLIRCOMPTADORDENUNCIA_METHOD = "EstablirComptadorDenuncia";
@@ -64,6 +66,7 @@ public class Constants {
         public static final String DADESBA_NOUTERMINAL_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_NOUTERMINAL;
         public static final String DADESBA_LOGIN_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_LOGIN;
         public static final String DADESBA_TIPUSVEHICLES_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_TIPUSVEHICLES;
+        public static final String DADESBA_AGENTS_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_AGENTS;
         public static final String DADESBA_MARQUES_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_MARQUES;
         public static final String DADESBA_MODELS_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_MODELS;
         public static final String DADESBA_COLORS_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_COLORS;
@@ -74,6 +77,8 @@ public class Constants {
         public static final String OPERATIVA_COMPROVAMATRICULA_SOAPACTION = OPERATIVA_NAMESPACE + HASH + WSConstantsGB.REQUEST_COMPROVAMATRICULA;
         public static final String OPERATIVA_NOVADENUNCIA_SOAPACTION = OPERATIVA_NAMESPACE + HASH + WSConstantsGB.REQUEST_NOVADENUNCIA;
         public static final String OPERATIVA_NOULOG_SOAPACTION = OPERATIVA_NAMESPACE + HASH + WSConstantsGB.REQUEST_NOULOG;
+
+    public static final String OPERATIVA_PUJAFOTO_SOAPACTION = OPERATIVA_NAMESPACE + HASH + WSConstantsGB.REQUEST_PUJAFOTO;
         public static final String OPERATIVA_POSICIO_SOAPACTION = OPERATIVA_NAMESPACE + HASH + WSConstantsGB.REQUEST_POSICIO;
         public static final String OPERATIVA_RECUPERADENUNCIA_SOAPACTION = OPERATIVA_NAMESPACE + HASH + WSConstantsGB.REQUEST_RECUPERADENUNCIA;
         public static final String OPERATIVA_ESTABLIRCOMPTADORDENUNCIA_SOAPACTION = OPERATIVA_NAMESPACE + HASH + WSConstantsGB.REQUEST_ESTABLIRCOMPTADORDENUNCIA;

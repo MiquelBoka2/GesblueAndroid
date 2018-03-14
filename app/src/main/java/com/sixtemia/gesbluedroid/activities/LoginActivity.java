@@ -2,7 +2,11 @@ package com.sixtemia.gesbluedroid.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -16,6 +20,7 @@ import com.sixtemia.gesbluedroid.R;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.databinding.ActivityLoginBinding;
 import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Agent;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Color;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Infraccio;
@@ -25,6 +30,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Model;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_TipusVehicle;
 import com.sixtemia.gesbluedroid.datamanager.database.results.BasicDBResult;
 import com.sixtemia.gesbluedroid.datamanager.webservices.DatamanagerAPI;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.AgentsRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.CarrersRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.ColorsRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.InfraccionsRequest;
@@ -35,6 +41,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.TipusVehiclesRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.EstablirComptadorDenunciaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.RecuperaComptadorDenunciaRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.AgentsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.CarrersResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ColorsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.InfraccionsResponse;
@@ -69,6 +76,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	private ProgressDialog progress;
 
+	private Menu menu;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -131,6 +139,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 					if(isLoginConcessio) {
 						cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
 					} else {
+
 						cridaLogin(mBinding.editTextUsuari.getText().toString(), mBinding.editTextPassword.getText().toString(), TextUtils.isEmpty(concessio) ? 0 : Long.parseLong(concessio),PreferencesGesblue.getDataSync(mContext));
 					}
 				}
@@ -140,7 +149,17 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
+		inflater.inflate(R.menu.login, menu);
+		this.menu = menu;
+
+		String menuTitle = "";
+		try {
+			PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+			menuTitle = pInfo.versionName;
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		menu.findItem(R.id.versionNumber).setTitle(menuTitle);
 		return true;
 	}
 	@Override
@@ -159,6 +178,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 				mBinding.textViewLocalitzacioConcessio.setVisibility(View.GONE);
 				isLoginConcessio = false;
 
+				DatabaseAPI.deleteAllAgents(mContext);
 				DatabaseAPI.deleteAllMarques(mContext);
 				DatabaseAPI.deleteAllModels(mContext);
 				DatabaseAPI.deleteAllTipusVehicles(mContext);
@@ -295,103 +315,154 @@ public class LoginActivity extends GesblueFragmentActivity {
 		//mContext=null;
 		Long data =  Long.parseLong(PreferencesGesblue.getDataSync(mContext));
 
-
-		DatamanagerAPI.crida_Login(new LoginRequest(username, password, concessio, Utils.getDeviceId(mContext), Utils.getAndroidVersion(), Utils.getAppVersion(mContext), data), new JSoapCallback() {
-			@Override
-			public void onSuccess(String result) {
-				final LoginResponse response;
-				try {
-					response = DatamanagerAPI.parseJson(result, LoginResponse.class);
-				} catch (Exception ex) {
-					ELog(ex);
-					onError(PARSE_ERROR);
-					return;
-				}
-
-				showLoadingAnimButton(false);
-				enableEditTexts(true);
-
-				switch((int) response.getResultat()) {
-					case 0:
-
-						PreferencesGesblue.setCodiAgent(mContext, Long.parseLong(response.getCodiagent()));
-						PreferencesGesblue.saveIdAgent(mContext, response.getAgent());
-
-
-						Model_Log model_log = new Model_Log();
-						model_log.setFechalog("");
-						model_log.setConcessiolog(String.valueOf(concessio));
-						model_log.setIdagent(Integer.parseInt(response.getCodiagent()));
-						model_log.setCodiacciolog(1);//Login
-						model_log.setVersioapp(Utils.getAppVersion(mContext));
-						model_log.setInfo("");
-						model_log.setEnviat(0);
-
-						final ArrayList<Model_Log> arrayLogs = new ArrayList<Model_Log>();
-
-						arrayLogs.add(model_log);
-
-						DatabaseAPI.insertLogs(mContext,arrayLogs);
-
-						DatabaseAPI.insertLogs(mContext,arrayLogs);
-
-						DatabaseAPI.insertLogs(mContext,arrayLogs);
-
-						final ArrayList<Model_Log> listLogs = DatabaseAPI.getLogs(mContext);
-
-						Log.d("Num logs locals",""+listLogs.size());
-
-						if(isLoginConcessio) {
-							Intent intent = new Intent(mContext, MainActivity.class);
-							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-							startActivity(intent);
-
-						}
-						else {
-							String d = PreferencesGesblue.getDataSync(mContext);
-							sincronitzarTot(response, concessio, d);
-						}
-
-						break;
-					case -1: //Error de login
-						Utils.showCustomDatamanagerError(mContext, getString(R.string.errorLogin));
-						enableEditTexts(true);
-						if(progress != null && progress.isShowing()) progress.dismiss();
-						break;
-					case -2: //Terminal pendent
-						Utils.showCustomDatamanagerError(mContext, getString(R.string.terminalPendent));
-						enableEditTexts(true);
-						if(progress != null && progress.isShowing()) progress.dismiss();
-						break;
-					case -3: //Terminal denegat
-						Utils.showCustomDatamanagerError(mContext, getString(R.string.terminalDenegat));
-						enableEditTexts(true);
-						if(progress != null && progress.isShowing()) progress.dismiss();
-						break;
-					default:
-						Utils.showCustomDatamanagerError(mContext, getString(R.string.otherError));
-						enableEditTexts(true);
-						if(progress != null && progress.isShowing()) progress.dismiss();
-				}
-			}
-
-			@Override
-			public void onError(final int error) {
-				showLoadingAnimButton(false);
-				enableEditTexts(true);
-				if(isRunning()) {
+		boolean connected = false;
+		ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(mContext.CONNECTIVITY_SERVICE);
+		if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+				connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+			//we are connected to a network
+			DatamanagerAPI.crida_Login(new LoginRequest(username, password, concessio, Utils.getDeviceId(mContext), Utils.getAndroidVersion(), Utils.getAppVersion(mContext), data), new JSoapCallback() {
+				@Override
+				public void onSuccess(String result) {
+					final LoginResponse response;
 					try {
-						Utils.showDatamanagerError(mContext, error);
+						response = DatamanagerAPI.parseJson(result, LoginResponse.class);
 					} catch (Exception ex) {
 						ELog(ex);
+						onError(PARSE_ERROR);
+						return;
+					}
+
+					showLoadingAnimButton(false);
+					enableEditTexts(true);
+
+					switch((int) response.getResultat()) {
+						case 0:
+
+							PreferencesGesblue.setCodiAgent(mContext, Long.parseLong(response.getCodiagent()));
+							PreferencesGesblue.saveIdAgent(mContext, response.getAgent());
+
+
+							Model_Log model_log = new Model_Log();
+							model_log.setFechalog("");
+							model_log.setConcessiolog(String.valueOf(concessio));
+							model_log.setIdagent(Integer.parseInt(response.getCodiagent()));
+							model_log.setCodiacciolog(1);//Login
+							model_log.setVersioapp(Utils.getAppVersion(mContext));
+							model_log.setInfo("");
+							model_log.setEnviat(0);
+
+							final ArrayList<Model_Log> arrayLogs = new ArrayList<Model_Log>();
+
+							arrayLogs.add(model_log);
+
+							DatabaseAPI.insertLogs(mContext,arrayLogs);
+
+							DatabaseAPI.insertLogs(mContext,arrayLogs);
+
+							DatabaseAPI.insertLogs(mContext,arrayLogs);
+
+							final ArrayList<Model_Log> listLogs = DatabaseAPI.getLogs(mContext);
+
+							Log.d("Num logs locals",""+listLogs.size());
+
+							if(isLoginConcessio) {
+								Intent intent = new Intent(mContext, MainActivity.class);
+								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+								startActivity(intent);
+
+							}
+							else {
+								String d = PreferencesGesblue.getDataSync(mContext);
+								sincronitzarTot(response, concessio, d);
+							}
+
+							break;
+						case -1: //Error de login
+							Utils.showCustomDatamanagerError(mContext, getString(R.string.errorLogin));
+							enableEditTexts(true);
+							if(progress != null && progress.isShowing()) progress.dismiss();
+							break;
+						case -2: //Terminal pendent
+							Utils.showCustomDatamanagerError(mContext, getString(R.string.terminalPendent));
+							enableEditTexts(true);
+							if(progress != null && progress.isShowing()) progress.dismiss();
+							break;
+						case -3: //Terminal denegat
+							Utils.showCustomDatamanagerError(mContext, getString(R.string.terminalDenegat));
+							enableEditTexts(true);
+							if(progress != null && progress.isShowing()) progress.dismiss();
+							break;
+						default:
+							Utils.showCustomDatamanagerError(mContext, getString(R.string.otherError));
+							enableEditTexts(true);
+							if(progress != null && progress.isShowing()) progress.dismiss();
 					}
 				}
+
+				@Override
+				public void onError(final int error) {
+					showLoadingAnimButton(false);
+					enableEditTexts(true);
+					if(isRunning()) {
+						try {
+							Utils.showDatamanagerError(mContext, error);
+						} catch (Exception ex) {
+							ELog(ex);
+						}
+					}
+				}
+			});
+		}
+		else{
+			//Not Connected
+			Model_Agent agent = DatabaseAPI.findAgent(mContext,username,password);
+			if(agent==null){
+				Utils.showCustomDatamanagerError(mContext, getString(R.string.errorLogin));
+				enableEditTexts(true);
+				progress.dismiss();
+				showLoadingAnimButton(false);
 			}
-		});
+			else{
+				PreferencesGesblue.setCodiAgent(mContext, Long.parseLong(agent.getIdentificador()));
+				PreferencesGesblue.saveIdAgent(mContext, agent.getCodiagent());
+
+
+				Model_Log model_log = new Model_Log();
+				model_log.setFechalog("");
+				model_log.setConcessiolog(String.valueOf(concessio));
+				model_log.setIdagent((int)agent.getCodiagent());
+				model_log.setCodiacciolog(1);//Login
+				model_log.setVersioapp(Utils.getAppVersion(mContext));
+				model_log.setInfo("");
+				model_log.setEnviat(0);
+
+				final ArrayList<Model_Log> arrayLogs = new ArrayList<Model_Log>();
+
+				arrayLogs.add(model_log);
+
+				DatabaseAPI.insertLogs(mContext,arrayLogs);
+
+				DatabaseAPI.insertLogs(mContext,arrayLogs);
+
+				DatabaseAPI.insertLogs(mContext,arrayLogs);
+
+				final ArrayList<Model_Log> listLogs = DatabaseAPI.getLogs(mContext);
+
+				Log.d("Num logs locals",""+listLogs.size());
+
+				Intent intent = new Intent(mContext, MainActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent);
+
+
+
+			}
+		}
+
 	}
 
 	private void sincronitzarTot(LoginResponse loginResponse, long concessio, String _data) {
-		sincronitzarMarques(loginResponse, concessio, _data);
+		sincronitzarAgents(loginResponse, concessio, _data);
 		if(isRunning()) {
 			try {
 				progress.show();
@@ -400,6 +471,47 @@ public class LoginActivity extends GesblueFragmentActivity {
 				//Tenir un progress d'aquesta manera és molt mala idea i només dona problemes
 				//TODO: Tenir *UN* progress per a cada funció, si és que el progress de veritat cal
 			}
+		}
+	}
+
+	private void sincronitzarAgents(final LoginResponse loginResponse, final long concessio, final String _data) {
+		if(loginResponse == null || loginResponse.showAgents()) {
+			progress.setMessage(getString(R.string.actualitzantAgents));
+			String data = PreferencesGesblue.getDataSync(mContext);
+			if(!TextUtils.isEmpty(_data)) data = _data;
+			DatamanagerAPI.crida_Agents(new AgentsRequest(concessio, data), new JSoapCallback() {
+				@Override
+				public void onSuccess(String result) {
+					Log.d("Resultat agents:",result);
+					AgentsResponse response;
+					try {
+						response = DatamanagerAPI.parseJson(result, AgentsResponse.class);
+					} catch (Exception ex) {
+						ELog(ex);
+						onError(PARSE_ERROR);
+						return;
+					}
+
+					LinkedList<Model_Agent> list = new LinkedList<>();
+					for (AgentsResponse.Agent agent : response.getAgents()) {
+						list.add(new Model_Agent(Long.parseLong(agent.getCodi()),"","",agent.getLogin(),agent.getPassword(),"",agent.getCodiagent()));
+					}
+
+					DatabaseAPI.insertAgents(mContext, list);
+
+					sincronitzarMarques(loginResponse, concessio, _data);
+
+				}
+
+				@Override
+				public void onError(int error) {
+					Utils.showDatamanagerError(mContext, error);
+					everythingIsOk = false;
+					sincronitzarMarques(loginResponse, concessio, _data);
+				}
+			});
+		} else {
+			sincronitzarMarques(loginResponse, concessio, _data);
 		}
 	}
 

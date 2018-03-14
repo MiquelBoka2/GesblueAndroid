@@ -12,6 +12,7 @@ public class WSConstantsGB extends WSConstants {
 	public static final String REQUEST_NOUTERMINAL = "NouTerminal";
 	public static final String REQUEST_LOGIN = "Login";
 	public static final String REQUEST_TIPUSVEHICLES = "TipusVehicles";
+	public static final String REQUEST_AGENTS = "Agents";
 	public static final String REQUEST_MARQUES = "Marques";
 	public static final String REQUEST_MODELS = "Models";
 	public static final String REQUEST_COLORS = "Colors";
@@ -27,6 +28,7 @@ public class WSConstantsGB extends WSConstants {
 	public static final String REQUEST_COMPROVAMATRICULA = "ComprovaMatricula";
 	public static final String REQUEST_NOVADENUNCIA = "NovaDenuncia";
 	public static final String REQUEST_NOULOG = "NouLog";
+	public static final String REQUEST_PUJAFOTO = "PujaFoto";
 	public static final String REQUEST_POSICIO = "Posicio";
 	public static final String REQUEST_RECUPERADENUNCIA = "RecuperaDenuncia";
 	public static final String REQUEST_ESTABLIRCOMPTADORDENUNCIA = "EstablirComptadorDenuncia";

@@ -1,25 +1,8 @@
 package com.sixtemia.gesbluedroid.customstuff.ftp;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.util.Log;
-
-import com.sixtemia.gesbluedroid.R;
-import com.sixtemia.gesbluedroid.global.Utils;
-import com.sixtemia.sbaseobjects.tools.DataUtils;
-
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
-import org.apache.commons.net.ftp.FTPReply;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.sixtemia.spushnotifications.db.DataContext.mContext;
-import static org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE;
 
 /**
  * Creat per rubengonzalez al 10/10/16.
@@ -45,7 +28,7 @@ public class GBFTP {
 	 * @param toUpload Llistat de arxius a pujar
 	 * @param listener Listener dels possibles events
 	 */
-	public static void init(@NonNull List<GBFileUpload> toUpload, @NonNull FTPListener listener) {
+/*	public static void init(@NonNull List<GBFileUpload> toUpload, @NonNull FTPListener listener) {
 		mListener = listener;
 		if(mUploadList == null) {
 			mUploadList = new ArrayList<>();
@@ -224,5 +207,5 @@ public class GBFTP {
 			}
 		}
 		mListener.uploadComplete();
-	}
+	}*/
 }

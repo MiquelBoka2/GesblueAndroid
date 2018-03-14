@@ -69,7 +69,7 @@ public class TicketPrinter {
             // inicialitzem a 40 perquè és el número de línies que hi ha fixes(no dinàmiques)
             // al tiquet si s'imprimeixen tots els blocs, s'afegeix un bloc, que no sigui
             // dinàmic s'haurà de modificar aquest valor.
-            Integer pageHeight = calcPageHeight(_context, 40, printConfiguration);
+            Integer pageHeight = calcPageHeight(_context, 80, printConfiguration);
             printer.setPageRegion(0, y, PAGE_WIDTH, pageHeight, Printer.PAGE_LEFT);
 
             //------------------
@@ -99,7 +99,7 @@ public class TicketPrinter {
             // Dades Butlleta
             //------------------
             //
-            Date date = Calendar.getInstance().getTime();
+            Date date = printConfiguration.getDataCreacio();//Calendar.getInstance().getTime();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
             Cela[] dadesButlletaArray  = new Cela[]{
@@ -203,7 +203,7 @@ public class TicketPrinter {
                 Cela[] celaArray = new Cela[]{
                         new Cela(mContext.getString(R.string.cela_emisora), PreferencesGesblue.getEmisora(mContext), sampleMilimetersToPixels(12)),
                         new Cela(mContext.getString(R.string.cela_mod), String.valueOf(mod), sampleMilimetersToPixels(5)),
-                        new Cela(mContext.getString(R.string.cela_referencia), PreferencesGesblue.getReferencia(mContext), sampleMilimetersToPixels(18)),
+                        new Cela(mContext.getString(R.string.cela_referencia), PreferencesGesblue.getReferencia(mContext)+PreferencesGesblue.getPrefCodiControl(mContext), sampleMilimetersToPixels(18)),
                         new Cela(mContext.getString(R.string.cela_identificacio), PreferencesGesblue.getIdentificacio(mContext), sampleMilimetersToPixels(20)),
                         new Cela(mContext.getString(R.string.cela_imp_dte),toEuros(dte))
                 };
@@ -253,7 +253,7 @@ public class TicketPrinter {
                         if(dataAnulacio.getImport() != 0 && dataAnulacio.getData() != null) {
 
                             Calendar now = Calendar.getInstance();
-
+                            now.setTime(printConfiguration.getDataCreacio());
                             Calendar tmp = (Calendar) now.clone();
                             tmp.add(Calendar.MINUTE, 1440);
                             SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yy HH:mm");
@@ -275,11 +275,11 @@ public class TicketPrinter {
             // Codi barres estàndard
             //------------------
             if(PreferencesGesblue.getCodiBarresVisible(_context) && !TextUtils.isEmpty(butlleta)) {
-             /*   int heightCodiBarres = LINE_HEIGHT*BARCODE_NUM_LINES;
+                int heightCodiBarres = LINE_HEIGHT*BARCODE_NUM_LINES;
                 printer.drawPageFrame(0, y, PAGE_WIDTH, heightCodiBarres + 2, Printer.FILL_WHITE, 1);
                 printer.setBarcode(Printer.ALIGN_CENTER, false, 2, Printer.HRI_BELOW, heightCodiBarres);
                 printer.printBarcode(Printer.BARCODE_EAN128, butlleta);
-                y = newLine(y, BARCODE_NUM_LINES + 0.5f);*/
+                y = newLine(y, BARCODE_NUM_LINES + 0.5f);
             }
 
             y = newLine(y, 1);

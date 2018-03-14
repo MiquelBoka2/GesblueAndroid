@@ -21,11 +21,14 @@
 	<string name="editTextUsuariHint">Nombre de usuario</string>
 	<string name="editTextPasswordHint">Contraseña</string>
 	<string name="campsObligatoris">Faltan campos obligatorios</string>
+	<string name="fotosObligatories">Hacen falta 2 fotos como mínimo</string>
 	<string name="ok">ACEPTAR</string>
 	<string name="atencio">Atención</string>
 
 	<string name="estacionament_incorrecte">ESTACIONAMIENTO INCORRECTO</string>
+	<string name="estacionament_sense_internet">SIN INTERNET. MATRICULA NO COMPROBADA</string>
 	<string name="estacionament_correcte">ESTACIONAMIENTO CORRECTO</string>
+	<string name="vehicle_ja_denunciat">VEHICULO YA DENUNCIADO HOY</string>
 	<string name="noDenunciar">NO DENUNCIAR</string>
 	<string name="denunciar">DENUNCIAR</string>
 	<string name="matricula">MATRÍCULA</string>
@@ -52,6 +55,7 @@
 	<string name="terminalPendent">Terminal pendiente</string>
 	<string name="concessioNoValida">Concesión no válida</string>
 
+	<string name="actualitzantAgents">Actualizando Agentes&#8230;</string>
 	<string name="actualitzantMarques">Actualizando Marcas&#8230;</string>
 	<string name="actualitzantModels">Actualizando Modelos&#8230;</string>
 	<string name="actualitzantColors">Actualizando Colores&#8230;</string>
@@ -189,5 +193,7 @@ El/la secretario/a del Ayuntamiento.</string>
 
 	<string name="printer_disconnected">Impresora desconectada</string>
     <string name="tanca_concessio">Cerrar Concesión</string>
+	<string name="recuperar_denuncia">Recuperar Denuncia</string>
+	<string name="buscar">Buscar</string>
 
 </resources>

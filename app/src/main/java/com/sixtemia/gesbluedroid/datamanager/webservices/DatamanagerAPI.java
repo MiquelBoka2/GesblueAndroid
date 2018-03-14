@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.MalformedJsonException;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.AgentsRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.CarrersRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.ColorsRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.InfraccionsRequest;
@@ -19,8 +20,10 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.Esta
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.NouLogRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.NovaDenunciaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.PosicioRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.PujaFotoRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.RecuperaComptadorDenunciaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.RecuperaDenunciaRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.AgentsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.CarrersResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ColorsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.InfraccionsResponse;
@@ -34,6 +37,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.Estab
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.NouLogResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.NovaDenunciaResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.PosicioResponse;
+import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.PujaFotoResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.RecuperaComptadorDenunciaResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.RecuperaDenunciaResponse;
 import com.sixtemia.gesbluedroid.global.Constants;
@@ -54,6 +58,9 @@ public class DatamanagerAPI {
 	}
 	public static AsyncTask crida_TipusVehicles(TipusVehiclesRequest _tipusVehiclesRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_TIPUSVEHICLE_METHOD, Constants.DADESBA_TIPUSVEHICLES_SOAPACTION, _tipusVehiclesRequest, TipusVehiclesResponse.class, _listener);
+	}
+	public static AsyncTask crida_Agents(AgentsRequest _agentsRequest, JSoapCallback _listener) {
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_AGENTS_METHOD, Constants.DADESBA_AGENTS_SOAPACTION, _agentsRequest, AgentsResponse.class, _listener);
 	}
 	public static AsyncTask crida_Marques(MarquesRequest _marquesRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_MARQUES_METHOD, Constants.DADESBA_MARQUES_SOAPACTION, _marquesRequest, MarquesResponse.class, _listener);
@@ -83,6 +90,10 @@ public class DatamanagerAPI {
 	}
 	public static AsyncTask crida_NouLog(NouLogRequest _nouLogRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_NOULOG_METHOD, Constants.OPERATIVA_NOULOG_SOAPACTION, _nouLogRequest, NouLogResponse.class, _listener);
+	}
+
+	public static AsyncTask crida_PujaFoto(PujaFotoRequest _pujaFotoRequest, JSoapCallback _listener) {
+		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_PUJAFOTO_METHOD, Constants.OPERATIVA_PUJAFOTO_SOAPACTION, _pujaFotoRequest, PujaFotoResponse.class, _listener);
 	}
 	public static AsyncTask crida_Posicio(PosicioRequest _posicioRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_POSICIO_METHOD, Constants.OPERATIVA_POSICIO_SOAPACTION, _posicioRequest, PosicioResponse.class, _listener);

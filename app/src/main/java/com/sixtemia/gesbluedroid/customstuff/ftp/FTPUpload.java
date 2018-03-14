@@ -71,15 +71,7 @@ public class FTPUpload extends AsyncTask<String,Void,String> {
                                 in.close();
                                 if (result) {
                                     Log.v("upload result", "succeeded");
-                                    File direct = new File("storage/emulated/0/Sixtemia/upload/done");
 
-                                    if (!direct.exists()) {
-                                        File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/done");
-                                        wallpaperDirectory.mkdirs();
-                                    }
-                                    File from = new File("storage/emulated/0/Sixtemia/upload/" + foto);
-                                    File to = new File("storage/emulated/0/Sixtemia/upload/done/" + fotoParts[2]);
-                                    from.renameTo(to);
                                 }
                                 else{
                                     File direct = new File("storage/emulated/0/Sixtemia/upload/error");
