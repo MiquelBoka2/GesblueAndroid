@@ -28,6 +28,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Log;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Model;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_TipusVehicle;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Zona;
 import com.sixtemia.gesbluedroid.datamanager.database.results.BasicDBResult;
 import com.sixtemia.gesbluedroid.datamanager.webservices.DatamanagerAPI;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.AgentsRequest;
@@ -39,6 +40,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.ModelsRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.NouTerminalRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.TipusVehiclesRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.ZonesRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.EstablirComptadorDenunciaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.RecuperaComptadorDenunciaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.AgentsResponse;
@@ -50,6 +52,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.M
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ModelsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.NouTerminalResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.TipusVehiclesResponse;
+import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ZonesResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.EstablirComptadorDenunciaResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.RecuperaComptadorDenunciaResponse;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
@@ -670,14 +673,58 @@ public class LoginActivity extends GesblueFragmentActivity {
 						}
 					}
 					DatabaseAPI.insertTipusVehicles(mContext, list);
+					sincronitzarZones(loginResponse, concessio, _data);
+				}
+
+				@Override
+				public void onError(int error) {
+					sincronitzarZones(loginResponse, concessio, _data);
+					Utils.showDatamanagerError(mContext, error);
+					everythingIsOk = false;
+				}
+			});
+		} else {
+			sincronitzarZones(loginResponse, concessio, _data);
+		}
+	}
+	private void sincronitzarZones(final LoginResponse loginResponse, final long concessio, final String _data) {
+		if(loginResponse == null || loginResponse.showZones()) {
+			progress.setMessage(getString(R.string.actualitzantZones));
+			String data = PreferencesGesblue.getDataSync(mContext);
+			if(!TextUtils.isEmpty(_data)) data = _data;
+			DatamanagerAPI.crida_Zones(new ZonesRequest(concessio, Long.parseLong(data)), new JSoapCallback() {
+				@Override
+				public void onSuccess(String result) {
+					ZonesResponse response;
+					try {
+						response = DatamanagerAPI.parseJson(result, ZonesResponse.class);
+					} catch (Exception ex) {
+						ELog(ex);
+						onError(PARSE_ERROR);
+						return;
+					}
+
+					LinkedList<Model_Zona> list = new LinkedList<>();
+					PreferencesGesblue.setZonaDefaultValue(mContext, response.getDefaultValue());
+					for(ZonesResponse.Zones zona : response.getZones()) {
+						if(zona.isEliminar()) {
+							DatabaseAPI.deleteZona(mContext, zona.getCodi());
+						} else {
+							list.add(new Model_Zona(TextUtils.isEmpty(zona.getCodi()) ? 0 : Long.parseLong(zona.getCodi()), zona.getNom()));
+						}
+					}
+					BasicDBResult dbResult = DatabaseAPI.insertZones(mContext, list);
+					if(!dbResult.isOk()) {
+						DLog(dbResult.getStrMsg());
+					}
 					sincronitzarCarrers(loginResponse, concessio, _data);
 				}
 
 				@Override
 				public void onError(int error) {
-					sincronitzarCarrers(loginResponse, concessio, _data);
 					Utils.showDatamanagerError(mContext, error);
 					everythingIsOk = false;
+					sincronitzarCarrers(loginResponse, concessio, _data);
 				}
 			});
 		} else {
@@ -708,7 +755,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 						if(carrer.isEliminar()) {
 							DatabaseAPI.deleteCarrer(mContext, carrer.getCodi());
 						} else {
-							list.add(new Model_Carrer(TextUtils.isEmpty(carrer.getCodi()) ? 0 : Long.parseLong(carrer.getCodi()), carrer.getNom()));
+							list.add(new Model_Carrer(TextUtils.isEmpty(carrer.getCodi()) ? 0 : Long.parseLong(carrer.getCodi()), carrer.getNom(),carrer.getZona()));
 						}
 					}
 					BasicDBResult dbResult = DatabaseAPI.insertCarrers(mContext, list);

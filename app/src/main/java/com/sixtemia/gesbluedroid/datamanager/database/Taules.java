@@ -8,6 +8,7 @@ public class Taules {
 	public static final String TAULA_AGENT = "agents";
 	public static final String TAULA_ACCIOPOSICIO = "accioPosicio";
 	public static final String TAULA_ARTICLE = "article";
+	public static final String TAULA_ZONA = "zona";
 	public static final String TAULA_CARRER = "carrer";
 	public static final String TAULA_COLOR = "color";
 	public static final String TAULA_DENUNCIA = "denuncia";

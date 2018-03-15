@@ -22,6 +22,11 @@ public class CarrersResponse extends WSResult {
 		@SerializedName("nom")
 		private String nom;
 
+
+		@JSoapResField(name = "zona")
+		@SerializedName("zona")
+		private Long zona;
+
 		@JSoapResField(name = "eliminar")
 		@SerializedName("eliminar")
 		private int eliminar;
@@ -42,6 +47,13 @@ public class CarrersResponse extends WSResult {
 		}
 		public void setNom(String nom) {
 			this.nom = nom;
+		}
+
+		public Long getZona() {
+			return zona;
+		}
+		public void setZona(String zona) {
+			this.nom = zona;
 		}
 
 		public int getEliminar() {
@@ -71,6 +83,7 @@ public class CarrersResponse extends WSResult {
 			return "Carrers{" +
 					"codi=" + codi +
 					", nom='" + nom + '\'' +
+					", zona='" + zona + '\'' +
 					", eliminar=" + eliminar +
 					'}';
 		}

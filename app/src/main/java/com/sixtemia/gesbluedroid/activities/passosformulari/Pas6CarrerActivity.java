@@ -47,7 +47,7 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
 
-		final ArrayList<Model_Carrer> arrayAux = DatabaseAPI.getCarrers(mContext);
+		final ArrayList<Model_Carrer> arrayAux = DatabaseAPI.getCarrersZona(mContext);
 
 //		Collections.sort(arrayAux, new Comparator<Model_Carrer>() {
 //			@Override

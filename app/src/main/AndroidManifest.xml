@@ -44,6 +44,10 @@
             android:label="@string/formulariActivity_label"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".activities.passosformulari.Pas0ZonaActivity"
+            android:label="@string/pas1TipusActivity_label"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name=".activities.passosformulari.Pas1TipusActivity"
             android:label="@string/pas1TipusActivity_label"
             android:screenOrientation="portrait"></activity>

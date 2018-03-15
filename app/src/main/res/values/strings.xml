@@ -40,6 +40,7 @@
 	<string name="model">MODEL</string>
 	<string name="color">COLOR</string>
 	<string name="sancio">SANCIÓ</string>
+	<string name="zona">ZONA</string>
 	<string name="carrer">CARRER</string>
 	<string name="num">NUM</string>
 	<string name="imprimeix">IMPRIMIR</string>
@@ -49,6 +50,7 @@
 	<string name="anterior">ANTERIOR</string>
 	<string name="hintBuscadorMarca">Escull la marca del vehicle</string>
 	<string name="hintBuscadorModel">Escull el model del vehicle</string>
+	<string name="hintBuscadorZona">Escull la zona</string>
 	<string name="hintBuscadorCarrer">Escull el carrer</string>
 	<string name="hintBuscadorNumeroCarrer">Introdueix el núm. del carrer</string>
 	<string name="terminalDenegat">Terminal denegat</string>
@@ -61,6 +63,7 @@
 	<string name="actualitzantModels">Actualitzant Models&#8230;</string>
 	<string name="actualitzantColors">Actualitzant Colors&#8230;</string>
 	<string name="actualitzantTipusVehicles">Actualitzant Tipus Vehicles&#8230;</string>
+	<string name="actualitzantZones">Actualitzant Zones&#8230;</string>
 	<string name="actualitzantCarrers">Actualitzant Carrers&#8230;</string>
 	<string name="actualitzantInfraccions">Actualitzant Infraccions&#8230;</string>
 	<string name="actualitzant">Actualitzant&#8230;</string>

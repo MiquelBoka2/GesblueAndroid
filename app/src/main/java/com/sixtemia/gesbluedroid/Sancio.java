@@ -9,6 +9,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Infraccio;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Model;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_TipusVehicle;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Zona;
 
 public class Sancio implements Parcelable {
 
@@ -19,6 +20,7 @@ public class Sancio implements Parcelable {
     private Model_Model modelModel;
     private Model_Color modelColor;
     private Model_Infraccio modelInfraccio;
+    private Model_Zona modelZona;
     private Model_Carrer modelCarrer;
 
     public String getMatricula() {
@@ -77,6 +79,14 @@ public class Sancio implements Parcelable {
         this.modelCarrer = modelCarrer;
     }
 
+
+    public Model_Zona getModelZona() {
+        return modelZona;
+    }
+    public void setModelZona(Model_Zona modelZona) {
+        this.modelZona = modelZona;
+    }
+
     public Sancio() {
     }
     public Sancio(String matricula, String _numero, Model_TipusVehicle modelTipusVehicle, Model_Marca modelMarca, Model_Model modelModel, Model_Color modelColor, Model_Infraccio modelInfraccio, Model_Carrer modelCarrer) {
@@ -87,6 +97,7 @@ public class Sancio implements Parcelable {
         this.modelModel = modelModel;
         this.modelColor = modelColor;
         this.modelInfraccio = modelInfraccio;
+        this.modelZona = modelZona;
         this.modelCarrer = modelCarrer;
     }
 
@@ -108,6 +119,7 @@ public class Sancio implements Parcelable {
         dest.writeParcelable(this.modelColor, flags);
         dest.writeParcelable(this.modelInfraccio, flags);
         dest.writeParcelable(this.modelCarrer, flags);
+        dest.writeParcelable(this.modelZona, flags);
     }
     protected Sancio(Parcel in) {
         this.matricula = in.readString();
@@ -117,6 +129,7 @@ public class Sancio implements Parcelable {
         this.modelModel = in.readParcelable(Model_Model.class.getClassLoader());
         this.modelColor = in.readParcelable(Model_Color.class.getClassLoader());
         this.modelInfraccio = in.readParcelable(Model_Infraccio.class.getClassLoader());
+        this.modelZona = in.readParcelable(Model_Zona.class.getClassLoader());
         this.modelCarrer = in.readParcelable(Model_Carrer.class.getClassLoader());
     }
     public static final Creator<Sancio> CREATOR = new Creator<Sancio>() {
@@ -150,6 +163,10 @@ public class Sancio implements Parcelable {
             return false;
         if (modelInfraccio != null ? !modelInfraccio.equals(sancio.modelInfraccio) : sancio.modelInfraccio != null)
             return false;
+
+        if (modelZona != null ? modelZona.equals(sancio.modelZona) : sancio.modelZona != null)
+            return false;
+
         return modelCarrer != null ? modelCarrer.equals(sancio.modelCarrer) : sancio.modelCarrer == null;
 
     }

@@ -36,15 +36,16 @@
 
 				<RelativeLayout
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content">
+					android:layout_height="wrap_content"
+					android:layout_marginTop="-10dp">
 
 					<ImageView
 						android:layout_width="wrap_content"
 						android:layout_height="70dp"
-						android:layout_marginTop="10dp"
-						android:src="@drawable/gesblue_logo"
 						android:layout_gravity="center"
-						android:scaleType="fitCenter"/>
+						android:layout_marginTop="10dp"
+						android:scaleType="fitCenter"
+						android:src="@drawable/gesblue_logo" />
 
 					<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
 						android:id="@+id/textViewLocalitzacioConcessio"
@@ -59,22 +60,22 @@
 
 				</RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/marginTop_relative">
+				<RelativeLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="-80dp">
 
-                    <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
-                        android:id="@+id/tvEstacionamentCorrecte"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/verdOK"
-                        android:textStyle="bold"
-                        android:text="@string/estacionament_correcte"
-                        android:textSize="@dimen/estacionament_size"
-                        android:padding="10dp"
-                        android:visibility="invisible"
-                        android:textColor="@color/white"/>
+					<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+						android:id="@+id/tvEstacionamentCorrecte"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="@color/verdOK"
+						android:padding="10dp"
+						android:text="@string/estacionament_correcte"
+						android:textColor="@color/white"
+						android:textSize="@dimen/estacionament_size"
+						android:textStyle="bold"
+						android:visibility="invisible" />
 
 					<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
 						android:id="@+id/textViewEstacionamentIncorrecte"
@@ -89,7 +90,7 @@
 						android:textStyle="bold"
 						android:visibility="invisible" />
 
-                </RelativeLayout>
+				</RelativeLayout>
 
 
                 <LinearLayout
@@ -153,6 +154,27 @@
                     android:maxLines="1"
                     android:lines="1"
 					android:inputType="textVisiblePassword|textNoSuggestions"/>
+				<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+					android:text="@string/zona"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:layout_marginLeft="4dp"
+					android:id="@+id/textViewZona"
+					android:textColor="@color/textview_selector" />
+
+				<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+					android:id="@+id/tvZona"
+					style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="7"
+					android:ellipsize="end"
+					android:hint="@string/zona"
+					android:lines="1"
+					android:textColor="@color/textview_formulari"
+					android:textColorHint="@color/textview_formulari"
+					android:textSize="@dimen/editTextTextSize" />
 
 				<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
 					android:text="@string/carrer"

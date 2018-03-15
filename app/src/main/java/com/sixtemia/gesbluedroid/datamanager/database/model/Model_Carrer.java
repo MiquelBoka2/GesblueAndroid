@@ -18,18 +18,22 @@ public class  Model_Carrer implements Parcelable {
 	@DatabaseField(id = true, columnName = ID, columnDefinition = "NUMBER")
 	private long codicarrer;
 
+	@DatabaseField(columnName = "zona", columnDefinition = "NUMBER")
+	private long zona;
+
 	@DatabaseField(columnName = "nomcarrer", columnDefinition = "VARCHAR(100)")
 	private String nomcarrer;
 
-
-	public Model_Carrer(long codicarrer, String nomcarrer) {
+	public Model_Carrer(long codicarrer, String nomcarrer, long zona) {
 		this.codicarrer = codicarrer;
 		this.nomcarrer = nomcarrer;
+		this.zona = zona;
 	}
 
 	public Model_Carrer() {
 		this.codicarrer = -1;
 		this.nomcarrer = "";
+		this.zona = 0;
 	}
 
 	public long getCodicarrer() {
@@ -48,6 +52,15 @@ public class  Model_Carrer implements Parcelable {
 		this.nomcarrer = nomcarrer;
 	}
 
+
+	public long getZona() {
+		return zona;
+	}
+
+	public void setZona(long zona) {
+		this.zona = zona;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -57,11 +70,13 @@ public class  Model_Carrer implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeLong(this.codicarrer);
 		dest.writeString(this.nomcarrer);
+		dest.writeLong(this.zona);
 	}
 
 	protected Model_Carrer(Parcel in) {
 		this.codicarrer = in.readLong();
 		this.nomcarrer = in.readString();
+		this.zona = in.readLong();
 	}
 
 	public static final Parcelable.Creator<Model_Carrer> CREATOR = new Parcelable.Creator<Model_Carrer>() {

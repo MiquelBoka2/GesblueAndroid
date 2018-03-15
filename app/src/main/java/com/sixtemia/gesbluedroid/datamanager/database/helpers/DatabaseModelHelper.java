@@ -28,6 +28,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_PosicioAgent;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Terminal;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_TipusAnulacio;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_TipusVehicle;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Zona;
 import com.sixtemia.sdatamanager.datamanager.results.BasicWSResult;
 import com.sixtemia.sutils.classes.SSystemUtils;
 
@@ -44,7 +45,7 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_FOLDER = "sdatamanagerdb";
 
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // the DAO object we use to access the SimpleData table
     private ConcurrentHashMap<Class,RuntimeExceptionDao<? extends BasicWSResult,String>> table_map;
@@ -61,7 +62,8 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
 		    Model_PosicioAgent.class,
 		    Model_Terminal.class,
 		    Model_TipusAnulacio.class,
-		    Model_TipusVehicle.class);
+		    Model_TipusVehicle.class,
+			Model_Zona.class);
 
     public DatabaseModelHelper(Context context) {
         super(context, getDataBasePath(context), null, DATABASE_VERSION);
@@ -110,12 +112,22 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-		if(oldVersion<2) {try {
-			createTable(connectionSource,Model_Log.class);
-		} catch (SQLException e) {
-			Log.e(DatabaseModelHelper.class.getName(), "Can't create table", e);
-			throw new RuntimeException(e);
+		if(oldVersion<2) {
+			try {
+				createTable(connectionSource,Model_Log.class);
+			} catch (SQLException e) {
+				Log.e(DatabaseModelHelper.class.getName(), "Can't create table", e);
+				throw new RuntimeException(e);
+			}
 		}
+		if(oldVersion<3) {
+			try {
+				createTable(connectionSource,Model_Zona.class);
+				db.execSQL("ALTER TABLE carrers ADD COLUMN zona LONG DEFAULT 0");
+			} catch (SQLException e) {
+				Log.e(DatabaseModelHelper.class.getName(), "Can't create table", e);
+				throw new RuntimeException(e);
+			}
 		}
     }
 

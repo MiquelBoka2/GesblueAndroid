@@ -16,6 +16,7 @@ public class WSConstantsGB extends WSConstants {
 	public static final String REQUEST_MARQUES = "Marques";
 	public static final String REQUEST_MODELS = "Models";
 	public static final String REQUEST_COLORS = "Colors";
+	public static final String REQUEST_ZONES = "Zones";
 	public static final String REQUEST_CARRERS = "Carrers";
 	public static final String REQUEST_INFRACCIONS = "Infraccions";
 	public static final String REQUEST_RECUPERADATA = "RecuperaData";

@@ -50,6 +50,7 @@ public class Constants {
         public static final String DADESBA_COLORS_METHOD = "ColorsRequest";
         public static final String DADESBA_RECUPERADATA_METHOD = "RecuperaDataRequest";
         public static final String DADESBA_INFRACCIONS_METHOD = "InfraccionsRequest";
+        public static final String DADESBA_ZONES_METHOD = "CarrersRequest";
         public static final String DADESBA_CARRERS_METHOD = "CarrersRequest";
         //- Operativa
         public static final String OPERATIVA_COMPROVAMATRICULA_METHOD = "ComprovaMatriculaCarrerZona";
@@ -72,6 +73,7 @@ public class Constants {
         public static final String DADESBA_COLORS_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_COLORS;
         public static final String DADESBA_RECUPERADATA_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_RECUPERADATA;
         public static final String DADESBA_INFRACCIONS_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_INFRACCIONS;
+        public static final String DADESBA_ZONES_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_ZONES;
         public static final String DADESBA_CARRERS_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_CARRERS;
         //- Operativa
         public static final String OPERATIVA_COMPROVAMATRICULA_SOAPACTION = OPERATIVA_NAMESPACE + HASH + WSConstantsGB.REQUEST_COMPROVAMATRICULA;

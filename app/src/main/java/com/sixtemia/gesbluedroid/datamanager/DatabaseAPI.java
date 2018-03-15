@@ -2,6 +2,7 @@ package com.sixtemia.gesbluedroid.datamanager;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.sixtemia.gesbluedroid.datamanager.database.executors.OperationExecutorHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.executors.TransactionAsyncTask;
@@ -18,6 +19,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.helpers.PosicioAgentHelper
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.TerminalHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.TipusAnulacioHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.TipusVehicleHelper;
+import com.sixtemia.gesbluedroid.datamanager.database.helpers.ZonaHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_AccioPosicio;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Agent;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
@@ -31,8 +33,10 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_PosicioAgent;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Terminal;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_TipusAnulacio;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_TipusVehicle;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Zona;
 import com.sixtemia.gesbluedroid.datamanager.database.parameters.DBConfigParams;
 import com.sixtemia.gesbluedroid.datamanager.database.results.BasicDBResult;
+import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,9 +95,46 @@ public class DatabaseAPI {
 	}
 	/** /AccioPosicio **/
 
+
+	/** Zona **/
+	private static BasicDBResult _getZones(Context c) {
+		return executeDatabaseOperation(c, new ZonaHelper().getAllGroupById(c));
+	}
+
+	private static BasicDBResult _getZona(Context c, String id) {
+		return executeDatabaseOperation(c, new ZonaHelper().getField(c, Model_Zona.ID, id));
+	}
+
+	public static ArrayList<Model_Zona> getZones(Context c) {
+		return (ArrayList<Model_Zona>) _getZones(c).getArray();
+	}
+
+	public static Model_Zona getZona(Context c, String id) {
+		return  _getZona(c, id).getFirst();
+	}
+
+	public static BasicDBResult insertZones(Context c, List<Model_Zona> list) {
+		return executeDatabaseOperation(c, new ZonaHelper().create(c, list));
+	}
+
+	public static BasicDBResult deleteAllZones(Context c) {
+		return executeDatabaseOperation(c, new ZonaHelper().deleteAll(c));
+	}
+
+	public static BasicDBResult deleteZona(Context c, String codi) {
+		return executeDatabaseOperation(c, new ZonaHelper().deleteWhere(c, "codizona", codi));
+	}
+	/** /Zona **/
+
 	/** Carrer **/
 	private static BasicDBResult _getCarrers(Context c) {
 		return executeDatabaseOperation(c, new CarrerHelper().getAllGroupById(c));
+	}
+	private static BasicDBResult _getCarrersZona(Context c) {
+
+		Log.d("Codizona get",""+PreferencesGesblue.getCodiZona(c));
+		return executeDatabaseOperation(c, new CarrerHelper().getField(c, "zona", PreferencesGesblue.getCodiZona(c)));
+		//return executeDatabaseOperation(c, new CarrerHelper().getAllGroupById(c));
 	}
 
 	private static BasicDBResult _getCarrer(Context c, String id) {
@@ -104,6 +145,9 @@ public class DatabaseAPI {
 		return (ArrayList<Model_Carrer>) _getCarrers(c).getArray();
 	}
 
+	public static ArrayList<Model_Carrer> getCarrersZona(Context c) {
+		return (ArrayList<Model_Carrer>) _getCarrersZona(c).getArray();
+	}
 	public static Model_Carrer getCarrer(Context c, String id) {
 		return  _getCarrer(c, id).getFirst();
 	}

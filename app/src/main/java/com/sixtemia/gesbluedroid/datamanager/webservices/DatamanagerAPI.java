@@ -15,6 +15,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.NouTerminalRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.RecuperaDataRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.TipusVehiclesRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.ZonesRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.ComprovaMatriculaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.EstablirComptadorDenunciaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.NouLogRequest;
@@ -32,6 +33,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.M
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ModelsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.NouTerminalResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.TipusVehiclesResponse;
+import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ZonesResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.ComprovaMatriculaResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.EstablirComptadorDenunciaResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.NouLogResponse;
@@ -70,6 +72,9 @@ public class DatamanagerAPI {
 	}
 	public static AsyncTask crida_Colors(ColorsRequest _colorsRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_COLORS_METHOD, Constants.DADESBA_COLORS_SOAPACTION, _colorsRequest, ColorsResponse.class, _listener);
+	}
+	public static AsyncTask crida_Zones(ZonesRequest _zonesRequest, JSoapCallback _listener) {
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_ZONES_METHOD, Constants.DADESBA_ZONES_SOAPACTION, _zonesRequest, ZonesResponse.class, _listener);
 	}
 	public static AsyncTask crida_Carrers(CarrersRequest _carrersRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_CARRERS_METHOD, Constants.DADESBA_CARRERS_SOAPACTION, _carrersRequest, CarrersResponse.class, _listener);

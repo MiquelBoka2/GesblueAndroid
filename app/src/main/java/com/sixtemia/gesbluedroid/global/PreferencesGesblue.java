@@ -63,6 +63,7 @@ public class PreferencesGesblue extends Preferences {
 	private static final String PREF_MODEL = "model";
 	private static final String PREF_COLOR = "color";
 	private static final String PREF_INFRACCIO = "infraccio";
+	private static final String PREF_ZONA = "zona";
 	private static final String PREF_CARRER = "carrer";
 	private static final String PREF_NUMERO = "numero";
 	private static final String PREF_TIPUSVEHICLE_DEFAULTVALUE = "tipusVehicleDefaultValue";
@@ -70,6 +71,7 @@ public class PreferencesGesblue extends Preferences {
 	private static final String PREF_MODEL_DEFAULTVALUE = "ModelDefaultValue";
 	private static final String PREF_COLOR_DEFAULTVALUE = "ColorDefaultValue";
 	private static final String PREF_INFRACCIO_DEFAULTVALUE = "InfraccioDefaultValue";
+	private static final String PREF_ZONA_DEFAULTVALUE = "zonaDefaultValue";
 	private static final String PREF_CARRER_DEFAULTVALUE = "carrerDefaultValue";
 	private static final String PREF_ID_AGENT = "idAgent";
 	private static final String PREF_DATA_SYNC = "dataSync";
@@ -81,6 +83,8 @@ public class PreferencesGesblue extends Preferences {
 
 	private static final String PREF_CODI_CARRER = "codiCarrer";
 	private static final String PREF_NOM_CARRER = "nomCarrer";
+	private static final String PREF_CODI_ZONA = "codiZona";
+	private static final String PREF_NOM_ZONA = "nomZona";
 	private static final String PREF_FLASH = "flash";
 
 
@@ -432,6 +436,13 @@ public class PreferencesGesblue extends Preferences {
 		return getString(_context, PREF_INFRACCIO, BUIT);
 	}
 
+	public static void setFormulariZona(Context _context, String id) {
+		put(_context, PREF_ZONA, id);
+	}
+	public static String getFormulariZona(Context _context) {
+		return getString(_context, PREF_ZONA, BUIT);
+	}
+
 	public static void setFormulariCarrer(Context _context, String id) {
 		put(_context, PREF_CARRER, id);
 	}
@@ -516,6 +527,13 @@ public class PreferencesGesblue extends Preferences {
 		return getString(_context, PREF_INFRACCIO_DEFAULTVALUE, BUIT);
 	}
 
+	public static void setZonaDefaultValue(Context _context, String _idZonaDefaultValue) {
+		put(_context, PREF_ZONA_DEFAULTVALUE, _idZonaDefaultValue);
+	}
+	public static String getZonaDefaultValue(Context _context) {
+		return getString(_context, PREF_ZONA_DEFAULTVALUE, BUIT);
+	}
+
 	public static void setCarrerDefaultValue(Context _context, String _idCarrerDefaultValue) {
 		put(_context, PREF_CARRER_DEFAULTVALUE, _idCarrerDefaultValue);
 	}
@@ -535,6 +553,20 @@ public class PreferencesGesblue extends Preferences {
 	}
 	public static String getNomCarrer(Context _context) {
 		return getString(_context, PREF_NOM_CARRER, BUIT);
+	}
+
+	public static void setCodiZona(Context _context, long idZona) {
+		put(_context, PREF_CODI_ZONA, idZona);
+	}
+	public static long getCodiZona(Context _context) {
+		return getLong(_context, PREF_CODI_ZONA, ZERO);
+	}
+
+	public static void setNomZona(Context _context, String nomZona) {
+		put(_context, PREF_NOM_ZONA, nomZona);
+	}
+	public static String getNomZona(Context _context) {
+		return getString(_context, PREF_NOM_ZONA, BUIT);
 	}
 
 	public static void setPrefCodiControl(Context _context, String codiControl) {

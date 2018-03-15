@@ -10,7 +10,6 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -117,7 +116,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 	private ProgressDialog mDialog;
 
-	private ProgressDialog getDialog(@Nullable String title, @Nullable String message) {
+	private ProgressDialog getDialog( String title,  String message) {
 		if(null == mDialog || !mDialog.isShowing()) {
 			mDialog = new ProgressDialog(this);
 			mDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -134,7 +133,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		return mDialog;
 	}
 
-	private ProgressDialog getDialog(@Nullable String message) {
+	private ProgressDialog getDialog( String message) {
 		return getDialog(null, message);
 	}
 

@@ -42,6 +42,10 @@ public class LoginResponse extends WSResult {
 	@SerializedName("tipusvehicles")
 	private int tipusvehicles;
 
+	@JSoapResField(name = "zones")
+	@SerializedName("zones")
+	private int zones;
+
 	@JSoapResField(name = "carrers")
 	@SerializedName("carrers")
 	private int carrers;
@@ -63,7 +67,7 @@ public class LoginResponse extends WSResult {
 		infraccions = 0;
 	}
 
-	public LoginResponse(long resultat, long agent, String codiagent, int agents,int marques, int models, int colors, int tipusvehicles, int carrers, int infraccions) {
+	public LoginResponse(long resultat, long agent, String codiagent, int agents,int marques, int models, int colors, int tipusvehicles, int zones, int carrers, int infraccions) {
 		this.resultat = resultat;
 		this.agent = agent;
 		this.agents = agents;
@@ -72,6 +76,7 @@ public class LoginResponse extends WSResult {
 		this.models = models;
 		this.colors = colors;
 		this.tipusvehicles = tipusvehicles;
+		this.zones = zones;
 		this.carrers = carrers;
 		this.infraccions = infraccions;
 	}
@@ -95,6 +100,9 @@ public class LoginResponse extends WSResult {
 		return isTrue(getTipusvehicles());
 	}
 
+	public boolean showZones() {
+		return isTrue(getZones());
+	}
 	public boolean showCarrers() {
 		return isTrue(getCarrers());
 	}
@@ -159,8 +167,17 @@ public class LoginResponse extends WSResult {
 		this.tipusvehicles = tipusvehicles;
 	}
 
+
+	public int getZones() {
+		return zones;
+	}
+
 	public int getCarrers() {
 		return carrers;
+	}
+
+	public void setZones(int zones) {
+		this.zones = zones;
 	}
 
 	public void setCarrers(int carrers) {
@@ -193,6 +210,7 @@ public class LoginResponse extends WSResult {
 				", models=" + models +
 				", colors=" + colors +
 				", tipusvehicles=" + tipusvehicles +
+				", zones=" + zones +
 				", carrers=" + carrers +
 				", infraccions=" + infraccions +
 				'}';
