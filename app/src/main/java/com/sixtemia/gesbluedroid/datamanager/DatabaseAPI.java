@@ -211,7 +211,7 @@ public class DatabaseAPI {
 	public static Model_Denuncia getDenunciaPendent(Context c) {
 
 		ArrayList<Model_Denuncia> array= (ArrayList<Model_Denuncia>) _getDenunciaPendent(c).getArray();
-		if(array.size()>0){
+		if(array !=null && array.size()>0){
 			return array.get(0);
 		}
 		else{
@@ -238,6 +238,11 @@ public class DatabaseAPI {
 		return executeDatabaseOperation(c, new InfraccioHelper().getAllGroupById(c));
 	}
 
+	private static BasicDBResult _getInfraccionsZona(Context c) {
+		return executeDatabaseOperation(c, new InfraccioHelper().getField(c, "zona", PreferencesGesblue.getCodiZona(c)));
+
+		//return executeDatabaseOperation(c, new InfraccioHelper().getAllGroupById(c));
+	}
 	private static BasicDBResult _getInfraccio(Context c, String id) {
 		return executeDatabaseOperation(c, new InfraccioHelper().getField(c, Model_Infraccio.ID, id));
 	}
@@ -246,6 +251,9 @@ public class DatabaseAPI {
 		return (ArrayList<Model_Infraccio>) _getInfraccions(c).getArray();
 	}
 
+	public static ArrayList<Model_Infraccio> getInfraccionsZona(Context c) {
+		return (ArrayList<Model_Infraccio>) _getInfraccionsZona(c).getArray();
+	}
 	public static Model_Infraccio getInfraccio(Context c, String id) {
 		return _getInfraccio(c, id).getFirst();
 	}

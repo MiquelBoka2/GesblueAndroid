@@ -46,6 +46,10 @@ public class InfraccionsResponse extends WSResult {
 		@SerializedName("precepte")
 		private String precepte;
 
+		@JSoapResField(name = "zona")
+		@SerializedName("zona")
+		private Long zona;
+
 		@JSoapResField(name = "eliminar")
 		@SerializedName("eliminar")
 		private int eliminar;
@@ -112,6 +116,13 @@ public class InfraccionsResponse extends WSResult {
 			this.precepte = precepte;
 		}
 
+		public Long getZona() {
+			return zona;
+		}
+		public void setZona(String zona) {
+			this.nom = zona;
+		}
+
 		public int getEliminar() {
 			return eliminar;
 		}
@@ -143,6 +154,7 @@ public class InfraccionsResponse extends WSResult {
 					", anulacio2='" + anulacio2 + '\'' +
 					", tempsanulacio2='" + tempsanulacio2 + '\'' +
 					", precepte='" + precepte + '\'' +
+					", zona='" + zona + '\'' +
 					", eliminar=" + eliminar +
 					'}';
 		}

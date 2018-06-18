@@ -123,7 +123,9 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
 		if(oldVersion<3) {
 			try {
 				createTable(connectionSource,Model_Zona.class);
-				db.execSQL("ALTER TABLE carrers ADD COLUMN zona LONG DEFAULT 0");
+				db.execSQL("ALTER TABLE carrer ADD COLUMN zona LONG DEFAULT 0");
+				db.execSQL("ALTER TABLE infraccio ADD COLUMN zona LONG DEFAULT 0");
+				db.execSQL("ALTER TABLE denuncia ADD COLUMN zona LONG DEFAULT 0");
 			} catch (SQLException e) {
 				Log.e(DatabaseModelHelper.class.getName(), "Can't create table", e);
 				throw new RuntimeException(e);

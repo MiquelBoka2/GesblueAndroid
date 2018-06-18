@@ -25,6 +25,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Infraccio;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Model;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_TipusVehicle;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Zona;
 
 import java.util.Collections;
 import java.util.List;
@@ -99,7 +100,8 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         Model_Color color = DatabaseAPI.getColor(mContext,String.valueOf((int)denuncia.getColor()));
         Model_Infraccio infraccio = DatabaseAPI.getInfraccio(mContext,String.valueOf((int)denuncia.getInfraccio()));
         Model_Carrer carrer = DatabaseAPI.getCarrer(mContext,String.valueOf((int)denuncia.getAdrecacarrer()));
-        Sancio mSancio = new Sancio(denuncia.getMatricula(),String.valueOf(denuncia.getAdrecanum()),tipusVehicle,marca,model,color,infraccio,carrer);
+        Model_Zona zona = DatabaseAPI.getZona(mContext,String.valueOf((int)denuncia.getZona()));
+        Sancio mSancio = new Sancio(denuncia.getMatricula(),String.valueOf(denuncia.getAdrecanum()),tipusVehicle,marca,model,color,infraccio,carrer,zona);
         intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
         intent.putExtra(FormulariActivity.INTENT_NUM_DENUNCIA,denuncia.getCodidenuncia());
         intent.putExtra(FormulariActivity.INTENT_DATA_CREACIO,denuncia.getFechacreacio());

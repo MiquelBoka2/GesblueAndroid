@@ -89,7 +89,7 @@ public class Sancio implements Parcelable {
 
     public Sancio() {
     }
-    public Sancio(String matricula, String _numero, Model_TipusVehicle modelTipusVehicle, Model_Marca modelMarca, Model_Model modelModel, Model_Color modelColor, Model_Infraccio modelInfraccio, Model_Carrer modelCarrer) {
+    public Sancio(String matricula, String _numero, Model_TipusVehicle modelTipusVehicle, Model_Marca modelMarca, Model_Model modelModel, Model_Color modelColor, Model_Infraccio modelInfraccio, Model_Carrer modelCarrer, Model_Zona modelZona) {
         this.matricula = matricula;
         this.numero = _numero;
         this.modelTipusVehicle = modelTipusVehicle;
@@ -118,8 +118,8 @@ public class Sancio implements Parcelable {
         dest.writeParcelable(this.modelModel, flags);
         dest.writeParcelable(this.modelColor, flags);
         dest.writeParcelable(this.modelInfraccio, flags);
-        dest.writeParcelable(this.modelCarrer, flags);
         dest.writeParcelable(this.modelZona, flags);
+        dest.writeParcelable(this.modelCarrer, flags);
     }
     protected Sancio(Parcel in) {
         this.matricula = in.readString();

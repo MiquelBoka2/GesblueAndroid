@@ -51,6 +51,7 @@ public class PreferencesGesblue extends Preferences {
 	private static final String PREF_LONGITUD_INFRACCIO = "longitudInfraccio";
 	private static final String PREF_TIQUET_USUARI = "tiquetUsuari";
 	private static final String PREF_LOGO = "logoTiquet";
+	private static final String PREF_IMATGE_PEU = "imatgePeu";
 	private static final String PREF_ADDRESS = "addresBluetoothPrinter";
 	private static final String PREF_TEXTCAP = "textCap";
 	private static final String PREF_EMISORA = "emisora";
@@ -208,6 +209,13 @@ public class PreferencesGesblue extends Preferences {
 	}
 	public static String getLogo(Context _context) {
 		return getString(_context, PREF_LOGO, BUIT);
+	}
+
+	public static void saveImatgePeu(Context _context, String b) {
+		put(_context, PREF_IMATGE_PEU, b);
+	}
+	public static String getImatgePeu(Context _context) {
+		return getString(_context, PREF_IMATGE_PEU, BUIT);
 	}
 
 	public static void saveValorsServiCaixa(Context _context, String b) {

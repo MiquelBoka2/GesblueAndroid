@@ -75,16 +75,19 @@ public class TicketPrinter {
             //------------------
             // Logotip concessió
             //------------------
-            Bitmap bitmap = printConfiguration.getLogo();
-            int widthBitmap  = bitmap.getWidth();
-            int heightBitmap = bitmap.getHeight();
-            int[] argb = new int[widthBitmap * heightBitmap];
-            bitmap.getPixels(argb, 0, widthBitmap, 0, 0, widthBitmap, heightBitmap);
-            bitmap.recycle();
-            printer.printImage(argb, widthBitmap, heightBitmap, Printer.ALIGN_LEFT, true);
-            printer.flush();
-            printer.printTaggedText("{reset}" + "{br}", CHARSET_ENCODING);
-            y = newLine(y, 1);
+            if((PreferencesGesblue.getConcessio(_context)!=2)||((PreferencesGesblue.getConcessio(_context)==2)&&(PreferencesGesblue.getCodiZona(_context)!=5))) {
+
+                Bitmap bitmap = printConfiguration.getLogo();
+                int widthBitmap = bitmap.getWidth();
+                int heightBitmap = bitmap.getHeight();
+                int[] argb = new int[widthBitmap * heightBitmap];
+                bitmap.getPixels(argb, 0, widthBitmap, 0, 0, widthBitmap, heightBitmap);
+                bitmap.recycle();
+                printer.printImage(argb, widthBitmap, heightBitmap, Printer.ALIGN_LEFT, true);
+                printer.flush();
+                printer.printTaggedText("{reset}" + "{br}", CHARSET_ENCODING);
+                y = newLine(y, 1);
+            }
 
 
             //------------------
@@ -92,7 +95,12 @@ public class TicketPrinter {
             //------------------
             printer.printTaggedText("{reset}{center}{b}" + mContext.getString(R.string.butlletaDeDenuncia) + "{br}", CHARSET_ENCODING);
             y = newLine(y, 1);
-            printer.printTaggedText("{reset}{center}" + printConfiguration.getTextCap() + "{br}", CHARSET_ENCODING);
+            if((PreferencesGesblue.getConcessio(_context)!=2)||((PreferencesGesblue.getConcessio(_context)==2)&&(PreferencesGesblue.getCodiZona(_context)!=5))) {
+
+                printer.printTaggedText("{reset}{center}" + printConfiguration.getTextCap() + "{br}", CHARSET_ENCODING);
+                y = newLine(y, 2);
+            }
+            printer.printTaggedText("{reset}{center}" + PreferencesGesblue.getNomZona(_context) + "{br}", CHARSET_ENCODING);
             y = newLine(y, 2);
 
             //------------------
@@ -163,8 +171,9 @@ public class TicketPrinter {
             float importCamp = printConfiguration.getImportCamp();
             float dte        = printConfiguration.getDte();
             Cela[] InfoDenunciaArray = new Cela[]{
-                    new Cela(mContext.getString(R.string.cela_import_dte), toEuros(importCamp) + " / " + toEuros(dte), sampleMilimetersToPixels(35)),
-                    new Cela(mContext.getString(R.string.cela_agent), printConfiguration.getAgent())
+                    new Cela(mContext.getString(R.string.cela_import_dte), toEuros(importCamp) + " / " + toEuros(dte), sampleMilimetersToPixels(27)),
+                    new Cela(mContext.getString(R.string.cela_agent), printConfiguration.getAgent(),sampleMilimetersToPixels(12)),
+                    new Cela(mContext.getString(R.string.firma), "")
             };
             printCellaBlancaArray(InfoDenunciaArray, y);
             y = newLine(y, 2);
@@ -244,8 +253,12 @@ public class TicketPrinter {
                     codiAnulacio = butlleta.substring(butlleta.length()-(butlleta.length()), butlleta.length());
                 }
 
-                 printCelaNegreFontGran(0, y, PAGE_WIDTH, mContext.getString(R.string.cela_codi_anulacio), codiAnulacio);
-                 y = newLine(y, 3.5f);
+                // printCelaNegreFontMitjana(0, y, PAGE_WIDTH, mContext.getString(R.string.cela_codi_anulacio), codiAnulacio);
+                Cela[] celaArray0 = new Cela[]{
+                        new Cela(mContext.getString(R.string.cela_codi_anulacio), codiAnulacio)
+                };
+                printCellaNegraCenterArray(celaArray0, y);
+                y = newLine(y, 2);
 
                 DataAnulacio[] dataAnulacioArray = printConfiguration.getDataAnulacioArray();
                 if(PreferencesGesblue.getImportAnulacio(_context)) {
@@ -255,11 +268,11 @@ public class TicketPrinter {
                             Calendar now = Calendar.getInstance();
                             now.setTime(printConfiguration.getDataCreacio());
                             Calendar tmp = (Calendar) now.clone();
-                            tmp.add(Calendar.MINUTE, 1440);
+                            //tmp.add(Calendar.MINUTE, 1440);
                             SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yy HH:mm");
                             Cela[] celaArray = new Cela[]{
                                     new Cela(mContext.getString(R.string.cela_import), getFormatedImport(dataAnulacio.getImport()), sampleMilimetersToPixels(27)),
-                                    new Cela(mContext.getString(R.string.cela_dataLimit), formatter.format(tmp.getTime()))
+                                    new Cela(mContext.getString(R.string.cela_dataLimit), formatter.format(dataAnulacio.getData().getTime()))
                             };
                             printCellaNegraArray(celaArray, y);
                             y = newLine(y, 2);
@@ -267,7 +280,7 @@ public class TicketPrinter {
                     }
                 }
             }
-            y = newLine(y, 2);
+            y = newLine(y, 1);
 
 
 
@@ -287,12 +300,12 @@ public class TicketPrinter {
             //------------------
             // Firma
             //------------------
-            printer.setPageXY(CELLA_INSET, y+CELLA_INSET);
+           /* printer.setPageXY(CELLA_INSET, y+CELLA_INSET);
             printer.printTaggedText("{reset}{s}" + mContext.getString(R.string.firma) + "{br}", CHARSET_ENCODING);
             int heightFirma = LINE_HEIGHT*6;
             printer.drawPageFrame(0, y, PAGE_WIDTH, heightFirma, Printer.FILL_BLACK, 1);
             y = newLine(y, 6);
-            y = newLine(y, 0.5f);
+            y = newLine(y, 0.5f);*/
 
             //------------------
             // Text anul·lació
@@ -304,16 +317,6 @@ public class TicketPrinter {
                 y = newLine(y, numLines+1);
             }
 
-
-            if(PreferencesGesblue.getTextPeuVisible(_context)) {
-                String textPeu = printConfiguration.getTextpeu();
-                numLines       = calcNumLines(textPeu, MAX_CHAR_LINE);
-
-                printer.printTaggedText("{reset}{left}{s}" + textPeu + "{br}", CHARSET_ENCODING);
-                y = newLine(y, numLines + 1);
-            }
-
-
             if(PreferencesGesblue.getLogoQr(_context) && !TextUtils.isEmpty(PreferencesGesblue.getAdrecaQr(_context))) {
                 int heightQr = LINE_HEIGHT*BARCODE_NUM_LINES;
                 printer.drawPageFrame(0, y, PAGE_WIDTH, heightQr + 2, Printer.FILL_WHITE, 1);
@@ -321,6 +324,34 @@ public class TicketPrinter {
                 printer.printQRCode(5, 3, printConfiguration.getQr());
                 y = newLine(y, BARCODE_NUM_LINES + 0.5f);
             }
+
+            if(PreferencesGesblue.getTextPeuVisible(_context)) {
+                if((PreferencesGesblue.getConcessio(_context)!=2)||((PreferencesGesblue.getConcessio(_context)==2)&&(PreferencesGesblue.getCodiZona(_context)!=5))) {
+                    if(PreferencesGesblue.getConcessio(_context)==4){
+
+                        Bitmap bitmap = printConfiguration.getImatgePeu();
+                        int widthBitmap = bitmap.getWidth();
+                        int heightBitmap = bitmap.getHeight();
+                        int[] argb = new int[widthBitmap * heightBitmap];
+                        bitmap.getPixels(argb, 0, widthBitmap, 0, 0, widthBitmap, heightBitmap);
+                        bitmap.recycle();
+                        printer.printImage(argb, widthBitmap, heightBitmap, Printer.ALIGN_LEFT, true);
+                        printer.flush();
+                        printer.printTaggedText("{reset}" + "{br}", CHARSET_ENCODING);
+                        y = newLine(y, 1);
+                    }
+                    else {
+                        String textPeu = printConfiguration.getTextpeu();
+                        numLines = calcNumLines(textPeu, MAX_CHAR_LINE);
+
+                        printer.printTaggedText("{reset}{left}{s}" + textPeu + "{br}", CHARSET_ENCODING);
+                        y = newLine(y, numLines + 1);
+                    }
+
+                }
+            }
+
+
 
             printer.printPage();
             printer.flush();
@@ -490,6 +521,25 @@ public class TicketPrinter {
 
 
     }
+    private void printCellaNegraCenterArray(Cela[] celaArray, Integer y) throws IOException {
+        //printer.reset();
+        //printer.selectPageMode();
+
+        int lastX = 0;
+
+        for (Cela cela : celaArray) {
+            Integer width = cela.getWidth();
+            if(width == null) {
+                width = new Integer(PAGE_WIDTH - lastX);
+            }
+
+            defineCellaNegraCenter(lastX, y, width, cela.getTitle(), cela.getBody());
+
+            lastX += width;
+        }
+
+
+    }
 
     /**
      * Imprimeix la cel·la amb estil. Text del títol sagnat amb fons blanc.
@@ -591,17 +641,41 @@ public class TicketPrinter {
 
         textY += LINE_HEIGHT;
         printer.setPageXY(textX, textY);
-        printer.printTaggedText("{reset}{h}{w}" + body + "{br}", CHARSET_ENCODING);
+        printer.printTaggedText("{reset}" + body + "{br}", CHARSET_ENCODING);
 
         printer.drawPageFrame(x, y, width, LINE_HEIGHT, Printer.FILL_BLACK, 1);
 
         Integer numLines = calcNumLines(body, numChars);
-        int height       = (numLines+1)*LINE_HEIGHT_BIG;
+        int height       = (numLines+1)*LINE_HEIGHT;
         printer.drawPageFrame(x, y, width, height, Printer.FILL_BLACK, 1);
 
         printer.drawPageRectangle(x, y, width, LINE_HEIGHT, Printer.FILL_INVERTED);
     }
+    private void defineCellaNegraCenter(int x, int y , int width, String title, String body) throws IOException {
 
+        int textX     = x + CELLA_INSET;
+        int textY     = y + CELLA_INSET;
+        int numChars = width / CHAR_SIZE;
+
+        if (width < PAGE_WIDTH && body.length() > numChars) {
+            body = body.substring(0, numChars); // capem el body als caràcters exàctes que hi càben, només si la caixa és inferior a tot l'ample
+        }
+
+        printer.setPageXY(textX, textY);
+        printer.printTaggedText("{reset}{center}{b}" + title +"{br}", CHARSET_ENCODING);
+
+        textY += LINE_HEIGHT;
+        printer.setPageXY(textX, textY);
+        printer.printTaggedText("{reset}{center}" + body + "{br}", CHARSET_ENCODING);
+
+        printer.drawPageFrame(x, y, width, LINE_HEIGHT, Printer.FILL_BLACK, 1);
+
+        Integer numLines = calcNumLines(body, numChars);
+        int height       = (numLines+1)*LINE_HEIGHT;
+        printer.drawPageFrame(x, y, width, height, Printer.FILL_BLACK, 1);
+
+        printer.drawPageRectangle(x, y, width, LINE_HEIGHT, Printer.FILL_INVERTED);
+    }
     /**
      * Imprimeix cel·la amb estil. Títol amb sagnat. Cel·la gran.
      * ---------
@@ -634,6 +708,25 @@ public class TicketPrinter {
 
         printer.drawPageFrame(x, y, width, LINE_HEIGHT_BIG, Printer.FILL_BLACK, 1);
         printer.drawPageFrame(x, y, width, LINE_HEIGHT_BIG * 2, Printer.FILL_BLACK, 1);
+
+        printer.drawPageRectangle(x, y, width, LINE_HEIGHT_BIG, Printer.FILL_INVERTED);
+
+    }
+    private void printCelaNegreFontMitjana(int x, int y, int width, String title, String body) throws IOException {
+
+        Integer textX = x + CELLA_INSET;
+        Integer textY = y + CELLA_INSET;
+
+        printer.setPageXY(textX, textY);
+        printer.printTaggedText("{reset}{center}{b}" + title +"{br}", CHARSET_ENCODING);
+
+        textY += LINE_HEIGHT_BIG;
+        printer.setPageXY(textX, textY);
+
+        printer.printTaggedText("{reset}{center}" + body + "{br}", CHARSET_ENCODING);
+
+        printer.drawPageFrame(x, y, width, LINE_HEIGHT_BIG, Printer.FILL_BLACK, 1);
+        printer.drawPageFrame(x, y, width, LINE_HEIGHT_BIG * 1, Printer.FILL_BLACK, 1);
 
         printer.drawPageRectangle(x, y, width, LINE_HEIGHT_BIG, Printer.FILL_INVERTED);
 

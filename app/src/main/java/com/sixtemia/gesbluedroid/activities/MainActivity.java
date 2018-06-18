@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,6 +57,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		String concessio = PreferencesGesblue.getConcessioString(mContext);
 
+		mBinding.editTextMatricula.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
 		mBinding.textViewLocalitzacioConcessio.setText(concessio);
 
 		mBinding.tvZona.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +185,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		final boolean multable = true;
 
-		DatamanagerAPI.crida_ComprovaMatricula(new ComprovaMatriculaRequest(PreferencesGesblue.getConcessio(mContext), Utils.getDeviceId(mContext), matricula, Utils.getCurrentTimeLong(mContext),PreferencesGesblue.getCodiCarrer(mContext),0), new JSoapCallback() {
+		DatamanagerAPI.crida_ComprovaMatricula(new ComprovaMatriculaRequest(PreferencesGesblue.getConcessio(mContext), Utils.getDeviceId(mContext), matricula, Utils.getCurrentTimeLong(mContext),PreferencesGesblue.getCodiCarrer(mContext),PreferencesGesblue.getCodiZona(mContext)), new JSoapCallback() {
 			@Override
 			public void onSuccess(String result) {
 				final ComprovaMatriculaResponse response;

@@ -187,7 +187,7 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="butlletaEnviadaOk_acceptar">Aceptar</string>
 	<string name="butlletaEnviadaOk_cancelar">Cancelar</string>
 
-	<string name="textAnulacioP">parquímetro.\n\n</string>
+	<string name="textAnulacioP">Anulación de parquímetro.\n\n</string>
 	<string name="textPeuP">Notificación del Ayuntamiento.</string>
 
 	<string name="sendDenuncia_failed_title">Se ha producido un error al enviar la denúncia. Por favor, vuelve a enviarla.</string>

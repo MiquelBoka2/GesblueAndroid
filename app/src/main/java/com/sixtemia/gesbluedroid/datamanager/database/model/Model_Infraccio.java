@@ -40,6 +40,9 @@ public class Model_Infraccio implements Parcelable {
 	@DatabaseField(columnName = "precepte", columnDefinition = "VARCHAR(100)")
 	private String precepte;
 
+	@DatabaseField(columnName = "zona", columnDefinition = "NUMBER")
+	private long zona;
+
 	public Model_Infraccio() {
 		this.codi = 0;
 		this.nom = "";
@@ -50,9 +53,10 @@ public class Model_Infraccio implements Parcelable {
 		this.anulacio2 = "";
 		this.tempsanulacio2 = "";
 		this.precepte = "";
+		this.zona = 0;
 	}
 
-	public Model_Infraccio(long codi, String nom, String importe, String anulacio, String tempsanulacio, String anulacio2, String tempsanulacio2, String precepte) {
+	public Model_Infraccio(long codi, String nom, String importe, String anulacio, String tempsanulacio, String anulacio2, String tempsanulacio2, String precepte, long zona) {
 		this.codi = codi;
 		this.nom = nom;
 		this.importe = importe;
@@ -62,6 +66,7 @@ public class Model_Infraccio implements Parcelable {
 		this.anulacio2 = anulacio2;
 		this.tempsanulacio2 = tempsanulacio2;
 		this.precepte = precepte;
+		this.zona = zona;
 	}
 
 	public long getCodi() {
@@ -110,6 +115,14 @@ public class Model_Infraccio implements Parcelable {
 		this.importe = _importe;
 	}
 
+	public long getZona() {
+		return zona;
+	}
+
+	public void setZona(long zona) {
+		this.zona = zona;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -124,6 +137,7 @@ public class Model_Infraccio implements Parcelable {
 		dest.writeString(this.anulacio2);
 		dest.writeString(this.tempsanulacio2);
 		dest.writeString(this.precepte);
+		dest.writeLong(this.zona);
 	}
 	protected Model_Infraccio(Parcel in) {
 		this.codi = in.readLong();
@@ -134,6 +148,7 @@ public class Model_Infraccio implements Parcelable {
 		this.anulacio2 = in.readString();
 		this.tempsanulacio2 = in.readString();
 		this.precepte = in.readString();
+		this.zona = in.readLong();
 	}
 	public static final Parcelable.Creator<Model_Infraccio> CREATOR = new Parcelable.Creator<Model_Infraccio>() {
 		@Override

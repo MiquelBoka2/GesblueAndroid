@@ -188,6 +188,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 				DatabaseAPI.deleteAllTipusAnulacions(mContext);
 				DatabaseAPI.deleteAllCarrers(mContext);
 				DatabaseAPI.deleteAllInfraccions(mContext);
+				DatabaseAPI.deleteAllZones(mContext);
 				return true;
 
 			default:
@@ -287,6 +288,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void guardarDadesAlPreferences(NouTerminalResponse nt, String username) {
 		PreferencesGesblue.setTerminal(mContext, Long.toString(nt.getTerminal()));
 		PreferencesGesblue.saveLogo(mContext, nt.getLogo());
+		PreferencesGesblue.saveImatgePeu(mContext, nt.getImatgepeu());
 		PreferencesGesblue.saveTextCap(mContext, nt.getTextcap());
 		PreferencesGesblue.setAgentId(mContext, username);
 		PreferencesGesblue.saveCodiBarresVisible(mContext, nt.hasCodiBarresVisible());
@@ -345,7 +347,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 							PreferencesGesblue.saveIdAgent(mContext, response.getAgent());
 
 
-							Model_Log model_log = new Model_Log();
+							/*Model_Log model_log = new Model_Log();
 							model_log.setFechalog("");
 							model_log.setConcessiolog(String.valueOf(concessio));
 							model_log.setIdagent(Integer.parseInt(response.getCodiagent()));
@@ -366,7 +368,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 							final ArrayList<Model_Log> listLogs = DatabaseAPI.getLogs(mContext);
 
-							Log.d("Num logs locals",""+listLogs.size());
+							Log.d("Num logs locals",""+listLogs.size());*/
 
 							if(isLoginConcessio) {
 								Intent intent = new Intent(mContext, MainActivity.class);
@@ -800,7 +802,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 						if(infraccio.isEliminar()) {
 							DatabaseAPI.deleteInfraccio(mContext, Long.parseLong(infraccio.getCodi()));
 						} else {
-							list.add(new Model_Infraccio(TextUtils.isEmpty(infraccio.getCodi()) ? 0 : Long.parseLong(infraccio.getCodi()), infraccio.getNom(), infraccio.getImporte(), infraccio.getAnulacio(), infraccio.getTempsanulacio(), infraccio.getAnulacio2(), infraccio.getTempsanulacio2(), infraccio.getPrecepte()));
+							list.add(new Model_Infraccio(TextUtils.isEmpty(infraccio.getCodi()) ? 0 : Long.parseLong(infraccio.getCodi()), infraccio.getNom(), infraccio.getImporte(), infraccio.getAnulacio(), infraccio.getTempsanulacio(), infraccio.getAnulacio2(), infraccio.getTempsanulacio2(), infraccio.getPrecepte(),infraccio.getZona()));
 						}
 					}
 					DatabaseAPI.insertInfraccions(mContext, list);

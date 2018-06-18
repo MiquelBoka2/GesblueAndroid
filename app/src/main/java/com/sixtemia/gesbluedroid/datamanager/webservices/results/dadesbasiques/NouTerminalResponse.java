@@ -27,6 +27,10 @@ public class NouTerminalResponse {
 	@SerializedName("logo")
 	private String logo;
 
+	@JSoapResField(name = "imatgepeu")
+	@SerializedName("imatgepeu")
+	private String imatgepeu;
+
 	@JSoapResField(name = "textcap")
 	@SerializedName("textcap")
 	private String textcap;
@@ -204,6 +208,14 @@ public class NouTerminalResponse {
 
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+
+	public String getImatgepeu() {
+		return imatgepeu;
+	}
+
+	public void setImatgepeu(String imatgepeu) {
+		this.imatgepeu = imatgepeu;
 	}
 
 	public String getTextcap() {
@@ -423,6 +435,7 @@ public class NouTerminalResponse {
 				", codiexportadora='" + codiexportadora + '\'' +
 				", coditipusbutlleta='" + coditipusbutlleta + '\'' +
 				", codiinstitucio='" + codiinstitucio + '\'' +
+				", imatgepeu='" + imatgepeu + '\'' +
 				'}';
 	}
 }

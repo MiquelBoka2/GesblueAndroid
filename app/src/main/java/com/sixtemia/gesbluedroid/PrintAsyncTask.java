@@ -68,50 +68,83 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 					.setTextCap(PreferencesGesblue.getTextCap(mContext))
 					.setData(createCalendar(0))
 					.setMatricula(sancio.getMatricula());
-					try{
-						if(sancio.getModelMarca() != null && !TextUtils.isEmpty(sancio.getModelMarca().getImatgemarca())) ticketConfiguration = ticketConfiguration.setLogoCotxe(Picasso.with(mContext).load(sancio.getModelMarca().getImatgemarca()).get());
-					} catch(IOException e) {
-						e.printStackTrace();
-						e.printStackTrace();
-					}
-					ticketConfiguration = ticketConfiguration.setVehicle(Utils.languageMultiplexer(sancio.getModelTipusVehicle().getNomtipusvehiclees(), sancio.getModelTipusVehicle().getNomtipusvehiclecat()))
+
+			if (PreferencesGesblue.getConcessio(mContext) == 4) {//Banyoles
+				ticketConfiguration.setImatgePeu(Picasso.with(mContext).load(PreferencesGesblue.getImatgePeu(mContext)).get());
+			}
+			try {
+				if (sancio.getModelMarca() != null && !TextUtils.isEmpty(sancio.getModelMarca().getImatgemarca()))
+					ticketConfiguration = ticketConfiguration.setLogoCotxe(Picasso.with(mContext).load(sancio.getModelMarca().getImatgemarca()).get());
+			} catch (IOException e) {
+				e.printStackTrace();
+				e.printStackTrace();
+			}
+			ticketConfiguration = ticketConfiguration.setVehicle(Utils.languageMultiplexer(sancio.getModelTipusVehicle().getNomtipusvehiclees(), sancio.getModelTipusVehicle().getNomtipusvehiclecat()))
 					.setMarcaModel(sancio.getModelMarca().getImatgemarca(), sancio.getModelMarca().getNommarca() + " " + sancio.getModelModel().getNommodel())
 					.setColor(Utils.languageMultiplexer(sancio.getModelColor().getNomcolores(), sancio.getModelColor().getNomcolorcat()))
 					.setLlocInfraccio(sancio.getModelCarrer().getNomcarrer() + " " + sancio.getNumero())
 					.setPrecepteInfringit(sancio.getModelInfraccio().getPrecepte())
 					.setFetDenunciat(sancio.getModelInfraccio().getNom())
 					.setImport(Float.parseFloat(sancio.getModelInfraccio().getImporte()))
-					.setDte(Float.parseFloat(sancio.getModelInfraccio().getImporte())/2)
+					.setDte(Float.parseFloat(sancio.getModelInfraccio().getImporte()) / 2)
 					.setAgent(Long.toString(PreferencesGesblue.getCodiAgent(mContext)));
 
-					ticketConfiguration.setDataCreacio(dataCreacio);
+			ticketConfiguration.setDataCreacio(dataCreacio);
 
-					if(PreferencesGesblue.getCodiBarresServiCaixa(mContext)) {
-						ticketConfiguration.setCodiBarresServiCaixa(generarServiCaixa());
-						ticketConfiguration
-                            .setEmissora(getEmisora(mContext))
-                            .setMod(PreferencesGesblue.getMod(mContext))
-                            .setReferencia(PreferencesGesblue.getReferencia(mContext))
-                            .setIdentificacio(PreferencesGesblue.getIdentificacio(mContext))
-                            .setImpDte(Float.parseFloat(PreferencesGesblue.getImpDte(mContext))/100);
-					}
-					Calendar calendar = Calendar.getInstance();
-					Calendar calendar1 = Calendar.getInstance();
-					Calendar calendar2 = Calendar.getInstance();
+			if (PreferencesGesblue.getCodiBarresServiCaixa(mContext)) {
+				ticketConfiguration.setCodiBarresServiCaixa(generarServiCaixa());
+				ticketConfiguration
+						.setEmissora(getEmisora(mContext))
+						.setMod(PreferencesGesblue.getMod(mContext))
+						.setReferencia(PreferencesGesblue.getReferencia(mContext))
+						.setIdentificacio(PreferencesGesblue.getIdentificacio(mContext))
+						.setImpDte(Float.parseFloat(PreferencesGesblue.getImpDte(mContext)) / 100);
+			}
+			Calendar calendar = Calendar.getInstance();
+			Calendar calendar1 = Calendar.getInstance();
+			Calendar calendar2 = Calendar.getInstance();
 
-					calendar.setTime((Date)dataCreacio);
-					calendar.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
-					calendar.add(Calendar.DATE, 35);
-
-
-			calendar1.setTime((Date)dataCreacio);
-			calendar1.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
-			calendar1.add(Calendar.DATE, Integer.parseInt(sancio.getModelInfraccio().getTempsanulacio()));
+			calendar.setTime((Date) dataCreacio);
+			calendar.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
+			calendar.add(Calendar.DATE, getDiesDescompteFromValorsServicaixa());
 
 
-			calendar2.setTime((Date)dataCreacio);
-			calendar2.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
-			calendar2.add(Calendar.DATE, 35);
+			if (PreferencesGesblue.getConcessio(mContext) == 4){//Banyoles
+				calendar1.setTime((Date) dataCreacio);
+				//calendar1.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
+				if(Integer.parseInt(sancio.getModelInfraccio().getTempsanulacio())==120) {
+					calendar1.add(Calendar.MINUTE, Integer.parseInt(sancio.getModelInfraccio().getTempsanulacio()));
+				}else{
+					calendar1.set(Calendar.SECOND, 59);
+					calendar1.set(Calendar.MINUTE, 59);
+					calendar1.set(Calendar.HOUR_OF_DAY, 23);
+				}
+
+
+
+				calendar2.setTime((Date) dataCreacio);
+				//calendar2.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
+				calendar2.set(Calendar.SECOND, 59);
+				calendar2.set(Calendar.MINUTE, 59);
+				calendar2.set(Calendar.HOUR_OF_DAY, 23);
+				//calendar2.set(Calendar.DATE, getDiesDescompteFromValorsServicaixa(());
+			}
+			else if(PreferencesGesblue.getConcessio(mContext) == 25){//Estartit
+				calendar1.setTime((Date) dataCreacio);
+				//calendar1.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
+                calendar1.add(Calendar.MINUTE, Integer.parseInt(sancio.getModelInfraccio().getTempsanulacio()));
+
+
+				calendar2.setTime((Date) dataCreacio);
+				calendar2.add(Calendar.MINUTE, 1440);
+				//calendar2.set(Calendar.DATE, getDiesDescompteFromValorsServicaixa(());
+			}
+			else{
+				calendar1.setTime((Date) dataCreacio);
+				//calendar1.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
+				calendar1.add(Calendar.MINUTE, Integer.parseInt(sancio.getModelInfraccio().getTempsanulacio()));
+
+			}
 
 
 			ticketConfiguration
@@ -181,7 +214,7 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 
 		calendar.setTime((Date)dataCreacio);
 		//calendar.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
-		calendar.add(Calendar.DATE, 35);
+		calendar.add(Calendar.DATE, getDiesDescompteFromValorsServicaixa());
 		String limit = String.valueOf(convertToJulian(calendar));
 		while(limit.length() < 3) {
 			limit = 0 + limit;
@@ -244,18 +277,19 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 
 		calendar.setTime((Date)dataCreacio);
 		//calendar.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
-		calendar.add(Calendar.DATE, 35);
+		calendar.add(Calendar.DATE, getDiesDescompteFromValorsServicaixa());
 		int year = calendar.get(Calendar.YEAR);
 
 		return year % 10;
 	}
 
 	public static int convertToJulian(Calendar calendar) {
-		int year = calendar.get(Calendar.YEAR);
+		/*int year = calendar.get(Calendar.YEAR);
 		String syear = String.format("%04d",year).substring(2);
 		int century = Integer.parseInt(String.valueOf(((year / 100)+1)).substring(1));
 		int julian = Integer.parseInt(String.format("%d%s%03d",century,syear,calendar.get(Calendar.DAY_OF_YEAR)));
-		return julian%100;
+		return julian%100;*/
+		return calendar.get(Calendar.DAY_OF_YEAR);
 	}
 
 	private String getEmisoraFromValorsServicaixa() {
@@ -275,6 +309,15 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 		}
 		return "";
 	}
+	private int getDiesDescompteFromValorsServicaixa() {
+
+		String[] cadenaServicaixa = PreferencesGesblue.getValorsServiCaixa(mContext).split("/");
+		if(cadenaServicaixa.length > 2) {
+			return Integer.parseInt(cadenaServicaixa[2]);
+		}
+		return 20;
+	}
+
 
 	private int getEjercicioDevengo() {
 		Calendar c = Calendar.getInstance();

@@ -15,6 +15,8 @@ public class TicketConfiguration {
     //Separat per linies del tiquet
     private Bitmap logo;
 
+    private Bitmap imatgePeu;
+
     private String textCap;
 
     private String butlleta;
@@ -75,6 +77,10 @@ public class TicketConfiguration {
 
     public Bitmap getLogo() {
         return logo;
+    }
+
+    public Bitmap getImatgePeu() {
+        return imatgePeu;
     }
 
     public String getButlleta() {
@@ -189,6 +195,12 @@ public class TicketConfiguration {
 
     public TicketConfiguration setLogo(Bitmap logo) {
         this.logo = logo;
+
+        return this;
+    }
+
+    public TicketConfiguration setImatgePeu(Bitmap imatgePeu) {
+        this.imatgePeu = imatgePeu;
 
         return this;
     }

@@ -46,7 +46,7 @@ public class Pas5InfraccioActivity extends GesblueFragmentActivity {
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
 
-		final ArrayList<Model_Infraccio> arrayAux = DatabaseAPI.getInfraccions(mContext);
+		final ArrayList<Model_Infraccio> arrayAux = DatabaseAPI.getInfraccionsZona(mContext);
 
 //		Collections.sort(arrayAux, new Comparator<Model_Infraccio>() {
 //			@Override
