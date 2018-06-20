@@ -20,7 +20,7 @@ import com.sixtemia.gesbluedroid.activities.passosformulari.Pas6CarrerActivity;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.databinding.ActivityMainBinding;
 import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
-import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Agent;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaBlanca;
 import com.sixtemia.gesbluedroid.datamanager.webservices.DatamanagerAPI;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.ComprovaMatriculaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.ComprovaMatriculaResponse;
@@ -122,9 +122,9 @@ public class MainActivity extends GesblueFragmentActivity {
 		});
 
 
-		final ArrayList<Model_Agent> listLogs = DatabaseAPI.getAgents(mContext);
+		final ArrayList<Model_LlistaBlanca> listLogs = DatabaseAPI.getLlistaBlanca(mContext);
 
-		Log.d("Num agent locals",""+listLogs.size());
+		Log.d("Num llistaBlanca local",""+listLogs.size());
 
 	}
 
@@ -179,6 +179,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		}
 	}
 	private void comprovarMatricula(String matricula) {
+		final String mat = matricula;
 		amagarTeclat();
 		mBinding.viewSwitcherComprovaAnim.showNext();
 		mBinding.editTextMatricula.setEnabled(false);
@@ -227,7 +228,15 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				//Utils.showDatamanagerError(mContext, error);
 
-				changeViewNoComprovat();
+				Model_LlistaBlanca llistaBlanca = DatabaseAPI.findLlistaBlanca(mContext, mat);
+
+				if(llistaBlanca==null) {
+
+					changeViewNoComprovat();
+				}
+				else{
+					changeViewNoMultable();
+				}
 			}
 		});
 	}

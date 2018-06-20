@@ -12,6 +12,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.helpers.CarrerHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.ColorHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.DenunciaHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.InfraccioHelper;
+import com.sixtemia.gesbluedroid.datamanager.database.helpers.LlistaBlancaHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.LogHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.MarcaHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.ModelHelper;
@@ -26,6 +27,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Color;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Denuncia;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Infraccio;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaBlanca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Log;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Model;
@@ -271,6 +273,47 @@ public class DatabaseAPI {
 	}
 	/** /Infraccio **/
 
+	/** LlistaBlanca **/
+	private static BasicDBResult _getLlistaBlanca(Context c) {
+		return executeDatabaseOperation(c, new LlistaBlancaHelper().getAllGroupById(c));
+	}
+
+	private static BasicDBResult _getLlistaBlanca(Context c, String id) {
+		return executeDatabaseOperation(c, new LlistaBlancaHelper().getField(c, Model_LlistaBlanca.ID, id));
+	}
+
+	public static ArrayList<Model_LlistaBlanca> getLlistaBlanca(Context c) {
+		return (ArrayList<Model_LlistaBlanca>) _getLlistaBlanca(c).getArray();
+	}
+
+
+	public static Model_LlistaBlanca getLlistaBlanca(Context c, String id) {
+		return _getLlistaBlanca(c, id).getFirst();
+	}
+
+    private static BasicDBResult _findLlistaBlanca(Context c, String matricula) {
+        String[] fields =  {"matricula"};
+        Object[] values = {matricula};
+        return executeDatabaseOperation(c, new LlistaBlancaHelper().getFields(c, fields, values));
+    }
+
+
+    public static Model_LlistaBlanca findLlistaBlanca(Context c, String matricula) {
+        return _findLlistaBlanca(c, matricula).getFirst();
+    }
+
+	public static BasicDBResult inserLlistaBlanca(Context c, List<Model_LlistaBlanca> list) {
+		return executeDatabaseOperation(c, new LlistaBlancaHelper().create(c, list));
+	}
+
+	public static BasicDBResult deleteAllLlistaBlanca(Context c) {
+		return executeDatabaseOperation(c, new LlistaBlancaHelper().deleteAll(c));
+	}
+
+	public static BasicDBResult deleteLlistaBlanca(Context c, long codi) {
+		return executeDatabaseOperation(c, new LlistaBlancaHelper().deleteWhere(c, "codillistablanca", codi));
+	}
+	/** /Infraccio **/
 
 	/** Log **/
 	private static BasicDBResult _getLogs(Context c) {

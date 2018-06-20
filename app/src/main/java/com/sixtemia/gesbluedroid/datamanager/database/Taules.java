@@ -20,5 +20,6 @@ public class Taules {
 	public static final String TAULA_TERMINAL = "terminal";
 	public static final String TAULA_TIPUSANULACIO = "tipusAnulacio";
 	public static final String TAULA_TIPUSVEHICLE = "tipusVehicle";
+	public static final String TAULA_LLISTABLANCA = "llistaBlanca";
 
 }

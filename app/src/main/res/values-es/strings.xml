@@ -65,6 +65,7 @@
 	<string name="actualitzantZones">Actualizando Zonas&#8230;</string>
 	<string name="actualitzantCarrers">Actualizando Calles&#8230;</string>
 	<string name="actualitzantInfraccions">Actualizando Infracciones&#8230;</string>
+	<string name="actualitzantLlista">Actualizando Lista&#8230;</string>
 	<string name="actualitzant">Actualizando&#8230;</string>
 	<string name="sincronitzant">Sincronizando&#8230;</string>
 

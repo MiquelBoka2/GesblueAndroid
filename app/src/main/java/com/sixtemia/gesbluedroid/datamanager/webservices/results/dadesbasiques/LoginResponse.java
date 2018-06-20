@@ -54,6 +54,10 @@ public class LoginResponse extends WSResult {
 	@SerializedName("infraccions")
 	private int infraccions;
 
+	@JSoapResField(name = "llistablanca")
+	@SerializedName("llistablanca")
+	private int llistablanca;
+
 	public LoginResponse() {
 		resultat = 0;
 		agent = 0;
@@ -65,6 +69,7 @@ public class LoginResponse extends WSResult {
 		tipusvehicles = 0;
 		carrers = 0;
 		infraccions = 0;
+		llistablanca = 0;
 	}
 
 	public LoginResponse(long resultat, long agent, String codiagent, int agents,int marques, int models, int colors, int tipusvehicles, int zones, int carrers, int infraccions) {
@@ -111,6 +116,9 @@ public class LoginResponse extends WSResult {
 		return isTrue(getInfraccions());
 	}
 
+	public boolean showLlistaBlanca() {
+		return isTrue(getLlistaBlanca());
+	}
 	public long getAgent() {
 		return agent;
 	}
@@ -192,6 +200,14 @@ public class LoginResponse extends WSResult {
 		this.infraccions = infraccions;
 	}
 
+	public int getLlistaBlanca() {
+		return llistablanca;
+	}
+
+	public void setLlistablanca(int llistablanca) {
+		this.llistablanca = llistablanca;
+	}
+
 	public long getResultat() {
 		return resultat;
 	}
@@ -213,6 +229,7 @@ public class LoginResponse extends WSResult {
 				", zones=" + zones +
 				", carrers=" + carrers +
 				", infraccions=" + infraccions +
+				", llistablanca=" + llistablanca +
 				'}';
 	}
 

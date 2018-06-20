@@ -9,6 +9,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.CarrersRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.ColorsRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.InfraccionsRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.LlistaBlancaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.LoginRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.MarquesRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.ModelsRequest;
@@ -28,6 +29,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.A
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.CarrersResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ColorsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.InfraccionsResponse;
+import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.LlistaBlancaResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.LoginResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.MarquesResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ModelsResponse;
@@ -81,6 +83,9 @@ public class DatamanagerAPI {
 	}
 	public static AsyncTask crida_Infraccions(InfraccionsRequest _infraccionsRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_INFRACCIONS_METHOD, Constants.DADESBA_INFRACCIONS_SOAPACTION, _infraccionsRequest, InfraccionsResponse.class, _listener);
+	}
+	public static AsyncTask crida_LlistaBlanca(LlistaBlancaRequest _llistablancaRequest, JSoapCallback _listener) {
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_LLISTABLANCA_METHOD, Constants.DADESBA_LLISTABLANCA_SOAPACTION, _llistablancaRequest, LlistaBlancaResponse.class, _listener);
 	}
 	public static AsyncTask crida_RecuperaData(RecuperaDataRequest _recuperaDataRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_RECUPERADATA_METHOD, Constants.DADESBA_RECUPERADATA_SOAPACTION, _recuperaDataRequest, String.class, _listener);

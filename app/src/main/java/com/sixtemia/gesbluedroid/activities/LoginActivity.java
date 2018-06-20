@@ -24,6 +24,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Agent;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Color;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Infraccio;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaBlanca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Log;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Model;
@@ -35,6 +36,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.CarrersRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.ColorsRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.InfraccionsRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.LlistaBlancaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.LoginRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.MarquesRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.ModelsRequest;
@@ -47,6 +49,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.A
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.CarrersResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ColorsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.InfraccionsResponse;
+import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.LlistaBlancaResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.LoginResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.MarquesResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ModelsResponse;
@@ -141,8 +144,11 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 					if(isLoginConcessio) {
 						cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
+
+						Log.d("Login -1","xxx");
 					} else {
 
+						Log.d("Login -2","xxx");
 						cridaLogin(mBinding.editTextUsuari.getText().toString(), mBinding.editTextPassword.getText().toString(), TextUtils.isEmpty(concessio) ? 0 : Long.parseLong(concessio),PreferencesGesblue.getDataSync(mContext));
 					}
 				}
@@ -189,6 +195,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 				DatabaseAPI.deleteAllCarrers(mContext);
 				DatabaseAPI.deleteAllInfraccions(mContext);
 				DatabaseAPI.deleteAllZones(mContext);
+				DatabaseAPI.deleteAllLlistaBlanca(mContext);
 				return true;
 
 			default:
@@ -320,11 +327,13 @@ public class LoginActivity extends GesblueFragmentActivity {
 		//mContext=null;
 		Long data =  Long.parseLong(PreferencesGesblue.getDataSync(mContext));
 
+		Log.d("Login 0","xxx");
 		boolean connected = false;
 		ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(mContext.CONNECTIVITY_SERVICE);
 		if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
 				connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
 			//we are connected to a network
+					Log.d("Login 1","xxx");
 			DatamanagerAPI.crida_Login(new LoginRequest(username, password, concessio, Utils.getDeviceId(mContext), Utils.getAndroidVersion(), Utils.getAppVersion(mContext), data), new JSoapCallback() {
 				@Override
 				public void onSuccess(String result) {
@@ -337,6 +346,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 						return;
 					}
 
+					Log.d("Login 2","xxx");
 					showLoadingAnimButton(false);
 					enableEditTexts(true);
 
@@ -370,13 +380,18 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 							Log.d("Num logs locals",""+listLogs.size());*/
 
+							Log.d("Login 3","xxx");
 							if(isLoginConcessio) {
 								Intent intent = new Intent(mContext, MainActivity.class);
 								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 								startActivity(intent);
 
+
+
 							}
 							else {
+
+								Log.d("Login 5","xxx");
 								String d = PreferencesGesblue.getDataSync(mContext);
 								sincronitzarTot(response, concessio, d);
 							}
@@ -806,6 +821,47 @@ public class LoginActivity extends GesblueFragmentActivity {
 						}
 					}
 					DatabaseAPI.insertInfraccions(mContext, list);
+					sincronitzarLlistaBlanca(loginResponse, concessio, _data);
+				}
+
+				@Override
+				public void onError(int error) {
+					Utils.showDatamanagerError(mContext, error);
+					everythingIsOk = false;
+					sincronitzarLlistaBlanca(loginResponse, concessio, _data);
+					mBinding.viewSwitcherLoginAnim.showNext();
+				}
+			});
+		} else {
+			sincronitzarLlistaBlanca(loginResponse, concessio, _data);
+		}
+	}
+	private void sincronitzarLlistaBlanca(final LoginResponse loginResponse, final long concessio, final String _data) {
+
+			progress.setMessage(getString(R.string.actualitzantLlista));
+			String data = PreferencesGesblue.getDataSync(mContext);
+			if(!TextUtils.isEmpty(_data)) data = _data;
+			DatamanagerAPI.crida_LlistaBlanca(new LlistaBlancaRequest(concessio, data), new JSoapCallback() {
+				@Override
+				public void onSuccess(String result) {
+					LlistaBlancaResponse response;
+					try {
+						response = DatamanagerAPI.parseJson(result, LlistaBlancaResponse.class);
+					} catch (Exception ex) {
+						ELog(ex);
+						onError(PARSE_ERROR);
+						return;
+					}
+
+					LinkedList<Model_LlistaBlanca> list = new LinkedList<>();
+					for(LlistaBlancaResponse.LlistaBlanca llistablanca : response.getLlistablanca()) {
+						if(llistablanca.isEliminar()) {
+							DatabaseAPI.deleteLlistaBlanca(mContext, Long.parseLong(llistablanca.getCodi()));
+						} else {
+							list.add(new Model_LlistaBlanca(TextUtils.isEmpty(llistablanca.getCodi()) ? 0 : Long.parseLong(llistablanca.getCodi()), llistablanca.getMatricula()));
+						}
+					}
+					DatabaseAPI.inserLlistaBlanca(mContext, list);
 					sincronitzarComptadorDenuncia();
 				}
 
@@ -817,11 +873,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 					mBinding.viewSwitcherLoginAnim.showNext();
 				}
 			});
-		} else {
-			sincronitzarComptadorDenuncia();
-		}
 	}
-
 	private void sincronitzarComptadorDenuncia() {
 		progress.setMessage(getString(R.string.actualitzant));
 		if(everythingIsOk) {
