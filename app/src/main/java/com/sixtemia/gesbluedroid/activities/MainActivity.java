@@ -20,14 +20,19 @@ import com.sixtemia.gesbluedroid.activities.passosformulari.Pas6CarrerActivity;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.databinding.ActivityMainBinding;
 import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaAbonats;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaBlanca;
 import com.sixtemia.gesbluedroid.datamanager.webservices.DatamanagerAPI;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.ComprovaMatriculaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.ComprovaMatriculaResponse;
+import com.sixtemia.gesbluedroid.global.Constants;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import pt.joaocruz04.lib.misc.JSoapCallback;
 import pt.joaocruz04.lib.misc.JsoapError;
@@ -126,6 +131,11 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		Log.d("Num llistaBlanca local",""+listLogs.size());
 
+		final ArrayList<Model_LlistaAbonats> listLogs2 = DatabaseAPI.getLlistaAbonats(mContext);
+
+		Log.d("Num llistaAbonats local",""+listLogs2.size());
+
+
 	}
 
 	@Override
@@ -185,6 +195,8 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.editTextMatricula.setEnabled(false);
 
 		final boolean multable = true;
+		Log.d("crida0", Constants.OPERATIVA_COMPROVAMATRICULA_METHOD);
+		Log.d("params",PreferencesGesblue.getConcessio(mContext)+" - "+Utils.getDeviceId(mContext)+" - "+matricula+" - "+ Utils.getCurrentTimeLong(mContext)+" - "+PreferencesGesblue.getCodiCarrer(mContext)+" - "+PreferencesGesblue.getCodiZona(mContext)+" - "+PreferencesGesblue.getCodiAgent(mContext));
 
 		DatamanagerAPI.crida_ComprovaMatricula(new ComprovaMatriculaRequest(PreferencesGesblue.getConcessio(mContext), Utils.getDeviceId(mContext), matricula, Utils.getCurrentTimeLong(mContext),PreferencesGesblue.getCodiCarrer(mContext),PreferencesGesblue.getCodiZona(mContext)), new JSoapCallback() {
 			@Override
@@ -192,6 +204,7 @@ public class MainActivity extends GesblueFragmentActivity {
 				final ComprovaMatriculaResponse response;
 				try {
 					response = DatamanagerAPI.parseJson(result, ComprovaMatriculaResponse.class);
+					Log.d("Resultat",""+response.getResultat());
 				} catch (Exception ex) {
 					ELog(ex);
 					onError(PARSE_ERROR);
@@ -232,9 +245,36 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				if(llistaBlanca==null) {
 
-					changeViewNoComprovat();
+
+                    Model_LlistaAbonats llistaAbonats = DatabaseAPI.findLlistaAbonats(mContext, mat);
+
+                    if(llistaAbonats==null) {
+
+                        changeViewNoComprovat();
+                    }
+                    else{
+						try {
+							SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+							Date datainici = fmt.parse(llistaAbonats.getDatainici());
+							Date datafi = fmt.parse(llistaAbonats.getDatafi());
+							Date date = new Date();
+							if( date.after(datainici) && date.before(datafi)){
+								changeViewNoMultable();
+							}
+							else{
+								changeViewNoComprovat();
+							}
+						}catch(ParseException pex){
+
+						}
+
+                        Log.d("comprovacio","abonat");
+                        changeViewNoMultable();
+
+                    }
 				}
 				else{
+                    Log.d("comprovacio","blanca");
 					changeViewNoMultable();
 				}
 			}

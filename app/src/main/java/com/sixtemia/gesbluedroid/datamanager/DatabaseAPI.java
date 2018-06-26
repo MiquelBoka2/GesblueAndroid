@@ -12,6 +12,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.helpers.CarrerHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.ColorHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.DenunciaHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.InfraccioHelper;
+import com.sixtemia.gesbluedroid.datamanager.database.helpers.LlistaAbonatsHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.LlistaBlancaHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.LogHelper;
 import com.sixtemia.gesbluedroid.datamanager.database.helpers.MarcaHelper;
@@ -27,6 +28,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Color;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Denuncia;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Infraccio;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaAbonats;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaBlanca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Log;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
@@ -313,7 +315,49 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteLlistaBlanca(Context c, long codi) {
 		return executeDatabaseOperation(c, new LlistaBlancaHelper().deleteWhere(c, "codillistablanca", codi));
 	}
-	/** /Infraccio **/
+	/** /LlistaBlanca **/
+
+    /** LlistaAbonats **/
+    private static BasicDBResult _getLlistaAbonats(Context c) {
+        return executeDatabaseOperation(c, new LlistaAbonatsHelper().getAllGroupById(c));
+    }
+
+    private static BasicDBResult _getLlistaAbonats(Context c, String id) {
+        return executeDatabaseOperation(c, new LlistaAbonatsHelper().getField(c, Model_LlistaAbonats.ID, id));
+    }
+
+    public static ArrayList<Model_LlistaAbonats> getLlistaAbonats(Context c) {
+        return (ArrayList<Model_LlistaAbonats>) _getLlistaAbonats(c).getArray();
+    }
+
+
+    public static Model_LlistaAbonats getLlistaAbonats(Context c, String id) {
+        return _getLlistaAbonats(c, id).getFirst();
+    }
+
+    private static BasicDBResult _findLlistaAbonats(Context c, String matricula) {
+        String[] fields =  {"matricula"};
+        Object[] values = {matricula};
+        return executeDatabaseOperation(c, new LlistaAbonatsHelper().getFields(c, fields, values));
+    }
+
+
+    public static Model_LlistaAbonats findLlistaAbonats(Context c, String matricula) {
+        return _findLlistaAbonats(c, matricula).getFirst();
+    }
+
+    public static BasicDBResult insertLlistaAbonats(Context c, List<Model_LlistaAbonats> list) {
+        return executeDatabaseOperation(c, new LlistaAbonatsHelper().create(c, list));
+    }
+
+    public static BasicDBResult deleteAllLlistaAbonats(Context c) {
+        return executeDatabaseOperation(c, new LlistaAbonatsHelper().deleteAll(c));
+    }
+
+    public static BasicDBResult deleteLlistaAbonats(Context c, long codi) {
+        return executeDatabaseOperation(c, new LlistaAbonatsHelper().deleteWhere(c, "codillistaabonats", codi));
+    }
+    /** /LlistaAbonats **/
 
 	/** Log **/
 	private static BasicDBResult _getLogs(Context c) {

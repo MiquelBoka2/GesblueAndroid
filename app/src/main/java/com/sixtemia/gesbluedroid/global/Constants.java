@@ -53,6 +53,7 @@ public class Constants {
         public static final String DADESBA_ZONES_METHOD = "CarrersRequest";
         public static final String DADESBA_CARRERS_METHOD = "CarrersRequest";
         public static final String DADESBA_LLISTABLANCA_METHOD = "LlistaBlancaRequest";
+        public static final String DADESBA_LLISTAABONATS_METHOD = "LlistaAbonatsRequest";
         //- Operativa
         public static final String OPERATIVA_COMPROVAMATRICULA_METHOD = "ComprovaMatriculaCarrerZona";
         public static final String OPERATIVA_NOVADENUNCIA_METHOD = "NovaDenuncia";
@@ -77,6 +78,7 @@ public class Constants {
         public static final String DADESBA_ZONES_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_ZONES;
         public static final String DADESBA_CARRERS_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_CARRERS;
         public static final String DADESBA_LLISTABLANCA_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_LLISTABLANCA;
+    public static final String DADESBA_LLISTAABONATS_SOAPACTION = DADESBA_NAMESPACE + HASH + WSConstantsGB.REQUEST_LLISTAABONATS;
         //- Operativa
         public static final String OPERATIVA_COMPROVAMATRICULA_SOAPACTION = OPERATIVA_NAMESPACE + HASH + WSConstantsGB.REQUEST_COMPROVAMATRICULA;
         public static final String OPERATIVA_NOVADENUNCIA_SOAPACTION = OPERATIVA_NAMESPACE + HASH + WSConstantsGB.REQUEST_NOVADENUNCIA;

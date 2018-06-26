@@ -20,6 +20,7 @@ public class WSConstantsGB extends WSConstants {
 	public static final String REQUEST_CARRERS = "Carrers";
 	public static final String REQUEST_INFRACCIONS = "Infraccions";
 	public static final String REQUEST_LLISTABLANCA = "LlistaBlanca";
+	public static final String REQUEST_LLISTAABONATS = "LlistaAbonats";
 	public static final String REQUEST_RECUPERADATA = "RecuperaData";
 
 

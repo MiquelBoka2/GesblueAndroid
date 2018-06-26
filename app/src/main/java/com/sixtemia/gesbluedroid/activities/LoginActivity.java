@@ -24,6 +24,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Agent;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Color;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Infraccio;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaAbonats;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaBlanca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Log;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
@@ -36,6 +37,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.CarrersRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.ColorsRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.InfraccionsRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.LlistaAbonatsRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.LlistaBlancaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.LoginRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.MarquesRequest;
@@ -49,6 +51,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.A
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.CarrersResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ColorsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.InfraccionsResponse;
+import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.LlistaAbonatsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.LlistaBlancaResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.LoginResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.MarquesResponse;
@@ -862,18 +865,56 @@ public class LoginActivity extends GesblueFragmentActivity {
 						}
 					}
 					DatabaseAPI.inserLlistaBlanca(mContext, list);
-					sincronitzarComptadorDenuncia();
+                    sincronitzarLlistaAbonats(loginResponse, concessio, _data);
 				}
 
 				@Override
 				public void onError(int error) {
 					Utils.showDatamanagerError(mContext, error);
 					everythingIsOk = false;
-					sincronitzarComptadorDenuncia();
+                    sincronitzarLlistaAbonats(loginResponse, concessio, _data);
 					mBinding.viewSwitcherLoginAnim.showNext();
 				}
 			});
 	}
+    private void sincronitzarLlistaAbonats(final LoginResponse loginResponse, final long concessio, final String _data) {
+
+        progress.setMessage(getString(R.string.actualitzantLlista));
+        String data = PreferencesGesblue.getDataSync(mContext);
+        if(!TextUtils.isEmpty(_data)) data = _data;
+        DatamanagerAPI.crida_LlistaAbonats(new LlistaAbonatsRequest(concessio, data), new JSoapCallback() {
+            @Override
+            public void onSuccess(String result) {
+                LlistaAbonatsResponse response;
+                try {
+                    response = DatamanagerAPI.parseJson(result, LlistaAbonatsResponse.class);
+                } catch (Exception ex) {
+                    ELog(ex);
+                    onError(PARSE_ERROR);
+                    return;
+                }
+
+                LinkedList<Model_LlistaAbonats> list = new LinkedList<>();
+                for(LlistaAbonatsResponse.LlistaAbonats llistaabonats : response.getLlistaabonats()) {
+                    if(llistaabonats.isEliminar()) {
+                        DatabaseAPI.deleteLlistaAbonats(mContext, Long.parseLong(llistaabonats.getCodi()));
+                    } else {
+                        list.add(new Model_LlistaAbonats(TextUtils.isEmpty(llistaabonats.getCodi()) ? 0 : Long.parseLong(llistaabonats.getCodi()), llistaabonats.getMatricula(),llistaabonats.getDatainici(),llistaabonats.getDatafi()));
+                    }
+                }
+                DatabaseAPI.insertLlistaAbonats(mContext, list);
+                sincronitzarComptadorDenuncia();
+            }
+
+            @Override
+            public void onError(int error) {
+                Utils.showDatamanagerError(mContext, error);
+                everythingIsOk = false;
+                sincronitzarComptadorDenuncia();
+                mBinding.viewSwitcherLoginAnim.showNext();
+            }
+        });
+    }
 	private void sincronitzarComptadorDenuncia() {
 		progress.setMessage(getString(R.string.actualitzant));
 		if(everythingIsOk) {

@@ -21,6 +21,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Color;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Denuncia;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Infraccio;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaAbonats;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaBlanca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Log;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
@@ -46,7 +47,7 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_FOLDER = "sdatamanagerdb";
 
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     // the DAO object we use to access the SimpleData table
     private ConcurrentHashMap<Class,RuntimeExceptionDao<? extends BasicWSResult,String>> table_map;
@@ -65,7 +66,8 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
 		    Model_TipusAnulacio.class,
 		    Model_TipusVehicle.class,
 			Model_Zona.class,
-			Model_LlistaBlanca.class);
+			Model_LlistaBlanca.class,
+            Model_LlistaAbonats.class);
 
     public DatabaseModelHelper(Context context) {
         super(context, getDataBasePath(context), null, DATABASE_VERSION);
@@ -133,7 +135,6 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
 				throw new RuntimeException(e);
 			}
 		}
-
 		if(oldVersion<4) {
 			try {
 				createTable(connectionSource, Model_LlistaBlanca.class);
@@ -141,6 +142,13 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
 
 			}
 		}
+		if(oldVersion<4) {
+            try {
+                createTable(connectionSource, Model_LlistaAbonats.class);
+            } catch (SQLException e){
+
+            }
+        }
     }
 
     public void createTables(ConnectionSource connectionSource) throws SQLException {
