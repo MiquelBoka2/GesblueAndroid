@@ -984,6 +984,10 @@ public class LoginActivity extends GesblueFragmentActivity {
 				EstablirComptadorDenunciaResponse response;
 				try {
 					response = DatamanagerAPI.parseJson(result, EstablirComptadorDenunciaResponse.class);
+					if(response.getResultat()>0){
+						PreferencesGesblue.saveComptadorDenuncia(mContext, (int)response.getResultat());
+					}
+
 				} catch (Exception ex) {
 					ELog(ex);
 					onError(PARSE_ERROR);
