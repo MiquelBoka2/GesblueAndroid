@@ -210,6 +210,7 @@ secretari/a de l\'Ajuntament.</string>
 
 	<string name="printer_disconnected">Impresora desconnectada</string>
 	<string name="tanca_concessio">Tancar Concessió</string>
+	<string name="reload_data">Recarregar Dades</string>
 	<string name="recuperar_denuncia">Recuperar Denuncia</string>
 	<string name="buscar">Buscar</string>
 

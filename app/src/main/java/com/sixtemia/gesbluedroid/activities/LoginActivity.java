@@ -83,6 +83,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private String concessio = "";
 	private String initialDate = "0";
 
+	private boolean refreshDades = false;
+
 	private ProgressDialog progress;
 
 	private Menu menu;
@@ -101,6 +103,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 		final String concessioString = PreferencesGesblue.getConcessioString(this);
 		isLoginConcessio = TextUtils.isEmpty(concessioString);
+		concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 
 		if(!isLoginConcessio) {
 			mBinding.textViewConcessio.setVisibility(View.GONE);
@@ -201,6 +204,22 @@ public class LoginActivity extends GesblueFragmentActivity {
 				DatabaseAPI.deleteAllLlistaBlanca(mContext);
 				return true;
 
+
+			case R.id.buttonReloadData:
+				refreshDades = true;
+				DatabaseAPI.deleteAllAgents(mContext);
+				DatabaseAPI.deleteAllMarques(mContext);
+				DatabaseAPI.deleteAllModels(mContext);
+				DatabaseAPI.deleteAllTipusVehicles(mContext);
+				DatabaseAPI.deleteAllTipusAnulacions(mContext);
+				DatabaseAPI.deleteAllCarrers(mContext);
+				DatabaseAPI.deleteAllInfraccions(mContext);
+				DatabaseAPI.deleteAllZones(mContext);
+				DatabaseAPI.deleteAllLlistaBlanca(mContext);
+				LoginResponse responseManual = new LoginResponse(0,1,"1",1,1,1,1,1,1,1,1);
+				sincronitzarTot(responseManual,Long.parseLong(concessio),"0");
+
+				return true;
 			default:
 				return true;
 
@@ -942,9 +961,15 @@ public class LoginActivity extends GesblueFragmentActivity {
 						if(isLoginConcessio) {
 							cridaLogin(PreferencesGesblue.getUserName(mContext), PreferencesGesblue.getPassword(mContext), Long.parseLong(concessio), initialDate);
 						} else {
-							Intent intent = new Intent(mContext, MainActivity.class);
-							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-							startActivity(intent);
+							if(!refreshDades) {
+								Intent intent = new Intent(mContext, MainActivity.class);
+
+								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+								startActivity(intent);
+							}
+							else{
+								refreshDades = false;
+							}
 						}
 					} else {
 						crida_establirComptadorDenuncia();
@@ -977,6 +1002,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void crida_establirComptadorDenuncia() {
 		PreferencesGesblue.saveDataSync(mContext,Utils.getCurrentTimeStringShort(mContext));
 		Log.d("DataSync",""+PreferencesGesblue.getDataSync(mContext));
+		Log.d("PARAMS",""+Long.parseLong(concessio)+" - "+PreferencesGesblue.getTerminal(mContext)+" - "+PreferencesGesblue.getAgentId(mContext)+" - "+PreferencesGesblue.getComptadorDenuncia(mContext));
 		DatamanagerAPI.crida_EstablirComptadorDenuncia(new EstablirComptadorDenunciaRequest(Long.parseLong(concessio), PreferencesGesblue.getTerminal(mContext), PreferencesGesblue.getAgentId(mContext), PreferencesGesblue.getComptadorDenuncia(mContext)), new JSoapCallback() {
 			@Override
 			public void onSuccess(String result) {
@@ -1001,12 +1027,17 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 				if(progress != null && progress.isShowing()) progress.dismiss();
-				if(isLoginConcessio) {
-					cridaLogin(PreferencesGesblue.getUserName(mContext), PreferencesGesblue.getPassword(mContext), Long.parseLong(concessio), initialDate);
-				} else {
-					Intent intent = new Intent(mContext, MainActivity.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-					startActivity(intent);
+				if(!refreshDades) {
+					if (isLoginConcessio) {
+						cridaLogin(PreferencesGesblue.getUserName(mContext), PreferencesGesblue.getPassword(mContext), Long.parseLong(concessio), initialDate);
+					} else {
+						Intent intent = new Intent(mContext, MainActivity.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+						startActivity(intent);
+					}
+				}
+				else{
+					refreshDades = false;
 				}
 			}
 
