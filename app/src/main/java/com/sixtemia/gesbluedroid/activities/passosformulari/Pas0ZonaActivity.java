@@ -36,6 +36,7 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 	private Model_Zona mSelected;
 	private ZonaAdapter mAdapter;
 	private boolean primerCop;
+	private ArrayList<Model_Zona> arrayAux;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
 
-		final ArrayList<Model_Zona> arrayAux = DatabaseAPI.getZones(mContext);
+		 arrayAux = DatabaseAPI.getZones(mContext);
 
 //		Collections.sort(arrayAux, new Comparator<Model_Zona>() {
 //			@Override
@@ -99,6 +100,7 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 				mAdapter.setSelectedItem(position);
 
 				mAdapter.notifyDataSetChanged();
+				Log.d("Zona0",mSelected.getNomzona());
 			}
 		});
 
@@ -180,9 +182,9 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				if(!TextUtils.isEmpty(s) && s.length() > 0) {
-					mAdapter.showFiltered(Utils.removeAccents(s.toString()));
+					arrayAux = mAdapter.showFiltered(Utils.removeAccents(s.toString()));
 				} else {
-					mAdapter.showAll();
+					arrayAux = mAdapter.showAll();
 				}
 			}
 			@Override
@@ -208,24 +210,27 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 
 		public void setSelectedItem(int i) {
 			selectedItem = i;
-			PreferencesGesblue.setFormulariZona(mContext, Long.toString(zonaArrayList.get(i).getCodizona()));
+			Log.d("seleccio0",""+i);
+			PreferencesGesblue.setFormulariZona(mContext, Long.toString(zonaArrayListToShow.get(i).getCodizona()));
 		}
 
 		public Model_Zona getSelected() {
 			if(selectedItem != -1) {
-				return zonaArrayList.get(selectedItem);
+				Log.d("seleccio1",""+selectedItem);
+				return zonaArrayListToShow.get(selectedItem);
 			}
 			return null;
 		}
 
-		public void showAll() {
+		public ArrayList<Model_Zona> showAll() {
 			zonaArrayListToShow = new ArrayList<>();
 
 			zonaArrayListToShow = zonaArrayList;
 			notifyDataSetChanged();
+			return zonaArrayListToShow;
 		}
 
-		public void showFiltered(String s) {
+		public ArrayList<Model_Zona> showFiltered(String s) {
 			zonaArrayListToShow = new ArrayList<>();
 
 			for(Model_Zona c : zonaArrayList) {
@@ -237,6 +242,7 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 			}
 
 			notifyDataSetChanged();
+			return zonaArrayListToShow;
 		}
 
 		@Override

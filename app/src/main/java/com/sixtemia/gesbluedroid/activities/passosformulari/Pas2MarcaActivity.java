@@ -41,6 +41,8 @@ public class Pas2MarcaActivity extends GesblueFragmentActivity {
 	SimpleAdapter mAdapter;
 	private boolean primerCop;
 
+	private ArrayList<Model_Marca> arrayAux;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,7 +54,7 @@ public class Pas2MarcaActivity extends GesblueFragmentActivity {
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
 
-		final ArrayList<Model_Marca> arrayAux = DatabaseAPI.getMarques(mContext);
+		arrayAux = DatabaseAPI.getMarques(mContext);
 
 
 		final ArrayList<Model_Denuncia> arrayDenuncies = DatabaseAPI.getDenuncies(mContext);
@@ -175,9 +177,33 @@ public class Pas2MarcaActivity extends GesblueFragmentActivity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				if(!TextUtils.isEmpty(s) && s.length() > 0) {
-					mAdapter.showFiltered(Utils.removeAccents(s.toString()));
+					arrayAux = mAdapter.showFiltered(Utils.removeAccents(s.toString()));
+					if (arrayAux.size() == 1 ){
+						Model_Marca newSelected = arrayAux.get(0);
+
+						if(mSelected!= null && newSelected != mSelected) {
+							mSelected = newSelected;
+							mAdapter.setSelectedItem(0);
+							mAdapter.notifyDataSetChanged();
+							PreferencesGesblue.remove(mContext, "model");
+							PreferencesGesblue.remove(mContext, "color");
+							PreferencesGesblue.remove(mContext, "infraccio");
+							//PreferencesGesblue.remove(mContext, "carrer");
+							PreferencesGesblue.remove(mContext, "numero");
+						} else {
+							mSelected = newSelected;
+							mAdapter.setSelectedItem(0);
+							mAdapter.notifyDataSetChanged();
+						}
+
+						mSelected = arrayAux.get(0);
+						mAdapter.setSelectedItem(0);
+
+						mAdapter.notifyDataSetChanged();
+
+					}
 				} else {
-					mAdapter.showAll();
+					arrayAux = mAdapter.showAll();
 				}
 			}
 			@Override
@@ -213,14 +239,16 @@ public class Pas2MarcaActivity extends GesblueFragmentActivity {
 			return null;
 		}
 
-		public void showAll() {
+		public ArrayList<Model_Marca> showAll() {
 			marcaArrayListToShow = new ArrayList<>();
 
 			marcaArrayListToShow = marcaArrayList;
 			notifyDataSetChanged();
+
+			return  marcaArrayListToShow;
 		}
 
-		public void showFiltered(String s) {
+		public ArrayList<Model_Marca> showFiltered(String s) {
 			marcaArrayListToShow = new ArrayList<>();
 
 			for(Model_Marca m : marcaArrayList) {
@@ -232,6 +260,7 @@ public class Pas2MarcaActivity extends GesblueFragmentActivity {
 			}
 
 			notifyDataSetChanged();
+			return  marcaArrayListToShow;
 		}
 
 		@Override

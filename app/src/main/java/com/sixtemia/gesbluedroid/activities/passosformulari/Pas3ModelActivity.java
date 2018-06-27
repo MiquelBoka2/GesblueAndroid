@@ -37,6 +37,8 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 	private Pas3ModelActivity.SimpleAdapter mAdapter;
 	private boolean primerCop;
 
+	private ArrayList<Model_Model> arrayAux;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,7 +50,7 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
 
-		final ArrayList<Model_Model> arrayAux = DatabaseAPI.getModelsByMarca(mContext, Integer.parseInt(mSancio.getModelMarca().getCodimarca()));
+		arrayAux = DatabaseAPI.getModelsByMarca(mContext, Integer.parseInt(mSancio.getModelMarca().getCodimarca()));
 
 		Collections.sort(arrayAux, new Comparator<Model_Model>() {
 			@Override
@@ -93,7 +95,7 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 					mAdapter.notifyDataSetChanged();
 					PreferencesGesblue.remove(mContext, "color");
 					PreferencesGesblue.remove(mContext, "infraccio");
-					PreferencesGesblue.remove(mContext, "carrer");
+					//PreferencesGesblue.remove(mContext, "carrer");
 					PreferencesGesblue.remove(mContext, "numero");
 				} else {
 					mSelected = newSelected;
@@ -169,9 +171,34 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				if(!TextUtils.isEmpty(s) && s.length() > 0) {
-					mAdapter.showFiltered(Utils.removeAccents(s.toString()));
+					arrayAux = mAdapter.showFiltered(Utils.removeAccents(s.toString()));
+
+					if (arrayAux.size() == 1) {
+						Model_Model newSelected = arrayAux.get(0);
+
+						if (mSelected != null && newSelected != mSelected) {
+							mSelected = newSelected;
+							mAdapter.setSelectedItem(0);
+							mAdapter.notifyDataSetChanged();
+							PreferencesGesblue.remove(mContext, "color");
+							PreferencesGesblue.remove(mContext, "infraccio");
+							//PreferencesGesblue.remove(mContext, "carrer");
+							PreferencesGesblue.remove(mContext, "numero");
+						} else {
+							mSelected = newSelected;
+							mAdapter.setSelectedItem(0);
+							mAdapter.notifyDataSetChanged();
+						}
+
+						mSelected = arrayAux.get(0);
+						mAdapter.setSelectedItem(0);
+
+						mAdapter.notifyDataSetChanged();
+					}
+
 				} else {
-					mAdapter.showAll();
+					arrayAux = mAdapter.showAll();
+
 				}
 			}
 			@Override
@@ -210,14 +237,15 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 			return null;
 		}
 
-		public void showAll() {
+		public ArrayList<Model_Model> showAll() {
 			modelArrayListToShow = new ArrayList<>();
 
 			modelArrayListToShow = modelArrayList;
 			notifyDataSetChanged();
+			return modelArrayListToShow;
 		}
 
-		public void showFiltered(String s) {
+		public ArrayList<Model_Model> showFiltered(String s) {
 			modelArrayListToShow = new ArrayList<>();
 
 			for(Model_Model m : modelArrayList) {
@@ -229,6 +257,7 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 			}
 
 			notifyDataSetChanged();
+			return  modelArrayListToShow;
 		}
 
 		@Override

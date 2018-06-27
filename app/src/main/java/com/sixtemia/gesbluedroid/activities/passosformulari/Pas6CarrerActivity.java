@@ -35,6 +35,7 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 	private Model_Carrer mSelected;
 	private CarrerAdapter mAdapter;
 	private boolean primerCop;
+	private ArrayList<Model_Carrer> arrayAux;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
 
-		final ArrayList<Model_Carrer> arrayAux = DatabaseAPI.getCarrersZona(mContext);
+		arrayAux = DatabaseAPI.getCarrersZona(mContext);
 
 //		Collections.sort(arrayAux, new Comparator<Model_Carrer>() {
 //			@Override
@@ -176,9 +177,9 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				if(!TextUtils.isEmpty(s) && s.length() > 0) {
-					mAdapter.showFiltered(Utils.removeAccents(s.toString()));
+					arrayAux = mAdapter.showFiltered(Utils.removeAccents(s.toString()));
 				} else {
-					mAdapter.showAll();
+					arrayAux = mAdapter.showAll();
 				}
 			}
 			@Override
@@ -214,14 +215,15 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 			return null;
 		}
 
-		public void showAll() {
+		public ArrayList<Model_Carrer> showAll() {
 			carrerArrayListToShow = new ArrayList<>();
 
 			carrerArrayListToShow = carrerArrayList;
 			notifyDataSetChanged();
+			return carrerArrayListToShow;
 		}
 
-		public void showFiltered(String s) {
+		public ArrayList<Model_Carrer> showFiltered(String s) {
 			carrerArrayListToShow = new ArrayList<>();
 
 			for(Model_Carrer c : carrerArrayList) {
@@ -233,6 +235,8 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 			}
 
 			notifyDataSetChanged();
+
+			return carrerArrayListToShow;
 		}
 
 		@Override

@@ -93,7 +93,7 @@ public class Pas1TipusActivity extends GesblueFragmentActivity {
 					PreferencesGesblue.remove(mContext, "model");
 					PreferencesGesblue.remove(mContext, "color");
 					PreferencesGesblue.remove(mContext, "infraccio");
-					PreferencesGesblue.remove(mContext, "carrer");
+					//PreferencesGesblue.remove(mContext, "carrer");
 					PreferencesGesblue.remove(mContext, "numero");
 				} else {
 					mSelected = newSelected;
