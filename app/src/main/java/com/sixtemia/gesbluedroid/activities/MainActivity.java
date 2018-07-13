@@ -213,12 +213,25 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				mBinding.viewSwitcherComprovaAnim.showNext();
 
+				Long temps = response.getTemps();
 				switch(response.getResultat()) {
 					case 0: //Matricula correcta(no denunciar)
-						changeViewNoMultable();
+						if((temps>0)) {
+
+							changeViewNoMultable(getResources().getString(R.string.estacionament_correcte) + System.getProperty("line.separator") + Math.round(temps/60) + " " + getResources().getString(R.string.estacionament_correcte2));
+						}else{
+							changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
+						}
+
 						break;
 					case -1: //Matricula no correcta(possibilitat de denunciar)
-						changeViewMultable();
+						Log.d("Temps:",""+response.getTemps());
+						if((temps<0)&&(temps>-1500)){
+
+							changeViewMultable(getResources().getString(R.string.estacionament_incorrecte) + System.getProperty("line.separator") + Math.round(temps/-60) + " " + getResources().getString(R.string.estacionament_incorrecte2));
+						}else{
+							changeViewMultable(getResources().getString(R.string.estacionament_incorrecte));
+						}
 						break;
 					case -3: //Vehicle ja denunciat
 						changeViewJaDenunciat();
@@ -259,7 +272,7 @@ public class MainActivity extends GesblueFragmentActivity {
 							Date datafi = fmt.parse(llistaAbonats.getDatafi());
 							Date date = new Date();
 							if( date.after(datainici) && date.before(datafi)){
-								changeViewNoMultable();
+								changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
 							}
 							else{
 								changeViewNoComprovat();
@@ -269,20 +282,20 @@ public class MainActivity extends GesblueFragmentActivity {
 						}
 
                         Log.d("comprovacio","abonat");
-                        changeViewNoMultable();
+                        changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
 
                     }
 				}
 				else{
                     Log.d("comprovacio","blanca");
-					changeViewNoMultable();
+					changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
 				}
 			}
 		});
 	}
 
-	private void changeViewNoMultable() {
-		mBinding.tvEstacionamentCorrecte.setText(R.string.estacionament_correcte);
+	private void changeViewNoMultable(String text) {
+		mBinding.tvEstacionamentCorrecte.setText(text);
 		mBinding.tvEstacionamentCorrecte.setVisibility(View.VISIBLE);
 
 		mBinding.separator.setVisibility(View.VISIBLE);
@@ -304,9 +317,9 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.buttonComprovar.setEnabled(false);
 	}
 
-	private void changeViewMultable() {
+	private void changeViewMultable(String text) {
 
-		mBinding.textViewEstacionamentIncorrecte.setText(R.string.estacionament_incorrecte);
+		mBinding.textViewEstacionamentIncorrecte.setText(text);
 		mBinding.textViewEstacionamentIncorrecte.setVisibility(View.VISIBLE);
 
 		mBinding.buttonDenunciar.setVisibility(View.VISIBLE);

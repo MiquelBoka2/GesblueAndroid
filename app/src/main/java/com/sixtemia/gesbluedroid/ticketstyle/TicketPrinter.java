@@ -11,9 +11,12 @@ import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 import static com.sixtemia.spushnotifications.db.DataContext.mContext;
 
@@ -47,6 +50,16 @@ public class TicketPrinter {
 
 
     private DecimalFormat decimalFormat = new DecimalFormat("0.00");
+
+    private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
+    private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
+
+    public String makeSlug(String input) {
+        String nowhitespace = WHITESPACE.matcher(input).replaceAll("-");
+        String normalized = Normalizer.normalize(nowhitespace, Normalizer.Form.NFD);
+        String slug = NONLATIN.matcher(normalized).replaceAll("");
+        return slug.toLowerCase(Locale.ENGLISH);
+    }
 
     public TicketPrinter(Printer printer, Context _context) {
         mContext = _context;
@@ -324,6 +337,12 @@ public class TicketPrinter {
                 printer.printQRCode(5, 3, printConfiguration.getQr());
                 y = newLine(y, BARCODE_NUM_LINES + 0.5f);
             }
+
+            int heightQr = LINE_HEIGHT*BARCODE_NUM_LINES;
+            printer.drawPageFrame(0, y, PAGE_WIDTH, heightQr + 2, Printer.FILL_WHITE, 1);
+            printer.setBarcode(Printer.ALIGN_CENTER, false, 2, Printer.HRI_NONE, heightQr);
+            printer.printQRCode(12, 3, "https://giropark.com/es/"+PreferencesGesblue.getConcessio(_context)+"/"+makeSlug(PreferencesGesblue.getConcessioString(_context))+"/"+printConfiguration.getButlleta());
+            y = newLine(y, BARCODE_NUM_LINES + 0.5f);
 
             if(PreferencesGesblue.getTextPeuVisible(_context)) {
                 if((PreferencesGesblue.getConcessio(_context)!=2)||((PreferencesGesblue.getConcessio(_context)==2)&&(PreferencesGesblue.getCodiZona(_context)!=5))) {

@@ -936,7 +936,7 @@ public class LoginActivity extends GesblueFragmentActivity {
     }
 	private void sincronitzarComptadorDenuncia() {
 		progress.setMessage(getString(R.string.actualitzant));
-		if(everythingIsOk) {
+			Log.d("ppp",""+concessio+ "- "+PreferencesGesblue.getTerminal(mContext)+" - "+PreferencesGesblue.getAgentId(mContext));
 			DatamanagerAPI.crida_RecuperaComptadorDenuncia(new RecuperaComptadorDenunciaRequest(concessio, PreferencesGesblue.getTerminal(mContext), PreferencesGesblue.getAgentId(mContext)), new JSoapCallback() {
 				@Override
 				public void onSuccess(String result) {
@@ -992,11 +992,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 				}
 			});
-		} else {
-			showLoadingAnimButton(false);
-			enableEditTexts(true);
-			crida_establirComptadorDenuncia();
-		}
+
 	}
 
 	private void crida_establirComptadorDenuncia() {

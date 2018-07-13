@@ -21,6 +21,10 @@ public class ComprovaMatriculaResponse {
 	@SerializedName("resultat")
 	private int resultat;
 
+	@JSoapResField(name = "temps")
+	@SerializedName("temps")
+	private long temps;
+
 	@JSoapResField(name = "tipus")
 	@SerializedName("tipus")
 	private long tipus;
@@ -39,14 +43,16 @@ public class ComprovaMatriculaResponse {
 
 	public ComprovaMatriculaResponse() {
 		this.resultat = 0;
+		this.temps = 0;
 		this.tipus = 0;
 		this.marca = 0;
 		this.model = 0;
 		this.color = 0;
 	}
 
-	public ComprovaMatriculaResponse(int resultat, long tipus, long marca, long model, long color) {
+	public ComprovaMatriculaResponse(int resultat,long temps, long tipus, long marca, long model, long color) {
 		this.resultat = resultat;
+		this.temps = temps;
 		this.tipus = tipus;
 		this.marca = marca;
 		this.model = model;
@@ -59,6 +65,14 @@ public class ComprovaMatriculaResponse {
 
 	public void setResultat(int resultat) {
 		this.resultat = resultat;
+	}
+
+	public long getTemps() {
+		return temps;
+	}
+
+	public void setTemps(long temps) {
+		this.temps = temps;
 	}
 
 	public long getTipus() {
