@@ -27,6 +27,7 @@
 
 	<string name="estacionament_incorrecte">ESTAC. INCORRECTO</string>
 	<string name="estacionament_incorrecte2">MINUTOS PASADOS</string>
+	<string name="estacionament_incorrecte3">HORAS PASADAS</string>
 	<string name="estacionament_sense_internet">SIN INTERNET. MATRICULA NO COMPROBADA</string>
 	<string name="estacionament_correcte">ESTAC. CORRECTO</string>
 	<string name="estacionament_correcte2">MINUTOS RESTANTES</string>

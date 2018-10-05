@@ -226,9 +226,13 @@ public class MainActivity extends GesblueFragmentActivity {
 						break;
 					case -1: //Matricula no correcta(possibilitat de denunciar)
 						Log.d("Temps:",""+response.getTemps());
-						if((temps<0)&&(temps>-1500)){
-
-							changeViewMultable(getResources().getString(R.string.estacionament_incorrecte) + System.getProperty("line.separator") + Math.round(temps/-60) + " " + getResources().getString(R.string.estacionament_incorrecte2));
+						if((temps<0)&&(temps>-50400)){
+							if(temps>-3600) {
+								changeViewMultable(getResources().getString(R.string.estacionament_incorrecte) + System.getProperty("line.separator") + Math.round(temps / -60) + " " + getResources().getString(R.string.estacionament_incorrecte2));
+							}
+							else{
+								changeViewMultable(getResources().getString(R.string.estacionament_incorrecte) + System.getProperty("line.separator") + Math.round(temps / -60 / 60) + " " + getResources().getString(R.string.estacionament_incorrecte3));
+							}
 						}else{
 							changeViewMultable(getResources().getString(R.string.estacionament_incorrecte));
 						}
