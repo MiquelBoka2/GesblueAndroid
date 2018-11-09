@@ -147,7 +147,7 @@ public class GesblueApplication extends MultiDexApplication {
 					(long) denuncia.getModel(),  //-- CODI MODEL
 					(long) denuncia.getColor(),  //-- CODI COLOR
 					(long) denuncia.getInfraccio(),                   //-- MATRICULA
-					0,             //-- HORA ACTUAL
+					(long) denuncia.getEstatcomprovacio(),             //-- HORA ACTUAL
 					"",                //-- IMPORT
 					PreferencesGesblue.getConcessio(aContext),              //-- CONCESSIO
 					Long.parseLong(PreferencesGesblue.getTerminal(aContext)),//-- TERMINAL ID

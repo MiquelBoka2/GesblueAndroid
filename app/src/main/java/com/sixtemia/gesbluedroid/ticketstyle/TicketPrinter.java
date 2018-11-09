@@ -266,12 +266,12 @@ public class TicketPrinter {
                     codiAnulacio = butlleta.substring(butlleta.length()-(butlleta.length()), butlleta.length());
                 }
 
-                // printCelaNegreFontMitjana(0, y, PAGE_WIDTH, mContext.getString(R.string.cela_codi_anulacio), codiAnulacio);
-                Cela[] celaArray0 = new Cela[]{
+                 printCelaNegreFontGran(0, y, PAGE_WIDTH, mContext.getString(R.string.cela_codi_anulacio), codiAnulacio);
+                /*Cela[] celaArray0 = new Cela[]{
                         new Cela(mContext.getString(R.string.cela_codi_anulacio), codiAnulacio)
                 };
-                printCellaNegraCenterArray(celaArray0, y);
-                y = newLine(y, 2);
+                printCellaNegraCenterArray(celaArray0, y);*/
+                y = newLine(y, 4);
 
                 DataAnulacio[] dataAnulacioArray = printConfiguration.getDataAnulacioArray();
                 if(PreferencesGesblue.getImportAnulacio(_context)) {
@@ -308,8 +308,6 @@ public class TicketPrinter {
                 y = newLine(y, BARCODE_NUM_LINES + 0.5f);
             }
 
-            y = newLine(y, 1);
-
             //------------------
             // Firma
             //------------------
@@ -329,7 +327,7 @@ public class TicketPrinter {
                 printer.printTaggedText("{reset}{left}{b}{s}" + textAnulacio , CHARSET_ENCODING);
                 y = newLine(y, numLines+1);
             }
-
+/*
             if(PreferencesGesblue.getLogoQr(_context) && !TextUtils.isEmpty(PreferencesGesblue.getAdrecaQr(_context))) {
                 int heightQr = LINE_HEIGHT*BARCODE_NUM_LINES;
                 printer.drawPageFrame(0, y, PAGE_WIDTH, heightQr + 2, Printer.FILL_WHITE, 1);
@@ -337,12 +335,18 @@ public class TicketPrinter {
                 printer.printQRCode(5, 3, printConfiguration.getQr());
                 y = newLine(y, BARCODE_NUM_LINES + 0.5f);
             }
-
+*/
             int heightQr = LINE_HEIGHT*BARCODE_NUM_LINES;
             printer.drawPageFrame(0, y, PAGE_WIDTH, heightQr + 2, Printer.FILL_WHITE, 1);
             printer.setBarcode(Printer.ALIGN_CENTER, false, 2, Printer.HRI_NONE, heightQr);
             printer.printQRCode(12, 3, "https://giropark.com/es/"+PreferencesGesblue.getConcessio(_context)+"/"+makeSlug(PreferencesGesblue.getConcessioString(_context))+"/"+printConfiguration.getButlleta());
-            y = newLine(y, BARCODE_NUM_LINES + 0.5f);
+            y = newLine(y, BARCODE_NUM_LINES + 4f);
+
+            String textQR = "https://giropark.com/es/"+PreferencesGesblue.getConcessio(_context)+"/"+makeSlug(PreferencesGesblue.getConcessioString(_context))+"/"+printConfiguration.getButlleta();
+            numLines = calcNumLines(textQR, MAX_CHAR_LINE);
+
+            printer.printTaggedText("{reset}{left}{s}" + textQR + "{br}", CHARSET_ENCODING);
+            y = newLine(y,  2);
 
             if(PreferencesGesblue.getTextPeuVisible(_context)) {
                 if((PreferencesGesblue.getConcessio(_context)!=2)||((PreferencesGesblue.getConcessio(_context)==2)&&(PreferencesGesblue.getCodiZona(_context)!=5))) {

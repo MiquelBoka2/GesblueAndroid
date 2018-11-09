@@ -214,13 +214,22 @@ public class MainActivity extends GesblueFragmentActivity {
 				mBinding.viewSwitcherComprovaAnim.showNext();
 
 				Long temps = response.getTemps();
+
+
+				Log.d("EstatComprovacio",""+ PreferencesGesblue.getEstatComprovacio(mContext));
+
+				int estatComprovacio = 0;
+
 				switch(response.getResultat()) {
 					case 0: //Matricula correcta(no denunciar)
 						if((temps>0)) {
 
+						    estatComprovacio = 1;
+
 							changeViewNoMultable(getResources().getString(R.string.estacionament_correcte) + System.getProperty("line.separator") + Math.round(temps/60) + " " + getResources().getString(R.string.estacionament_correcte2));
 						}else{
 							changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
+							estatComprovacio = 2;
 						}
 
 						break;
@@ -229,29 +238,37 @@ public class MainActivity extends GesblueFragmentActivity {
 						if((temps<0)&&(temps>-50400)){
 							if(temps>-3600) {
 								changeViewMultable(getResources().getString(R.string.estacionament_incorrecte) + System.getProperty("line.separator") + Math.round(temps / -60) + " " + getResources().getString(R.string.estacionament_incorrecte2));
+                                estatComprovacio = 3;
 							}
 							else{
 								changeViewMultable(getResources().getString(R.string.estacionament_incorrecte) + System.getProperty("line.separator") + Math.round(temps / -60 / 60) + " " + getResources().getString(R.string.estacionament_incorrecte3));
+                                estatComprovacio = 4;
 							}
 						}else{
 							changeViewMultable(getResources().getString(R.string.estacionament_incorrecte));
+                            estatComprovacio = 5;
 						}
 						break;
 					case -3: //Vehicle ja denunciat
 						changeViewJaDenunciat();
+                        estatComprovacio = 6;
 						break;
 					case -2: //Error de comprovació
 					default:
 						Utils.showDatamanagerError(mContext, JsoapError.OTHER_ERROR);
 						mBinding.editTextMatricula.setEnabled(true);
+                        estatComprovacio = 7;
 
 						break;
 				}
+
+                PreferencesGesblue.saveEstatComprovacio(mContext,estatComprovacio);
 
 			}
 
 			@Override
 			public void onError(final int error) {
+                int estatComprovacio = 0;
 
 				mBinding.viewSwitcherComprovaAnim.showNext();
 				mBinding.editTextMatricula.setEnabled(true);
@@ -267,7 +284,9 @@ public class MainActivity extends GesblueFragmentActivity {
 
                     if(llistaAbonats==null) {
 
+                        estatComprovacio = 8;
                         changeViewNoComprovat();
+
                     }
                     else{
 						try {
@@ -276,9 +295,11 @@ public class MainActivity extends GesblueFragmentActivity {
 							Date datafi = fmt.parse(llistaAbonats.getDatafi());
 							Date date = new Date();
 							if( date.after(datainici) && date.before(datafi)){
+                                estatComprovacio = 9;
 								changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
 							}
 							else{
+                                estatComprovacio = 8;
 								changeViewNoComprovat();
 							}
 						}catch(ParseException pex){
@@ -286,14 +307,19 @@ public class MainActivity extends GesblueFragmentActivity {
 						}
 
                         Log.d("comprovacio","abonat");
+                        estatComprovacio = 9;
                         changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
 
                     }
 				}
 				else{
                     Log.d("comprovacio","blanca");
+                    estatComprovacio = 10;
 					changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
+
 				}
+
+                PreferencesGesblue.saveEstatComprovacio(mContext,estatComprovacio);
 			}
 		});
 	}

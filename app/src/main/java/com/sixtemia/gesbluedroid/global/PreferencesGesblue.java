@@ -89,6 +89,18 @@ public class PreferencesGesblue extends Preferences {
 	private static final String PREF_FLASH = "flash";
 
 
+	private static final String ESTAT_COMPROVACIO = "estatComprovacio";
+
+
+	public static void saveEstatComprovacio(Context _context, int i) {
+		put(_context, ESTAT_COMPROVACIO, i);
+	}
+
+
+	public static int getEstatComprovacio(Context _context) {
+
+		return getInt(_context, ESTAT_COMPROVACIO,0);
+	}
 
     public static void savePrefCodiExportadora(Context _context, int i) {
         put(_context, PREF_CODI_EXPORTADORA, i);

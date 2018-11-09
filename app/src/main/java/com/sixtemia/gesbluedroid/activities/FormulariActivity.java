@@ -820,6 +820,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		denuncia.setColor(Long.parseLong(sancio.getModelColor().getCodicolor()));
 		denuncia.setInfraccio(sancio.getModelInfraccio().getCodi());
 		denuncia.setTerminal(Long.parseLong(PreferencesGesblue.getTerminal(mContext)));
+		denuncia.setEstatcomprovacio(PreferencesGesblue.getEstatComprovacio(mContext));
 		if(img1IsActive) {
 			denuncia.setFoto1(foto1);
 		}
