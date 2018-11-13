@@ -200,7 +200,7 @@ public class TicketPrinter {
                 int dia, mes, any;
                 Calendar c = printConfiguration.getDataLimitPagament();
                 dia = c.get(Calendar.DAY_OF_MONTH);
-                mes = c.get(Calendar.MONTH);
+                mes = c.get(Calendar.MONTH)+1;
                 any = c.get(Calendar.YEAR);
                 String data = "";
                 if(dia < 10) data += "0";
@@ -305,7 +305,7 @@ public class TicketPrinter {
                 printer.drawPageFrame(0, y, PAGE_WIDTH, heightCodiBarres + 2, Printer.FILL_WHITE, 1);
                 printer.setBarcode(Printer.ALIGN_CENTER, false, 2, Printer.HRI_BELOW, heightCodiBarres);
                 printer.printBarcode(Printer.BARCODE_EAN128, butlleta);
-                y = newLine(y, BARCODE_NUM_LINES + 0.5f);
+                y = newLine(y, BARCODE_NUM_LINES + 1f);
             }
 
             //------------------
