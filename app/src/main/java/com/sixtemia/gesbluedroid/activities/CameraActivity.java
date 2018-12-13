@@ -130,10 +130,11 @@ public class CameraActivity extends GesblueFragmentActivity {
 	private String generateCodiButlleta() {
 		String numeroTiquet="";
 		if(!isEmpty(numeroTiquet)) {
+		    Log.d("Camera","No empty");
 			return numeroTiquet;
 		} else {
-			long codiAgent = getCodiAgent(mContext);
-			String terminal = getTerminal(mContext);
+			long codiAgent = PreferencesGesblue.getCodiAgent(mContext);
+			String terminal = PreferencesGesblue.getTerminal(mContext);
 
 			int comptadorDenuncia = PreferencesGesblue.getComptadorDenuncia(getApplicationContext())+1;
 			//PreferencesGesblue.saveComptadorDenuncia(mContext, comptadorDenuncia);
@@ -187,6 +188,32 @@ public class CameraActivity extends GesblueFragmentActivity {
 					}
 					sb.append(comptadorDenuncia);
 					break;
+				case 4://Somintec
+					sb.append(coditipusbutlleta);
+					sb.append(codiinstitucio);
+					if (terminal.length() < 2) {
+						sb.append("0");
+					}
+					sb.append(terminal);
+					padding = 5 - String.valueOf(comptadorDenuncia).length();
+					for (int i = 0; i < padding; i++) {
+						sb.append("0");
+					}
+					sb.append(comptadorDenuncia);
+					break;
+				case 5://Policia Local de Calonge
+					sb.append(coditipusbutlleta);
+					sb.append(codiinstitucio);
+					if (terminal.length() < 2) {
+						sb.append("0");
+					}
+					sb.append(terminal);
+					padding = 5 - String.valueOf(comptadorDenuncia).length();
+					for (int i = 0; i < padding; i++) {
+						sb.append("0");
+					}
+					sb.append(comptadorDenuncia);
+					break;
 			}
 			numeroTiquet = sb.toString();
 
@@ -200,10 +227,20 @@ public class CameraActivity extends GesblueFragmentActivity {
 
 				String concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 				String numDenuncia = generateCodiButlleta();
+				while(numDenuncia == ""){
+					numDenuncia = generateCodiButlleta();
+					Log.d("Camera","Error calculant Codi Butlleta");
+				}
+				Log.d ("Camera",numDenuncia);
 				DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 				String currentDateString = dateFormat.format(new Date());
+                File direct = new File("storage/emulated/0/Sixtemia/upload/temp");
 
-				File file = new File(getFilesDir(), currentDateString  + "-" + concessio + "-" + numDenuncia + position + ".jpg");
+                if (!direct.exists()) {
+                    File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/temp");
+                    wallpaperDirectory.mkdirs();
+                }
+				File file = new File(direct, currentDateString  + "-" + concessio + "-" + numDenuncia + position + ".jpg");
 				OutputStream os = null;
 				String error = getString(R.string.foto_error_guardar_desconocido);
 				try {

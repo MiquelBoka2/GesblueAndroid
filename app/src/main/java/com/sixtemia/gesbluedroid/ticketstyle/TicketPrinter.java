@@ -200,7 +200,7 @@ public class TicketPrinter {
                 int dia, mes, any;
                 Calendar c = printConfiguration.getDataLimitPagament();
                 dia = c.get(Calendar.DAY_OF_MONTH);
-                mes = c.get(Calendar.MONTH)+1;
+                mes = c.get(Calendar.MONTH);
                 any = c.get(Calendar.YEAR);
                 String data = "";
                 if(dia < 10) data += "0";
@@ -327,26 +327,30 @@ public class TicketPrinter {
                 printer.printTaggedText("{reset}{left}{b}{s}" + textAnulacio , CHARSET_ENCODING);
                 y = newLine(y, numLines+1);
             }
-/*
-            if(PreferencesGesblue.getLogoQr(_context) && !TextUtils.isEmpty(PreferencesGesblue.getAdrecaQr(_context))) {
-                int heightQr = LINE_HEIGHT*BARCODE_NUM_LINES;
-                printer.drawPageFrame(0, y, PAGE_WIDTH, heightQr + 2, Printer.FILL_WHITE, 1);
-                printer.setBarcode(Printer.ALIGN_CENTER, false, 4, Printer.HRI_NONE, heightQr);
-                printer.printQRCode(5, 3, printConfiguration.getQr());
-                y = newLine(y, BARCODE_NUM_LINES + 0.5f);
+            if(PreferencesGesblue.getConcessio(_context)==4){//Codi QR personalitzat per Banyoles
+
+                if(PreferencesGesblue.getLogoQr(_context) && !TextUtils.isEmpty(PreferencesGesblue.getAdrecaQr(_context))) {
+                    int heightQr = LINE_HEIGHT*BARCODE_NUM_LINES;
+                    printer.drawPageFrame(0, y, PAGE_WIDTH, heightQr + 2, Printer.FILL_WHITE, 1);
+                    printer.setBarcode(Printer.ALIGN_CENTER, false, 4, Printer.HRI_NONE, heightQr);
+                    printer.printQRCode(5, 3, printConfiguration.getQr());
+                    y = newLine(y, BARCODE_NUM_LINES + 0.5f);
+                }
             }
-*/
-            int heightQr = LINE_HEIGHT*BARCODE_NUM_LINES;
-            printer.drawPageFrame(0, y, PAGE_WIDTH, heightQr + 2, Printer.FILL_WHITE, 1);
-            printer.setBarcode(Printer.ALIGN_CENTER, false, 2, Printer.HRI_NONE, heightQr);
-            printer.printQRCode(12, 3, "https://giropark.com/es/"+PreferencesGesblue.getConcessio(_context)+"/"+makeSlug(PreferencesGesblue.getConcessioString(_context))+"/"+printConfiguration.getButlleta());
-            y = newLine(y, BARCODE_NUM_LINES + 4f);
+            else {// Codi QR Giropark.com
 
-            String textQR = "https://giropark.com/es/"+PreferencesGesblue.getConcessio(_context)+"/"+makeSlug(PreferencesGesblue.getConcessioString(_context))+"/"+printConfiguration.getButlleta();
-            numLines = calcNumLines(textQR, MAX_CHAR_LINE);
+                int heightQr = LINE_HEIGHT * BARCODE_NUM_LINES;
+                printer.drawPageFrame(0, y, PAGE_WIDTH, heightQr + 2, Printer.FILL_WHITE, 1);
+                printer.setBarcode(Printer.ALIGN_CENTER, false, 2, Printer.HRI_NONE, heightQr);
+                printer.printQRCode(12, 3, "https://giropark.com/es/" + PreferencesGesblue.getConcessio(_context) + "/" + makeSlug(PreferencesGesblue.getConcessioString(_context)) + "/" + printConfiguration.getButlleta());
+                y = newLine(y, BARCODE_NUM_LINES + 4f);
 
-            printer.printTaggedText("{reset}{left}{s}" + textQR + "{br}", CHARSET_ENCODING);
-            y = newLine(y,  2);
+                String textQR = "https://giropark.com/es/" + PreferencesGesblue.getConcessio(_context) + "/" + makeSlug(PreferencesGesblue.getConcessioString(_context)) + "/" + printConfiguration.getButlleta();
+                numLines = calcNumLines(textQR, MAX_CHAR_LINE);
+
+                printer.printTaggedText("{reset}{left}{s}" + textQR + "{br}", CHARSET_ENCODING);
+                y = newLine(y, 2);
+            }
 
             if(PreferencesGesblue.getTextPeuVisible(_context)) {
                 if((PreferencesGesblue.getConcessio(_context)!=2)||((PreferencesGesblue.getConcessio(_context)==2)&&(PreferencesGesblue.getCodiZona(_context)!=5))) {

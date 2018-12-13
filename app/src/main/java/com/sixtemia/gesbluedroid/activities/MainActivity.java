@@ -220,6 +220,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				int estatComprovacio = 0;
 
+
 				switch(response.getResultat()) {
 					case 0: //Matricula correcta(no denunciar)
 						if((temps>0)) {
