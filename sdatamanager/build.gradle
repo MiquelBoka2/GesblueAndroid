@@ -1,13 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '28.0.3'
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 24
+        targetSdkVersion 26
     }
     buildTypes {
         release {
@@ -20,10 +20,10 @@ android {
 }
 
 dependencies {
-    compile project(':sutils')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.google.code.gson:gson:2.7'
-    compile 'com.j256.ormlite:ormlite-android:4.48'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation project(':sutils')
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.google.code.gson:gson:2.7'
+    implementation 'com.j256.ormlite:ormlite-android:4.48'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
 }
