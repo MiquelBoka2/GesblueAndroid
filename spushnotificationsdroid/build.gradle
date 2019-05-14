@@ -21,8 +21,8 @@ dependencies {
     implementation project(':sutils')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.google.code.gson:gson:2.6.2'
-    implementation files('libs/gcm.jar')
-    implementation files('libs/com.mobandme.ada_v2.4.4.jar')
+    implementation files('libs/gcm2.jar')
+    implementation files('libs/com.mobandme.ada_v2.4.6.jar')
     implementation 'com.flurry.android:analytics:6.4.2'
     implementation project(':sbaseobjects')
 }
