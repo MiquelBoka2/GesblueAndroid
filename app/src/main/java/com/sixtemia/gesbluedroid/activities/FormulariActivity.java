@@ -160,7 +160,50 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			}
 		});
 	}
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
 
+		// Save UI state changes to the savedInstanceState.
+		// This bundle will be passed to onCreate if the process is
+		// killed and restarted.
+
+		savedInstanceState.putString("foto1", foto1);
+		savedInstanceState.putString("foto2", foto2);
+		savedInstanceState.putString("foto3", foto3);
+
+		// etc.
+
+		super.onSaveInstanceState(savedInstanceState);
+	}
+
+//onRestoreInstanceState
+
+	@Override
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+
+		super.onRestoreInstanceState(savedInstanceState);
+
+		// Restore UI state from the savedInstanceState.
+		// This bundle has also been passed to onCreate.
+
+
+
+		boolean myBoolean = savedInstanceState.getBoolean("MyBoolean");
+		double myDouble = savedInstanceState.getDouble("myDouble");
+		int myInt = savedInstanceState.getInt("MyInt");
+		foto1 = savedInstanceState.getString("foto1");
+		foto2 = savedInstanceState.getString("foto2");
+		foto3 = savedInstanceState.getString("foto3");
+		if(foto1!=""){
+			pinta(foto1, mBinding.imageViewA);
+		}
+		if(foto2!=""){
+			pinta(foto2, mBinding.imageViewB);
+		}
+		if(foto3!=""){
+			pinta(foto3, mBinding.imageViewC);
+		}
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
