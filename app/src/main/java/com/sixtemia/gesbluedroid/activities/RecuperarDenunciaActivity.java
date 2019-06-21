@@ -26,6 +26,7 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Model;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_TipusVehicle;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Zona;
+import com.sixtemia.gesbluedroid.global.Utils;
 
 import java.util.Collections;
 import java.util.List;
@@ -60,6 +61,11 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         Collections.reverse(denunciesTemp);
 
         denuncies = denunciesTemp.subList(0,Math.min(denunciesTemp.size(),50));
+
+        //Comprovem si tenim denuncies i en cas negatiu, mostrem un missatge informatiu.
+        if (denuncies.size()<=0 || denuncies.isEmpty()){
+            Utils.showCustomDatamanagerError(mContext, getString(R.string.noDenuncies));
+        }
 
         // specify an adapter (see also next example)
         mAdapter = new DenunciaAdapter(this,denuncies,this);

@@ -1,6 +1,7 @@
 package com.sixtemia.sbaseobjects.objects;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -369,6 +370,7 @@ public class SFragmentActivity extends AppCompatActivity {
 		}
 	}
 
+	@SuppressLint("WrongConstant")
 	public Intent clearTask(Intent intent) {
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
 		return intent;

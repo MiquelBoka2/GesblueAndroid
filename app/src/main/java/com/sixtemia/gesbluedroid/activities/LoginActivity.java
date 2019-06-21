@@ -129,6 +129,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 			}
 		});
+
 		mBinding.buttonAccepta.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -139,9 +140,15 @@ public class LoginActivity extends GesblueFragmentActivity {
 				concessio = mBinding.editTextConcessio.getText().toString();
 				if(TextUtils.isEmpty(concessio)) concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 
+
+				Log.e("Concesio antes",concessio);
+
 				PreferencesGesblue.setUserName(mContext, username);
 				PreferencesGesblue.setPassword(mContext, password);
 				PreferencesGesblue.setConcessio(mContext, Long.parseLong(concessio));
+
+				Log.e("Concesio despues",concessio);
+				Log.e("isLoginConcessio",""+isLoginConcessio);
 
 				if(username.equals("") || password.equals("") || (concessio.equals("") && isLoginConcessio)) {
 					Utils.showFaltenDadesError(mContext);
@@ -248,6 +255,9 @@ public class LoginActivity extends GesblueFragmentActivity {
 			@Override
 			public void onSuccess(String result) {
 				final NouTerminalResponse response;
+
+				Log.e("Er rezurtao---------->", result);
+
 				try {
 					response = DatamanagerAPI.parseJson(result, NouTerminalResponse.class);
 				} catch (Exception ex) {
@@ -261,6 +271,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 				showLoadingAnimButton(false);
 				enableEditTexts(true);
+
+				Log.e("Er otro rezurtao------>",""+response.getResultat());
 
 				switch((int) response.getResultat()) {
 					case 0:

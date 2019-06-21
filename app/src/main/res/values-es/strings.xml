@@ -174,8 +174,8 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="enviantDenuncia">Enviando denuncia&#8230;</string>
 	<string name="butlletaEnviadaOk">Boletín enviado correctamente. ¿Quieres imprimir una copia?</string>
 	<string name="butlletaImpresaOk">Boletín impreso correctamente. ¿Quieres imprimir otra copia?</string>
-	<string name="butlletaImpresaOk_imprimir">Imprimir</string>
-	<string name="butlletaImpresaOk_enviar">Cancelar</string>
+	<string name="butlletaImpresaOk_imprimir">Si</string>
+	<string name="butlletaImpresaOk_enviar">No</string>
 	<string name="firma">Firma</string>
 
 	<!-- /13-10-2016 -->
@@ -203,5 +203,10 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="reload_data">Recarregar Dades</string>
 	<string name="recuperar_denuncia">Recuperar Denuncia</string>
 	<string name="buscar">Buscar</string>
+
+	<string name="mancaZona">Has de elegir una zona</string>
+	<string name="mancaCarrer">Has de elegir una calle</string>
+	<string name="noDenuncies">No hay denuncias para recuperar</string>
+
 
 </resources>

@@ -125,8 +125,9 @@ public class DatamanagerAPI {
 
 	public static <T> T parseJson(String _json, Class<T> classOfT) throws MalformedJsonException {
 		Gson gson = new Gson();
-		Log.d("GSON","Vaig a parsejar " + classOfT.getCanonicalName());
+		Log.e("GSON","Vaig a parsejar " + classOfT.getCanonicalName());
 		T response = gson.fromJson(_json, (Type) classOfT);
+		Log.e("La response datamanager",""+response);
 		return response;
 	}
 

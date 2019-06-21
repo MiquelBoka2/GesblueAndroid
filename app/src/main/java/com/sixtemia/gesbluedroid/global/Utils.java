@@ -211,8 +211,8 @@ public class Utils {
 
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
-        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
-        pbutton.setTextColor(Color.BLACK);
+ //       Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+ //       pbutton.setTextColor(Color.BLACK);
     }
 
     public static void showFaltenDadesError(Context context) {

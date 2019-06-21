@@ -37,6 +37,8 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 	private boolean primerCop;
 	private ArrayList<Model_Carrer> arrayAux;
 
+	private Boolean checked = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -97,6 +99,9 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 
 				mSelected = arrayAux.get(position);
 				mAdapter.setSelectedItem(position);
+
+				//Variable checked que ens diu si hi ha algun element clicat.
+				checked = true;
 
 				mAdapter.notifyDataSetChanged();
 			}
@@ -162,11 +167,17 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 				public void onClick(View v) {
 					//PreferencesGesblue.clearFormulari(mContext);
 					//mSancio.setModelCarrer(mSelected);
-					PreferencesGesblue.setCodiCarrer(mContext,mSelected.getCodicarrer());
-					PreferencesGesblue.setNomCarrer(mContext,mSelected.getNomcarrer());
-					getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSelected.getCodicarrer());
-					setResult(RESULT_OK, getIntent());
-					finish();
+
+					//Comprovem si hi ha alguna opció clicada, en cas negatiu doncs mostrem un missatge d'error, en cas a firmatiu, proseguim amb el codi.
+					if(checked){
+						PreferencesGesblue.setCodiCarrer(mContext,mSelected.getCodicarrer());
+						PreferencesGesblue.setNomCarrer(mContext,mSelected.getNomcarrer());
+						getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSelected.getCodicarrer());
+						setResult(RESULT_OK, getIntent());
+						finish();
+					}else{
+						Utils.showCustomDatamanagerError(mContext, getString(R.string.mancaCarrer));
+					}
 				}
 			});
 		}

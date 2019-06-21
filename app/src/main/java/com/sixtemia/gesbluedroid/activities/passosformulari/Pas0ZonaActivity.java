@@ -38,6 +38,8 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 	private boolean primerCop;
 	private ArrayList<Model_Zona> arrayAux;
 
+	private Boolean checked = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,7 +51,9 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
 
-		 arrayAux = DatabaseAPI.getZones(mContext);
+		Log.e("Sancio", ""+mSancio);
+
+		arrayAux = DatabaseAPI.getZones(mContext);
 
 //		Collections.sort(arrayAux, new Comparator<Model_Zona>() {
 //			@Override
@@ -98,6 +102,9 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 
 				mSelected = arrayAux.get(position);
 				mAdapter.setSelectedItem(position);
+
+				//Variable checked que ens diu si hi ha algun element clicat.
+				checked = true;
 
 				mAdapter.notifyDataSetChanged();
 				Log.d("Zona0",mSelected.getNomzona());
@@ -164,14 +171,20 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 				public void onClick(View v) {
 					//PreferencesGesblue.clearFormulari(mContext);
 					//mSancio.setModelZona(mSelected);
-					PreferencesGesblue.setCodiZona(mContext,mSelected.getCodizona());
-					Log.d("Codizona",""+mSelected.getCodizona());
-					PreferencesGesblue.setNomZona(mContext,mSelected.getNomzona());
-					PreferencesGesblue.setCodiCarrer(mContext,0);
-					PreferencesGesblue.setNomCarrer(mContext,null);
-					getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSelected.getCodizona());
-					setResult(RESULT_OK, getIntent());
-					finish();
+
+					//Comprovem si hi ha alguna opció clicada, en cas negatiu doncs mostrem un missatge d'error, en cas a firmatiu, proseguim amb el codi.
+					if(checked){
+						PreferencesGesblue.setCodiZona(mContext, mSelected.getCodizona());
+						Log.d("Codizona", "" + mSelected.getCodizona());
+						PreferencesGesblue.setNomZona(mContext, mSelected.getNomzona());
+						PreferencesGesblue.setCodiCarrer(mContext, 0);
+						PreferencesGesblue.setNomCarrer(mContext, null);
+						getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSelected.getCodizona());
+						setResult(RESULT_OK, getIntent());
+						finish();
+					}else{
+						Utils.showCustomDatamanagerError(mContext, getString(R.string.mancaZona));
+					}
 				}
 			});
 		}
@@ -211,6 +224,7 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 		public void setSelectedItem(int i) {
 			selectedItem = i;
 			Log.d("seleccio0",""+i);
+			Log.d("-Clickat el ",""+i);
 			PreferencesGesblue.setFormulariZona(mContext, Long.toString(zonaArrayListToShow.get(i).getCodizona()));
 		}
 
