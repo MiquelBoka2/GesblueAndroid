@@ -54,7 +54,7 @@
 	<string name="hintBuscadorModel">Elige el modelo del vehículo</string>
 	<string name="hintBuscadorZona">Elige la zona</string>
 	<string name="hintBuscadorCarrer">Elige la calle</string>
-	<string name="hintBuscadorNumeroCarrer">Introduce el núm. de la calle</string>
+	<string name="hintBuscadorNumeroCarrer">Introduce el núm. de la calle\n(Deja en blanco para S/N)</string>
 	<string name="terminalDenegat">Terminal denegado</string>
 	<string name="errorLogin">Error de login</string>
 	<string name="terminalPendent">Terminal pendiente</string>
@@ -187,7 +187,6 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="printerConnection_failedInitialize">Se ha producido un error al inicializar la conexión con la impresora. Por favor, reinicia la impresora para continuar.</string>
 	<string name="printerConnection_failedEngegaBluetooth">Por favor, activa tu conexión Bluetooth</string>
 	<string name="sense_especificar">S/E</string>
-	<string name="sense_numero">S/N</string>
 	<string name="butlletaEnviadaOk_acceptar">Aceptar</string>
 	<string name="butlletaEnviadaOk_cancelar">Cancelar</string>
 
@@ -208,5 +207,10 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="mancaCarrer">Has de elegir una calle</string>
 	<string name="noDenuncies">No hay denuncias para recuperar</string>
 
+	<string name="dacord">De acuerdo</string>
+	<string name="enrere">Atrás</string>
+	<string name="deslog">Estás a punto de desloguearte. ¿Estás de acuerdo?</string>
+
+	<string name="logout">Desconectate</string>
 
 </resources>

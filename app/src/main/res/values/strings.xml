@@ -55,7 +55,7 @@
 	<string name="hintBuscadorModel">Escull el model del vehicle</string>
 	<string name="hintBuscadorZona">Escull la zona</string>
 	<string name="hintBuscadorCarrer">Escull el carrer</string>
-	<string name="hintBuscadorNumeroCarrer">Introdueix el núm. del carrer</string>
+	<string name="hintBuscadorNumeroCarrer">Introdueix el núm. del carrer\n(Deixa en blanc per S/N)</string>
 	<string name="terminalDenegat">Terminal denegat</string>
 	<string name="errorLogin">Error de login</string>
 	<string name="terminalPendent">Terminal pendent</string>
@@ -220,5 +220,11 @@ secretari/a de l\'Ajuntament.</string>
 	<string name="mancaZona">Has de triar una zona</string>
 	<string name="mancaCarrer">Has de triar un carrer</string>
 	<string name="noDenuncies">No hi han denuncies per recuperar</string>
+
+	<string name="dacord">D\'acord</string>
+	<string name="enrere">Enrere</string>
+	<string name="deslog">Estas a punt de desloguejar-te. Estàs d\'acord?</string>
+
+	<string name="logout">Desconnecta\'t</string>
 
 </resources>

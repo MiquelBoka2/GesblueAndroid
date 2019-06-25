@@ -156,6 +156,9 @@ public class Utils {
 
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
+
+        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+        pbutton.setTextColor(Color.BLACK);
     }
 
     public static void getSyncDate(final Context _context) {
@@ -211,8 +214,8 @@ public class Utils {
 
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
- //       Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
- //       pbutton.setTextColor(Color.BLACK);
+        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+        pbutton.setTextColor(Color.BLACK);
     }
 
     public static void showFaltenDadesError(Context context) {
@@ -302,7 +305,7 @@ public class Utils {
 
         alertDialogBuilder.setTitle(title == -1 ? "" : context.getString(title))
                 .setMessage(context.getString(body))
-                .setPositiveButton(context.getString(R.string.ok), _listenerPositive)
+                .setPositiveButton(context.getString(positive), _listenerPositive)
                 .setNegativeButton(context.getString(negative), _listenerNegative)
                 .setCancelable(cancelable);
         AlertDialog alert = alertDialogBuilder.create();

@@ -217,59 +217,63 @@ public class GesblueApplication extends MultiDexApplication {
 			String[] fileNames = path.list();
 			final File[] files = path.listFiles();
 			int i=0;
-			for (File file : files) {
-				final File f = file;
-				if (file.isDirectory() == false) {
-					i++;
-					try {
-						byte[] encoded = Base64.encodeBase64(FileUtils.readFileToByteArray(file));
-						String str_encoded = new String(encoded, StandardCharsets.US_ASCII);
+
+			if(files!=null) {
+				for (File file : files) {
+					final File f = file;
+					if (file.isDirectory() == false) {
+						i++;
+						try {
+							byte[] encoded = Base64.encodeBase64(FileUtils.readFileToByteArray(file));
+							String str_encoded = new String(encoded, StandardCharsets.US_ASCII);
 
 
-						PujaFotoRequest pjr = new PujaFotoRequest(
-								PreferencesGesblue.getConcessio(aContext),
-								str_encoded,
-								file.getName()
-								);
-						DatamanagerAPI.crida_PujaFoto(pjr,
-								new JSoapCallback() {
-									@Override
-									public void onSuccess(String result) {
-										File direct = new File("storage/emulated/0/Sixtemia/upload/done");
+							PujaFotoRequest pjr = new PujaFotoRequest(
+									PreferencesGesblue.getConcessio(aContext),
+									str_encoded,
+									file.getName()
+							);
+							DatamanagerAPI.crida_PujaFoto(pjr,
+									new JSoapCallback() {
+										@Override
+										public void onSuccess(String result) {
+											File direct = new File("storage/emulated/0/Sixtemia/upload/done");
 
-										if (!direct.exists()) {
-											File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/done");
-											wallpaperDirectory.mkdirs();
+											if (!direct.exists()) {
+												File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/done");
+												wallpaperDirectory.mkdirs();
+											}
+											File from = new File("storage/emulated/0/Sixtemia/upload/" + f.getName());
+											File to = new File("storage/emulated/0/Sixtemia/upload/done/" + f.getName());
+											from.renameTo(to);
+
 										}
-										File from = new File("storage/emulated/0/Sixtemia/upload/" + f.getName());
-										File to = new File("storage/emulated/0/Sixtemia/upload/done/" + f.getName());
-										from.renameTo(to);
 
-									}
-									@Override
-									public void onError(int error) {
-										Log.e("Formulari", "Error PujaFoto: " + error);
-										File direct = new File("storage/emulated/0/Sixtemia/upload/error");
+										@Override
+										public void onError(int error) {
+											Log.e("Formulari", "Error PujaFoto: " + error);
+											File direct = new File("storage/emulated/0/Sixtemia/upload/error");
 
-										if (!direct.exists()) {
-											File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/error");
-											wallpaperDirectory.mkdirs();
+											if (!direct.exists()) {
+												File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/error");
+												wallpaperDirectory.mkdirs();
+											}
+											File from = new File("storage/emulated/0/Sixtemia/upload/" + f.getName());
+											File to = new File("storage/emulated/0/Sixtemia/upload/error/" + f.getName());
+											from.renameTo(to);
+
 										}
-										File from = new File("storage/emulated/0/Sixtemia/upload/" + f.getName());
-										File to = new File("storage/emulated/0/Sixtemia/upload/error/" + f.getName());
-										from.renameTo(to);
+									});
 
-									}
-								});
+						} catch (Exception e) {
 
-					} catch (Exception e) {
+							e.printStackTrace();
+						}
+						if (i > 5) {
+							return;
+						}
 
-						e.printStackTrace();
 					}
-					if(i>5){
-						return;
-					}
-
 				}
 			}
 		}

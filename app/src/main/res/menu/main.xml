@@ -8,9 +8,9 @@
         android:title="@string/recuperar_denuncia"
         app:showAsAction="never" />
     <item
-    android:id="@+id/space2"
+    android:id="@+id/btnLogout"
     android:orderInCategory="100"
-    android:title=""
+    android:title="@string/logout"
     app:showAsAction="never" />
     <item
         android:id="@+id/versionNumber"

@@ -1,16 +1,20 @@
 package com.sixtemia.gesbluedroid.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.bumptech.glide.Glide;
 import com.sixtemia.gesbluedroid.R;
@@ -91,7 +95,8 @@ public class MainActivity extends GesblueFragmentActivity {
 			public void onClick(View view) {
 				String matricula = mBinding.editTextMatricula.getText().toString();
 
-				if(matricula.equals("")) {
+				if(matricula.equals("") || PreferencesGesblue.getCodiZona(mContext)==0 ||
+						PreferencesGesblue.getCodiCarrer(mContext)==0) {
 					Utils.showFaltenDadesError(mContext);
 				} else {
 					comprovarMatricula(matricula);
@@ -179,6 +184,23 @@ public class MainActivity extends GesblueFragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
+			case R.id.btnLogout:
+				Utils.showCustomDialog(mContext, R.string.atencio, R.string.deslog, R.string.dacord, R.string.enrere, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						PreferencesGesblue.setUserName(mContext,"");
+						PreferencesGesblue.setPassword(mContext,"");
+						PreferencesGesblue.setConcessioString(mContext,"");
+						finish();
+					}
+				}, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				}, false);
+				return true;
+
 			case R.id.buttonRecuperarDenuncia:
 				Intent intent = new Intent(mContext, RecuperarDenunciaActivity.class);
 				startActivity(intent);
