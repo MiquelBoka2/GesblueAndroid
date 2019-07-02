@@ -125,8 +125,11 @@ public class Pas2MarcaActivity extends GesblueFragmentActivity {
 						index = i;
 					}
 				}
-				mAdapter.setSelectedItem(index);
-				mAdapter.notifyDataSetChanged();
+
+				if(index != 0) {
+					mAdapter.setSelectedItem(index);
+					mAdapter.notifyDataSetChanged();
+				}
 			}
 
 			if(mSelected == null && mAdapter.getSelected() != null) {

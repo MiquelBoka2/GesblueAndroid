@@ -172,7 +172,7 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 					//PreferencesGesblue.clearFormulari(mContext);
 					//mSancio.setModelZona(mSelected);
 
-					//Comprovem si hi ha alguna opció clicada, en cas negatiu doncs mostrem un missatge d'error, en cas a firmatiu, proseguim amb el codi.
+					//Comprovem si hi ha alguna opció clicada, en cas negatiu doncs mostrem un missatge d'error, en cas afirmatiu, proseguim amb el codi.
 					if(checked){
 						PreferencesGesblue.setCodiZona(mContext, mSelected.getCodizona());
 						Log.d("Codizona", "" + mSelected.getCodizona());

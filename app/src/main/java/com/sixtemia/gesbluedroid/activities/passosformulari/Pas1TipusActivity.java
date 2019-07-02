@@ -50,13 +50,15 @@ public class Pas1TipusActivity extends GesblueFragmentActivity {
 
 		final ArrayList<Model_TipusVehicle> arrayAux = DatabaseAPI.getTipusVehicles(mContext);
 
-		Collections.sort(arrayAux, new Comparator<Model_TipusVehicle>() {
-			@Override
-			public int compare(Model_TipusVehicle o1, Model_TipusVehicle o2) {
+		if(arrayAux != null ) {
+			Collections.sort(arrayAux, new Comparator<Model_TipusVehicle>() {
+				@Override
+				public int compare(Model_TipusVehicle o1, Model_TipusVehicle o2) {
 
-				return Long.compare(o1.getCoditipusvehicle(),o2.getCoditipusvehicle());
-			}
-		});
+					return Long.compare(o1.getCoditipusvehicle(), o2.getCoditipusvehicle());
+				}
+			});
+		}
 
 		if(mAdapter == null) {
 			mAdapter = new SimpleAdapter(mContext, arrayAux);

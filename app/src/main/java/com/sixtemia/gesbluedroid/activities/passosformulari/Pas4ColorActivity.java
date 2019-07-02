@@ -83,8 +83,10 @@ public class Pas4ColorActivity extends GesblueFragmentActivity {
 				}
 			}
 
-			mAdapter.setSelectedItem(index);
-			mAdapter.notifyDataSetChanged();
+			if(index != -1){
+				mAdapter.setSelectedItem(index);
+				mAdapter.notifyDataSetChanged();
+			}
 		}
 
 		mBinding.gridView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
@@ -122,8 +124,11 @@ public class Pas4ColorActivity extends GesblueFragmentActivity {
 						index = i;
 					}
 				}
-				mAdapter.setSelectedItem(index);
-				mAdapter.notifyDataSetChanged();
+
+				if(index != -1){
+					mAdapter.setSelectedItem(index);
+					mAdapter.notifyDataSetChanged();
+				}
 			}
 
 			if(mSelected == null && mAdapter.getSelected() != null) {

@@ -8,6 +8,7 @@ import android.support.v7.widget.AppCompatRadioButton;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,8 +77,10 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 				}
 			}
 
-			mAdapter.setSelectedItem(index);
-			mAdapter.notifyDataSetChanged();
+			if(index != -1){
+				mAdapter.setSelectedItem(index);
+				mAdapter.notifyDataSetChanged();
+			}
 		}
 
 		mBinding.lv.setOnItemClickListener( new AdapterView.OnItemClickListener() {
@@ -116,8 +119,11 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 						index = i;
 					}
 				}
-				mAdapter.setSelectedItem(index);
-				mAdapter.notifyDataSetChanged();
+
+				if(index != -1) {
+					mAdapter.setSelectedItem(index);
+					mAdapter.notifyDataSetChanged();
+				}
 			} else {
 				String idDefault = PreferencesGesblue.getCarrerDefaultValue(mContext);
 				if(!TextUtils.isEmpty(idDefault)) {
@@ -172,6 +178,8 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 					if(checked){
 						PreferencesGesblue.setCodiCarrer(mContext,mSelected.getCodicarrer());
 						PreferencesGesblue.setNomCarrer(mContext,mSelected.getNomcarrer());
+						//Per evitar el penjament degut al parsejament de les dades a sancio, desem als extres un boleà per dir al programa que ho porcessi de forma diferent.
+						getIntent().putExtra("noSancio", true);
 						getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSelected.getCodicarrer());
 						setResult(RESULT_OK, getIntent());
 						finish();
@@ -252,7 +260,11 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 
 		@Override
 		public int getCount() {
-			return carrerArrayListToShow.size();
+			if(carrerArrayListToShow != null){
+				return carrerArrayListToShow.size();
+			}else{
+				return 0;
+			}
 		}
 
 		@Override

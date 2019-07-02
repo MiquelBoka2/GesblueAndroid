@@ -132,13 +132,13 @@ public class MainActivity extends GesblueFragmentActivity {
 		});
 
 
-		final ArrayList<Model_LlistaBlanca> listLogs = DatabaseAPI.getLlistaBlanca(mContext);
+/*		final ArrayList<Model_LlistaBlanca> listLogs = DatabaseAPI.getLlistaBlanca(mContext);
 
 		Log.d("Num llistaBlanca local",""+listLogs.size());
 
 		final ArrayList<Model_LlistaAbonats> listLogs2 = DatabaseAPI.getLlistaAbonats(mContext);
 
-		Log.d("Num llistaAbonats local",""+listLogs2.size());
+		Log.d("Num llistaAbonats local",""+listLogs2.size());*/
 
 
 	}
@@ -348,8 +348,14 @@ public class MainActivity extends GesblueFragmentActivity {
 	}
 
 	private void changeViewNoMultable(String text) {
+		//Amaguem el nom de l'ajuntament per qüestió estètica.
+		mBinding.textViewLocalitzacioConcessio.setVisibility(View.INVISIBLE);
+
 		mBinding.tvEstacionamentCorrecte.setText(text);
 		mBinding.tvEstacionamentCorrecte.setVisibility(View.VISIBLE);
+
+		mBinding.buttonDenunciar.setVisibility(View.VISIBLE);
+		mBinding.buttonNoDenunciar.setVisibility(View.VISIBLE);
 
 		mBinding.separator.setVisibility(View.VISIBLE);
 
@@ -357,6 +363,9 @@ public class MainActivity extends GesblueFragmentActivity {
 	}
 
 	private void changeViewJaDenunciat() {
+		//Amaguem el nom de l'ajuntament per qüestió estètica.
+		mBinding.textViewLocalitzacioConcessio.setVisibility(View.INVISIBLE);
+
 		mBinding.tvEstacionamentCorrecte.setText(R.string.vehicle_ja_denunciat);
 		mBinding.tvEstacionamentCorrecte.setVisibility(View.VISIBLE);
 
@@ -371,6 +380,8 @@ public class MainActivity extends GesblueFragmentActivity {
 	}
 
 	private void changeViewMultable(String text) {
+		//Amaguem el nom de l'ajuntament per qüestió estètica.
+		mBinding.textViewLocalitzacioConcessio.setVisibility(View.INVISIBLE);
 
 		mBinding.textViewEstacionamentIncorrecte.setText(text);
 		mBinding.textViewEstacionamentIncorrecte.setVisibility(View.VISIBLE);
@@ -385,6 +396,9 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.buttonComprovar.setEnabled(false);
 	}
 	private void changeViewNoComprovat() {
+		//Amaguem el nom de l'ajuntament per qüestió estètica.
+		mBinding.textViewLocalitzacioConcessio.setVisibility(View.INVISIBLE);
+
 		mBinding.textViewEstacionamentIncorrecte.setText(R.string.estacionament_sense_internet);
 
 		mBinding.textViewEstacionamentIncorrecte.setVisibility(View.VISIBLE);
@@ -400,6 +414,9 @@ public class MainActivity extends GesblueFragmentActivity {
 	}
 
 	private void changeViewComprovarMatricula() {
+		//Mostrem el nom de l'ajuntament per qüestió estètica.
+		mBinding.textViewLocalitzacioConcessio.setVisibility(View.VISIBLE);
+
 		mBinding.editTextMatricula.setText("");
 
 		mBinding.textViewEstacionamentIncorrecte.setVisibility(View.INVISIBLE);

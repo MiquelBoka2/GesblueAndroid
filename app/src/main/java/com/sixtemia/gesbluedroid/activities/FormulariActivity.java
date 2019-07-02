@@ -419,8 +419,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private void fillCarrer() {
 		if(mBinding.tvCarrer.isEnabled()) {
 			if(sancio.getModelCarrer() != null) {
-
 				String aux = mBinding.tvCarrer.getText().toString();
+
+				//Actualitzem la sanció amb els nous valors.
+				sancio.getModelCarrer().setNomcarrer(PreferencesGesblue.getNomCarrer(mContext));
+				sancio.getModelCarrer().setCodicarrer(PreferencesGesblue.getCodiCarrer(mContext));
 
 				if(isEmpty(aux)) {
 					mBinding.tvCarrer.setText(sancio.getModelCarrer().getNomcarrer());
@@ -706,7 +709,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					checkBotoCamera();
 					break;
 				case RESULT_ESTANDARD:
-					sancio = (Sancio) data.getExtras().get(KEY_FORMULARI_CONFIRMAR);
+					Boolean semafor = (Boolean) data.getExtras().get("noSancio");
+
+					if(semafor == null) {
+						sancio = (Sancio) data.getExtras().get(KEY_FORMULARI_CONFIRMAR);
+					}
 					disableViews();
 					fillAll();
 					break;

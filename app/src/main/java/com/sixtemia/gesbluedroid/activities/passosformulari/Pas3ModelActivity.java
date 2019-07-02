@@ -75,8 +75,11 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 					index = i;
 				}
 			}
-			mAdapter.setSelectedItem(index);
-			mAdapter.notifyDataSetChanged();
+
+			if(index != -1) {
+				mAdapter.setSelectedItem(index);
+				mAdapter.notifyDataSetChanged();
+			}
 		}
 		else{
 			mAdapter.setSelectedItem(0);
