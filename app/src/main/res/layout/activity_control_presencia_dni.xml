@@ -16,7 +16,7 @@
 			android:layout_height="match_parent"
 			android:adjustViewBounds="true" />
 
-		<android.support.design.widget.FloatingActionButton
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
 			android:id="@+id/take_picture"
 			app:backgroundTint="@color/textColorSuccess"
 			android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
 			app:srcCompat="@drawable/ic_camera"/>
 
 
-		<android.support.design.widget.FloatingActionButton
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
 			android:id="@+id/flash"
 			app:backgroundTint="@color/textColorSuccess"
 			android:layout_width="wrap_content"

@@ -60,7 +60,7 @@
                 android:src="@drawable/no_media"
                 android:layout_marginRight="10dp"/>
 
-            <android.support.v7.widget.AppCompatRadioButton
+            <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/radioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

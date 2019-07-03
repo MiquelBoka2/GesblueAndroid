@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "421777019836",
+    "firebase_url": "https://gesblue-6bc12.firebaseio.com",
+    "project_id": "gesblue-6bc12",
+    "storage_bucket": "gesblue-6bc12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421777019836:android:2f7f2130214aef80",
+        "android_client_info": {
+          "package_name": "com.sixtemia.gesbluedroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421777019836-7pk91cvr2j89h55raro9s4v442g2l7g1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAhbCp_MsQDrv1GvKyA3l2cGPLWLFAsPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421777019836-7pk91cvr2j89h55raro9s4v442g2l7g1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,11 +1,11 @@
 package com.sixtemia.gesbluedroid.activities;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -25,12 +25,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static android.text.TextUtils.isEmpty;
-import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getCodiAgent;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getControl;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getPrefCodiExportadora;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getPrefCodiInstitucio;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getPrefCodiTipusButlleta;
-import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getTerminal;
 import static com.sixtemia.sbaseobjects.tools.ImageTools.getFileAfterResize;
 
 public class CameraActivity extends GesblueFragmentActivity {

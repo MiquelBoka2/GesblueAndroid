@@ -7,13 +7,13 @@
     app:theme="@style/MyActionBarTheme">
 
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbarContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:theme="@style/MyActionBarTheme">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             app:popupTheme="@style/ThemeOverlay.SWebView"
             android:layout_width="match_parent"
@@ -64,9 +64,9 @@
             </LinearLayout>
 
 
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <WebView
         android:id="@+id/webview"

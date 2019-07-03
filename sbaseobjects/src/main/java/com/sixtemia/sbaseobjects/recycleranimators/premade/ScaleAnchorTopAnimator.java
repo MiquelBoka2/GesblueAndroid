@@ -1,7 +1,7 @@
 package com.sixtemia.sbaseobjects.recycleranimators.premade;
 
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.animation.Interpolator;
 
 import com.sixtemia.sbaseobjects.recycleranimators.BaseItemAnimator;

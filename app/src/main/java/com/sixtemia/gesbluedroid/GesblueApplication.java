@@ -6,7 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;

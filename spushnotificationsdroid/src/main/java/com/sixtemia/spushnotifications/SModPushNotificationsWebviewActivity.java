@@ -88,11 +88,11 @@ public class SModPushNotificationsWebviewActivity extends SPushFragmentActivity 
 	}
 
 	private void initControls() {
-		pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
+	//	pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
 
-		txtNoResults = (TextView) findViewById(R.id.txtNoResults);
+	//	txtNoResults = (TextView) findViewById(R.id.txtNoResults);
 
-		webviewContent = (WebView) findViewById(R.id.webviewContent);
+	//	webviewContent = (WebView) findViewById(R.id.webviewContent);
 
 		webviewContent.setWebViewClient(new CustomWebViewClient());
 		webviewContent.setWebChromeClient(new CustomWebChromeClient());
@@ -108,8 +108,7 @@ public class SModPushNotificationsWebviewActivity extends SPushFragmentActivity 
 		txtNoResults.setTextSize(SPushNotificationsStyleManager.Current(mContext).getStyle().getFontSize());
 		txtNoResults.setTextColor(SPushNotificationsStyleManager.Current(mContext).getStyle().getFontColor());
 
-		((RelativeLayout) findViewById(R.id.layout_content)).setBackgroundColor(SPushNotificationsStyleManager.Current(mContext).getStyle()
-				.getBackgroundColor());
+	//	((RelativeLayout) findViewById(R.id.layout_content)).setBackgroundColor(SPushNotificationsStyleManager.Current(mContext).getStyle().getBackgroundColor());
 	}
 
 	private void initContent() {

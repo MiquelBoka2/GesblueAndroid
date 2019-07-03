@@ -7,7 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.Log;

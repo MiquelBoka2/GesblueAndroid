@@ -18,8 +18,9 @@ package com.google.android.cameraview;
 
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
-import android.support.v4.util.SparseArrayCompat;
 import android.view.TextureView;
+
+import androidx.collection.SparseArrayCompat;
 
 import java.io.IOException;
 import java.util.List;

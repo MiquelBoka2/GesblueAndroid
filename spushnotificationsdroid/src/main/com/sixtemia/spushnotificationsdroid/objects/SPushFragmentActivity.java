@@ -7,7 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import androidx.core.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Log;

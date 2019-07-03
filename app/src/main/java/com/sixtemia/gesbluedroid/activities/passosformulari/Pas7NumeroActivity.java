@@ -1,7 +1,7 @@
 package com.sixtemia.gesbluedroid.activities.passosformulari;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;

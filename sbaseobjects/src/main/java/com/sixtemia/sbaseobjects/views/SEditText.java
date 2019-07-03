@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.support.v7.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.sixtemia.sbaseobjects.R;
 

@@ -13,14 +13,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.IntentCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import com.google.android.material.appbar.AppBarLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.IntentCompat;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
@@ -372,7 +372,7 @@ public class SFragmentActivity extends AppCompatActivity {
 
 	@SuppressLint("WrongConstant")
 	public Intent clearTask(Intent intent) {
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		return intent;
 	}
 

@@ -19,10 +19,9 @@ package com.google.android.cameraview;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import android.os.Bundle;
 import android.os.Parcel;
-import android.support.test.rule.UiThreadTestRule;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.rule.UiThreadTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;

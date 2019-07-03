@@ -1,7 +1,7 @@
 package com.sixtemia.sbaseobjects.tools;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.sixtemia.sbaseobjects.objects.SFragmentActivity;

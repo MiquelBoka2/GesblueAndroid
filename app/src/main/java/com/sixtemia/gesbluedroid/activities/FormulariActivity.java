@@ -6,7 +6,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;

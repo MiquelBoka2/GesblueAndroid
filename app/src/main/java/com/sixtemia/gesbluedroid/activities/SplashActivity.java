@@ -3,7 +3,7 @@ package com.sixtemia.gesbluedroid.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 

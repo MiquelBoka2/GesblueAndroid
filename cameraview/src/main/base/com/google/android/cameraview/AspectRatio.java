@@ -18,8 +18,9 @@ package com.google.android.cameraview;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.v4.util.SparseArrayCompat;
+import androidx.annotation.NonNull;
+import androidx.collection.SparseArrayCompat;
+
 
 /**
  * Immutable class for describing proportional relationship between width and height.
@@ -61,13 +62,6 @@ public class AspectRatio implements Comparable<AspectRatio>, Parcelable {
         }
     }
 
-    /**
-     * Parse an {@link AspectRatio} from a {@link String} formatted like "4:3".
-     *
-     * @param s The string representation of the aspect ratio
-     * @return The aspect ratio
-     * @throws IllegalArgumentException when the format is incorrect.
-     */
     public static AspectRatio parse(String s) {
         int position = s.indexOf(':');
         if (position == -1) {

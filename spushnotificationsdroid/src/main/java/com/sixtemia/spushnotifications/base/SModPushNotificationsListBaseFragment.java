@@ -3,9 +3,9 @@ package com.sixtemia.spushnotifications.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -213,7 +213,7 @@ public abstract class SModPushNotificationsListBaseFragment extends Fragment {
 		});
 
 		swipeToRefreshLayout = getSwipeRefreshLayout(view);
-		swipeToRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+		swipeToRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
 			@Override
 			public void onRefresh() {
