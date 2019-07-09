@@ -212,6 +212,19 @@ public class CameraActivity extends GesblueFragmentActivity {
 					}
 					sb.append(comptadorDenuncia);
 					break;
+				case 6://Consell Comarcal de la Selva
+					sb.append(coditipusbutlleta);
+					sb.append(codiinstitucio);
+					if (terminal.length() < 2) {
+						sb.append("0");
+					}
+					sb.append(terminal);
+					padding = 5 - String.valueOf(comptadorDenuncia).length();
+					for (int i = 0; i < padding; i++) {
+						sb.append("0");
+					}
+					sb.append(comptadorDenuncia);
+					break;
 			}
 			numeroTiquet = sb.toString();
 

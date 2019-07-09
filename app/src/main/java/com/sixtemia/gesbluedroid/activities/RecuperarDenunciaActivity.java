@@ -111,6 +111,11 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
         intent.putExtra(FormulariActivity.INTENT_NUM_DENUNCIA,denuncia.getCodidenuncia());
         intent.putExtra(FormulariActivity.INTENT_DATA_CREACIO,denuncia.getFechacreacio());
+
+
+
+
+
         intent.putExtra(FormulariActivity.INTENT_RECUPERADA,true);
         startActivity(intent);
     }

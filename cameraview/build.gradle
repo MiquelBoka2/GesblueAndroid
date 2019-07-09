@@ -15,11 +15,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 24
+        targetSdkVersion 28
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
@@ -36,15 +36,15 @@ android {
 }
 
 dependencies {
-    compile 'androidx.annotation:annotation:1.0.0'
-    compile 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.annotation:annotation:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Tests
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('androidx.test:runner:1.1.0') {
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('androidx.test:runner:1.1.0') {
         exclude module: 'support-annotations'
     }
-    androidTestCompile('androidx.test.espresso:espresso-core:3.1.0') {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0') {
         exclude module: 'support-annotations'
     }
 }

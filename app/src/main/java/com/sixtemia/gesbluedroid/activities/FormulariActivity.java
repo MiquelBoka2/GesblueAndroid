@@ -1,5 +1,6 @@
 package com.sixtemia.gesbluedroid.activities;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -218,11 +219,13 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 
 
-			borra(foto1);
+		/*	borra(foto1);
 
 			borra(foto2);
 
-			borra(foto3);
+			borra(foto3);*/
+
+		Log.e("onKeyDown pulsado:",""+keyCode);
 
 		}
 		return super.onKeyDown(keyCode, event);
@@ -270,22 +273,29 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		fillSancio();
 		fillCarrer();
 		fillNum();
+
+        Log.e("Recuperada?:",""+recuperada);
+
 		if(recuperada==true) {
-			File f = new File("storage/emulated/0/Sixtemia/upload/done");
+			File f = new File("storage/emulated/0/Sixtemia/upload/temp");
 			if (f.exists() && f.isDirectory()){
 				final Pattern p = Pattern.compile(".*-"+numDenuncia+"1.jpg"); // I know I really have a stupid mistake on the regex;
 
 				File[] flists = f.listFiles(new FileFilter(){
 					@Override
 					public boolean accept(File file) {
+						Log.e("Matched?:","-"+file);
 						return p.matcher(file.getName()).matches();
 					}
 				});
 				if(flists.length>0){
 					File f1 = flists[0];
-					pinta("storage/emulated/0/Sixtemia/upload/done/"+f1.getName(), mBinding.imageViewA);
+
+					Log.e("Ruta foto1:",f1.getName());
+
+					pinta("storage/emulated/0/Sixtemia/upload/temp/"+f1.getName(), mBinding.imageViewA);
 					img1IsActive = true;
-					foto1 = "storage/emulated/0/Sixtemia/upload/done/"+f1.getName();
+					foto1 = "storage/emulated/0/Sixtemia/upload/temp/"+f1.getName();
 				}
 
 				final Pattern p2 = Pattern.compile(".*-"+numDenuncia+"2.jpg"); // I know I really have a stupid mistake on the regex;
@@ -298,9 +308,13 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				});
 				if(flists2.length>0){
 					File f2 = flists2[0];
-					pinta("storage/emulated/0/Sixtemia/upload/done/"+f2.getName(), mBinding.imageViewB);
+
+					Log.e("Ruta foto2:",f2.getName());
+
+
+					pinta("storage/emulated/0/Sixtemia/upload/temp/"+f2.getName(), mBinding.imageViewB);
 					img2IsActive = true;
-					foto2 = "storage/emulated/0/Sixtemia/upload/done/"+f2.getName();
+					foto2 = "storage/emulated/0/Sixtemia/upload/temp/"+f2.getName();
 				}
 
 
@@ -314,9 +328,14 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				});
 				if(flists3.length>0){
 					File f3 = flists3[0];
-					pinta("storage/emulated/0/Sixtemia/upload/done/"+f3.getName(), mBinding.imageViewC);
+
+
+					Log.e("Ruta foto3:",f3.getName());
+
+
+					pinta("storage/emulated/0/Sixtemia/upload/temp/"+f3.getName(), mBinding.imageViewC);
 					img3IsActive = true;
-					foto3 = "storage/emulated/0/Sixtemia/upload/done/"+f3.getName();
+					foto3 = "storage/emulated/0/Sixtemia/upload/temp/"+f3.getName();
 				}
 
 			}
@@ -741,6 +760,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		}
 	}
 
+	@SuppressLint("RestrictedApi")
 	private void checkBotoCamera() {
 		mBinding.btnCamera.setVisibility((isEmpty(foto1) || isEmpty(foto2) || isEmpty(foto3)) ? VISIBLE : INVISIBLE);
 	}
@@ -1197,6 +1217,19 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					sb.append(comptadorDenuncia);
 					break;
 				case 5://Policia Local de Calonge
+					sb.append(coditipusbutlleta);
+					sb.append(codiinstitucio);
+					if (terminal.length() < 2) {
+						sb.append("0");
+					}
+					sb.append(terminal);
+					padding = 5 - String.valueOf(comptadorDenuncia).length();
+					for (int i = 0; i < padding; i++) {
+						sb.append("0");
+					}
+					sb.append(comptadorDenuncia);
+					break;
+				case 6://Consell Comarcal de la Selva
 					sb.append(coditipusbutlleta);
 					sb.append(codiinstitucio);
 					if (terminal.length() < 2) {
