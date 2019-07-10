@@ -1,5 +1,6 @@
 package com.sixtemia.gesbluedroid.activities;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -21,6 +22,7 @@ import com.sixtemia.gesbluedroid.Sancio;
 import com.sixtemia.gesbluedroid.activities.passosformulari.Pas0ZonaActivity;
 import com.sixtemia.gesbluedroid.activities.passosformulari.Pas6CarrerActivity;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
+import com.sixtemia.gesbluedroid.customstuff.dialogs.DeviceListActivity;
 import com.sixtemia.gesbluedroid.databinding.ActivityMainBinding;
 import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaAbonats;
@@ -39,12 +41,32 @@ import java.util.Date;
 import pt.joaocruz04.lib.misc.JSoapCallback;
 import pt.joaocruz04.lib.misc.JsoapError;
 
+import static com.sixtemia.gesbluedroid.activities.FormulariActivity.KEY_RETURN_PATH;
+import static com.sixtemia.gesbluedroid.activities.FormulariActivity.RESULT_FOTO_1;
 import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
 public class MainActivity extends GesblueFragmentActivity {
 
 	private ActivityMainBinding mBinding;
 	private Menu menu;
+	private String foto1;
+
+
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+
+		// Save UI state changes to the savedInstanceState.
+		// This bundle will be passed to onCreate if the process is
+		// killed and restarted.
+
+		savedInstanceState.putString("foto1", foto1);
+
+		// etc.
+
+		super.onSaveInstanceState(savedInstanceState);
+	}
+
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +134,11 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.buttonDenunciar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				/*Intent intent = new Intent(mContext, CameraActivity.class);
+				intent.putExtra("position", "1");
+				startActivityForResult(intent, RESULT_FOTO_1);*/
+
+
 				Sancio sancio = new Sancio();
 				sancio.setMatricula(mBinding.editTextMatricula.getText().toString());
 
@@ -150,16 +177,32 @@ public class MainActivity extends GesblueFragmentActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode == RESULT_OK) {
-			if(requestCode == 1){
-
+		switch (requestCode) {
+			case 1:
 				mBinding.tvZona.setText(PreferencesGesblue.getNomZona(mContext));
-			}
-			if(requestCode == 2) {
+				break;
 
+			case 2:
 				mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
+				break;
 
-			}
+/*			case RESULT_FOTO_1:
+
+				//foto1 = data.getExtras().getString(KEY_RETURN_PATH);
+
+				PreferencesGesblue.setFoto1(mContext, data.getExtras().getString(KEY_RETURN_PATH));
+
+				Sancio sancio = new Sancio();
+				sancio.setMatricula(mBinding.editTextMatricula.getText().toString());
+
+				Intent intent = new Intent(mContext, FormulariActivity.class);
+				intent.putExtra(FormulariActivity.INTENT_SANCIO, sancio);
+				intent.putExtra(FormulariActivity.KEY_VINC_DE_MATRICULA, true);
+				startActivity(intent);
+
+
+
+				break;*/
 
 		}
 	}

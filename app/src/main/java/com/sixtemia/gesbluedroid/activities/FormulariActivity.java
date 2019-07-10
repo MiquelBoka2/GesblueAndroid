@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.databinding.DataBindingUtil;
@@ -116,6 +117,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private Date dataCreacio;
 
 	private ProgressDialog mDialog;
+
+	private boolean ferFoto2 = false;
 
 	private ProgressDialog getDialog( String title,  String message) {
 		if(null == mDialog || !mDialog.isShowing()) {
@@ -257,10 +260,14 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			numeroTiquet = intent.getStringExtra(KEY_NUMERO_TIQUET);
 		}
 		if(intent.getBooleanExtra(KEY_VINC_DE_MATRICULA, false)) {
-			intent = new Intent(mContext, Pas1TipusActivity.class);
+		/*	intent = new Intent(mContext, Pas1TipusActivity.class);
 			intent.putExtra(INTENT_SANCIO, sancio);
 			intent.putExtra(KEY_FORMULARI_PRIMER_COP, true);
-			startActivity(intent);
+			startActivity(intent);*/
+
+	/*		foto1 = PreferencesGesblue.getFoto1(mContext);
+			ferFoto2 = true;
+			pinta(foto1, mBinding.imageViewA);*/
 		}
 	}
 
@@ -277,11 +284,13 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
         Log.e("Recuperada?:",""+recuperada);
 
 		if(recuperada==true) {
-			File f = new File("storage/emulated/0/Sixtemia/upload/temp");
-			if (f.exists() && f.isDirectory()){
+			//File ftemp = new File("storage/emulated/0/Sixtemia/upload/done");
+			File fdone = new File("storage/emulated/0/Sixtemia/upload/temp");
+
+			if (fdone.exists() && fdone.isDirectory()){
 				final Pattern p = Pattern.compile(".*-"+numDenuncia+"1.jpg"); // I know I really have a stupid mistake on the regex;
 
-				File[] flists = f.listFiles(new FileFilter(){
+				File[] flists = fdone.listFiles(new FileFilter(){
 					@Override
 					public boolean accept(File file) {
 						Log.e("Matched?:","-"+file);
@@ -298,9 +307,33 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					foto1 = "storage/emulated/0/Sixtemia/upload/temp/"+f1.getName();
 				}
 
+				/*else{
+					if (ftemp.exists() && ftemp.isDirectory()){
+						final Pattern p1 = Pattern.compile(".*-"+numDenuncia+"1.jpg"); // I know I really have a stupid mistake on the regex;
+
+						File[] flists1 = ftemp.listFiles(new FileFilter(){
+							@Override
+							public boolean accept(File file) {
+								Log.e("Matched?:","-"+file);
+								return p1.matcher(file.getName()).matches();
+							}
+						});
+
+						if(flists1.length>0){
+							File f1 = flists1[0];
+
+							Log.e("Ruta foto1a:",f1.getName());
+
+							pinta("storage/emulated/0/Sixtemia/upload/temp/"+f1.getName(), mBinding.imageViewA);
+							img1IsActive = true;
+							foto1 = "storage/emulated/0/Sixtemia/upload/temp/"+f1.getName();
+						}
+					}
+				}*/
+
 				final Pattern p2 = Pattern.compile(".*-"+numDenuncia+"2.jpg"); // I know I really have a stupid mistake on the regex;
 
-				File[] flists2 = f.listFiles(new FileFilter(){
+				File[] flists2 = fdone.listFiles(new FileFilter(){
 					@Override
 					public boolean accept(File file) {
 						return p2.matcher(file.getName()).matches();
@@ -311,16 +344,39 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 					Log.e("Ruta foto2:",f2.getName());
 
-
 					pinta("storage/emulated/0/Sixtemia/upload/temp/"+f2.getName(), mBinding.imageViewB);
 					img2IsActive = true;
 					foto2 = "storage/emulated/0/Sixtemia/upload/temp/"+f2.getName();
 				}
 
+				/*else{
+					if (ftemp.exists() && ftemp.isDirectory()){
+						final Pattern p3 = Pattern.compile(".*-"+numDenuncia+"2.jpg"); // I know I really have a stupid mistake on the regex;
+
+						File[] flists3 = ftemp.listFiles(new FileFilter(){
+							@Override
+							public boolean accept(File file) {
+								Log.e("Matched?:","-"+file);
+								return p3.matcher(file.getName()).matches();
+							}
+						});
+
+						if(flists3.length>0){
+							File f1 = flists3[0];
+
+							Log.e("Ruta foto2a:",f1.getName());
+
+							pinta("storage/emulated/0/Sixtemia/upload/temp/"+f1.getName(), mBinding.imageViewA);
+							img2IsActive = true;
+							foto2 = "storage/emulated/0/Sixtemia/upload/temp/"+f1.getName();
+						}
+					}
+				}*/
+
 
 				final Pattern p3 = Pattern.compile(".*-"+numDenuncia+"3.jpg"); // I know I really have a stupid mistake on the regex;
 
-				File[] flists3 = f.listFiles(new FileFilter(){
+				File[] flists3 = fdone.listFiles(new FileFilter(){
 					@Override
 					public boolean accept(File file) {
 						return p3.matcher(file.getName()).matches();
@@ -337,6 +393,30 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					img3IsActive = true;
 					foto3 = "storage/emulated/0/Sixtemia/upload/temp/"+f3.getName();
 				}
+
+				/*else{
+					if (ftemp.exists() && ftemp.isDirectory()){
+						final Pattern p4 = Pattern.compile(".*-"+numDenuncia+"3.jpg"); // I know I really have a stupid mistake on the regex;
+
+						File[] flists4 = ftemp.listFiles(new FileFilter(){
+							@Override
+							public boolean accept(File file) {
+								Log.e("Matched?:","-"+file);
+								return p4.matcher(file.getName()).matches();
+							}
+						});
+
+						if(flists4.length>0){
+							File f1 = flists4[0];
+
+							Log.e("Ruta foto3a:",f1.getName());
+
+							pinta("storage/emulated/0/Sixtemia/upload/temp/"+f1.getName(), mBinding.imageViewA);
+							img3IsActive = true;
+							foto3 = "storage/emulated/0/Sixtemia/upload/temp/"+f1.getName();
+						}
+					}
+				}*/
 
 			}
 		}
@@ -716,6 +796,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					checkBotoCamera();
 					break;
 				case RESULT_FOTO_2:
+					ferFoto2 = false;
 					foto2 = data.getExtras().getString(KEY_RETURN_PATH);
 					pinta(foto2, mBinding.imageViewB);
 					img2IsActive = true;
@@ -782,6 +863,15 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			anima(mBinding.getRoot());
 			imgView.setVisibility(VISIBLE);
 		}
+
+/*		if (ferFoto2){
+			ferFoto2 = false;
+
+			Intent intent = new Intent(mContext, CameraActivity.class);
+			intent.putExtra("position", "2");
+			startActivityForResult(intent, RESULT_FOTO_2);
+
+		}*/
 	}
 
 	private boolean borra(String path) {
@@ -877,11 +967,13 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		denuncia.setFechacreacio(date);
 		denuncia.setAgent(PreferencesGesblue.getIdAgent(mContext));
 		denuncia.setAdrecacarrer(sancio.getModelCarrer().getCodicarrer());
+
 		if(sancio.getNumero().equals("S/N")) {
 			denuncia.setAdrecanum(0);
 		}else {
 			denuncia.setAdrecanum(Double.parseDouble(sancio.getNumero()));
 		}
+
 		denuncia.setPosicio("");
 		denuncia.setMatricula (sancio.getMatricula());
 		denuncia.setTipusvehicle (sancio.getModelTipusVehicle().getCoditipusvehicle());
@@ -891,6 +983,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		denuncia.setInfraccio(sancio.getModelInfraccio().getCodi());
 		denuncia.setTerminal(Long.parseLong(PreferencesGesblue.getTerminal(mContext)));
 		denuncia.setEstatcomprovacio(PreferencesGesblue.getEstatComprovacio(mContext));
+
 		if(img1IsActive) {
 			denuncia.setFoto1(foto1);
 		}
@@ -910,6 +1003,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			DatabaseAPI.insertDenuncies(mContext,arrayDenuncies);
 			sendPhotos();
 		}
+
 		Utils.showCustomDialog(mContext, R.string.atencio, R.string.butlletaEnviadaOk, R.string.butlletaEnviadaOk_acceptar, R.string.butlletaEnviadaOk_cancelar, new DialogInterface.OnClickListener()
 		{
 			@Override

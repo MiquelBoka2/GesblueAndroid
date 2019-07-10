@@ -30,6 +30,22 @@ public class PreferencesGesblue extends Preferences {
 	private static final String PREF_SERVER_TIME = "serverTime";
 	private static final String PREF_INCREMENTAL_TIME = "serverTime";
 	private static final String PREF_CONCESSIO_STRING = "concessioString";
+
+
+
+
+	private static final String PREF_FOTO1_STRING = "foto1";
+
+
+
+
+
+
+
+
+
+
+
 	private static final String PREF_COMPTADOR_DENUNCIA = "comptadorDenuncia";
 	private static final String PREF_CONTROL = "digitControl";
 	private static final String PREF_CODIBARRES_VISIBLE = "codiBarresVisible";
@@ -400,6 +416,11 @@ public class PreferencesGesblue extends Preferences {
 	public static void setConcessioString(Context _context, String concessio) {
 		put(_context, PREF_CONCESSIO_STRING, concessio);
 	}
+
+	public static void setFoto1(Context _context, String foto1) {
+		put(_context, PREF_FOTO1_STRING, foto1);
+	}
+
 	public static String getConcessioString(Context _context) {
 		return getString(_context, PREF_CONCESSIO_STRING, BUIT);
 	}
@@ -433,6 +454,10 @@ public class PreferencesGesblue extends Preferences {
 	}
 	public static String getFormulariMarca(Context _context) {
 		return getString(_context, PREF_MARCA, BUIT);
+	}
+
+	public static String getFoto1(Context _context) {
+		return getString(_context, PREF_FOTO1_STRING,"");
 	}
 
 	public static void setFormulariModel(Context _context, String id) {
