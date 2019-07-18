@@ -860,7 +860,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					});
 
 
-			anima(mBinding.getRoot());
+//			anima(mBinding.getRoot());
 			imgView.setVisibility(VISIBLE);
 		}
 

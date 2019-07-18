@@ -73,7 +73,7 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 			mBinding.linearConfirmar.btnConfirmar.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					mSelected = (TextUtils.isEmpty(mBinding.etNum.getText().toString()) ? "" : mBinding.etNum.getText().toString());
+					mSelected = (TextUtils.isEmpty(mBinding.etNum.getText().toString()) ? "S/N" : mBinding.etNum.getText().toString());
 					mSancio.setNumero(mSelected);
 					getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSancio);
 					setResult(RESULT_OK, getIntent());
