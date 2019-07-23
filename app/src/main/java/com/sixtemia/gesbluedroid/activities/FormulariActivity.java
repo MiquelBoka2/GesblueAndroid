@@ -1172,12 +1172,17 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			}
 			PrintAsyncTask p = new PrintAsyncTask(mPrinter, mContext, sancio, codibutlleta, fecha, isFirstTime, new PrintAsyncTask.PrintListener() {
 				@Override
-				public void onFinish(Exception ex, boolean isFirstTime) {
+				public void onFinish(Exception ex, boolean isFirstTime, boolean printed) {
 					if(null == ex) {
 						dismissDialog();
 						if (isFirstEnvia) {
 							isFirstEnvia = false;
-							send();
+
+							Log.e("Imprimio","-"+printed);
+							if(printed) {
+								send();
+							}
+
 						} else {
 							Utils.showCustomDialog(mContext, R.string.atencio, R.string.butlletaImpresaOk, R.string.butlletaImpresaOk_imprimir, R.string.butlletaImpresaOk_enviar, new DialogInterface.OnClickListener() {
 								@Override

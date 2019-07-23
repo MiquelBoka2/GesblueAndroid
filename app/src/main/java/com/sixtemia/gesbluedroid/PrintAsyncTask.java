@@ -35,7 +35,7 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 	private Date dataCreacio;
 
 	public interface PrintListener {
-		void onFinish(Exception ex, boolean isFirstTime);
+		void onFinish(Exception ex, boolean isFirstTime, boolean printed);
 		void onError();
 	}
 
@@ -330,7 +330,8 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 
 	@Override
 	protected void onPostExecute(Boolean printed) {
-		mListener.onFinish(exception, isFirstTime);
+
+		mListener.onFinish(exception, isFirstTime, printed);
 	}
 
 	private String fill8Digits(String d) {
