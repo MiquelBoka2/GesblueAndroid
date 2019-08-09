@@ -438,7 +438,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private void fillCarrer() {
 		if(mBinding.tvCarrer.isEnabled()) {
 			if(sancio.getModelCarrer() != null) {
-				String aux = mBinding.tvCarrer.getText().toString();
+				mBinding.tvCarrer.setText(sancio.getModelCarrer().getNomcarrer());
+/*				String aux = mBinding.tvCarrer.getText().toString();
 
 				//Actualitzem la sanció amb els nous valors.
 				sancio.getModelCarrer().setNomcarrer(PreferencesGesblue.getNomCarrer(mContext));
@@ -454,7 +455,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						mBinding.tvNum.setEnabled(true);
 						sancio.setNumero(null);
 					}
-				}
+				}*/
 			}
 		}
 	}
