@@ -365,4 +365,22 @@ public class Utils {
             return value;
         }
     }
+
+    public static void showCustomDialog2(Context context, int title, int body, int positive, DialogInterface.OnClickListener _listenerPositive, DialogInterface.OnClickListener _listenerNegative, boolean cancelable) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+
+        alertDialogBuilder.setTitle(title == -1 ? "" : context.getString(title))
+                .setMessage(context.getString(body))
+                .setPositiveButton(context.getString(positive), _listenerPositive)
+                .setCancelable(cancelable);
+        AlertDialog alert = alertDialogBuilder.create();
+
+
+        alert.show();
+        Button nbutton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+        nbutton.setTextColor(Color.BLACK);
+        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+        pbutton.setTextColor(Color.BLACK);
+    }
 }

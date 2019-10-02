@@ -10,10 +10,13 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import android.text.InputFilter;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.sixtemia.gesbluedroid.R;
@@ -63,6 +66,31 @@ public class MainActivity extends GesblueFragmentActivity {
 		Glide.get(mContext).clearMemory();
 
 		String concessio = PreferencesGesblue.getConcessioString(mContext);
+
+		if (concessio == null || concessio.equals("")){
+			Utils.showCustomDialog2(mContext, R.string.atencio, R.string.errorConcessio, R.string.dacord, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					PreferencesGesblue.setUserName(mContext,"");
+					PreferencesGesblue.setPassword(mContext,"");
+					PreferencesGesblue.setConcessioString(mContext,"");
+
+					Intent intent = new Intent(mContext, LoginActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(intent);
+
+					finish();
+				}
+			}, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+
+				}
+			}, false);
+
+		}
+
+
 
 		mBinding.editTextMatricula.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
 		mBinding.textViewLocalitzacioConcessio.setText(concessio);
