@@ -66,6 +66,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		Glide.get(mContext).clearMemory();
 
 		String concessio = PreferencesGesblue.getConcessioString(mContext);
+		Log.e("La conzezió", concessio+"*****");
 
 		if (concessio == null || concessio.equals("")){
 			Utils.showCustomDialog2(mContext, R.string.atencio, R.string.errorConcessio, R.string.dacord, new DialogInterface.OnClickListener() {
