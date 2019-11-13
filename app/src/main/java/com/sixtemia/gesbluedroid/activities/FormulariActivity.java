@@ -1160,13 +1160,16 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			DLog("comptadorDenuncia: "+comptadorDenuncia);
 			int codiexportadora = getPrefCodiExportadora(mContext);
 			String coditipusbutlleta = getPrefCodiTipusButlleta(mContext);
+			Log.e("coditipusbutlleta",coditipusbutlleta);
 			String codiinstitucio = getPrefCodiInstitucio(mContext);
+			Log.e("codiinstitucio",codiinstitucio);
             StringBuilder sb = new StringBuilder();
             //sb.append("1");
 			int padding = 0;
 			switch(codiexportadora) {
 				case 1://Consell Comarcal de la Selva
 					sb.append(coditipusbutlleta);
+					Log.e("codiexportadora 1",coditipusbutlleta);
 					sb.append(codiinstitucio);
 					if (terminal.length() < 2) {
 						sb.append("0");
@@ -1179,6 +1182,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					sb.append(comptadorDenuncia);
 					break;
 				case 2://Consell Comarcal del Baix Empordà
+					Log.e("codiexportadora 2",coditipusbutlleta);
 					sb.append(coditipusbutlleta);
 					sb.append(codiinstitucio);
 					if (terminal.length() < 2) {
@@ -1192,6 +1196,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						sb.append(comptadorDenuncia);
 					break;
 				case 3://Xaloc
+					Log.e("codiexportadora 3",coditipusbutlleta);
 					sb.append(coditipusbutlleta);
 					sb.append(codiinstitucio);
 					if (terminal.length() < 2) {
@@ -1205,6 +1210,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					sb.append(comptadorDenuncia);
 					break;
 				case 4://Somintec
+					Log.e("codiexportadora 4",coditipusbutlleta);
 					sb.append(coditipusbutlleta);
 					sb.append(codiinstitucio);
 					if (terminal.length() < 2) {
@@ -1218,6 +1224,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					sb.append(comptadorDenuncia);
 					break;
 				case 5://Policia Local de Calonge
+					Log.e("codiexportadora 5",coditipusbutlleta);
 					sb.append(coditipusbutlleta);
 					sb.append(codiinstitucio);
 					if (terminal.length() < 2) {
@@ -1231,6 +1238,23 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					sb.append(comptadorDenuncia);
 					break;
 				case 6://Consell Comarcal de la Selva
+					Log.e("codiexportadora 6",coditipusbutlleta);
+					sb.append(coditipusbutlleta);
+					sb.append(codiinstitucio);
+					if (terminal.length() < 2) {
+						sb.append("0");
+					}
+					sb.append(terminal);
+					padding = 5 - String.valueOf(comptadorDenuncia).length();
+					for (int i = 0; i < padding; i++) {
+						sb.append("0");
+					}
+					sb.append(comptadorDenuncia);
+					break;
+
+				case 7://Diputació de Barcelona.
+					coditipusbutlleta = "8";
+					Log.e("codiexportadora 7",coditipusbutlleta);
 					sb.append(coditipusbutlleta);
 					sb.append(codiinstitucio);
 					if (terminal.length() < 2) {

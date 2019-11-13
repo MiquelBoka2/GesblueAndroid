@@ -103,6 +103,9 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 		final String concessioString = PreferencesGesblue.getConcessioString(this);
 		isLoginConcessio = TextUtils.isEmpty(concessioString);
+
+		Log.e("Er login de la conzezió",isLoginConcessio+"-----");
+
 		concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 
 		if(!isLoginConcessio) {
@@ -158,10 +161,11 @@ public class LoginActivity extends GesblueFragmentActivity {
 					if(isLoginConcessio) {
 						cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
 
-						Log.d("Login -1","xxx");
+						Log.d("Login -1","Vivo en una piña");
 					} else {
+						cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
 
-						Log.d("Login -2","xxx");
+						Log.d("Login -2","Fallo Aquí");
 						cridaLogin(mBinding.editTextUsuari.getText().toString(), mBinding.editTextPassword.getText().toString(), TextUtils.isEmpty(concessio) ? 0 : Long.parseLong(concessio),PreferencesGesblue.getDataSync(mContext));
 					}
 				}
@@ -209,6 +213,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 				DatabaseAPI.deleteAllInfraccions(mContext);
 				DatabaseAPI.deleteAllZones(mContext);
 				DatabaseAPI.deleteAllLlistaBlanca(mContext);
+
 				return true;
 
 
@@ -356,31 +361,33 @@ public class LoginActivity extends GesblueFragmentActivity {
 	}
 
 	private void cridaLogin(final String username, final String password, final long concessio, @Nullable final String _data) {
+		Log.e("Login -0",concessio+"------");
 
 		showLoadingAnimButton(true);
 		//mContext=null;
 		Long data =  Long.parseLong(PreferencesGesblue.getDataSync(mContext));
 
-		Log.d("Login 0","xxx");
+		Log.e("Login 0",concessio+"------"+data);
 		boolean connected = false;
 		ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(mContext.CONNECTIVITY_SERVICE);
 		if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
 				connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
 			//we are connected to a network
-					Log.d("Login 1","xxx");
+					Log.e("Login 1","xXx");
 			DatamanagerAPI.crida_Login(new LoginRequest(username, password, concessio, Utils.getDeviceId(mContext), Utils.getAndroidVersion(), Utils.getAppVersion(mContext), data), new JSoapCallback() {
 				@Override
 				public void onSuccess(String result) {
 					final LoginResponse response;
 					try {
 						response = DatamanagerAPI.parseJson(result, LoginResponse.class);
+						Log.e("Arenita","Mejilla"+response);
 					} catch (Exception ex) {
 						ELog(ex);
 						onError(PARSE_ERROR);
 						return;
 					}
 
-					Log.d("Login 2","xxx");
+					Log.d("Login 2","xxX");
 					showLoadingAnimButton(false);
 					enableEditTexts(true);
 
@@ -414,8 +421,10 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 							Log.d("Num logs locals",""+listLogs.size());*/
 
-							Log.d("Login 3","xxx");
+							Log.e("Login 3","Eugene");
+
 							if(isLoginConcessio) {
+								Log.e("Sheldon","Plankton");
 								Intent intent = new Intent(mContext, MainActivity.class);
 								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 								startActivity(intent);
@@ -425,7 +434,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 							}
 							else {
 
-								Log.d("Login 5","xxx");
+								Log.e("Login 5","Cangrejo");
 								String d = PreferencesGesblue.getDataSync(mContext);
 								sincronitzarTot(response, concessio, d);
 							}
@@ -502,14 +511,11 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 				final ArrayList<Model_Log> listLogs = DatabaseAPI.getLogs(mContext);
 
-				Log.d("Num logs locals",""+listLogs.size());
+				Log.e("Num logs locals",""+listLogs.size());
 
 				Intent intent = new Intent(mContext, MainActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(intent);
-
-
-
 			}
 		}
 

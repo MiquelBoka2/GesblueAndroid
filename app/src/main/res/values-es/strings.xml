@@ -213,4 +213,7 @@ El/la secretario/a del Ayuntamiento.</string>
 
 	<string name="logout">Desconectate</string>
 
+	<string name="errorConcessio">Ha habido un error en recuperar la concession, vuelve a intentarlo.</string>
+
+
 </resources>

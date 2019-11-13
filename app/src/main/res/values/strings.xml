@@ -225,6 +225,8 @@ secretari/a de l\'Ajuntament.</string>
 	<string name="enrere">Enrere</string>
 	<string name="deslog">Estas a punt de desloguejar-te. Estàs d\'acord?</string>
 
+	<string name="errorConcessio">Hi ha hagut un error en recuperar la concessió, torna a intentar-ho.</string>
+
 	<string name="logout">Desconnecta\'t</string>
 
 </resources>
