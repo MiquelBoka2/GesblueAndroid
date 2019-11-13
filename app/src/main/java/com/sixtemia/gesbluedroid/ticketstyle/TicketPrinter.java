@@ -337,6 +337,9 @@ public class TicketPrinter {
                     y = newLine(y, BARCODE_NUM_LINES + 0.5f);
                 }
             }
+            else if(PreferencesGesblue.getConcessio(_context)==28){//La Garriga no té codi QR de Giropark
+
+            }
             else {// Codi QR Giropark.com
 
                 int heightQr = LINE_HEIGHT * BARCODE_NUM_LINES;
