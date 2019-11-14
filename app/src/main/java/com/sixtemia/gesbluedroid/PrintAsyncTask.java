@@ -105,7 +105,7 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 			Calendar calendar2 = Calendar.getInstance();
 
 			calendar.setTime((Date) dataCreacio);
-			calendar.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
+			//calendar.add(Calendar.MONTH, 1); //Com van de 0 a 11, hi afegim 1 per tenir el correcte.
 			calendar.add(Calendar.DATE, getDiesDescompteFromValorsServicaixa());
 
 

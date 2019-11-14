@@ -154,6 +154,7 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="cela_identificacio">IDENTIFICACIÓ</string>
 	<string name="cela_imp_dte">IMP. DTO.</string>
 	<string name="cela_dataLimitPagamentAmbAquestDoc">F. límite pago con este doc.:</string>
+	<string name="cela_oficinesCaixa">Oficinas de CaixaBank(La Caixa)</string>
 	<string name="cela_codi_anulacio">CÓDIGO ANULACIÓN</string>
 	<string name="cela_import">IMPORTE ANULACIÓN</string>
 	<string name="cela_dataLimit">FECHA LÍMITE ANULACIÓN</string>

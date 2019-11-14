@@ -144,6 +144,7 @@ secretari/a de l\'Ajuntament.</string>
 	<string name="cela_color">COLOR</string>
 	<string name="cela_dataLimit">DATA LÍMIT ANUL·LACIÓ</string>
 	<string name="cela_dataLimitPagamentAmbAquestDoc">D. límit pagament amb aquest doc.:</string>
+	<string name="cela_oficinesCaixa">Oficines de CaixaBank(La Caixa)</string>
 	<string name="cela_emisora">EMISSORA</string>
 	<string name="cela_fetDenunciat">FET DENUNCIAT</string>
 	<string name="cela_identificacio">IDENTIFICACIÓ</string>

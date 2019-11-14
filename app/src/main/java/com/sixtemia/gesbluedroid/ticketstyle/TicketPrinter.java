@@ -200,7 +200,7 @@ public class TicketPrinter {
                 int dia, mes, any;
                 Calendar c = printConfiguration.getDataLimitPagament();
                 dia = c.get(Calendar.DAY_OF_MONTH);
-                mes = c.get(Calendar.MONTH);
+                mes = c.get(Calendar.MONTH)+1;
                 any = c.get(Calendar.YEAR);
                 String data = "";
                 if(dia < 10) data += "0";
@@ -235,7 +235,12 @@ public class TicketPrinter {
 
                 textY = y + CELLA_INSET;
                 printer.setPageXY(0, textY);
-                printer.printTaggedText("{reset}" + mContext.getString(R.string.cela_dataLimitPagamentAmbAquestDoc) + " " + data + "{br}", CHARSET_ENCODING);
+                printer.printTaggedText("{reset}{center}" + mContext.getString(R.string.cela_dataLimitPagamentAmbAquestDoc) + " " + data + "{center}{br}", CHARSET_ENCODING);
+                y = newLine(y, 2);
+
+                textY = y + CELLA_INSET;
+                printer.setPageXY(0, textY);
+                printer.printTaggedText("{reset}{center}" + mContext.getString(R.string.cela_oficinesCaixa) +  "{center}{br}", CHARSET_ENCODING);
                 y = newLine(y, 2);
             }
 
