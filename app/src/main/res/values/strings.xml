@@ -3,7 +3,7 @@
 
 
 	<!-- Activity names -->
-	<string name="loginActivity_label">Inicia</string>
+	<string name="loginActivity_label">Login</string>
 	<string name="formulariActivity_label">Sanció</string>
 	<string name="mainActivity_label">Matrícula</string>
 	<string name="pas1TipusActivity_label">Sanció - TIPUS DE VEHICLE</string>
