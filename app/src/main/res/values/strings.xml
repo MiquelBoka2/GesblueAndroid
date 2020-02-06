@@ -1,103 +1,103 @@
 <resources>
-	<string name="app_name">Gesblue</string>
+    <string name="app_name">Gesblue</string>
 
 
-	<!-- Activity names -->
-	<string name="loginActivity_label">Login</string>
-	<string name="formulariActivity_label">Sanció</string>
-	<string name="mainActivity_label">Matrícula</string>
-	<string name="pas1TipusActivity_label">Sanció - TIPUS DE VEHICLE</string>
-	<string name="pas2MarcaActivity_label">Sanció - MARCA</string>
-	<string name="pas3ModelActivity_label">Sanció - MODEL</string>
-	<string name="pas4ColorActivity_label">Sanció - COLOR</string>
-	<string name="pas5InfraccioActivity_label">Sanció - INFRACCIÓ</string>
-	<string name="pas6CarrerActivity_label">Sanció - CARRER</string>
-	<string name="pas7NumeroActivity_label">Sanció - NÚMERO</string>
-	<string name="dadesTiquetUsuari">Dades tiquet usuari</string>
+    <!-- Activity names -->
+    <string name="loginActivity_label">Login</string>
+    <string name="formulariActivity_label">Sanció</string>
+    <string name="mainActivity_label">Matrícula</string>
+    <string name="pas1TipusActivity_label">Sanció - TIPUS DE VEHICLE</string>
+    <string name="pas2MarcaActivity_label">Sanció - MARCA</string>
+    <string name="pas3ModelActivity_label">Sanció - MODEL</string>
+    <string name="pas4ColorActivity_label">Sanció - COLOR</string>
+    <string name="pas5InfraccioActivity_label">Sanció - INFRACCIÓ</string>
+    <string name="pas6CarrerActivity_label">Sanció - CARRER</string>
+    <string name="pas7NumeroActivity_label">Sanció - NÚMERO</string>
+    <string name="dadesTiquetUsuari">Dades tiquet usuari</string>
 
-	<string name="usuari">USUARI</string>
-	<string name="password">PASSWORD</string>
-	<string name="concessio">CONCESSIÓ</string>
-	<string name="accepta">ACCEPTA</string>
-	<string name="editTextUsuariHint">Nom d\'usuari</string>
-	<string name="editTextPasswordHint">Contrasenya</string>
-	<string name="campsObligatoris">Falten camps obligatoris</string>
-	<string name="fotosObligatories">Cal fer 2 fotos com a mínim</string>
-	<string name="ok">ACCEPTAR</string>
-	<string name="atencio">Atenció</string>
+    <string name="usuari">USUARI</string>
+    <string name="password">PASSWORD</string>
+    <string name="concessio">CONCESSIÓ</string>
+    <string name="accepta">ACCEPTA</string>
+    <string name="editTextUsuariHint">Nom d\'usuari</string>
+    <string name="editTextPasswordHint">Contrasenya</string>
+    <string name="campsObligatoris">Falten camps obligatoris</string>
+    <string name="fotosObligatories">Cal fer 2 fotos com a mínim</string>
+    <string name="ok">ACCEPTAR</string>
+    <string name="atencio">Atenció</string>
 
-	<string name="estacionament_incorrecte">ESTAC. INCORRECTE</string>
-	<string name="estacionament_incorrecte2">MINUTS PASATS</string>
-	<string name="estacionament_incorrecte3">HORES PASADES</string>
-	<string name="estacionament_sense_internet">SENSE INTERNET. MATRICULA NO COMPROVADA</string>
-	<string name="estacionament_correcte">ESTAC. CORRECTE</string>
-	<string name="estacionament_correcte2">MINUTS RESTANTS</string>
-	<string name="vehicle_ja_denunciat">VEHICLE JA DENUNCIAT AVUI</string>
-	<string name="noDenunciar">NO DENUNCIAR</string>
-	<string name="denunciar">DENUNCIAR</string>
-	<string name="matricula">MATRICULA</string>
-	<string name="comprovar">COMPROVA</string>
+    <string name="estacionament_incorrecte">ESTAC. INCORRECTE</string>
+    <string name="estacionament_incorrecte2">MINUTS PASATS</string>
+    <string name="estacionament_incorrecte3">HORES PASADES</string>
+    <string name="estacionament_sense_internet">SENSE INTERNET. MATRICULA NO COMPROVADA</string>
+    <string name="estacionament_correcte">ESTAC. CORRECTE</string>
+    <string name="estacionament_correcte2">MINUTS RESTANTS</string>
+    <string name="vehicle_ja_denunciat">VEHICLE JA DENUNCIAT AVUI</string>
+    <string name="noDenunciar">NO DENUNCIAR</string>
+    <string name="denunciar">DENUNCIAR</string>
+    <string name="matricula">MATRICULA</string>
+    <string name="comprovar">COMPROVA</string>
 
-	<string name="tipus">TIPUS</string>
-	<string name="marca">MARCA</string>
-	<string name="model">MODEL</string>
-	<string name="color">COLOR</string>
-	<string name="sancio">SANCIÓ</string>
-	<string name="zona">ZONA</string>
-	<string name="carrer">CARRER</string>
-	<string name="num">NUM</string>
-	<string name="imprimeix">IMPRIMIR</string>
-	<string name="networkError">Error de connexió</string>
-	<string name="otherError">S\'ha produït un error</string>
-	<string name="seguent">SEGÜENT</string>
-	<string name="anterior">ANTERIOR</string>
-	<string name="hintBuscadorMarca">Escull la marca del vehicle</string>
-	<string name="hintBuscadorModel">Escull el model del vehicle</string>
-	<string name="hintBuscadorZona">Escull la zona</string>
-	<string name="hintBuscadorCarrer">Escull el carrer</string>
-	<string name="hintBuscadorNumeroCarrer">Introdueix el núm. del carrer\n(Deixa en blanc per S/N)</string>
-	<string name="terminalDenegat">Terminal denegat</string>
-	<string name="errorLogin">Error de login</string>
-	<string name="terminalPendent">Terminal pendent</string>
-	<string name="concessioNoValida">Concessió no vàlida</string>
+    <string name="tipus">TIPUS</string>
+    <string name="marca">MARCA</string>
+    <string name="model">MODEL</string>
+    <string name="color">COLOR</string>
+    <string name="sancio">SANCIÓ</string>
+    <string name="zona">ZONA</string>
+    <string name="carrer">CARRER</string>
+    <string name="num">NUM</string>
+    <string name="imprimeix">IMPRIMIR</string>
+    <string name="networkError">Error de connexió</string>
+    <string name="otherError">S\'ha produït un error</string>
+    <string name="seguent">SEGÜENT</string>
+    <string name="anterior">ANTERIOR</string>
+    <string name="hintBuscadorMarca">Escull la marca del vehicle</string>
+    <string name="hintBuscadorModel">Escull el model del vehicle</string>
+    <string name="hintBuscadorZona">Escull la zona</string>
+    <string name="hintBuscadorCarrer">Escull el carrer</string>
+    <string name="hintBuscadorNumeroCarrer">Introdueix el núm. del carrer\n(Deixa en blanc per S/N)</string>
+    <string name="terminalDenegat">Terminal denegat</string>
+    <string name="errorLogin">Error de login</string>
+    <string name="terminalPendent">Terminal pendent</string>
+    <string name="concessioNoValida">Concessió no vàlida</string>
 
-	<string name="actualitzantAgents">Actualitzant Agents&#8230;</string>
-	<string name="actualitzantMarques">Actualitzant Marques&#8230;</string>
-	<string name="actualitzantModels">Actualitzant Models&#8230;</string>
-	<string name="actualitzantColors">Actualitzant Colors&#8230;</string>
-	<string name="actualitzantTipusVehicles">Actualitzant Tipus Vehicles&#8230;</string>
-	<string name="actualitzantZones">Actualitzant Zones&#8230;</string>
-	<string name="actualitzantCarrers">Actualitzant Carrers&#8230;</string>
-	<string name="actualitzantInfraccions">Actualitzant Infraccions&#8230;</string>
-	<string name="actualitzantLlista">Actualitzant Llista&#8230;</string>
-	<string name="actualitzant">Actualitzant&#8230;</string>
-	<string name="sincronitzant">Sincronitzant&#8230;</string>
+    <string name="actualitzantAgents">Actualitzant Agents&#8230;</string>
+    <string name="actualitzantMarques">Actualitzant Marques&#8230;</string>
+    <string name="actualitzantModels">Actualitzant Models&#8230;</string>
+    <string name="actualitzantColors">Actualitzant Colors&#8230;</string>
+    <string name="actualitzantTipusVehicles">Actualitzant Tipus Vehicles&#8230;</string>
+    <string name="actualitzantZones">Actualitzant Zones&#8230;</string>
+    <string name="actualitzantCarrers">Actualitzant Carrers&#8230;</string>
+    <string name="actualitzantInfraccions">Actualitzant Infraccions&#8230;</string>
+    <string name="actualitzantLlista">Actualitzant Llista&#8230;</string>
+    <string name="actualitzant">Actualitzant&#8230;</string>
+    <string name="sincronitzant">Sincronitzant&#8230;</string>
 
-	<string name="youShallNotPass">No pots passar al següent pas fins que no seleccionis una opció</string>
-	<string name="youShallNotPassNumber">No pots passar al següent pas fins que no introdueixis un número</string>
-	<string name="foto_repetir">Repetir</string>
-	<string name="foto_confirmar">Confirmar</string>
-	<string name="foto_eliminar">Eliminar</string>
-	<string name="foto_error_guardar_desconocido">Error desconegut</string>
-	<string name="foto_error_guardar">Hi ha hagut un error al guardar la imatge: %1$s</string>
+    <string name="youShallNotPass">No pots passar al següent pas fins que no seleccionis una opció</string>
+    <string name="youShallNotPassNumber">No pots passar al següent pas fins que no introdueixis un número</string>
+    <string name="foto_repetir">Repetir</string>
+    <string name="foto_confirmar">Confirmar</string>
+    <string name="foto_eliminar">Eliminar</string>
+    <string name="foto_error_guardar_desconocido">Error desconegut</string>
+    <string name="foto_error_guardar">Hi ha hagut un error al guardar la imatge: %1$s</string>
 
-	<string name="btnConfirmar">Confirmar</string>
-	<string name="errorEnDades">Error en les dades de la denúncia</string>
+    <string name="btnConfirmar">Confirmar</string>
+    <string name="errorEnDades">Error en les dades de la denúncia</string>
 
-	<!-- PRINTER -->
-	<string name="title_select_device">Selecciona un dispositiu per a connectar</string>
-	<string name="title_scanning">Escanejant dispositius&#8230;</string>
-	<string name="title_bluetooth_disabled">El Bluetooth està deshabilitat</string>
-	<string name="title_scan">Escanejar dispositius</string>
-	<string name="title_please_wait">Esperi si us plau</string>
-	<string name="title_warning">Atenció</string>
-	<string name="title_address">Adreça</string>
-	<string name="title_connect">Connectar</string>
-	<string name="title_delete_all">Eliminar tots</string>
-	<string name="msg_connecting">Connectant al dispositiu&#8230;</string>
-	<!-- /PRINTER -->
+    <!-- PRINTER -->
+    <string name="title_select_device">Selecciona un dispositiu per a connectar</string>
+    <string name="title_scanning">Escanejant dispositius&#8230;</string>
+    <string name="title_bluetooth_disabled">El Bluetooth està deshabilitat</string>
+    <string name="title_scan">Escanejar dispositius</string>
+    <string name="title_please_wait">Esperi si us plau</string>
+    <string name="title_warning">Atenció</string>
+    <string name="title_address">Adreça</string>
+    <string name="title_connect">Connectar</string>
+    <string name="title_delete_all">Eliminar tots</string>
+    <string name="msg_connecting">Connectant al dispositiu&#8230;</string>
+    <!-- /PRINTER -->
 
-	<string name="textAnulacio">Anul·lació de la denúncia, la denúncia es podrà anul·lar de la\n
+    <string name="textAnulacio">Anul·lació de la denúncia, la denúncia es podrà anul·lar de la\n
 següent manera:\n\n
 1.- Si la infracció és per no tenir o no posar en lloc visible\n
 el tiquet abonant 8€ i obtenint tiquet d\'anul·lació en el\n
@@ -107,7 +107,7 @@ obtenint tiquet d\'anul·lació en el parquímetre.\n\n
 3. Si han transcorregut més de 2 hores a la finalització del\n
 límit horari indicat en el tiquet: abonant 8€ i obtenint tiquet\n
 d\'Anul·lació en el parquímetre.\n\n</string>
-	<string name="textPeu">Notificació de la denúncia i incoació del procediment: els\n
+    <string name="textPeu">Notificació de la denúncia i incoació del procediment: els\n
 notifiquem aquesta denúncia com a infractor titular del\n
 vehicle ressenyat a l\'anvers i els fem saber que queda incoat\n
 el corresponent procediment sancionador.\n\n
@@ -139,95 +139,95 @@ d\'aquesta Corporació.\n\n
 Pagament de la multa: Presentant aquesta butlleta a qualsevol\n
 caixer automàtic línia oberta o oficina de \"la caixa\"\n\nEl/la\n
 secretari/a de l\'Ajuntament.</string>
-	<string name="cela_agent">AGENT</string>
-	<string name="cela_codi_anulacio">CODI ANUL·LACIÓ</string>
-	<string name="cela_color">COLOR</string>
-	<string name="cela_dataLimit">DATA LÍMIT ANUL·LACIÓ</string>
-	<string name="cela_dataLimitPagamentAmbAquestDoc">D. límit pagament amb aquest doc.:</string>
-	<string name="cela_oficinesCaixa">Oficines de CaixaBank(La Caixa)</string>
-	<string name="cela_emisora">EMISSORA</string>
-	<string name="cela_fetDenunciat">FET DENUNCIAT</string>
-	<string name="cela_identificacio">IDENTIFICACIÓ</string>
-	<string name="cela_imp_dte">IMP. DTE.</string>
-	<string name="cela_import">IMPORT ANUL·LACIÓ</string>
-	<string name="cela_import_dte">IMPORT / DTE</string>
-	<string name="cela_llocInfraccio">LLOC DE LA INFRACCIÓ</string>
-	<string name="cela_marcaIModel">MARCA I MODEL</string>
-	<string name="cela_mod">MOD</string>
-	<string name="cela_pagamentEntitatBancaria">PAGAMENT EN ENTITAT BANCÀRIA</string>
-	<string name="cela_vehicle">VEHICLE</string>
-	<string name="cela_precepteInfringit">PRECEPTE INFRINGIT</string>
-	<string name="cela_referencia">REFERÈNCIA</string>
-	<string name="butlletaDeDenuncia">Butlleta de denúncia</string>
-	<string name="print">Imprimir</string>
-	<string name="butlleta">BUTLLETA</string>
-	<string name="titol_data">DATA</string>
-	<string name="titol_hora">HORA</string>
-	<string name="titol_matricula">MATRICULA</string>
-	<string name="IntrodueixImport">Introdueix l\'import</string>
-	<string name="IntrodueixLaData">Introdueix la data</string>
-	<string name="introdueixNumeroTiquet">Introdueix el número de tiquet</string>
-	<string name="errorBateria">S\'està acabant la bateria, carrega l\'impressora tan aviat com puguis.</string>
-	<string name="errorPaper">S\'ha acabat el paper</string>
-	<string name="errorTemperatura">La impressora s\'ha escalfat, espereu una estona abans de tornar-la a utilitzar</string>
-	<string name="errorAtencio">Atenció</string>
-	<string name="dialogImprimint">Imprimint&#8230;</string>
-	<string name="enviantDenuncia">Enviant denúncia&#8230;</string>
-	<string name="butlletaEnviadaOk">Butlleta enviada correctament. Desitjes imprimir una còpia?</string>
-	<string name="butlletaImpresaOk">Butlleta impresa correctament. Vols imprimir una altra còpia?</string>
-	<string name="butlletaImpresaOk_imprimir">Si</string>
-	<string name="butlletaImpresaOk_enviar">No</string>
-	<string name="firma">Firma</string>
+    <string name="cela_agent">AGENT</string>
+    <string name="cela_codi_anulacio">CODI ANUL·LACIÓ</string>
+    <string name="cela_color">COLOR</string>
+    <string name="cela_dataLimit">DATA LÍMIT ANUL·LACIÓ</string>
+    <string name="cela_dataLimitPagamentAmbAquestDoc">D. límit pagament amb aquest doc.:</string>
+    <string name="cela_oficinesCaixa">Oficines de CaixaBank(La Caixa)</string>
+    <string name="cela_emisora">EMISSORA</string>
+    <string name="cela_fetDenunciat">FET DENUNCIAT</string>
+    <string name="cela_identificacio">IDENTIFICACIÓ</string>
+    <string name="cela_imp_dte">IMP. DTE.</string>
+    <string name="cela_import">IMPORT ANUL·LACIÓ</string>
+    <string name="cela_import_dte">IMPORT / DTE</string>
+    <string name="cela_llocInfraccio">LLOC DE LA INFRACCIÓ</string>
+    <string name="cela_marcaIModel">MARCA I MODEL</string>
+    <string name="cela_mod">MOD</string>
+    <string name="cela_pagamentEntitatBancaria">PAGAMENT EN ENTITAT BANCÀRIA</string>
+    <string name="cela_vehicle">VEHICLE</string>
+    <string name="cela_precepteInfringit">PRECEPTE INFRINGIT</string>
+    <string name="cela_referencia">REFERÈNCIA</string>
+    <string name="butlletaDeDenuncia">Butlleta de denúncia</string>
+    <string name="print">Imprimir</string>
+    <string name="butlleta">BUTLLETA</string>
+    <string name="titol_data">DATA</string>
+    <string name="titol_hora">HORA</string>
+    <string name="titol_matricula">MATRICULA</string>
+    <string name="IntrodueixImport">Introdueix l\'import</string>
+    <string name="IntrodueixLaData">Introdueix la data</string>
+    <string name="introdueixNumeroTiquet">Introdueix el número de tiquet</string>
+    <string name="errorBateria">S\'està acabant la bateria, carrega l\'impressora tan aviat com puguis.</string>
+    <string name="errorPaper">S\'ha acabat el paper</string>
+    <string name="errorTemperatura">La impressora s\'ha escalfat, espereu una estona abans de tornar-la a utilitzar</string>
+    <string name="errorAtencio">Atenció</string>
+    <string name="dialogImprimint">Imprimint&#8230;</string>
+    <string name="enviantDenuncia">Enviant denúncia&#8230;</string>
+    <string name="butlletaEnviadaOk">Butlleta enviada correctament. Desitjes imprimir una còpia?</string>
+    <string name="butlletaImpresaOk">Butlleta impresa correctament. Vols imprimir una altra còpia?</string>
+    <string name="butlletaImpresaOk_imprimir">Si</string>
+    <string name="butlletaImpresaOk_enviar">No</string>
+    <string name="firma">Firma</string>
 
-	<string name="LOG_TAG" translatable="false">GesblueDroid</string>
-	<string name="cela_1" translatable="false">o6n</string>
-	<string name="cela_3" translatable="false">Sjos</string>
-	<string name="gbf_1" translatable="false">gesblue.com</string>
-	<integer name="gbf_2" translatable="false">21</integer>
-	<string name="gbf_3" translatable="false">gesblue</string>
-	<string name="gbf_5" translatable="false">%1$s/%2$s</string>
-	<string name="gbf_7" translatable="false">%1$s/%2$s.jpg</string>
-	<string name="gbf_6" translatable="false">%1$s/%2$s/%3$s.jpg</string>
-	<string name="hasLoggedLocationPreference" translatable="false">hasLoggedLocation</string>
-	<string name="hasLoggedPreference" translatable="false">hasLogued</string>
+    <string name="LOG_TAG" translatable="false">GesblueDroid</string>
+    <string name="cela_1" translatable="false">o6n</string>
+    <string name="cela_3" translatable="false">Sjos</string>
+    <string name="gbf_1" translatable="false">gesblue.com</string>
+    <integer name="gbf_2" translatable="false">21</integer>
+    <string name="gbf_3" translatable="false">gesblue</string>
+    <string name="gbf_5" translatable="false">%1$s/%2$s</string>
+    <string name="gbf_7" translatable="false">%1$s/%2$s.jpg</string>
+    <string name="gbf_6" translatable="false">%1$s/%2$s/%3$s.jpg</string>
+    <string name="hasLoggedLocationPreference" translatable="false">hasLoggedLocation</string>
+    <string name="hasLoggedPreference" translatable="false">hasLogued</string>
 
-	<string name="path_ftp" translatable="false">web/admin/fotosdenuncies/</string>
-	<!-- /13-10-2016 -->
-	<string name="pujarFotosTitle">Enviant fotografies</string>
+    <string name="path_ftp" translatable="false">web/admin/fotosdenuncies/</string>
+    <!-- /13-10-2016 -->
+    <string name="pujarFotosTitle">Enviant fotografies</string>
 
-	<string name="printerConnection_failedEngegaBluetooth">Sisplau, activa la teva connexió bluetooth</string>
-	<string name="printerConnection_failedConnect">S\'ha produït un error al connectar amb la impressora. Sisplau, reinicia la impressora per a continuar.</string>
-	<string name="printerConnection_failedInitialize">S\'ha produït un error al inicialitzar la connexió amb la impressora. Sisplau, reinicia la impressora per a continuar.</string>
-	<string name="printerConnection_failedTitle">Error</string>
+    <string name="printerConnection_failedEngegaBluetooth">Sisplau, activa la teva connexió bluetooth</string>
+    <string name="printerConnection_failedConnect">S\'ha produït un error al connectar amb la impressora. Sisplau, reinicia la impressora per a continuar.</string>
+    <string name="printerConnection_failedInitialize">S\'ha produït un error al inicialitzar la connexió amb la impressora. Sisplau, reinicia la impressora per a continuar.</string>
+    <string name="printerConnection_failedTitle">Error</string>
 
-	<!-- 17-01-2017 -->
-	<string name="sense_especificar">S/E</string>
-	<string name="butlletaEnviadaOk_acceptar">Acceptar</string>
-	<string name="butlletaEnviadaOk_cancelar">Cancel·lar</string>
+    <!-- 17-01-2017 -->
+    <string name="sense_especificar">S/E</string>
+    <string name="butlletaEnviadaOk_acceptar">Acceptar</string>
+    <string name="butlletaEnviadaOk_cancelar">Cancel·lar</string>
 
-	<string name="textAnulacioP">Anul·lació de parquímetre.\n\n</string>
-	<string name="textPeuP">Notificació de  l\'Ajuntament.</string>
+    <string name="textAnulacioP">Anul·lació de parquímetre.\n\n</string>
+    <string name="textPeuP">Notificació de  l\'Ajuntament.</string>
 
-	<string name="sendDenuncia_failed_title">S\'ha produït un error al enviar la denuncia. Sisplau, torna a enviar-la.</string>
-	<string name="sendDenuncia_failed_send">Enviar</string>
-	<string name="sendDenuncia_failed_cancel">Cancel·lar</string>
+    <string name="sendDenuncia_failed_title">S\'ha produït un error al enviar la denuncia. Sisplau, torna a enviar-la.</string>
+    <string name="sendDenuncia_failed_send">Enviar</string>
+    <string name="sendDenuncia_failed_cancel">Cancel·lar</string>
 
-	<string name="printer_disconnected">Impresora desconnectada</string>
-	<string name="tanca_concessio">Tancar Concessió</string>
-	<string name="reload_data">Recarregar Dades</string>
-	<string name="recuperar_denuncia">Recuperar Denuncia</string>
-	<string name="buscar">Buscar</string>
+    <string name="printer_disconnected">Impresora desconnectada</string>
+    <string name="tanca_concessio">Tancar Concessió</string>
+    <string name="reload_data">Recarregar Dades</string>
+    <string name="recuperar_denuncia">Recuperar Denuncia</string>
+    <string name="buscar">Buscar</string>
 
-	<string name="mancaZona">Has de triar una zona</string>
-	<string name="mancaCarrer">Has de triar un carrer</string>
-	<string name="noDenuncies">No hi han denuncies per recuperar</string>
+    <string name="mancaZona">Has de triar una zona</string>
+    <string name="mancaCarrer">Has de triar un carrer</string>
+    <string name="noDenuncies">No hi han denuncies per recuperar</string>
 
-	<string name="dacord">D\'acord</string>
-	<string name="enrere">Enrere</string>
-	<string name="deslog">Estas a punt de desloguejar-te. Estàs d\'acord?</string>
+    <string name="dacord">D\'acord</string>
+    <string name="enrere">Enrere</string>
+    <string name="deslog">Estas a punt de desloguejar-te. Estàs d\'acord?</string>
 
-	<string name="errorConcessio">Hi ha hagut un error en recuperar la concessió, torna a intentar-ho.</string>
+    <string name="errorConcessio">Hi ha hagut un error en recuperar la concessió, torna a intentar-ho.</string>
 
-	<string name="logout">Desconnecta\'t</string>
+    <string name="logout">Desconnecta\'t</string>
 
 </resources>

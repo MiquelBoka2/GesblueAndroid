@@ -12,7 +12,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-feature android:name="android.hardware.camera"></uses-feature>
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <application xmlns:tools="http://schemas.android.com/tools"
         android:name=".GesblueApplication"
@@ -23,6 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+        <activity android:name=".Opcions"></activity>
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait">
@@ -35,66 +37,69 @@
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/loginActivity_label"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/mainActivity_label"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FormulariActivity"
             android:label="@string/formulariActivity_label"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.passosformulari.Pas0ZonaActivity"
             android:label="@string/pas1TipusActivity_label"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.passosformulari.Pas1TipusActivity"
             android:label="@string/pas1TipusActivity_label"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.passosformulari.Pas2MarcaActivity"
             android:label="@string/pas2MarcaActivity_label"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.passosformulari.Pas3ModelActivity"
             android:label="@string/pas3ModelActivity_label"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.passosformulari.Pas4ColorActivity"
             android:label="@string/pas4ColorActivity_label"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.passosformulari.Pas5InfraccioActivity"
             android:label="@string/pas5InfraccioActivity_label"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.passosformulari.Pas6CarrerActivity"
             android:label="@string/pas6CarrerActivity_label"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.passosformulari.Pas7NumeroActivity"
             android:label="@string/pas7NumeroActivity_label"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"></activity>
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.CameraActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".customstuff.dialogs.DeviceListActivity"
             android:label="@string/title_select_device"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dialog"></activity>
+            android:theme="@style/AppTheme.Dialog" />
         <activity
             android:name=".activities.MoreInfoToPrintActivity"
             android:label="@string/dadesTiquetUsuari"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="8c2b5a6214e6b01ec3f8a06199fe4b3cba3afb3e" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".activities.RecuperarDenunciaActivity"></activity>
+        <activity android:name=".activities.RecuperarDenunciaActivity" />
     </application>
 
 </manifest>

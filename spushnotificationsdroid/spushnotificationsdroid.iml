@@ -90,8 +90,8 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/miquelviladomat/Developer/Android/GesblueAndroid/spushnotificationsdroid/libs/gcm.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/miquelviladomat/Developer/Android/GesblueAndroid/spushnotificationsdroid/libs/com.mobandme.ada_v2.4.4.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:C.\Users\Jose\Desktop\Projectes Android\GesblueAndroid\spushnotificationsdroid\libs\gcm.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:C.\Users\Jose\Desktop\Projectes Android\GesblueAndroid\spushnotificationsdroid\libs\com.mobandme.ada_v2.4.4.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.0.0@jar" level="project" />
