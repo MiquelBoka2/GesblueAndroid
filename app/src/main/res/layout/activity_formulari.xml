@@ -7,7 +7,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
         tools:context="com.sixtemia.gesbluedroid.activities.FormulariActivity"
-        android:background="@color/white"
+        android:background="@color/colorFons"
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true">
 
@@ -232,7 +232,7 @@
                         android:src="@drawable/ic_foto"
 	                    android:layout_centerVertical="true"
                         android:layout_margin="6dp"
-                        android:tint="@color/white"
+                        android:tint="@color/colorFons"
                         android:scaleType="center"
                         android:elevation="2dp"
                         app:elevation="2dp"
@@ -272,14 +272,14 @@
 				                android:layout_height="wrap_content"
 				                android:src="@android:drawable/ic_menu_send"
 				                android:layout_marginRight="5dp"
-				                android:tint="@color/white" />
+				                android:tint="@color/colorFons" />
 
 			                <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
 				                android:layout_width="wrap_content"
 				                android:layout_height="wrap_content"
 				                android:textSize="18sp"
 				                android:text="ENVIA"
-				                android:textColor="@color/white" />
+				                android:textColor="@color/colorFons" />
 
 		                </LinearLayout>
 
@@ -310,14 +310,14 @@
 				                android:layout_height="wrap_content"
 				                android:src="@drawable/ic_impresora"
 				                android:layout_marginRight="5dp"
-				                android:tint="@color/white" />
+				                android:tint="@color/colorFons" />
 
 			                <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
 				                android:layout_width="wrap_content"
 				                android:layout_height="wrap_content"
 				                android:textSize="18sp"
 				                android:text="@string/imprimeix"
-				                android:textColor="@color/white" />
+				                android:textColor="@color/colorFons" />
 
 		                </LinearLayout>
 

@@ -13,10 +13,10 @@
         android:title="@string/reload_data"
         app:showAsAction="never" />
     <item
-    android:id="@+id/space2"
-    android:orderInCategory="100"
-    android:title=""
-    app:showAsAction="never" />
+        android:id="@+id/space2"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="never" />
     <item
         android:id="@+id/versionNumber"
         android:orderInCategory="100"

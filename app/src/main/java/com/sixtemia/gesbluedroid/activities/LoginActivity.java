@@ -15,7 +15,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.sixtemia.gesbluedroid.Opcions;
 import com.sixtemia.gesbluedroid.R;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.databinding.ActivityLoginBinding;
@@ -78,10 +80,12 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	private ActivityLoginBinding mBinding;
 
+	private ImageView opciones;
 	private boolean isLoginConcessio = true;
 	private boolean everythingIsOk = true;
 	private String concessio = "";
 	private String initialDate = "0";
+	private String estat="no_login";
 
 	private boolean refreshDades = false;
 
@@ -93,6 +97,20 @@ public class LoginActivity extends GesblueFragmentActivity {
 		super.onCreate(savedInstanceState);
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 		setupVisibleToolbar(mBinding.toolbar);
+		opciones=mBinding.toolbar.icOpciones;
+
+		opciones.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mContext, Opcions.class);
+				intent.putExtra("estat",estat);
+				startActivity(intent);
+			}
+		});
+
+
+
 		mBinding.editTextPassword.setTypeface(mBinding.editTextUsuari.getTypeface());
 
 		Utils.getSyncDate(mContext);
@@ -109,6 +127,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 		concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 
 		if(!isLoginConcessio) {
+			estat="login";
 			mBinding.textViewConcessio.setVisibility(View.GONE);
 			mBinding.editTextConcessio.setVisibility(View.GONE);
 

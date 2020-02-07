@@ -9,7 +9,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		tools:context="com.sixtemia.gesbluedroid.activities.MainActivity"
-        android:background="@color/white"
+        android:background="@color/colorFons"
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true">
 
@@ -73,7 +73,7 @@
 						android:background="@color/verdOK"
 						android:padding="10dp"
 						android:text="@string/estacionament_correcte"
-						android:textColor="@color/white"
+						android:textColor="@color/colorFons"
 						android:textSize="@dimen/estacionament_size"
 						android:textStyle="bold"
 						android:visibility="invisible" />
@@ -86,7 +86,7 @@
 						android:inAnimation="@anim/notifications_fade_in"
 						android:padding="10dp"
 						android:text="@string/estacionament_incorrecte"
-						android:textColor="@color/white"
+						android:textColor="@color/colorFons"
 						android:textSize="@dimen/estacionament_size"
 						android:textStyle="bold"
 						android:visibility="invisible" />

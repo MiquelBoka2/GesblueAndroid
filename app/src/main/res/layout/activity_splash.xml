@@ -10,12 +10,6 @@
 		tools:context="com.sixtemia.gesbluedroid.activities.SplashActivity"
 		android:background="@color/colorPrimary">
 
-		<include
-			android:id="@+id/toolbar"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			layout="@layout/toolbar" />
-
 		<ImageView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

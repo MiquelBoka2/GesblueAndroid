@@ -4,8 +4,9 @@
 	<color name="colorPrimaryDark">#13867a</color>
 	<color name="colorAccent">#159588</color>
 
+
+
 	<color name="loginTextGreen">#009688</color>
-	<color name="white">#ffffff</color>
 	<color name="taronja">#ff7043</color>
 	<color name="taronjaApretat">#ff9c83</color>
 	<color name="taronjaDesactivat">#e0e0e0</color>
@@ -34,4 +35,30 @@
 	<color name="editTexitDisabled">#cacfd7</color>
 	<color name="textColorSuccess">#2BA53C</color>
 	<color name="button_inferior_separador">#ddd</color>
+
+
+
+	<!--Colors Vells-->
+
+	<color name="colorToolBar">#159588</color>
+	<color name="colorFons">#ffffff</color>
+
+
+
+	<color name="barra_superior">#159588</color>
+	<color name="btn_confirmar">#92CBC5</color>
+	<color name="text_opcions">#000000</color>
+	<color name="divider_color">#000000</color>
+	<color name="icones_opcions">#000000</color>
+
+
+<!--Colors Nous-->
+<!--
+	<color name="colorDeFons">#303030</color>
+	<color name="barra_superior">#000000</color>
+	<color name="btn_confirmar">#92CBC5</color>
+	<color name="text_opcions">#ffffff</color>
+	<color name="divider_color">#959595</color>
+
+-->
 </resources>

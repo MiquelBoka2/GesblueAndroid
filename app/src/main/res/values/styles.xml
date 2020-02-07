@@ -4,10 +4,12 @@
 	<style name="AppTheme"
 	       parent="Theme.AppCompat.Light.NoActionBar">
 		<!-- Customize your theme here. -->
-		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="color">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
 		<item name="android:buttonStyle">@style/Button</item>
+
+
 	</style>
 
 	<style name="AppTheme.FAB">
@@ -20,7 +22,7 @@
 
 	<style name="Button" parent="Base.Widget.AppCompat.Button.Colored">
 		<item name="android:background">@drawable/button_selector</item>
-		<item name="android:textColor">@color/white</item>
+		<item name="android:textColor">@color/colorFons</item>
 		<item name="android:minHeight">60dp</item>
 		<item name="android:textSize">18sp</item>
 	</style>
