@@ -230,4 +230,15 @@ secretari/a de l\'Ajuntament.</string>
 
     <string name="logout">Desconnecta\'t</string>
 
+
+    <string name="idiomes">Idiomes</string>
+    <string name="idioma">Idioma</string>
+    <string name="opcions">Opcions</string>
+
+    <string name="cat">Català</string>
+    <string name="esp">Espanyol</string>
+    <string name="extra0">Extra0</string>
+    <string name="extra1">Extra1</string>
+    <string name="extra2">Extra2</string>
+
 </resources>

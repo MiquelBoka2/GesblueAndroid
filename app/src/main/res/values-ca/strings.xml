@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gesblue</string>
+    <string name="cat">Català</string>
+    <string name="esp">Espanyol</string>
+    <string name="idioma">Idioma</string>
+    <string name="idiomes">Idiomes</string>
+    <string name="opcions">Opcions</string>
+</resources>

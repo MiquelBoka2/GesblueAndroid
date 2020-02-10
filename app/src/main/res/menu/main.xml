@@ -13,7 +13,7 @@
     android:title="@string/logout"
     app:showAsAction="never" />
     <item
-        android:id="@+id/versionNumber"
+        android:id="@+id/txt_Versio"
         android:orderInCategory="100"
         android:title=""
         app:showAsAction="never" />

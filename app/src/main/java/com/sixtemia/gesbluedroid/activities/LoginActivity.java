@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.sixtemia.gesbluedroid.Opcions;
 import com.sixtemia.gesbluedroid.R;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.databinding.ActivityLoginBinding;
@@ -67,6 +66,7 @@ import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
 import com.sixtemia.gesbluedroid.model.Models;
 import com.sixtemia.gesbluedroid.model.Tipus_Vehicle;
+import com.sixtemia.sbaseobjects.objects.SFragment;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -80,12 +80,20 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	private ActivityLoginBinding mBinding;
 
-	private ImageView opciones;
+
 	private boolean isLoginConcessio = true;
 	private boolean everythingIsOk = true;
 	private String concessio = "";
 	private String initialDate = "0";
-	private String estat="no_login";
+
+
+	private String estat="no_login_concessio",adm="",result;
+	private ImageView opciones;
+
+	private int RequestCode=4321;
+
+
+
 
 	private boolean refreshDades = false;
 
@@ -103,11 +111,20 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
+
 				Intent intent = new Intent(mContext, Opcions.class);
 				intent.putExtra("estat",estat);
-				startActivity(intent);
+				startActivityForResult(intent,RequestCode);
 			}
 		});
+
+		Bundle extras = getIntent().getExtras();
+
+		if (extras != null) {
+			adm = extras.getString("adm", "");
+			isLoginConcessio=extras.getBoolean("isLoginConcessio",true);
+
+		}
 
 
 
@@ -127,7 +144,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 		concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 
 		if(!isLoginConcessio) {
-			estat="login";
+			estat="login_concessio";
 			mBinding.textViewConcessio.setVisibility(View.GONE);
 			mBinding.editTextConcessio.setVisibility(View.GONE);
 
@@ -204,7 +221,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 		} catch (PackageManager.NameNotFoundException e) {
 			e.printStackTrace();
 		}
-		menu.findItem(R.id.versionNumber).setTitle(menuTitle);
+		menu.findItem(R.id.txt_Versio).setTitle(menuTitle);
 		return true;
 	}
 	@Override
@@ -542,10 +559,14 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	private void sincronitzarTot(LoginResponse loginResponse, long concessio, String _data) {
 		sincronitzarAgents(loginResponse, concessio, _data);
+		Log.e("Hola","si funciona");
 		if(isRunning()) {
+			Log.e("Hola2","si funciona");
 			try {
 				progress.show();
+
 			} catch (Exception bte) {
+				Log.e("Hola3","si funciona");
 				ELog(bte);
 				//Tenir un progress d'aquesta manera és molt mala idea i només dona problemes
 				//TODO: Tenir *UN* progress per a cada funció, si és que el progress de veritat cal
@@ -1094,5 +1115,79 @@ public class LoginActivity extends GesblueFragmentActivity {
 			}
 		});
 	}
+
+   	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		// check that it is the SecondActivity with an OK result
+		if (requestCode == RequestCode) {
+			if (resultCode == RESULT_OK) {
+
+
+				if (data != null) {
+
+					String result=data.getStringExtra("result");
+
+
+
+
+					if (result.equals("refresh")) {
+
+
+						refreshDades = true;
+						DatabaseAPI.deleteAllAgents(mContext);
+						DatabaseAPI.deleteAllMarques(mContext);
+						DatabaseAPI.deleteAllModels(mContext);
+						DatabaseAPI.deleteAllTipusVehicles(mContext);
+						DatabaseAPI.deleteAllTipusAnulacions(mContext);
+						DatabaseAPI.deleteAllCarrers(mContext);
+						DatabaseAPI.deleteAllInfraccions(mContext);
+						DatabaseAPI.deleteAllZones(mContext);
+						DatabaseAPI.deleteAllLlistaBlanca(mContext);
+						LoginResponse responseManual = new LoginResponse(0,1,"1",1,1,1,1,1,1,1,1);
+						sincronitzarTot(responseManual,Long.parseLong(concessio),"0");
+
+
+
+					}
+					else if(result.equals("unlog")){
+
+						PreferencesGesblue.setConcessioString(mContext,"");
+						PreferencesGesblue.setConcessio(mContext,0);
+						PreferencesGesblue.saveDataSync(mContext,"0");
+						mBinding.viewSwitcherTancaConcessio.setVisibility(View.GONE);
+						mBinding.buttonTancaConcessio.setVisibility(View.GONE);
+						mBinding.textViewConcessio.setVisibility(View.VISIBLE);
+						mBinding.editTextConcessio.setVisibility(View.VISIBLE);
+
+						mBinding.textViewLocalitzacioConcessio.setVisibility(View.GONE);
+						isLoginConcessio = false;
+
+						DatabaseAPI.deleteAllAgents(mContext);
+						DatabaseAPI.deleteAllMarques(mContext);
+						DatabaseAPI.deleteAllModels(mContext);
+						DatabaseAPI.deleteAllTipusVehicles(mContext);
+						DatabaseAPI.deleteAllTipusAnulacions(mContext);
+						DatabaseAPI.deleteAllCarrers(mContext);
+						DatabaseAPI.deleteAllInfraccions(mContext);
+						DatabaseAPI.deleteAllZones(mContext);
+						DatabaseAPI.deleteAllLlistaBlanca(mContext);
+					}
+				}
+
+
+
+
+			}
+		}
+
+
+
+
+
+
+
+	}
+
 
 }

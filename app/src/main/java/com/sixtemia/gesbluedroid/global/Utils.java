@@ -37,8 +37,11 @@ import pt.joaocruz04.lib.misc.JsoapError;
  * Created by gerardmartin on 12/9/16.
  */
 
+
+
 public class Utils {
 
+    public static Activity current_Activity;
     private static String cp = "sup3rS3xy";
 
     public static Calendar getCurrentTime(Context _context) {
@@ -383,4 +386,9 @@ public class Utils {
         Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
         pbutton.setTextColor(Color.BLACK);
     }
+
+
+
+
+
 }
