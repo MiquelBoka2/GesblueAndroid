@@ -67,6 +67,7 @@ import com.sixtemia.gesbluedroid.global.Utils;
 import com.sixtemia.gesbluedroid.model.Models;
 import com.sixtemia.gesbluedroid.model.Tipus_Vehicle;
 import com.sixtemia.sbaseobjects.objects.SFragment;
+import com.sixtemia.sbaseobjects.objects.SFragmentActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -559,14 +560,14 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	private void sincronitzarTot(LoginResponse loginResponse, long concessio, String _data) {
 		sincronitzarAgents(loginResponse, concessio, _data);
-		Log.e("Hola","si funciona");
+
 		if(isRunning()) {
-			Log.e("Hola2","si funciona");
+
 			try {
 				progress.show();
 
 			} catch (Exception bte) {
-				Log.e("Hola3","si funciona");
+
 				ELog(bte);
 				//Tenir un progress d'aquesta manera és molt mala idea i només dona problemes
 				//TODO: Tenir *UN* progress per a cada funció, si és que el progress de veritat cal
@@ -1118,15 +1119,16 @@ public class LoginActivity extends GesblueFragmentActivity {
 
    	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
+		String result=data.getExtras().getString("result");
+		setRunning(true);
 		// check that it is the SecondActivity with an OK result
 		if (requestCode == RequestCode) {
 			if (resultCode == RESULT_OK) {
 
 
-				if (data != null) {
+				if (result != null) {
 
-					String result=data.getStringExtra("result");
+
 
 
 
@@ -1149,8 +1151,12 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 
+
+
+
 					}
 					else if(result.equals("unlog")){
+
 
 						PreferencesGesblue.setConcessioString(mContext,"");
 						PreferencesGesblue.setConcessio(mContext,0);

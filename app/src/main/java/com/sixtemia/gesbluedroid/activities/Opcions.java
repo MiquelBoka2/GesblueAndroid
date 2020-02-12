@@ -154,7 +154,7 @@ public class Opcions extends AppCompatActivity {
                 Intent intent = new Intent(oContext,LoginActivity.class);
                 intent.putExtra("result","unlog");
                 setResult(RESULT_OK, intent);
-                //finish();
+                finish();
 
             }
         });
@@ -205,10 +205,18 @@ public class Opcions extends AppCompatActivity {
         btn_Confirmar.setOnClickListener(new View.OnClickListener() {
 
 
-
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                if(estat.equals("login_concessio")||estat.equals("no_login_concessio")){
+                    Intent intent = new Intent(oContext,LoginActivity.class);
+                    intent.putExtra("result","");
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+                else{
+                    onBackPressed();
+                }
+
 
             }
         });

@@ -240,5 +240,10 @@ secretari/a de l\'Ajuntament.</string>
     <string name="extra0">Extra0</string>
     <string name="extra1">Extra1</string>
     <string name="extra2">Extra2</string>
+    <string name="MistageAvis">Alerta</string>
+    <string name="MistageReinici">Reiniciar l\'aplicació per aplicar els canvis en l\'idioma?</string>
+    <string name="NO">NO</string>
+    <string name="SI">SI</string>
+
 
 </resources>

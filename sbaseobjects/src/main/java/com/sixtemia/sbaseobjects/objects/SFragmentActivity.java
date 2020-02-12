@@ -130,6 +130,10 @@ public class SFragmentActivity extends AppCompatActivity {
 		return mRunning;
 	}
 
+	public void setRunning(boolean Estat) {
+		mRunning=Estat;
+	}
+
 	protected void DLog(String what) {
 		if(isDebugging()) {
 			Log.i(getTag(), what);

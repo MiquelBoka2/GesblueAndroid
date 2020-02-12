@@ -220,6 +220,9 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="idioma">Idioma</string>
 	<string name="idiomes">Idiomas</string>
 	<string name="opcions">Opciones</string>
+    <string name="MistageAvis">Alerta</string>
+	<string name="MistageReinici">Reiniciar la aplicación para aplicar los cambios en el idioma?</string>
+	<string name="SI">SI</string>
 
 
 </resources>

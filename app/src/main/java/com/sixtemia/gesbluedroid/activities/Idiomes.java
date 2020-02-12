@@ -2,8 +2,15 @@ package com.sixtemia.gesbluedroid.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.IntentCompat;
 
+import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +30,9 @@ public class Idiomes extends AppCompatActivity {
     private ConstraintLayout lay_Cat,lay_Esp,lay_Extra0,lay_Extra1,lay_Extra2;
     private RadioButton rb_Cat,rb_Esp,rb_Extra0,rb_Extra1,rb_Extra2;
     private Button btn_Confirmar;
-    String locale;
+    boolean click=false;
+    Context iContext=this;
+    String locale,localeAntic;
 
 
     @Override
@@ -46,29 +55,10 @@ public class Idiomes extends AppCompatActivity {
         btn_Confirmar=(Button) findViewById(R.id.btn_Confirmar_Idiomes);
 
 
-        // (locale.equals("")) {
-            locale = Locale.getDefault().getLanguage();
-        //}
+        localeAntic = Locale.getDefault().getLanguage();
 
-        if(locale.equals("ca")){
-            rb_Cat.setChecked(true);
-        }
-        else if(locale.equals("es")){
-            rb_Esp.setChecked(true);
-        }
-        else if(locale.equals("Extra0")){
-            rb_Extra0.setChecked(true);
-        }
-        else if(locale.equals("Extra1")){
-            rb_Extra1.setChecked(true);
-        }
-        else if(locale.equals("Extra2")){
-            rb_Extra2.setChecked(true);
-        }
-        else{
-            rb_Cat.setChecked(true);
-        }
 
+        locale=Locale.getDefault().getLanguage();
 
         //Inicialitza els radioButtons
         {
@@ -87,12 +77,16 @@ public class Idiomes extends AppCompatActivity {
         else if (locale.equals("extra2")){
             rb_Extra2.setChecked(true);
 
+        }
+        else{
+            rb_Cat.setChecked(true);
         }}
 
 
 
         lay_Cat.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                click=true;
                 rb_Cat.setChecked(true);
                 rb_Esp.setChecked(false);
                 rb_Extra0.setChecked(false);
@@ -100,18 +94,20 @@ public class Idiomes extends AppCompatActivity {
                 rb_Extra2.setChecked(false);
 
 
+
                 //editor.putString("locale","ca");
                 //editor.apply();
 
 
-                setLocale("ca");
-                recreate();
+                locale="ca";
+
             }
         });
 
 
         lay_Esp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                click=true;
                 rb_Cat.setChecked(false);
                 rb_Esp.setChecked(true);
                 rb_Extra0.setChecked(false);
@@ -119,13 +115,14 @@ public class Idiomes extends AppCompatActivity {
                 rb_Extra2.setChecked(false);
 
 
-                setLocale("es");
-                recreate();
+                locale="es";
+
             }
         });
 
         lay_Extra0.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                click=true;
                 rb_Cat.setChecked(false);
                 rb_Esp.setChecked(false);
                 rb_Extra0.setChecked(true);
@@ -139,6 +136,7 @@ public class Idiomes extends AppCompatActivity {
 
         lay_Extra1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                click=true;
                 rb_Cat.setChecked(false);
                 rb_Esp.setChecked(false);
                 rb_Extra0.setChecked(false);
@@ -150,6 +148,7 @@ public class Idiomes extends AppCompatActivity {
 
         lay_Extra2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                click=true;
                 rb_Cat.setChecked(false);
                 rb_Esp.setChecked(false);
                 rb_Extra0.setChecked(false);
@@ -174,6 +173,7 @@ public class Idiomes extends AppCompatActivity {
 
             }
         });
+
         rb_Extra0.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 lay_Extra0.setOnClickListener(this);
@@ -201,24 +201,74 @@ public class Idiomes extends AppCompatActivity {
 
         btn_Confirmar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                onBackPressed();
+                if(click){
+
+                    CanviarIdioma(locale);
+
+
+                    MissatgeAlerte();
+
+
+                }
+                else{
+
+                    onBackPressed();
+                }
+
 
             }
         });
 
     }
+    public void CanviarIdioma(String nouIdioma) {
 
-
-    public void setLocale(String lang) {
-        Locale myLocale = new Locale(lang);
+        Locale myLocale = new Locale(nouIdioma);
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, Idiomes.class);
+    }
+
+
+    public void Reiniciar() {
+
+        Intent refresh = new Intent(this, SplashActivity.class);
         finish();
         startActivity(refresh);
     }
 
+    public void MissatgeAlerte(){
+
+         AlertDialog builder = new AlertDialog.Builder(iContext)
+                .setTitle(R.string.MistageAvis)
+                .setMessage(R.string.MistageReinici)
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(R.string.SI, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Continue with delete operation
+                        Reiniciar();
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        CanviarIdioma(localeAntic);
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert).create();
+
+        builder.show();
+        builder.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.btn_color_negatiu));
+        builder.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.btn_color_positiu));
+
+
+
+
+
+    }
 }

@@ -52,6 +52,10 @@
 	<color name="icones_opcions">#000000</color>
 
 
+	<color name="btn_color_positiu">#6CC70D</color>
+	<color name="btn_color_negatiu">#E40202</color>
+
+
 <!--Colors Nous-->
 <!--
 	<color name="colorDeFons">#303030</color>
