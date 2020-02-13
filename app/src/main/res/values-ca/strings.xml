@@ -243,6 +243,7 @@ secretari/a de l\'Ajuntament.</string>
     <string name="MistageAvis">Alerta</string>
     <string name="MistageReinici">Reiniciar l\'aplicació per aplicar els canvis en l\'idioma?</string>
     <string name="SI">SI</string>
+    <string name="NO">NO</string>
 
 
 </resources>

@@ -36,6 +36,7 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 	private CarrerAdapter mAdapter;
 	private boolean primerCop;
 	private ArrayList<Model_Carrer> arrayAux;
+	private Boolean adm=false;
 
 	private Boolean checked = false;
 
@@ -46,6 +47,8 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 		setupVisibleToolbar(mBinding.toolbar);
 
 		if(getIntent().getExtras() != null) {
+			adm=getIntent().getExtras().getBoolean("adm");
+
 			mSancio = getIntent().getExtras().getParcelable(FormulariActivity.INTENT_SANCIO);
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
@@ -153,6 +156,7 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 					} else {
 						mSancio.setModelCarrer(mSelected);
 						intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
+						intent.putExtra("adm",adm);
 						startActivity(intent);
 					}
 				}

@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -16,12 +17,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sixtemia.gesbluedroid.R;
 import com.sixtemia.gesbluedroid.databinding.ActivityLoginBinding;
 import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.LoginResponse;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
+import com.sixtemia.gesbluedroid.global.Utils;
 import com.sixtemia.sbaseobjects.objects.SFragment;
 import com.sixtemia.sbaseobjects.objects.SFragmentActivity;
 
@@ -39,7 +42,10 @@ public class Opcions extends AppCompatActivity {
     private TextView txt_Versio;
     private Button btn_Confirmar;
     private Context oContext=this;
-    private String estat="",adm="";
+    private String estat="";
+    private Boolean adm=false;
+
+    private int RequestCode=0002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +94,7 @@ public class Opcions extends AppCompatActivity {
 
         if (extras != null) {
             estat = extras.getString("estat", "");
-            adm=extras.getString("adm", adm);
+            adm=extras.getBoolean("adm");
 
 
         }
@@ -102,16 +108,9 @@ public class Opcions extends AppCompatActivity {
             Enviaments_Pendents.setVisibility(View.VISIBLE);
             Admin.setVisibility(View.VISIBLE);
 
-
-
-
-
-
-
-
-
-
         }
+
+
 
 
 
@@ -141,6 +140,33 @@ public class Opcions extends AppCompatActivity {
 
         }
 
+
+        Desconectat.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Utils.showCustomDialog(oContext, R.string.atencio, R.string.deslog, R.string.dacord, R.string.enrere, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        PreferencesGesblue.setUserName(oContext,"");
+                        PreferencesGesblue.setPassword(oContext,"");
+                        PreferencesGesblue.setConcessioString(oContext,"");
+                        Intent refresh = new Intent(oContext, SplashActivity.class);
+                        finish();
+                        startActivity(refresh);
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }, false);
+
+
+
+
+            }
+        });
 
 
 
@@ -179,6 +205,8 @@ public class Opcions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(oContext, RecuperarDenunciaActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -187,6 +215,7 @@ public class Opcions extends AppCompatActivity {
 
 
             public void onClick(View v) {
+
                 Intent intent = new Intent(oContext,Idiomes.class);
                 startActivity(intent);
             }
@@ -197,6 +226,16 @@ public class Opcions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        Admin.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(oContext,Login_Admin.class);
+                intent.putExtra("adm",adm);
+                startActivityForResult(intent,RequestCode);
             }
         });
 
@@ -213,8 +252,11 @@ public class Opcions extends AppCompatActivity {
                     setResult(RESULT_OK, intent);
                     finish();
                 }
-                else{
-                    onBackPressed();
+                else if(estat.equals("main")){
+                    Intent intent = new Intent(oContext,MainActivity.class);
+                    intent.putExtra("adm",adm);
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
 
 
@@ -235,5 +277,30 @@ public class Opcions extends AppCompatActivity {
 
 
 
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Boolean result=false;
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == RequestCode) {
+            if (resultCode == RESULT_OK) {
+
+
+                if (data.getExtras().getBoolean("adm") != false) {
+                    result=data.getExtras().getBoolean("adm");
+                    if (result) {
+                        adm=result;
+                        Toast toast1 =
+                                Toast.makeText(getApplicationContext(),
+                                        "Admin Activat", Toast.LENGTH_SHORT);
+
+                        toast1.show();
+
+                    }
+                }
+            }
+        }
     }
 }

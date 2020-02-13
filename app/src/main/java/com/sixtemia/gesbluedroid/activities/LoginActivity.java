@@ -88,7 +88,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private String initialDate = "0";
 
 
-	private String estat="no_login_concessio",adm="",result;
+	private String estat="no_login_concessio";
 	private ImageView opciones;
 
 	private int RequestCode=4321;
@@ -122,7 +122,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
-			adm = extras.getString("adm", "");
+
 			isLoginConcessio=extras.getBoolean("isLoginConcessio",true);
 
 		}
@@ -210,6 +210,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 		});
 	}
 
+	/**
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.login, menu);
@@ -224,7 +225,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 		}
 		menu.findItem(R.id.txt_Versio).setTitle(menuTitle);
 		return true;
-	}
+	}**/
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -1119,17 +1120,18 @@ public class LoginActivity extends GesblueFragmentActivity {
 
    	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		String result=data.getExtras().getString("result");
+		String result="";
 		setRunning(true);
 		// check that it is the SecondActivity with an OK result
 		if (requestCode == RequestCode) {
 			if (resultCode == RESULT_OK) {
 
 
-				if (result != null) {
+				if (data.getExtras().getString("result") != null) {
 
 
 
+					result=data.getExtras().getString("result");
 
 
 

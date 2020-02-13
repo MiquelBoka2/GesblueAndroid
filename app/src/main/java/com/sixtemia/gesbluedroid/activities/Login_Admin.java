@@ -37,9 +37,10 @@ public class Login_Admin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(LContext,MainActivity.class);
-                intent.putExtra("adm","log");
-                startActivity(intent);
+                Intent intent = new Intent(LContext,Opcions.class);
+                intent.putExtra("adm",true);
+                setResult(RESULT_OK, intent);
+                finish();
 
             }
         });
@@ -50,9 +51,10 @@ public class Login_Admin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(LContext,MainActivity.class);
-                intent.putExtra("adm","log");
-                startActivity(intent);
+                Intent intent = new Intent(LContext,Opcions.class);
+                intent.putExtra("adm",true);
+                setResult(RESULT_OK, intent);
+                finish();
 
             }
         });

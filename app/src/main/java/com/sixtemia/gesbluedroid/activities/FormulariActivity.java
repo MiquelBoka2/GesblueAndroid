@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -75,11 +76,15 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	public static final String INTENT_NUM_DENUNCIA = "numDenuncia";
 	public static final String INTENT_DATA_CREACIO = "dataCreacio";
 
+
 	private ActivityFormulariBinding mBinding;
 	private Sancio sancio;
 	private String foto1;
 	private String foto2;
 	private String foto3;
+
+	private Boolean adm=false;
+	private Button btn_Enviar;
 
 	public static final int RESULT_FOTO_1 = 1731;
 	public static final int RESULT_FOTO_2 = 1732;
@@ -256,12 +261,23 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		if(!isEmpty(intent.getStringExtra(KEY_NUMERO_TIQUET))) {
 			numeroTiquet = intent.getStringExtra(KEY_NUMERO_TIQUET);
 		}
+		if(intent.getExtras().getBoolean("adm")) {
+			adm = intent.getExtras().getBoolean("adm");
+
+			if (adm) {
+				btn_Enviar = findViewById(R.id.btn_Enviar);
+				btn_Enviar.setVisibility(VISIBLE);
+			}
+		}
+
 		if(intent.getBooleanExtra(KEY_VINC_DE_MATRICULA, false)) {
 			intent = new Intent(mContext, Pas1TipusActivity.class);
 			intent.putExtra(INTENT_SANCIO, sancio);
 			intent.putExtra(KEY_FORMULARI_PRIMER_COP, true);
+			intent.putExtra("adm",adm);
 			startActivity(intent);
 		}
+
 	}
 
 	private void fillAll() {
@@ -484,6 +500,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		mBinding.imageViewA.setOnClickListener(this);
 		mBinding.imageViewB.setOnClickListener(this);
 		mBinding.imageViewC.setOnClickListener(this);
+		mBinding.btnEnviar.setOnClickListener(this);
 	}
 
 	@Override
@@ -657,6 +674,36 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 				break;
 
+
+			case R.id.btn_Enviar:
+
+				totalfotos=0;
+				if((foto1!=null)&&(foto1!="")) {
+					totalfotos++;
+				}
+				if((foto2!=null)&&(foto2!="")) {
+					totalfotos++;
+				}
+				if((foto3!=null)&&(foto3!="")) {
+					totalfotos++;
+				}
+
+				if((totalfotos<2)&&(recuperada==false)){
+					Utils.showCustomDialog(mContext, R.string.atencio, R.string.fotosObligatories);
+				}
+				else {
+					if (checkCamps()) {
+						if (isFirstEnvia) {
+							isFirstEnvia = false;
+							send();}
+					} else {
+						Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
+					}
+				}
+
+
+
+				break;
 		}
 	}
 

@@ -223,6 +223,7 @@ El/la secretario/a del Ayuntamiento.</string>
     <string name="MistageAvis">Alerta</string>
 	<string name="MistageReinici">Reiniciar la aplicación para aplicar los cambios en el idioma?</string>
 	<string name="SI">SI</string>
+    <string name="NO">NO</string>
 
 
 </resources>

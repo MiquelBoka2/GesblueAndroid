@@ -34,6 +34,7 @@ public class Pas1TipusActivity extends GesblueFragmentActivity {
 	private Model_TipusVehicle mSelected;
 	private SimpleAdapter mAdapter;
 	private boolean primerCop;
+	private Boolean adm=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class Pas1TipusActivity extends GesblueFragmentActivity {
 		PreferencesGesblue.clearFormulari(mContext);
 
 		if(getIntent().getExtras() != null) {
+			adm=getIntent().getExtras().getBoolean("adm");
 			mSancio = getIntent().getExtras().getParcelable(FormulariActivity.INTENT_SANCIO);
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
@@ -117,6 +119,7 @@ public class Pas1TipusActivity extends GesblueFragmentActivity {
 						mSancio.setModelTipusVehicle(mSelected);
 						PreferencesGesblue.setFormulariTipus(mContext, Long.toString(mSelected.getCoditipusvehicle()));
 						intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
+						intent.putExtra("adm",adm);
 						startActivity(intent);
 					}
 				}

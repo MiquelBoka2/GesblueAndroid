@@ -14,6 +14,12 @@
     <string name="pas6CarrerActivity_label">Sanció - CARRER</string>
     <string name="pas7NumeroActivity_label">Sanció - NÚMERO</string>
     <string name="dadesTiquetUsuari">Dades tiquet usuari</string>
+    <string name="Opcions">Opcions</string>
+    <string name="Admin">Admin</string>
+    <string name="Idiomes">Idiomes</string>
+
+
+
 
     <string name="usuari">USUARI</string>
     <string name="password">PASSWORD</string>

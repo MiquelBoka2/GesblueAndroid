@@ -40,6 +40,7 @@ public class Pas2MarcaActivity extends GesblueFragmentActivity {
 	Model_Marca mSelected;
 	SimpleAdapter mAdapter;
 	private boolean primerCop;
+	private Boolean adm=false;
 
 	private ArrayList<Model_Marca> arrayAux;
 
@@ -50,6 +51,7 @@ public class Pas2MarcaActivity extends GesblueFragmentActivity {
 		setupVisibleToolbar(mBinding.toolbar);
 
 		if(getIntent().getExtras() != null) {
+			adm=getIntent().getExtras().getBoolean("adm");
 			mSancio = getIntent().getExtras().getParcelable(FormulariActivity.INTENT_SANCIO);
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
@@ -147,6 +149,7 @@ public class Pas2MarcaActivity extends GesblueFragmentActivity {
 						mSancio.setModelMarca(mSelected);
 						PreferencesGesblue.setFormulariMarca(mContext, mSelected.getCodimarca());
 						intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
+						intent.putExtra("adm",adm);
 						startActivity(intent);
 					}
 					}

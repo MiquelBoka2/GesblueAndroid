@@ -39,6 +39,7 @@ public class Pas4ColorActivity extends GesblueFragmentActivity {
 	private Model_Color mSelected;
 	private Pas4ColorActivity.ColorAdapter mAdapter;
 	private boolean primerCop;
+	private Boolean adm=false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
@@ -58,6 +59,8 @@ public class Pas4ColorActivity extends GesblueFragmentActivity {
 		setupVisibleToolbar(mBinding.toolbar);
 
 		if(getIntent().getExtras() != null) {
+			adm=getIntent().getExtras().getBoolean("adm");
+
 			mSancio = getIntent().getExtras().getParcelable(FormulariActivity.INTENT_SANCIO);
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
@@ -143,6 +146,7 @@ public class Pas4ColorActivity extends GesblueFragmentActivity {
 					} else {
 						mSancio.setModelColor(mSelected);
 						intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
+						intent.putExtra("adm",adm);
 						startActivity(intent);
 					}
 				}

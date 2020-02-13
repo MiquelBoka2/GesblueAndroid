@@ -38,6 +38,8 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 	private boolean primerCop;
 	private ArrayList<Model_Zona> arrayAux;
 
+	private Boolean adm=false;
+
 	private Boolean checked = false;
 
 	@Override
@@ -47,6 +49,7 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 		setupVisibleToolbar(mBinding.toolbar);
 
 		if(getIntent().getExtras() != null) {
+			adm=getIntent().getExtras().getBoolean("adm");
 			mSancio = getIntent().getExtras().getParcelable(FormulariActivity.INTENT_SANCIO);
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
@@ -152,6 +155,7 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 					} else {
 						mSancio.setModelZona(mSelected);
 						intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
+						intent.putExtra("adm",adm);
 						startActivity(intent);
 					}
 				}

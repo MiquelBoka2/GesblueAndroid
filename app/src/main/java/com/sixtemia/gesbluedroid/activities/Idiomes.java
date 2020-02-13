@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 
 import com.sixtemia.gesbluedroid.R;
+import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 
 
 import java.util.Locale;
@@ -227,6 +228,7 @@ public class Idiomes extends AppCompatActivity {
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
+        PreferencesGesblue.setLocale(iContext,nouIdioma);
         res.updateConfiguration(conf, dm);
     }
 
@@ -244,8 +246,7 @@ public class Idiomes extends AppCompatActivity {
                 .setTitle(R.string.MistageAvis)
                 .setMessage(R.string.MistageReinici)
 
-                // Specifying a listener allows you to take an action before dismissing the dialog.
-                // The dialog is automatically dismissed when a dialog button is clicked.
+
                 .setPositiveButton(R.string.SI, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Continue with delete operation
@@ -253,7 +254,7 @@ public class Idiomes extends AppCompatActivity {
                     }
                 })
 
-                // A null listener allows the button to dismiss the dialog and take no further action.
+                // SI DIU QUE NO ES MANTE EL LLENGUATGE
                 .setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -34,6 +34,7 @@ public class Pas5InfraccioActivity extends GesblueFragmentActivity {
 	private Model_Infraccio mSelected;
 	private InfraccioAdapter mAdapter;
 	private boolean primerCop;
+	private Boolean adm=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,8 @@ public class Pas5InfraccioActivity extends GesblueFragmentActivity {
 		setupVisibleToolbar(mBinding.toolbar);
 
 		if(getIntent().getExtras() != null) {
+			adm=getIntent().getExtras().getBoolean("adm");
+
 			mSancio = getIntent().getExtras().getParcelable(FormulariActivity.INTENT_SANCIO);
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
@@ -127,6 +130,7 @@ public class Pas5InfraccioActivity extends GesblueFragmentActivity {
 					} else {
 						mSancio.setModelInfraccio(mSelected);
 						intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
+						intent.putExtra("adm",adm);
 						startActivity(intent);
 					}
 				}

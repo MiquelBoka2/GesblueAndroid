@@ -45,8 +45,11 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	private ActivityMainBinding mBinding;
 	private Menu menu;
-	private String estat="main",adm="";
+	private String estat="main";
 	private ImageView opciones;
+	private int RequestCode=0001;
+
+	private Boolean adm=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
-			adm = extras.getString("adm", "");
+			adm = extras.getBoolean("adm");
 
 		}
 
@@ -71,7 +74,7 @@ public class MainActivity extends GesblueFragmentActivity {
 				Intent intent = new Intent(mContext, Opcions.class);
 				intent.putExtra("estat",estat);
 				intent.putExtra("adm",adm);
-				startActivity(intent);
+				startActivityForResult(intent,RequestCode);
 			}
 		});
 
@@ -122,6 +125,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				Intent intent = new Intent(mContext, Pas0ZonaActivity.class);
 				intent.putExtra("formPrimerCop", false);
+				intent.putExtra("adm",adm);
 				startActivityForResult(intent,1);
 			}
 		});
@@ -131,6 +135,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				Intent intent = new Intent(mContext, Pas6CarrerActivity.class);
 				intent.putExtra("formPrimerCop", false);
+				intent.putExtra("adm",adm);
 				startActivityForResult(intent,2);
 			}
 		});
@@ -167,6 +172,7 @@ public class MainActivity extends GesblueFragmentActivity {
 				Intent intent = new Intent(mContext, FormulariActivity.class);
 				intent.putExtra(FormulariActivity.INTENT_SANCIO, sancio);
 				intent.putExtra(FormulariActivity.KEY_VINC_DE_MATRICULA, true);
+                intent.putExtra("adm",adm);
 				startActivity(intent);
 			}
 		});
@@ -209,10 +215,19 @@ public class MainActivity extends GesblueFragmentActivity {
 				mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
 
 			}
+			if(requestCode==RequestCode){
+				Boolean result=data.getExtras().getBoolean("adm");
+				if (result != null) {
+					if (result) {
+						adm=result;
+
+					}
+				}
+			}
 
 		}
 	}
-	public boolean onCreateOptionsMenu(Menu menu) {
+	/**public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
 		this.menu = menu;
@@ -226,7 +241,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		}
 		menu.findItem(R.id.txt_Versio).setTitle(menuTitle);
 		return true;
-	}
+	}**/
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -482,4 +497,6 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.editTextMatricula.setEnabled(true);
 		mBinding.buttonComprovar.setEnabled(true);
 	}
+
+
 }

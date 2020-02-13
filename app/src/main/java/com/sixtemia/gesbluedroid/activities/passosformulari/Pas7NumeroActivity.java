@@ -20,6 +20,7 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 	private Sancio mSancio;
 	private String mSelected;
 	private boolean primerCop;
+	private Boolean adm=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 		imm.showSoftInput(mBinding.etNum, InputMethodManager.SHOW_IMPLICIT);
 
 		if(getIntent().getExtras() != null) {
+			adm=getIntent().getExtras().getBoolean("adm");
+
 			mSancio = getIntent().getExtras().getParcelable(FormulariActivity.INTENT_SANCIO);
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
@@ -57,6 +60,7 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 					mSelected = (TextUtils.isEmpty(mBinding.etNum.getText().toString()) ? "S/N" : mBinding.etNum.getText().toString());
 					mSancio.setNumero(mSelected);
 					intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
+					intent.putExtra("adm",adm);
 					startActivity(intent);
 				}
 			});

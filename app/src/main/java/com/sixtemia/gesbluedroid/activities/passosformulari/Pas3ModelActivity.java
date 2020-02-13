@@ -36,6 +36,7 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 	private Model_Model mSelected;
 	private Pas3ModelActivity.SimpleAdapter mAdapter;
 	private boolean primerCop;
+	private Boolean adm=false;
 
 	private ArrayList<Model_Model> arrayAux;
 
@@ -46,6 +47,7 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 		setupVisibleToolbar(mBinding.toolbar);
 
 		if(getIntent().getExtras() != null) {
+			adm=getIntent().getExtras().getBoolean("adm");
 			mSancio = getIntent().getExtras().getParcelable(FormulariActivity.INTENT_SANCIO);
 			primerCop = getIntent().getExtras().getBoolean(FormulariActivity.KEY_FORMULARI_PRIMER_COP, true);
 		}
@@ -141,6 +143,7 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 						mSancio.setModelModel(mSelected);
 						PreferencesGesblue.setFormulariModel(mContext, mSelected.getCodimodel());
 						intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
+						intent.putExtra("adm",adm);
 						startActivity(intent);
 					}
 				}

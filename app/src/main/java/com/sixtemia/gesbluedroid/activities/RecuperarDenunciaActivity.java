@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.sixtemia.gesbluedroid.R;
 import com.sixtemia.gesbluedroid.Sancio;
@@ -38,6 +39,7 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
     static View.OnClickListener myOnClickListener;
     private List<Model_Denuncia> denuncies;
     public Context mContext;
+    private Button back_BTN;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,18 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         mRecyclerView.setLayoutManager(mLayoutManager);
 
 
+        back_BTN=this.findViewById(R.id.btn_Back);
+        back_BTN.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+
+            }
+                                    }
+
+
+        );
 
         List<Model_Denuncia> denunciesTemp = DatabaseAPI.getDenuncies(mContext);
 
@@ -72,7 +86,7 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    @Override
+    /**@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_menu, menu);
 
@@ -81,7 +95,7 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         searchView.setOnQueryTextListener(this);
 
         return true;
-    }
+    }**/
 
     @Override
     public boolean onQueryTextChange(String query) {
