@@ -3,14 +3,12 @@ package com.sixtemia.gesbluedroid.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.core.view.MenuItemCompat;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -111,7 +109,7 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
     public void onButtonClickListener(int position) {
         Model_Denuncia denuncia = denuncies.get(position);
         Log.d("Element eleccionat:",""+position);
-        Intent intent = new Intent(mContext, FormulariActivity.class);
+        Intent intent = new Intent(mContext, ReimpressioTiquet.class);
 
         //ArrayList<Model_TipusVehicle> vehicles = DatabaseAPI.getTipusVehicles(mContext);
         Model_TipusVehicle tipusVehicle = DatabaseAPI.getTipusVehicle(mContext,String.valueOf((int)denuncia.getTipusvehicle()));
@@ -122,15 +120,15 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         Model_Carrer carrer = DatabaseAPI.getCarrer(mContext,String.valueOf((int)denuncia.getAdrecacarrer()));
         Model_Zona zona = DatabaseAPI.getZona(mContext,String.valueOf((int)denuncia.getZona()));
         Sancio mSancio = new Sancio(denuncia.getMatricula(),String.valueOf(denuncia.getAdrecanum()),tipusVehicle,marca,model,color,infraccio,carrer,zona);
-        intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
-        intent.putExtra(FormulariActivity.INTENT_NUM_DENUNCIA,denuncia.getCodidenuncia());
-        intent.putExtra(FormulariActivity.INTENT_DATA_CREACIO,denuncia.getFechacreacio());
+        intent.putExtra(ReimpressioTiquet.INTENT_SANCIO, mSancio);
+        intent.putExtra(ReimpressioTiquet.INTENT_NUM_DENUNCIA,denuncia.getCodidenuncia());
+        intent.putExtra(ReimpressioTiquet.INTENT_DATA_CREACIO,denuncia.getFechacreacio());
 
 
 
 
 
-        intent.putExtra(FormulariActivity.INTENT_RECUPERADA,true);
+        intent.putExtra(ReimpressioTiquet.INTENT_RECUPERADA,true);
         startActivity(intent);
     }
 

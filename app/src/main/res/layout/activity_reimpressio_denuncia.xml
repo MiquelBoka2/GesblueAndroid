@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ReimpressioTiquet">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ScrollView
+        android:id="@+id/scrollView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Imprimir"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:id="@+id/ll_Matricula"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_Matricula"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/matricula" />
+
+                <TextView
+                    android:id="@+id/txt_Matricula"
+                    style="@style/Base.Widget.AppCompat.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/matricula" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_Tipus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/img_Marca"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_Matricula">
+
+                <TextView
+                    android:id="@+id/tv_Tipus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tipus" />
+
+                <TextView
+                    android:id="@+id/txt_Tipus"
+                    style="@style/Base.Widget.AppCompat.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/tipus" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_Sancio"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_Color">
+
+                <TextView
+                    android:id="@+id/tv_Sancio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sancio" />
+
+                <TextView
+                    android:id="@+id/txt_Sancio"
+                    style="@style/Base.Widget.AppCompat.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sancio" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_Color"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/ll_Model"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_Model">
+
+                <TextView
+                    android:id="@+id/tv_Color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/color" />
+
+                <TextView
+                    android:id="@+id/txt_Color"
+                    style="@style/Base.Widget.AppCompat.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/color" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_Marca"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/img_Marca"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_Tipus">
+
+                <TextView
+                    android:id="@+id/tv_Marca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/marca" />
+
+                <TextView
+                    android:id="@+id/txt_Marca"
+                    style="@style/Base.Widget.AppCompat.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/marca" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_Model"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/img_Marca"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_Marca">
+
+                <TextView
+                    android:id="@+id/tv_Model"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/model" />
+
+                <TextView
+                    android:id="@+id/txt_Model"
+                    style="@style/Base.Widget.AppCompat.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/model" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/img_Marca"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/ll_Color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ll_Tipus"
+                app:layout_constraintTop_toBottomOf="@+id/ll_Matricula"
+                tools:src="@tools:sample/avatars" />
+
+            <View
+                android:id="@+id/view_Color"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/ll_Color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/ll_Color"
+                app:layout_constraintTop_toBottomOf="@+id/img_Marca"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_Carrer">
+
+                <ImageView
+                    android:id="@+id/img_Foto1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:maxWidth="200dp"
+                    android:maxHeight="200dp"
+                    tools:src="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/img_Foto2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:maxWidth="200dp"
+                    android:maxHeight="200dp"
+                    tools:src="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/img_Foto3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:maxHeight="200dp"
+                    tools:src="@tools:sample/avatars" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_Carrer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/ll_Num"
+                app:layout_constraintHorizontal_bias="0.83"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_Sancio">
+
+                <TextView
+                    android:id="@+id/tv_Carrer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/carrer" />
+
+                <TextView
+                    android:id="@+id/txt_Carrer"
+                    style="@style/Base.Widget.AppCompat.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/carrer" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_Num"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/ll_Carrer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ll_Carrer"
+                app:layout_constraintTop_toBottomOf="@+id/ll_Sancio">
+
+                <TextView
+                    android:id="@+id/tv_Num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/num" />
+
+                <TextView
+                    android:id="@+id/txt_Num"
+                    style="@style/Base.Widget.AppCompat.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/num" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_Imprimir"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/imprimeix"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/spn_idioma"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView4" />
+
+    <TextView
+        android:id="@+id/tv_Idioma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Idioma d'Impressió:"
+        app:layout_constraintBottom_toTopOf="@+id/spn_idioma"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/spn_idioma"
+        app:layout_constraintTop_toTopOf="@+id/btn_Imprimir"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Spinner
+        android:id="@+id/spn_idioma"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_Imprimir"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_Imprimir"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Idioma" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

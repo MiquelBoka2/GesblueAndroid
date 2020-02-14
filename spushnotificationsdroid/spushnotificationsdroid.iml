@@ -127,11 +127,5 @@
     <orderEntry type="module" module-name="sutils" />
     <orderEntry type="module" module-name="sbaseobjects" />
     <orderEntry type="library" name="Gradle: org.apache.http.legacy-android-28" level="project" />
-    <orderEntry type="module" module-name="sutils" />
-    <orderEntry type="module" module-name="sbaseobjects" />
-    <orderEntry type="module" module-name="sutils" />
-    <orderEntry type="module" module-name="sbaseobjects" />
-    <orderEntry type="module" module-name="sutils" />
-    <orderEntry type="module" module-name="sbaseobjects" />
   </component>
 </module>
