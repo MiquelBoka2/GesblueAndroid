@@ -2,15 +2,11 @@ package com.sixtemia.gesbluedroid.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.IntentCompat;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +25,7 @@ import android.util.DisplayMetrics;
 public class Idiomes extends AppCompatActivity {
 
     private ConstraintLayout lay_Cat,lay_Esp,lay_Extra0,lay_Extra1,lay_Extra2;
-    private RadioButton rb_Cat,rb_Esp,rb_Extra0,rb_Extra1,rb_Extra2;
+    private RadioButton rb_Cat,rb_Esp, rb_Eng, rb_Fre, rb_Deu;
     private Button btn_Confirmar;
     boolean click=false;
     Context iContext=this;
@@ -43,15 +39,15 @@ public class Idiomes extends AppCompatActivity {
 
         lay_Cat=(ConstraintLayout) findViewById(R.id.lay_idioma_Cat);
         lay_Esp=(ConstraintLayout) findViewById(R.id.lay_idioma_Esp);
-        lay_Extra0=(ConstraintLayout) findViewById(R.id.lay_idioma_Extra0);
-        lay_Extra1=(ConstraintLayout) findViewById(R.id.lay_idioma_Extra1);
-        lay_Extra2=(ConstraintLayout) findViewById(R.id.lay_idioma_Extra2);
+        lay_Extra0=(ConstraintLayout) findViewById(R.id.lay_idioma_Eng);
+        lay_Extra1=(ConstraintLayout) findViewById(R.id.lay_idioma_Fre);
+        lay_Extra2=(ConstraintLayout) findViewById(R.id.lay_idioma_Deu);
 
         rb_Cat=(RadioButton)findViewById(R.id.rb_Cat);
         rb_Esp=(RadioButton)findViewById(R.id.rb_Esp);
-        rb_Extra0=(RadioButton)findViewById(R.id.rb_Extra0);
-        rb_Extra1=(RadioButton)findViewById(R.id.rb_Extra1);
-        rb_Extra2=(RadioButton)findViewById(R.id.rb_Extra2);
+        rb_Eng =(RadioButton)findViewById(R.id.rb_Extra0);
+        rb_Fre =(RadioButton)findViewById(R.id.rb_Extra1);
+        rb_Deu =(RadioButton)findViewById(R.id.rb_Extra2);
 
         btn_Confirmar=(Button) findViewById(R.id.btn_Confirmar_Idiomes);
 
@@ -69,14 +65,14 @@ public class Idiomes extends AppCompatActivity {
         else if (locale.equals("es")){
             rb_Esp.setChecked(true);
         }
-        else if (locale.equals("extra0")){
-            rb_Extra0.setChecked(true);
+        else if (locale.equals("en")){
+            rb_Eng.setChecked(true);
         }
-        else if (locale.equals("extra1")){
-            rb_Extra1.setChecked(true);
+        else if (locale.equals("fr")){
+            rb_Fre.setChecked(true);
         }
-        else if (locale.equals("extra2")){
-            rb_Extra2.setChecked(true);
+        else if (locale.equals("de")){
+            rb_Deu.setChecked(true);
 
         }
         else{
@@ -90,9 +86,9 @@ public class Idiomes extends AppCompatActivity {
                 click=true;
                 rb_Cat.setChecked(true);
                 rb_Esp.setChecked(false);
-                rb_Extra0.setChecked(false);
-                rb_Extra1.setChecked(false);
-                rb_Extra2.setChecked(false);
+                rb_Eng.setChecked(false);
+                rb_Fre.setChecked(false);
+                rb_Deu.setChecked(false);
 
 
 
@@ -111,9 +107,9 @@ public class Idiomes extends AppCompatActivity {
                 click=true;
                 rb_Cat.setChecked(false);
                 rb_Esp.setChecked(true);
-                rb_Extra0.setChecked(false);
-                rb_Extra1.setChecked(false);
-                rb_Extra2.setChecked(false);
+                rb_Eng.setChecked(false);
+                rb_Fre.setChecked(false);
+                rb_Deu.setChecked(false);
 
 
                 locale="es";
@@ -126,11 +122,11 @@ public class Idiomes extends AppCompatActivity {
                 click=true;
                 rb_Cat.setChecked(false);
                 rb_Esp.setChecked(false);
-                rb_Extra0.setChecked(true);
-                rb_Extra1.setChecked(false);
-                rb_Extra2.setChecked(false);
+                rb_Eng.setChecked(true);
+                rb_Fre.setChecked(false);
+                rb_Deu.setChecked(false);
 
-
+                locale="en";
 
             }
         });
@@ -140,9 +136,11 @@ public class Idiomes extends AppCompatActivity {
                 click=true;
                 rb_Cat.setChecked(false);
                 rb_Esp.setChecked(false);
-                rb_Extra0.setChecked(false);
-                rb_Extra1.setChecked(true);
-                rb_Extra2.setChecked(false);
+                rb_Eng.setChecked(false);
+                rb_Fre.setChecked(true);
+                rb_Deu.setChecked(false);
+
+                locale="fr";
 
             }
         });
@@ -152,11 +150,12 @@ public class Idiomes extends AppCompatActivity {
                 click=true;
                 rb_Cat.setChecked(false);
                 rb_Esp.setChecked(false);
-                rb_Extra0.setChecked(false);
-                rb_Extra1.setChecked(false);
-                rb_Extra2.setChecked(true);
+                rb_Eng.setChecked(false);
+                rb_Fre.setChecked(false);
+                rb_Deu.setChecked(true);
 
 
+                locale="de";
             }
         });
 
@@ -175,19 +174,19 @@ public class Idiomes extends AppCompatActivity {
             }
         });
 
-        rb_Extra0.setOnClickListener(new View.OnClickListener() {
+        rb_Eng.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 lay_Extra0.setOnClickListener(this);
 
             }
         });
-        rb_Extra1.setOnClickListener(new View.OnClickListener() {
+        rb_Fre.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 lay_Extra1.setOnClickListener(this);
 
             }
         });
-        rb_Extra2.setOnClickListener(new View.OnClickListener() {
+        rb_Deu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 lay_Extra2.setOnClickListener(this);
 

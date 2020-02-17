@@ -173,7 +173,7 @@ secretari/a de l\'Ajuntament.</string>
     <string name="errorAtencio">Atenció</string>
     <string name="dialogImprimint">Imprimint&#8230;</string>
     <string name="enviantDenuncia">Enviant denúncia&#8230;</string>
-    <string name="butlletaEnviadaOk">Butlleta enviada correctament. Desitjes imprimir una còpia?</string>
+    <string name="butlletaEnviadaOk">Butlleta enviada correctament. Desitges imprimir una còpia?</string>
     <string name="butlletaImpresaOk">Butlleta impresa correctament. Vols imprimir una altra còpia?</string>
     <string name="butlletaImpresaOk_imprimir">Si</string>
     <string name="butlletaImpresaOk_enviar">No</string>
@@ -237,13 +237,27 @@ secretari/a de l\'Ajuntament.</string>
 
     <string name="cat">Català</string>
     <string name="esp">Espanyol</string>
-    <string name="extra0">Extra0</string>
-    <string name="extra1">Extra1</string>
-    <string name="extra2">Extra2</string>
+    <string name="extra0">Anglès</string>
+    <string name="extra1">Francès</string>
+    <string name="extra2">Alemany</string>
     <string name="MistageAvis">Alerta</string>
     <string name="MistageReinici">Reiniciar l\'aplicació per aplicar els canvis en l\'idioma?</string>
     <string name="SI">SI</string>
     <string name="NO">NO</string>
+    <string name="Admin">Admin</string>
+    <string name="Opcions">Opcions</string>
+    <string name="Idiomes">Idiomes</string>
+    <string name="alerta">Alerta</string>
+    <string name="confirmacio">" Segur que vols imprimir en:"</string>
+
+
+    <string-array name="Idiomes">
+        <item>Català</item>
+        <item>Espanyol</item>
+        <item>Anglés</item>
+        <item>Francès</item>
+        <item>Alemany</item>
+    </string-array>
 
 
 </resources>

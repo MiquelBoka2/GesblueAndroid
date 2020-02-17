@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gesblue</string>
+    <string name="butlleta">BUTLLETA</string>
+    <string name="butlletaDeDenuncia">Butlleta de dénonciation</string>
+    <string name="butlletaEnviadaOk">Butlleta envoyée correctement. Tu souhaites imprimer une copie?</string>
+    <string name="butlletaEnviadaOk_acceptar">" Accepter"</string>
+    <string name="butlletaEnviadaOk_cancelar">" Annuler"</string>
+    <string name="butlletaImpresaOk_enviar">Si</string>
+    <string name="butlletaImpresaOk_imprimir">Ne</string>
+    <string name="butlletaImpresaOk">" Butlleta imprimée correctement. Tu veux imprimer une autre copie?"</string>
+
+
+
+    <string-array name="Idiomes">
+        <item>Catalan</item>
+        <item>Espagnol</item>
+        <item>Anglais</item>
+        <item>Français</item>
+        <item>Allemand</item>
+    </string-array>
+
+</resources>

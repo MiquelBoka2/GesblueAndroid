@@ -236,9 +236,9 @@ secretari/a de l\'Ajuntament.</string>
 
     <string name="cat">Català</string>
     <string name="esp">Espanyol</string>
-    <string name="extra0">Extra0</string>
-    <string name="extra1">Extra1</string>
-    <string name="extra2">Extra2</string>
+    <string name="extra0">Anglès</string>
+    <string name="extra1">Francès</string>
+    <string name="extra2">Alemany</string>
 
     <string name="idiomes">Idiomes</string>
     <string name="idioma">Idioma</string>
@@ -247,10 +247,13 @@ secretari/a de l\'Ajuntament.</string>
         <string-array name="Idiomes">
             <item>Català</item>
             <item>Espanyol</item>
-            <item>Extra0</item>
-            <item>Extra1</item>
-            <item>Extra2</item>
+            <item>Anglés</item>
+            <item>Francès</item>
+            <item>Alemany</item>
         </string-array>
+
+    <string name="alerta">Alerta</string>
+    <string name="confirmacio">Segur que vols imprimir en:</string>
 
 
 

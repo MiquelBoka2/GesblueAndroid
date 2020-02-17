@@ -224,6 +224,20 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="MistageReinici">Reiniciar la aplicación para aplicar los cambios en el idioma?</string>
 	<string name="SI">SI</string>
     <string name="NO">NO</string>
+    <string name="Admin">Admin</string>
+	<string name="Idiomes">Idiomas</string>
+	<string name="Opcions">Opciones</string>
+	<string name="alerta">Alerta</string>
+	<string name="confirmacio">Seguro que quieres imprimir en:</string>
+
+
+	<string-array name="Idiomes">
+		<item>Catalán</item>
+		<item>Español</item>
+		<item>Anglés</item>
+		<item>Francès</item>
+		<item>Aleman</item>
+	</string-array>
 
 
 </resources>

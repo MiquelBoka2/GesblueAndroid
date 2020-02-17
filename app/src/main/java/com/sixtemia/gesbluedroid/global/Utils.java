@@ -321,6 +321,26 @@ public class Utils {
         pbutton.setTextColor(Color.BLACK);
     }
 
+    public static void showAlertSelectedLanguage(Context context, int title, int body,String idioma, int positive, int negative, DialogInterface.OnClickListener _listenerPositive, DialogInterface.OnClickListener _listenerNegative, boolean cancelable) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+
+        alertDialogBuilder.setTitle(title == -1 ? "" : context.getString(title))
+                .setMessage(context.getString(body)+" "+idioma)
+                .setPositiveButton(context.getString(positive), _listenerPositive)
+                .setNegativeButton(context.getString(negative), _listenerNegative)
+                .setCancelable(cancelable);
+        AlertDialog alert = alertDialogBuilder.create();
+
+
+        alert.show();
+        Button nbutton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+        nbutton.setTextColor(Color.BLACK);
+        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+        pbutton.setTextColor(Color.BLACK);
+    }
+
+
     public static String languageMultiplexer(String es, String ca) {
 
         String str = (Locale.getDefault().getLanguage().equalsIgnoreCase(Constants.LANG_CA) ? ca : es);

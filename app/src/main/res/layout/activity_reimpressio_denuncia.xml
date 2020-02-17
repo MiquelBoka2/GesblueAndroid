@@ -56,6 +56,8 @@
                     style="@style/Base.Widget.AppCompat.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:hint="@string/matricula" />
 
             </LinearLayout>
@@ -80,7 +82,10 @@
                     style="@style/Base.Widget.AppCompat.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/tipus" />
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/tipus"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -104,7 +109,10 @@
                     style="@style/Base.Widget.AppCompat.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/sancio" />
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/sancio"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -128,7 +136,10 @@
                     style="@style/Base.Widget.AppCompat.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/color" />
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/color"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -136,6 +147,7 @@
                 android:id="@+id/ll_Marca"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toStartOf="@+id/img_Marca"
                 app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +164,10 @@
                     style="@style/Base.Widget.AppCompat.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/marca" />
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/marca"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -160,6 +175,7 @@
                 android:id="@+id/ll_Model"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toStartOf="@+id/img_Marca"
                 app:layout_constraintStart_toStartOf="parent"
@@ -176,7 +192,10 @@
                     style="@style/Base.Widget.AppCompat.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/model" />
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/model"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -184,6 +203,9 @@
                 android:id="@+id/img_Marca"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/ll_Color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ll_Tipus"
@@ -194,6 +216,9 @@
                 android:id="@+id/view_Color"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/ll_Color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -202,8 +227,8 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -212,31 +237,27 @@
 
                 <ImageView
                     android:id="@+id/img_Foto1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
-                    android:maxWidth="200dp"
-                    android:maxHeight="200dp"
                     tools:src="@tools:sample/avatars" />
 
                 <ImageView
                     android:id="@+id/img_Foto2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
-                    android:maxWidth="200dp"
-                    android:maxHeight="200dp"
                     tools:src="@tools:sample/avatars" />
 
                 <ImageView
                     android:id="@+id/img_Foto3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
-                    android:maxHeight="200dp"
+                    android:visibility="visible"
                     tools:src="@tools:sample/avatars" />
             </LinearLayout>
 
@@ -261,7 +282,10 @@
                     style="@style/Base.Widget.AppCompat.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/carrer" />
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/carrer"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -287,7 +311,10 @@
                     style="@style/Base.Widget.AppCompat.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/num" />
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/num"
+                    android:textSize="16sp" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

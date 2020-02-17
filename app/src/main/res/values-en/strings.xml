@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gesblue</string>
+    <string name="butlletaImpresaOk_enviar">No</string>
+    <string name="butlletaImpresaOk_imprimir">Yes</string>
+    <string name="butlleta">BULLETIN</string>
+    <string name="butlletaDeDenuncia">" Bulletin of complaint"</string>
+    <string name="butlletaEnviadaOk">" Bulletin routed properly. You desire to print a copy?"</string>
+    <string name="butlletaEnviadaOk_acceptar">" Accept"</string>
+    <string name="butlletaEnviadaOk_cancelar">" Cancel"</string>
+    <string name="butlletaImpresaOk">" Bulletin printed properly. You want to print another copy?"</string>
+    <string name="textPeu">Notification of the complaint and initiation of the procedure: les \n 
+        We notify this complaint as the infringing vehicle holder
+        \n reviewed on the back and let them know what\'s left
+        \n initiated the corresponding sanctioning procedure.
+        \n \n In case you were not the driver, you are required to
+        \n that within 15 business days following the
+        \n date of receipt of this notification proceed to identify
+        \n to the driver responsible for the offense against which he
+        \n will initiate the sanctioning procedure. \n \n
+
+        Abbreviated procedure and ordinary procedure: If desired
+        \n accept the processing of this file by procedure
+        \n abbreviated, it has a period of 20 calendar days to count
+        \n from the day after this notification to make the
+        \n payment of the amount of the penalty indicated in the complaint, with a
+        \n 50 \%% discount. This procedure implies: the waiver of
+        \n make claims, the completion of the procedure without
+        \n need to issue an express resolution and the certainty of the
+        \n penalty from the first moment of payment. In case of no
+        \n make the payment with the discount of 50 \%% continue the
+        \n processing by the procedure from the day after the
+        \n notification. These must be presented at the OAC of
+        \n Banyoles Town Hall. If you do not make claims or pay the
+        \n sanction amount this complaint will have the effect of minutes
+        \n resolution of the sanctioning procedure. Against the penalty is
+        \n It may file an appeal for replacement within one month.
+        \n \n For the processing of the sanctioning procedure will act as
+        \n Instructor body of the file the Chief of the Local Police
+        \n the City Council of \n being the competent body for its resolution This Corporation.
+        \n \n Payment of the fine: Presenting this newsletter to any cashier
+        \n automatic open line or office of \\ \"la caixa \\\". \n \n The secretary of the City Council.</string>
+
+
+    <string-array name="Idiomes">
+        <item>Catalan</item>
+        <item>Spanish</item>
+        <item>English</item>
+        <item>French</item>
+        <item>German</item>
+    </string-array>
+    <string name="NO">NO</string>
+    <string name="SI">YES</string>
+    <string name="titol_data">DATE</string>
+    <string name="titol_hora">TIME</string>
+    <string name="titol_matricula">LICENSE PLATE</string>
+    <string name="zona">ZONE</string>
+    <string name="usuari">USER</string>
+    <string name="cela_fetDenunciat">" FACT DENOUNCED"</string>
+    <string name="cela_identificacio">" IDENTIFICATION"</string>
+    <string name="cela_color">COLOUR</string>
+    <string name="cela_codi_anulacio">" CODE ANNULMENT"</string>
+    <string name="cela_agent">AGENT</string>
+    <string name="carrer">" STREET"</string>
+    <string name="cela_dataLimit">DEADLINE ANNULMENT</string>
+    <string name="cela_dataLimitPagamentAmbAquestDoc">" Borderline day payment with this doc.:"</string>
+    <string name="color">COLOUR</string>
+    <string name="cela_pagamentEntitatBancaria">" PAYMENT AT BANKING ENTITY"</string>
+    <string name="cela_referencia">REFERENCE</string>
+    <string name="cela_vehicle">" VEHICLE"</string>
+    <string name="cela_marcaIModel">BRAND AND MODEL</string>
+    <string name="cela_llocInfraccio">" PLACE OF THE INFRACTION"</string>
+</resources>

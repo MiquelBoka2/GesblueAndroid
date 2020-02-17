@@ -2,8 +2,7 @@ package com.sixtemia.gesbluedroid.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
+
 import androidx.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -12,7 +11,6 @@ import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -66,8 +64,6 @@ import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
 import com.sixtemia.gesbluedroid.model.Models;
 import com.sixtemia.gesbluedroid.model.Tipus_Vehicle;
-import com.sixtemia.sbaseobjects.objects.SFragment;
-import com.sixtemia.sbaseobjects.objects.SFragmentActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -82,7 +78,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private ActivityLoginBinding mBinding;
 
 
-	private boolean isLoginConcessio = true;
+	private boolean isNoLoginConcessio = true;
 	private boolean everythingIsOk = true;
 	private String concessio = "";
 	private String initialDate = "0";
@@ -123,7 +119,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 		if (extras != null) {
 
-			isLoginConcessio=extras.getBoolean("isLoginConcessio",true);
+			isNoLoginConcessio =extras.getBoolean("isNoLoginConcessio",true);
 
 		}
 
@@ -138,13 +134,13 @@ public class LoginActivity extends GesblueFragmentActivity {
 		progress.setCancelable(false);
 
 		final String concessioString = PreferencesGesblue.getConcessioString(this);
-		isLoginConcessio = TextUtils.isEmpty(concessioString);
+		isNoLoginConcessio = TextUtils.isEmpty(concessioString);
 
-		Log.e("Er login de la conzezió",isLoginConcessio+"-----");
+		Log.e("Er login de la conzezió", isNoLoginConcessio +"-----");
 
 		concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 
-		if(!isLoginConcessio) {
+		if(!isNoLoginConcessio) {
 			estat="login_concessio";
 			mBinding.textViewConcessio.setVisibility(View.GONE);
 			mBinding.editTextConcessio.setVisibility(View.GONE);
@@ -188,14 +184,14 @@ public class LoginActivity extends GesblueFragmentActivity {
 				PreferencesGesblue.setConcessio(mContext, Long.parseLong(concessio));
 
 				Log.e("Concesio despues",concessio);
-				Log.e("isLoginConcessio",""+isLoginConcessio);
+				Log.e("isNoLoginConcessio",""+ isNoLoginConcessio);
 
-				if(username.equals("") || password.equals("") || (concessio.equals("") && isLoginConcessio)) {
+				if(username.equals("") || password.equals("") || (concessio.equals("") && isNoLoginConcessio)) {
 					Utils.showFaltenDadesError(mContext);
 				} else {
 					enableEditTexts(false);
 
-					if(isLoginConcessio) {
+					if(isNoLoginConcessio) {
 						cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
 
 						Log.d("Login -1","Vivo en una piña");
@@ -240,7 +236,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 				mBinding.editTextConcessio.setVisibility(View.VISIBLE);
 
 				mBinding.textViewLocalitzacioConcessio.setVisibility(View.GONE);
-				isLoginConcessio = false;
+				isNoLoginConcessio = false;
 
 				DatabaseAPI.deleteAllAgents(mContext);
 				DatabaseAPI.deleteAllMarques(mContext);
@@ -461,8 +457,9 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 							Log.e("Login 3","Eugene");
 
-							if(isLoginConcessio) {
+							if(isNoLoginConcessio) {
 								Log.e("Sheldon","Plankton");
+
 								Intent intent = new Intent(mContext, MainActivity.class);
 								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 								startActivity(intent);
@@ -1019,10 +1016,11 @@ public class LoginActivity extends GesblueFragmentActivity {
 					DLog("comptadorServer: "+comptadorServer);
 					if(comptadorServer > comptadorLocal) {
 						PreferencesGesblue.saveComptadorDenuncia(mContext, comptadorServer);
-						if(isLoginConcessio) {
+						if(isNoLoginConcessio) {
 							cridaLogin(PreferencesGesblue.getUserName(mContext), PreferencesGesblue.getPassword(mContext), Long.parseLong(concessio), initialDate);
 						} else {
 							if(!refreshDades) {
+
 								Intent intent = new Intent(mContext, MainActivity.class);
 
 								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1085,12 +1083,16 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 				if(progress != null && progress.isShowing()) progress.dismiss();
 				if(!refreshDades) {
-					if (isLoginConcessio) {
+					if (isNoLoginConcessio) {
+
+
 						cridaLogin(PreferencesGesblue.getUserName(mContext), PreferencesGesblue.getPassword(mContext), Long.parseLong(concessio), initialDate);
 					} else {
-						Intent intent = new Intent(mContext, MainActivity.class);
-						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-						startActivity(intent);
+						if (true /**  CONDICIONAL DE COMPROBACIO DE CONTRASEÑA**/) {
+							Intent intent = new Intent(mContext, MainActivity.class);
+							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+							startActivity(intent);
+						}
 					}
 				}
 				else{
@@ -1104,9 +1106,10 @@ public class LoginActivity extends GesblueFragmentActivity {
 				DLog("Entro al onError de crida_establirComptadorDenuncia");
 				showLoadingAnimButton(false);
 				enableEditTexts(true);
-				if(isLoginConcessio) {
+				if(isNoLoginConcessio) {
 					cridaLogin(PreferencesGesblue.getUserName(mContext), PreferencesGesblue.getPassword(mContext), Long.parseLong(concessio), initialDate);
 				} else {
+
 					Intent intent = new Intent(mContext, MainActivity.class);
 					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 					startActivity(intent);
@@ -1170,7 +1173,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 						mBinding.editTextConcessio.setVisibility(View.VISIBLE);
 
 						mBinding.textViewLocalitzacioConcessio.setVisibility(View.GONE);
-						isLoginConcessio = false;
+						isNoLoginConcessio = true;
 
 						DatabaseAPI.deleteAllAgents(mContext);
 						DatabaseAPI.deleteAllMarques(mContext);
