@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sixtemia.gesbluedroid.R;
@@ -47,6 +48,7 @@ public class MainActivity extends GesblueFragmentActivity {
 	private Menu menu;
 	private String estat="main";
 	private ImageView opciones;
+	private TextView localitzacio;
 	private int RequestCode=0001;
 
 	private Boolean adm=false;
@@ -63,8 +65,15 @@ public class MainActivity extends GesblueFragmentActivity {
 			adm = extras.getBoolean("adm");
 
 		}
+		if (adm){
+			mBinding.toolbar.imgUnlock.setVisibility(View.VISIBLE);
+			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.admin));
+		}
+		else{
+			mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
+		}
 
-
+		localitzacio=mBinding.toolbar.txtLocalitzacioEstat;
 		opciones=mBinding.toolbar.icOpciones;
 
 		opciones.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +98,8 @@ public class MainActivity extends GesblueFragmentActivity {
 		Glide.get(mContext).clearMemory();
 
 		String concessio = PreferencesGesblue.getConcessioString(mContext);
+		localitzacio=mBinding.toolbar.txtLocalitzacioEstat;
+		localitzacio.setText(concessio);
 		Log.e("La conzezió", concessio+"*****");
 
 		if (concessio == null || concessio.equals("")){

@@ -261,7 +261,22 @@ secretari/a de l\'Ajuntament.</string>
     <string name="MistageReinici">Reiniciar l\'aplicació per aplicar els canvis en l\'idioma?</string>
     <string name="NO">NO</string>
     <string name="SI">SI</string>
+    <string name="envia_denuncies_pendents">ENVIA\nDENUNCIES\nPENDENTS</string>
+    <string name="recarrega_dadesMayus">RECARREGA\nDADES</string>
+    <string name="esborra_tot">ESBORRA\nTOT</string>
 
+
+
+    <string name="preferencies">Preferències</string>
+    <string name="canviar_concessio">Canviar concessió</string>
+    <string name="desconectar">Desconecta\'t</string>
+    <string name="recarregar_dades">Recarregar dades</string>
+    <string name="reimpressió">Reimpressió</string>
+    <string name="idioma_aplicació">Idioma aplicació</string>
+    <string name="denuncies_pendents">Denúncies pendents</string>
+    <string name="Administrador">Administrador</string>
+    <string name="btn_guardar">GUARDAR</string>
+    <string name="no_concessio">SENSE CONCESSIÓ</string>
 
 
 

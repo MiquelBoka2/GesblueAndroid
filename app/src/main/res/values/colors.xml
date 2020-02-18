@@ -54,7 +54,10 @@
 
 	<color name="btn_color_positiu">#6CC70D</color>
 	<color name="btn_color_negatiu">#E40202</color>
+	<color name="btn_desectivat">#95989A</color>
+	<color name="admin">#FF7043</color>
     <color name="color_text_toolbar">#FFFFFF</color>
+    <color name="barra_estat">#95989A</color>
 
 
     <!--Colors Nous-->

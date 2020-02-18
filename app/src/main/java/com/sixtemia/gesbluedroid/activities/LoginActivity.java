@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.sixtemia.gesbluedroid.R;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
@@ -80,12 +81,14 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	private boolean isNoLoginConcessio = true;
 	private boolean everythingIsOk = true;
-	private String concessio = "";
+	private Boolean adm=false;
+	private String concessio = "",concessio_txt;
 	private String initialDate = "0";
 
 
 	private String estat="no_login_concessio";
 	private ImageView opciones;
+	private TextView localitzacio;
 
 	private int RequestCode=4321;
 
@@ -118,10 +121,13 @@ public class LoginActivity extends GesblueFragmentActivity {
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
-
 			isNoLoginConcessio =extras.getBoolean("isNoLoginConcessio",true);
+			adm = extras.getBoolean("adm");
 
 		}
+		checkAdmin(adm);
+
+
 
 
 
@@ -140,16 +146,19 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 		concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 
+		localitzacio=mBinding.toolbar.txtLocalitzacioEstat;
+
 		if(!isNoLoginConcessio) {
 			estat="login_concessio";
 			mBinding.textViewConcessio.setVisibility(View.GONE);
 			mBinding.editTextConcessio.setVisibility(View.GONE);
+			concessio_txt = PreferencesGesblue.getConcessioString(mContext);
+			localitzacio=mBinding.toolbar.txtLocalitzacioEstat;
+			localitzacio.setText(concessio_txt);
 
-			mBinding.textViewLocalitzacioConcessio.setVisibility(View.VISIBLE);
-
-			mBinding.textViewLocalitzacioConcessio.setText(concessioString);
 		}
 		else{
+			localitzacio.setText(getString(R.string.no_concessio));
 			mBinding.viewSwitcherTancaConcessio.setVisibility(View.GONE);
 		}
 
@@ -206,6 +215,27 @@ public class LoginActivity extends GesblueFragmentActivity {
 		});
 	}
 
+	private void checkAdmin(Boolean adm) {
+
+		if (adm){
+			mBinding.toolbar.imgUnlock.setVisibility(View.VISIBLE);
+			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.admin));
+		}
+		else{
+			mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		checkAdmin(adm);
+
+
+
+	}
+
 	/**
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -235,7 +265,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 				mBinding.textViewConcessio.setVisibility(View.VISIBLE);
 				mBinding.editTextConcessio.setVisibility(View.VISIBLE);
 
-				mBinding.textViewLocalitzacioConcessio.setVisibility(View.GONE);
 				isNoLoginConcessio = false;
 
 				DatabaseAPI.deleteAllAgents(mContext);
@@ -1125,11 +1154,16 @@ public class LoginActivity extends GesblueFragmentActivity {
    	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		String result="";
+		adm=false;
 		setRunning(true);
 		// check that it is the SecondActivity with an OK result
 		if (requestCode == RequestCode) {
 			if (resultCode == RESULT_OK) {
 
+				if (data.getExtras().getBoolean("adm")) {
+					adm = data.getExtras().getBoolean("adm");
+				}
+				checkAdmin(adm);
 
 				if (data.getExtras().getString("result") != null) {
 
@@ -1171,8 +1205,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 						mBinding.buttonTancaConcessio.setVisibility(View.GONE);
 						mBinding.textViewConcessio.setVisibility(View.VISIBLE);
 						mBinding.editTextConcessio.setVisibility(View.VISIBLE);
+						localitzacio.setText(getString(R.string.no_concessio));
 
-						mBinding.textViewLocalitzacioConcessio.setVisibility(View.GONE);
 						isNoLoginConcessio = true;
 
 						DatabaseAPI.deleteAllAgents(mContext);

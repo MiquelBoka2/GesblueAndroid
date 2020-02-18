@@ -118,6 +118,7 @@ public class Opcions extends AppCompatActivity {
 
 
             Idioma.setVisibility(View.VISIBLE);
+            Admin.setVisibility(View.VISIBLE);
 
 
 
@@ -128,7 +129,7 @@ public class Opcions extends AppCompatActivity {
 
             Canviar_Concessio.setVisibility(View.VISIBLE);
             Recarregar_Dades.setVisibility(View.VISIBLE);
-
+            Admin.setVisibility(View.VISIBLE);
             Idioma.setVisibility(View.VISIBLE);
 
 
@@ -249,6 +250,7 @@ public class Opcions extends AppCompatActivity {
                 if(estat.equals("login_concessio")||estat.equals("no_login_concessio")){
                     Intent intent = new Intent(oContext,LoginActivity.class);
                     intent.putExtra("result","");
+                    intent.putExtra("adm",adm);
                     setResult(RESULT_OK, intent);
                     finish();
                 }

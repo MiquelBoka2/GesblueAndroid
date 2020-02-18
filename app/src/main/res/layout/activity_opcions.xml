@@ -18,7 +18,7 @@
         android:background="@color/barra_superior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
@@ -27,11 +27,13 @@
             android:id="@+id/txt_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/roboto"
-            android:text="GesBlue 2020 v0.1"
-            android:textColor="#FFFFFF"
+            android:text="@string/preferencies"
+            android:textColor="@color/color_text_toolbar"
+            android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -67,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto"
-                    android:text="TANCAR CONSESSIÓ"
+                    android:text="@string/tanca_concessio"
                     android:textColor="@color/text_opcions"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -79,12 +81,11 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="8dp"
-                    android:background="#12FC00"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/txt_CanviarConcessio"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_faltant" />
+                    app:srcCompat="@drawable/ic_log_out" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -98,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto"
-                    android:text="DESCONECTA'T"
+                    android:text="@string/desconectar"
                     android:textColor="@color/text_opcions"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -110,12 +111,11 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="8dp"
-                    android:background="#12FC00"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/txt_Desconectat"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_faltant" />
+                    app:srcCompat="@drawable/ic_log_out" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto"
-                    android:text="RECARREGAR DADES"
+                    android:text="@string/recarregar_dades"
                     android:textColor="@color/text_opcions"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -142,12 +142,25 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="8dp"
-                    android:background="#12FC00"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/txt_RecarregarDades"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_faltant" />
+                    app:srcCompat="@drawable/ic_recarregar" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar3"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="240dp"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="8dp"
+                    android:progressDrawable="@drawable/progressbar_custom"
+                    android:progressTint="#FF7043"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/txt_RecarregarDades"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_RecarregarDades" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -161,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto"
-                    android:text="REIMPRESSIÓ/HISTORIC"
+                    android:text="@string/reimpressió"
                     android:textColor="@color/text_opcions"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -177,7 +190,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/txt_Reimpressio"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_impresora" />
+                    app:srcCompat="@drawable/ic_reimprimir" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -191,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto"
-                    android:text="IDIOMA"
+                    android:text="@string/idioma_aplicació"
                     android:textColor="@color/text_opcions"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -203,12 +216,11 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="8dp"
-                    android:background="#12FC00"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/txt_Idioma"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_faltant" />
+                    app:srcCompat="@drawable/ic_idioma" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -222,7 +234,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto"
-                    android:text="ENVIAMENTS PENDENTS"
+                    android:text="@string/denuncies_pendents"
                     android:textColor="@color/text_opcions"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -238,7 +250,32 @@
                     app:layout_constraintEnd_toStartOf="@+id/txt_EnviamentsPendents"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_enviaments_pendents" />
+                    app:srcCompat="@drawable/ic_pendents" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/txt_EnviamentsPendents"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/cercle_contador" />
+
+                <TextView
+                    android:id="@+id/txt_NumDenuncies2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="999"
+                    android:textColor="@color/color_text_toolbar"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                    app:layout_constraintStart_toStartOf="@+id/imageView4"
+                    app:layout_constraintTop_toTopOf="@+id/imageView4" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -252,24 +289,35 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto"
-                    android:text="ADMIN"
+                    android:text="@string/Administrador"
                     android:textColor="@color/text_opcions"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/img_Admin"
+                    app:layout_constraintStart_toEndOf="@+id/img_Admin_close"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/img_Admin"
+                    android:id="@+id/img_Admin_close"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="8dp"
-                    android:background="#FF9800"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/txt_Admin"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_faltant" />
+                    app:srcCompat="@drawable/ic_admin" />
+
+                <ImageView
+                    android:id="@+id/img_Admin_open"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_Admin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_admin_open" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -284,7 +332,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/btnConfirmar"
+        android:text="@string/btn_guardar"
         app:layout_constraintBottom_toTopOf="@+id/txt_Versio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
