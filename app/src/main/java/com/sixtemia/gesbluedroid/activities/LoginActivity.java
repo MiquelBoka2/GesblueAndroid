@@ -3,6 +3,8 @@ package com.sixtemia.gesbluedroid.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -67,6 +69,7 @@ import com.sixtemia.gesbluedroid.model.Models;
 import com.sixtemia.gesbluedroid.model.Tipus_Vehicle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -86,20 +89,25 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private String initialDate = "0";
 
 
+
 	private String estat="no_login_concessio";
 	private ImageView opciones;
 	private TextView localitzacio;
 
 	private int RequestCode=4321;
 
+	private boolean antirepetidor=true;
 
 
+	private LoginResponse response;
 
 	private boolean refreshDades = false;
 
 	private ProgressDialog progress;
 
 	private Menu menu;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -114,6 +122,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 				Intent intent = new Intent(mContext, Opcions.class);
 				intent.putExtra("estat",estat);
+				intent.putExtra("adm",adm);
 				startActivityForResult(intent,RequestCode);
 			}
 		});
@@ -126,6 +135,9 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 		}
 		checkAdmin(adm);
+
+
+
 
 
 
@@ -213,6 +225,29 @@ public class LoginActivity extends GesblueFragmentActivity {
 				}
 			}
 		});
+
+		/*FUNCIONALITAT DE DESPLEGABLE
+		mBinding.btnAmaga.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(mBinding.layOpcions.getVisibility()==View.GONE){
+					mBinding.layOpcions.setVisibility(View.VISIBLE);
+					mBinding.layAuxiliar.setVisibility(View.GONE);
+					mBinding.btnAmaga.setImageDrawable(getDrawable(R.drawable.ic_fletxa_down));
+				}
+				else{
+					mBinding.layOpcions.setVisibility(View.GONE);
+					mBinding.layAuxiliar.setVisibility(View.VISIBLE);
+					mBinding.btnAmaga.setImageDrawable(getDrawable(R.drawable.ic_fletxa_up));
+
+				}
+
+
+
+
+
+			}
+		});*/
 	}
 
 	private void checkAdmin(Boolean adm) {
@@ -223,15 +258,16 @@ public class LoginActivity extends GesblueFragmentActivity {
 		}
 		else{
 			mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
+			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.barra_estat));
 		}
 	}
 
 	@Override
 	protected void onResume() {
-		super.onResume();
+
 
 		checkAdmin(adm);
-
+		super.onResume();
 
 
 	}
@@ -252,54 +288,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 		menu.findItem(R.id.txt_Versio).setTitle(menuTitle);
 		return true;
 	}**/
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-			case R.id.buttonTancaConcessio:
-				PreferencesGesblue.setConcessioString(mContext,"");
-				PreferencesGesblue.setConcessio(mContext,0);
-				PreferencesGesblue.saveDataSync(mContext,"0");
-				mBinding.viewSwitcherTancaConcessio.setVisibility(View.GONE);
-				mBinding.buttonTancaConcessio.setVisibility(View.GONE);
-				mBinding.textViewConcessio.setVisibility(View.VISIBLE);
-				mBinding.editTextConcessio.setVisibility(View.VISIBLE);
 
-				isNoLoginConcessio = false;
-
-				DatabaseAPI.deleteAllAgents(mContext);
-				DatabaseAPI.deleteAllMarques(mContext);
-				DatabaseAPI.deleteAllModels(mContext);
-				DatabaseAPI.deleteAllTipusVehicles(mContext);
-				DatabaseAPI.deleteAllTipusAnulacions(mContext);
-				DatabaseAPI.deleteAllCarrers(mContext);
-				DatabaseAPI.deleteAllInfraccions(mContext);
-				DatabaseAPI.deleteAllZones(mContext);
-				DatabaseAPI.deleteAllLlistaBlanca(mContext);
-
-				return true;
-
-
-			case R.id.buttonReloadData:
-				refreshDades = true;
-				DatabaseAPI.deleteAllAgents(mContext);
-				DatabaseAPI.deleteAllMarques(mContext);
-				DatabaseAPI.deleteAllModels(mContext);
-				DatabaseAPI.deleteAllTipusVehicles(mContext);
-				DatabaseAPI.deleteAllTipusAnulacions(mContext);
-				DatabaseAPI.deleteAllCarrers(mContext);
-				DatabaseAPI.deleteAllInfraccions(mContext);
-				DatabaseAPI.deleteAllZones(mContext);
-				DatabaseAPI.deleteAllLlistaBlanca(mContext);
-				LoginResponse responseManual = new LoginResponse(0,1,"1",1,1,1,1,1,1,1,1);
-				sincronitzarTot(responseManual,Long.parseLong(concessio),"0");
-
-				return true;
-			default:
-				return true;
-
-		}
-	}
 	private void showLoadingAnimButton(boolean show) {
 		boolean showingLoading = mBinding.viewSwitcherLoginAnim.getCurrentView() != mBinding.buttonAccepta;
 
@@ -437,10 +426,12 @@ public class LoginActivity extends GesblueFragmentActivity {
 				connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
 			//we are connected to a network
 					Log.e("Login 1","xXx");
+
+
 			DatamanagerAPI.crida_Login(new LoginRequest(username, password, concessio, Utils.getDeviceId(mContext), Utils.getAndroidVersion(), Utils.getAppVersion(mContext), data), new JSoapCallback() {
 				@Override
 				public void onSuccess(String result) {
-					final LoginResponse response;
+
 					try {
 						response = DatamanagerAPI.parseJson(result, LoginResponse.class);
 						Log.e("Arenita","Mejilla"+response);
@@ -487,10 +478,13 @@ public class LoginActivity extends GesblueFragmentActivity {
 							Log.e("Login 3","Eugene");
 
 							if(isNoLoginConcessio) {
+
+								//LOG SENSE CONCESSIO PREVIA
 								Log.e("Sheldon","Plankton");
 
 								Intent intent = new Intent(mContext, MainActivity.class);
 								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+								intent.putExtra("adm",adm);
 								startActivity(intent);
 								finish();
 
@@ -580,6 +574,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 				Intent intent = new Intent(mContext, MainActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.putExtra("adm",adm);
 				startActivity(intent);
 			}
 		}
@@ -1091,11 +1086,11 @@ public class LoginActivity extends GesblueFragmentActivity {
 			@Override
 			public void onSuccess(String result) {
 				DLog("Entro al onSuccess de crida_establirComptadorDenuncia");
-				EstablirComptadorDenunciaResponse response;
+				EstablirComptadorDenunciaResponse responseComptadorDenuncia;
 				try {
-					response = DatamanagerAPI.parseJson(result, EstablirComptadorDenunciaResponse.class);
-					if(response.getResultat()>0){
-						PreferencesGesblue.saveComptadorDenuncia(mContext, (int)response.getResultat());
+					responseComptadorDenuncia = DatamanagerAPI.parseJson(result, EstablirComptadorDenunciaResponse.class);
+					if(responseComptadorDenuncia.getResultat()>0){
+						PreferencesGesblue.saveComptadorDenuncia(mContext, (int)responseComptadorDenuncia.getResultat());
 					}
 
 				} catch (Exception ex) {
@@ -1104,7 +1099,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 					return;
 				}
 				//PreferencesGesblue.saveComptadorDenuncia(mContext, (int)response.getResultat());
-				DLog("saveComptadorDenuncia: "+(int)response.getResultat());
+				DLog("saveComptadorDenuncia: "+(int)responseComptadorDenuncia.getResultat());
 
 				DLog("Surto del onSuccess de crida_establirComptadorDenuncia");
 
@@ -1114,13 +1109,19 @@ public class LoginActivity extends GesblueFragmentActivity {
 				if(!refreshDades) {
 					if (isNoLoginConcessio) {
 
-
 						cridaLogin(PreferencesGesblue.getUserName(mContext), PreferencesGesblue.getPassword(mContext), Long.parseLong(concessio), initialDate);
 					} else {
-						if (true /**  CONDICIONAL DE COMPROBACIO DE CONTRASEÑA**/) {
-							Intent intent = new Intent(mContext, MainActivity.class);
-							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-							startActivity(intent);
+						if(response.getResultat()==0) {
+
+							if (antirepetidor) {
+								antirepetidor = false;
+								Intent intent = new Intent(mContext, MainActivity.class);
+								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+								intent.putExtra("adm", adm);
+								startActivity(intent);
+								finish();
+							}
+
 						}
 					}
 				}

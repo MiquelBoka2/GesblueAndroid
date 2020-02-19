@@ -50,6 +50,11 @@ public class Pas2MarcaActivity extends GesblueFragmentActivity {
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_pas2_marca);
 		setupVisibleToolbar(mBinding.toolbar);
 
+		mBinding.toolbar.txtLocalitzacioEstat.setVisibility(View.GONE);
+		mBinding.toolbar.icOpciones.setVisibility(View.GONE);
+		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
+		mBinding.toolbar.txtAny.setVisibility(View.GONE);
+
 		if(getIntent().getExtras() != null) {
 			adm=getIntent().getExtras().getBoolean("adm");
 			mSancio = getIntent().getExtras().getParcelable(FormulariActivity.INTENT_SANCIO);
@@ -115,6 +120,13 @@ public class Pas2MarcaActivity extends GesblueFragmentActivity {
 				mAdapter.setSelectedItem(position);
 
 				mAdapter.notifyDataSetChanged();
+
+				if(primerCop){
+					mBinding.linearInferior.seguent.callOnClick();
+				}
+				else{
+					mBinding.linearConfirmar.btnConfirmar.callOnClick();
+				}
 			}
 		});
 

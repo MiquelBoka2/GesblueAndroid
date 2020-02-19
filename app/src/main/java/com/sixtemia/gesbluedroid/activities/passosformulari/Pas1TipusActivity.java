@@ -41,6 +41,10 @@ public class Pas1TipusActivity extends GesblueFragmentActivity {
 		super.onCreate(savedInstanceState);
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_pas1_tipus);
 		setupVisibleToolbar(mBinding.toolbar);
+		mBinding.toolbar.txtLocalitzacioEstat.setVisibility(View.GONE);
+		mBinding.toolbar.icOpciones.setVisibility(View.GONE);
+		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
+		mBinding.toolbar.txtAny.setVisibility(View.GONE);
 
 		PreferencesGesblue.clearFormulari(mContext);
 
@@ -103,6 +107,12 @@ public class Pas1TipusActivity extends GesblueFragmentActivity {
 					mSelected = newSelected;
 					mAdapter.setSelectedItem(position);
 					mAdapter.notifyDataSetChanged();
+				}
+				if(primerCop){
+					mBinding.seguent.callOnClick();
+				}
+				else{
+					mBinding.linearConfirmar.btnConfirmar.callOnClick();
 				}
 			}
 		});

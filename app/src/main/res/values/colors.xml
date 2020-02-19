@@ -57,7 +57,13 @@
 	<color name="btn_desectivat">#95989A</color>
 	<color name="admin">#FF7043</color>
     <color name="color_text_toolbar">#FFFFFF</color>
+	<color name="color_text_gris">#707686</color>
+
     <color name="barra_estat">#95989A</color>
+
+
+	<color name="text_recomenat">#FFFFFF</color>
+	<color name="text_no_recomenat">#444444</color>
 
 
     <!--Colors Nous-->

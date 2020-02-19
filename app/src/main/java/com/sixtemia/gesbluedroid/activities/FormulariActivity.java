@@ -215,6 +215,10 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		super.onCreate(savedInstanceState);
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_formulari);
 		setupVisibleToolbar(mBinding.toolbar);
+		mBinding.toolbar.txtLocalitzacioEstat.setVisibility(View.GONE);
+		mBinding.toolbar.icOpciones.setVisibility(View.GONE);
+		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
+		mBinding.toolbar.txtAny.setVisibility(View.GONE);
 		getFromIntent();
 		fillAll();
 		disableViews();

@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class Opcions extends AppCompatActivity {
     private Context oContext=this;
     private String estat="";
     private Boolean adm=false;
+    private ImageView  img_Lock,img_Unlock;
 
     private int RequestCode=0002;
 
@@ -67,6 +69,9 @@ public class Opcions extends AppCompatActivity {
         Enviaments_Pendents = (ConstraintLayout) findViewById(R.id.lay_EnviamentsPendents);
         Admin = (ConstraintLayout) findViewById(R.id.lay_Admin);
 
+
+        img_Lock=(ImageView)findViewById(R.id.img_Admin_close);
+        img_Unlock=(ImageView)findViewById(R.id.img_Admin_open);
         btn_Confirmar=(Button)findViewById(R.id.btn_Confirmar_Opcions);
 
 
@@ -101,6 +106,8 @@ public class Opcions extends AppCompatActivity {
 
         if(estat.equals("main")){
 
+            Canviar_Concessio.setVisibility(View.GONE);
+            Recarregar_Dades.setVisibility(View.GONE);
 
             Desconectat.setVisibility(View.VISIBLE);
             Reimpressio.setVisibility(View.VISIBLE);
@@ -122,6 +129,12 @@ public class Opcions extends AppCompatActivity {
 
 
 
+            Canviar_Concessio.setVisibility(View.GONE);
+            Recarregar_Dades.setVisibility(View.GONE);
+            Desconectat.setVisibility(View.GONE);
+            Reimpressio.setVisibility(View.GONE);
+            Enviaments_Pendents.setVisibility(View.GONE);
+
 
 
         }
@@ -133,6 +146,10 @@ public class Opcions extends AppCompatActivity {
             Idioma.setVisibility(View.VISIBLE);
 
 
+
+            Desconectat.setVisibility(View.GONE);
+            Reimpressio.setVisibility(View.GONE);
+            Enviaments_Pendents.setVisibility(View.GONE);
 
 
 
@@ -268,13 +285,23 @@ public class Opcions extends AppCompatActivity {
 
     }
 
+    private void checkAdmin(Boolean adm) {
 
+        if (adm){
+            img_Lock.setVisibility(View.GONE);
+            img_Unlock.setVisibility(View.VISIBLE);
+        }
+        else{
+            img_Lock.setVisibility(View.VISIBLE);
+            img_Unlock.setVisibility(View.GONE);
+        }
+    }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        checkAdmin(adm);
 
 
 

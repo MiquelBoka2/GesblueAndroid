@@ -28,6 +28,11 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_pas7_numero);
 		setupVisibleToolbar(mBinding.toolbar);
 
+		mBinding.toolbar.txtLocalitzacioEstat.setVisibility(View.GONE);
+		mBinding.toolbar.icOpciones.setVisibility(View.GONE);
+		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
+		mBinding.toolbar.txtAny.setVisibility(View.GONE);
+
 		mBinding.etNum.requestFocus();
 		InputMethodManager imm = (InputMethodManager) getSystemService(mContext.INPUT_METHOD_SERVICE);
 		imm.showSoftInput(mBinding.etNum, InputMethodManager.SHOW_IMPLICIT);

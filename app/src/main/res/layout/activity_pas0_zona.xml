@@ -24,33 +24,6 @@
 			android:layout_below="@id/toolbar"
 			android:orientation="vertical">
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="56dp"
-				android:orientation="horizontal"
-				android:paddingLeft="20dp"
-				android:paddingRight="20dp"
-				android:background="@color/verdClar"
-				android:gravity="center_vertical"
-				android:id="@+id/linearSuperior">
-
-				<ImageView style="@style/linesFormulari"
-				           android:background="@drawable/step_indicator"/>
-				<ImageView style="@style/linesFormulari"
-				           android:background="@drawable/step_indicator"/>
-				<ImageView style="@style/linesFormulari"
-				           android:background="@drawable/step_indicator"/>
-				<ImageView style="@style/linesFormulari"
-				           android:background="@drawable/step_indicator"/>
-				<ImageView style="@style/linesFormulari"
-				           android:background="@drawable/step_indicator"/>
-				<ImageView style="@style/linesFormulari"
-				           android:background="@drawable/step_indicator_enabled"/>
-				<ImageView style="@style/linesFormulari"
-				           android:background="@drawable/step_indicator"/>
-
-			</LinearLayout>
-
 			<RelativeLayout
 				android:id="@+id/rlCerca"
 				android:layout_width="wrap_content"

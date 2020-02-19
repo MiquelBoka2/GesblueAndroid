@@ -51,6 +51,7 @@ public class MainActivity extends GesblueFragmentActivity {
 	private TextView localitzacio;
 	private int RequestCode=0001;
 
+
 	private Boolean adm=false;
 
 	@Override
@@ -65,14 +66,8 @@ public class MainActivity extends GesblueFragmentActivity {
 			adm = extras.getBoolean("adm");
 
 		}
-		if (adm){
-			mBinding.toolbar.imgUnlock.setVisibility(View.VISIBLE);
-			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.admin));
-		}
-		else{
-			mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
-		}
 
+		checkAdmin(adm);
 		localitzacio=mBinding.toolbar.txtLocalitzacioEstat;
 		opciones=mBinding.toolbar.icOpciones;
 
@@ -128,7 +123,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 		mBinding.editTextMatricula.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
-		mBinding.textViewLocalitzacioConcessio.setText(concessio);
+		mBinding.toolbar.txtLocalitzacioEstat.setText(concessio);
 
 		mBinding.tvZona.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -206,13 +201,32 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 	}
+	private void checkAdmin(Boolean adm) {
+
+		if (adm){
+			mBinding.toolbar.imgUnlock.setVisibility(View.VISIBLE);
+			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.admin));
+		}
+		else{
+			mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
+			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.barra_estat));
+		}
+	}
 
 	@Override
-	protected void onResume(){
+	protected void onResume() {
 		super.onResume();
 		mBinding.tvZona.setText(PreferencesGesblue.getNomZona(mContext));
 		mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
+		checkAdmin(adm);
+
+
+
 	}
+
+
+
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -232,9 +246,11 @@ public class MainActivity extends GesblueFragmentActivity {
 					if (result) {
 						adm=result;
 
+
 					}
 				}
 			}
+			checkAdmin(adm);
 
 		}
 	}
@@ -422,92 +438,129 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	private void changeViewNoMultable(String text) {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
-		mBinding.textViewLocalitzacioConcessio.setVisibility(View.INVISIBLE);
 
-		mBinding.tvEstacionamentCorrecte.setText(text);
-		mBinding.tvEstacionamentCorrecte.setVisibility(View.VISIBLE);
+		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.verdOK));
+		mBinding.txtEstatEstacionament.setText(text);
+		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
 
-		mBinding.buttonDenunciar.setVisibility(View.VISIBLE);
-		mBinding.buttonNoDenunciar.setVisibility(View.VISIBLE);
+		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
 
-		mBinding.separator.setVisibility(View.VISIBLE);
+		mBinding.viewBtnComprobar.showNext();
+		mBinding.buttonComprovar.setVisibility(View.GONE);
 
-		mBinding.viewSwitcherButton.showNext();
 	}
 
 	private void changeViewJaDenunciat() {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
-		mBinding.textViewLocalitzacioConcessio.setVisibility(View.INVISIBLE);
 
-		mBinding.tvEstacionamentCorrecte.setText(R.string.vehicle_ja_denunciat);
-		mBinding.tvEstacionamentCorrecte.setVisibility(View.VISIBLE);
+		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.admin));
 
-		mBinding.buttonDenunciar.setVisibility(View.VISIBLE);
-		mBinding.buttonNoDenunciar.setVisibility(View.VISIBLE);
+		mBinding.txtInfo.setText(R.string.vehicle_ja_denunciat);
+		mBinding.txtInfo.setVisibility(View.VISIBLE);
 
-		mBinding.separator.setVisibility(View.VISIBLE);
+
+		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
+
+		//Recomana NO Denunciar
+		mBinding.buttonDenunciar.setBackground(getResources().getDrawable(R.drawable.button_white_selector));
+		mBinding.buttonNoDenunciar.setBackground(getResources().getDrawable(R.drawable.button_selector));
+
+		mBinding.buttonDenunciar.setTextColor(getResources().getColor(R.color.text_no_recomenat));
+		mBinding.buttonNoDenunciar.setTextColor(getResources().getColor(R.color.text_recomenat));
+
+
 
 		mBinding.textViewMatricula.setEnabled(false);
 		mBinding.editTextMatricula.setEnabled(false);
 		mBinding.buttonComprovar.setEnabled(false);
+		mBinding.buttonComprovar.setVisibility(View.GONE);
 	}
 
 	private void changeViewMultable(String text) {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
-		mBinding.textViewLocalitzacioConcessio.setVisibility(View.INVISIBLE);
 
-		mBinding.textViewEstacionamentIncorrecte.setText(text);
-		mBinding.textViewEstacionamentIncorrecte.setVisibility(View.VISIBLE);
+		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.vermellKO));
 
-		mBinding.buttonDenunciar.setVisibility(View.VISIBLE);
-		mBinding.buttonNoDenunciar.setVisibility(View.VISIBLE);
+		mBinding.layImatges.setVisibility(View.VISIBLE);
+		mBinding.txtEstatEstacionament.setText(text);
+		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
 
-		mBinding.separator.setVisibility(View.VISIBLE);
+
+
+		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
+		//Recomana Denunciar
+		mBinding.buttonNoDenunciar.setBackground(getResources().getDrawable(R.drawable.button_white_selector));
+		mBinding.buttonDenunciar.setBackground(getResources().getDrawable(R.drawable.button_selector));
+
+		mBinding.buttonDenunciar.setTextColor(getResources().getColor(R.color.text_recomenat));
+		mBinding.buttonNoDenunciar.setTextColor(getResources().getColor(R.color.text_no_recomenat));
+
+
 
 		mBinding.textViewMatricula.setEnabled(false);
 		mBinding.editTextMatricula.setEnabled(false);
 		mBinding.buttonComprovar.setEnabled(false);
+
+		mBinding.buttonComprovar.setVisibility(View.GONE);
 	}
 	private void changeViewNoComprovat() {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
-		mBinding.textViewLocalitzacioConcessio.setVisibility(View.INVISIBLE);
 
-		mBinding.textViewEstacionamentIncorrecte.setText(R.string.estacionament_sense_internet);
 
-		mBinding.textViewEstacionamentIncorrecte.setVisibility(View.VISIBLE);
+		mBinding.txtEstatEstacionament.setText(R.string.estacionament_sense_internet);
+		mBinding.layImatges.setVisibility(View.GONE);
+		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
 
-		mBinding.buttonDenunciar.setVisibility(View.VISIBLE);
-		mBinding.buttonNoDenunciar.setVisibility(View.VISIBLE);
 
-		mBinding.separator.setVisibility(View.VISIBLE);
+		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
+
+		//Recomana NO Denunciar
+		mBinding.buttonDenunciar.setBackground(getResources().getDrawable(R.drawable.button_white_selector));
+		mBinding.buttonNoDenunciar.setBackground(getResources().getDrawable(R.drawable.button_selector));
+
+		mBinding.buttonDenunciar.setTextColor(getResources().getColor(R.color.text_no_recomenat));
+		mBinding.buttonNoDenunciar.setTextColor(getResources().getColor(R.color.text_recomenat));
+
 
 		mBinding.textViewMatricula.setEnabled(false);
 		mBinding.editTextMatricula.setEnabled(false);
 		mBinding.buttonComprovar.setEnabled(false);
+
+		mBinding.buttonComprovar.setVisibility(View.GONE);
 	}
 
 	private void changeViewComprovarMatricula() {
 		//Mostrem el nom de l'ajuntament per qüestió estètica.
-		mBinding.textViewLocalitzacioConcessio.setVisibility(View.VISIBLE);
+		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.barra_estat));
 
+		mBinding.txtEstatEstacionament.setVisibility(View.INVISIBLE);
+		mBinding.txtTemps.setVisibility(View.INVISIBLE);
+		mBinding.txtInfo.setVisibility(View.INVISIBLE);
+		mBinding.layImatges.setVisibility(View.GONE);
 		mBinding.editTextMatricula.setText("");
 
-		mBinding.textViewEstacionamentIncorrecte.setVisibility(View.INVISIBLE);
-		mBinding.tvEstacionamentCorrecte.setVisibility(View.INVISIBLE);
+		mBinding.llBtnDenuncies.setVisibility(View.INVISIBLE);
 
-		mBinding.buttonDenunciar.setVisibility(View.INVISIBLE);
-		mBinding.buttonNoDenunciar.setVisibility(View.INVISIBLE);
+		//Recomana Denunciar
+		mBinding.buttonNoDenunciar.setBackground(getResources().getDrawable(R.drawable.button_white_selector));
+		mBinding.buttonDenunciar.setBackground(getResources().getDrawable(R.drawable.button_selector));
 
-		mBinding.separator.setVisibility(View.INVISIBLE);
 
-		if(mBinding.viewSwitcherButton.getCurrentView() == mBinding.buttonAcceptar) {
-			mBinding.viewSwitcherButton.showNext();
+		if(mBinding.viewBtnComprobar.getCurrentView() == mBinding.buttonAcceptar) {
+			mBinding.viewBtnComprobar.showNext();
+		}
+		if(mBinding.viewSwitcherComprovaAnim.getCurrentView() != mBinding.buttonComprovar) {
+			mBinding.viewSwitcherComprovaAnim.showNext();
 		}
 
 		mBinding.textViewMatricula.setEnabled(true);
 		mBinding.editTextMatricula.setEnabled(true);
 		mBinding.buttonComprovar.setEnabled(true);
+		mBinding.buttonComprovar.setVisibility(View.VISIBLE);
+
 	}
+
+
 
 
 }

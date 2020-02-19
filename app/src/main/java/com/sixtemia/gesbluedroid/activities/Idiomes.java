@@ -261,7 +261,7 @@ public class Idiomes extends AppCompatActivity {
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert).create();
-
+        builder.setCancelable(false);
         builder.show();
         builder.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.btn_color_negatiu));
         builder.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.btn_color_positiu));

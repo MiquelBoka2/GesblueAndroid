@@ -47,6 +47,11 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 		super.onCreate(savedInstanceState);
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_pas0_zona);
 		setupVisibleToolbar(mBinding.toolbar);
+		mBinding.toolbar.txtLocalitzacioEstat.setVisibility(View.GONE);
+		mBinding.toolbar.icOpciones.setVisibility(View.GONE);
+		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
+		mBinding.toolbar.txtAny.setVisibility(View.GONE);
+
 
 		if(getIntent().getExtras() != null) {
 			adm=getIntent().getExtras().getBoolean("adm");
@@ -111,6 +116,13 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 
 				mAdapter.notifyDataSetChanged();
 				Log.d("Zona0",mSelected.getNomzona());
+				if(primerCop){
+					mBinding.linearInferior.seguent.callOnClick();
+				}
+				else{
+					mBinding.linearConfirmar.btnConfirmar.callOnClick();
+				}
+
 			}
 		});
 

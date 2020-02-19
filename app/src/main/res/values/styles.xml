@@ -42,8 +42,8 @@
 	</style>
 
 	<style name="StepButton" parent="Base.Widget.AppCompat.Button">
-		<item name="android:background">@drawable/background_botons_inferiors</item>
-		<item name="android:textColor">@color/editTextFontColor</item>
+		<item name="android:background">@color/taronja</item>
+		<item name="android:textColor">@color/color_text_toolbar</item>
 		<item name="android:textSize">14sp</item>
 		<item name="android:layout_width">0dp</item>
 		<item name="android:layout_height">wrap_content</item>

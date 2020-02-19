@@ -24,29 +24,126 @@
 			android:layout_above="@+id/layoutButtons">
 
 			<LinearLayout
+				android:id="@+id/linearSuperior"
 				android:layout_width="match_parent"
 				android:layout_height="56dp"
-				android:orientation="horizontal"
-				android:paddingLeft="20dp"
-				android:paddingRight="20dp"
 				android:background="@color/verdClar"
-				android:gravity="center_vertical">
+				android:gravity="center_vertical"
+				android:orientation="horizontal">
 
-				<ImageView style="@style/linesFormulari"
-					android:background="@drawable/step_indicator_enabled"/>
-				<ImageView style="@style/linesFormulari"
-					android:background="@drawable/step_indicator"/>
-				<ImageView style="@style/linesFormulari"
-					android:background="@drawable/step_indicator"/>
-				<ImageView style="@style/linesFormulari"
-					android:background="@drawable/step_indicator"/>
-				<ImageView style="@style/linesFormulari"
-					android:background="@drawable/step_indicator"/>
-				<ImageView style="@style/linesFormulari"
-					android:background="@drawable/step_indicator"/>
-				<ImageView style="@style/linesFormulari"
-					android:background="@drawable/step_indicator"/>
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="56dp"
+					android:background="@color/verdClar"
+					android:gravity="center_vertical"
+					android:orientation="horizontal">
 
+					<Button
+						android:id="@+id/btn_Pos1"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_weight="1"
+						android:background="@drawable/ic_cercle_current"
+						android:text="1"
+						android:textColor="@color/color_text_toolbar"
+
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@+id/btn_Pos2"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent" />
+
+					<Button
+						android:id="@+id/btn_Pos2"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_weight="1"
+						android:background="@drawable/ic_cercle_no_current"
+						android:text="2"
+						android:textColor="@color/color_text_gris"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@+id/btn_Pos3"
+						app:layout_constraintStart_toEndOf="@+id/btn_Pos1"
+						app:layout_constraintTop_toTopOf="parent" />
+
+					<Button
+						android:id="@+id/btn_Pos3"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_weight="1"
+						android:background="@drawable/ic_cercle_no_current"
+						android:text="3"
+						android:textColor="@color/color_text_gris"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@+id/btn_Pos4"
+						app:layout_constraintStart_toEndOf="@+id/btn_Pos2"
+						app:layout_constraintTop_toTopOf="parent" />
+
+					<Button
+						android:id="@+id/btn_Pos4"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_weight="1"
+						android:background="@drawable/ic_cercle_no_current"
+						android:text="4"
+						android:textColor="@color/color_text_gris"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@+id/btn_Pos5"
+						app:layout_constraintStart_toEndOf="@+id/btn_Pos3"
+						app:layout_constraintTop_toTopOf="parent" />
+
+					<Button
+						android:id="@+id/btn_Pos5"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_weight="1"
+						android:background="@drawable/ic_cercle_no_current"
+						android:text="5"
+						android:textColor="@color/color_text_gris"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@+id/btn_Pos6"
+						app:layout_constraintStart_toEndOf="@+id/btn_Pos4"
+						app:layout_constraintTop_toTopOf="parent" />
+
+					<Button
+						android:id="@+id/btn_Pos6"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_weight="1"
+						android:background="@drawable/ic_cercle_no_current"
+						android:text="6"
+						android:textColor="@color/color_text_gris"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@+id/btn_Pos7"
+						app:layout_constraintStart_toEndOf="@+id/btn_Pos5"
+						app:layout_constraintTop_toTopOf="parent" />
+
+					<Button
+						android:id="@+id/btn_Pos7"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_weight="1"
+						android:background="@drawable/ic_cercle_no_current"
+						android:text="7"
+						android:textColor="@color/color_text_gris"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@+id/btn_Pos8"
+						app:layout_constraintStart_toEndOf="@+id/btn_Pos6"
+						app:layout_constraintTop_toTopOf="parent" />
+
+					<Button
+						android:id="@+id/btn_Pos8"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_weight="1"
+						android:background="@drawable/ic_formulari_no_current"
+						android:text="8"
+						android:textColor="@color/color_text_gris"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toEndOf="@+id/btn_Pos7"
+						app:layout_constraintTop_toTopOf="parent" />
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
 			</LinearLayout>
 
 			<ListView
