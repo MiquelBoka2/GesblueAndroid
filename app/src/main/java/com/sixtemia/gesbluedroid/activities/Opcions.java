@@ -102,6 +102,7 @@ public class Opcions extends AppCompatActivity {
             adm=extras.getBoolean("adm");
 
 
+
         }
 
         if(estat.equals("main")){

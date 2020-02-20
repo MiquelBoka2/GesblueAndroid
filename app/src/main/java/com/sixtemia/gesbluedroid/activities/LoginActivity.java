@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -111,6 +112,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 		setupVisibleToolbar(mBinding.toolbar);
 		opciones=mBinding.toolbar.icOpciones;
@@ -123,6 +125,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 				Intent intent = new Intent(mContext, Opcions.class);
 				intent.putExtra("estat",estat);
 				intent.putExtra("adm",adm);
+				intent.putExtra("concessio",isNoLoginConcessio);
 				startActivityForResult(intent,RequestCode);
 			}
 		});
@@ -226,28 +229,17 @@ public class LoginActivity extends GesblueFragmentActivity {
 			}
 		});
 
-		/*FUNCIONALITAT DE DESPLEGABLE
-		mBinding.btnAmaga.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if(mBinding.layOpcions.getVisibility()==View.GONE){
-					mBinding.layOpcions.setVisibility(View.VISIBLE);
-					mBinding.layAuxiliar.setVisibility(View.GONE);
-					mBinding.btnAmaga.setImageDrawable(getDrawable(R.drawable.ic_fletxa_down));
-				}
-				else{
-					mBinding.layOpcions.setVisibility(View.GONE);
-					mBinding.layAuxiliar.setVisibility(View.VISIBLE);
-					mBinding.btnAmaga.setImageDrawable(getDrawable(R.drawable.ic_fletxa_up));
 
-				}
+		if(adm){
 
 
 
 
 
-			}
-		});*/
+
+		}
+
+
 	}
 
 	private void checkAdmin(Boolean adm) {

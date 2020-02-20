@@ -278,6 +278,16 @@ secretari/a de l\'Ajuntament.</string>
     <string name="btn_guardar">GUARDAR</string>
     <string name="no_concessio">SENSE CONCESSIÓ</string>
 
+    <string name="acces_admin">ACCÉS ADMINISTRADOR</string>
+    <string name="aquesta_accio">Aquesta acció</string>
+    <string name="accio_eliminar_tot">ELIMINARÀ TOTES LES DADES\n HISTÒRIQUES DE L’APLICACIÓ</string>
+    <string name="accio_esborrar_concessions">ELIMINARÀ TOTES LES DADES DE CONCESSIONS ANTIGUES</string>
+    <string name="neccesita_permisos">i necessita permisos\n d’administrador</string>
+    <string name="user_admin">usuari administrador</string>
+    <string name="password_admin">password administrador</string>
+    <string name="anula">ANULA</string>
+
+
 
 
 </resources>

@@ -19,66 +19,13 @@
 			android:layout_alignParentBottom="true"
 			android:layout_marginEnd="0dp"
 			android:layout_marginBottom="0dp">
-			<!---Funcionalitat del desplegable(No activat)-->
-			<androidx.constraintlayout.widget.ConstraintLayout
-				android:id="@+id/lay_Desplegable"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:visibility="gone"
-				app:layout_constraintBottom_toTopOf="@+id/lay_Opcions"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/lay_auxiliar"
-				tools:visibility="gone">
 
-				<TextView
-					android:id="@+id/textView2"
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:background="@color/colorToolBar"
-					android:textSize="18sp"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="1.0" />
-
-				<ImageButton
-					android:id="@+id/btn_Amaga"
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_marginBottom="3dp"
-					android:background="@android:color/transparent"
-					android:visibility="visible"
-					app:layout_constraintBottom_toBottomOf="@+id/textView2"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintHorizontal_bias="0.0"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@drawable/ic_fletxa_up"
-					tools:visibility="visible" />
-
-			</androidx.constraintlayout.widget.ConstraintLayout>
-			<!---Funcionalitat del desplegable(No activat)-->
-			<androidx.constraintlayout.widget.ConstraintLayout
-				android:id="@+id/lay_auxiliar"
-				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:visibility="gone"
-				app:layout_constraintBottom_toTopOf="@+id/lay_Desplegable"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintHorizontal_bias="0.511"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-				tools:visibility="gone">
-
-			</androidx.constraintlayout.widget.ConstraintLayout>
 
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:id="@+id/constraintLayout2"
 				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				app:layout_constraintBottom_toTopOf="@+id/lay_auxiliar"
+				android:layout_height="0dp"
+				app:layout_constraintBottom_toTopOf="@+id/lay_Opcions"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
@@ -91,7 +38,8 @@
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/toolbar">
+					app:layout_constraintTop_toBottomOf="@+id/toolbar"
+					app:layout_constraintVertical_bias="0.0">
 
 					<LinearLayout
 						android:layout_width="match_parent"
@@ -259,33 +207,33 @@
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:id="@+id/lay_Opcions"
 				android:layout_width="0dp"
-				android:layout_height="0dp"
+				android:layout_height="wrap_content"
 				android:background="@color/colorToolBar"
 				android:visibility="visible"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/lay_Desplegable"
-				app:layout_constraintVertical_bias="1.0"
+				app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
 				tools:visibility="visible">
 
 				<androidx.constraintlayout.widget.ConstraintLayout
 					android:id="@+id/constraintLayout3"
 					android:layout_width="0dp"
-					android:layout_height="0dp"
+					android:layout_height="110dp"
 					android:layout_marginStart="16dp"
 					android:layout_marginTop="16dp"
 					android:layout_marginBottom="8dp"
 					app:layout_constraintBottom_toTopOf="@+id/textView"
 					app:layout_constraintEnd_toStartOf="@+id/btn_NetejaConcessions"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent">
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintVertical_bias="1.0">
 
 					<ImageButton
 						android:id="@+id/btn_Envia_pendents"
 						style="@style/Button"
 						android:layout_width="0dp"
-						android:layout_height="0dp"
+						android:layout_height="@dimen/imageViewWidth"
 						app:layout_constraintBottom_toBottomOf="parent"
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintStart_toStartOf="parent"
@@ -297,7 +245,7 @@
 					android:id="@+id/btn_NetejaConcessions"
 					style="@style/ButtonDesactivat"
 					android:layout_width="0dp"
-					android:layout_height="0dp"
+					android:layout_height="110dp"
 					android:layout_marginStart="16dp"
 					android:layout_marginTop="16dp"
 					android:layout_marginEnd="16dp"
@@ -306,14 +254,13 @@
 					app:layout_constraintEnd_toStartOf="@+id/btn_EsborraTot"
 					app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
 					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="1.0"
 					app:srcCompat="@drawable/ic_neteja" />
 
 				<ImageButton
 					android:id="@+id/btn_EsborraTot"
 					style="@style/ButtonDesactivat"
 					android:layout_width="0dp"
-					android:layout_height="0dp"
+					android:layout_height="110dp"
 					android:layout_marginTop="16dp"
 					android:layout_marginEnd="16dp"
 					android:layout_marginBottom="8dp"
