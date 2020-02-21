@@ -263,7 +263,7 @@
                     app:srcCompat="@drawable/ic_pendents" />
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/imgCercleContador"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginStart="16dp"
@@ -282,10 +282,10 @@
                     android:text="999"
                     android:textColor="@color/color_text_toolbar"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView4"
-                    app:layout_constraintStart_toStartOf="@+id/imageView4"
-                    app:layout_constraintTop_toTopOf="@+id/imageView4" />
+                    app:layout_constraintBottom_toBottomOf="@+id/imgCercleContador"
+                    app:layout_constraintEnd_toEndOf="@+id/imgCercleContador"
+                    app:layout_constraintStart_toStartOf="@+id/imgCercleContador"
+                    app:layout_constraintTop_toTopOf="@+id/imgCercleContador" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

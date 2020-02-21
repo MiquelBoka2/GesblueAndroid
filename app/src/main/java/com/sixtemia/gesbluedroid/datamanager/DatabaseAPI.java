@@ -223,6 +223,18 @@ public class DatabaseAPI {
 		}
 	}
 
+	public static ArrayList<Model_Denuncia> getDenunciesPendents(Context c) {
+
+		ArrayList<Model_Denuncia> array= (ArrayList<Model_Denuncia>) _getDenunciaPendent(c).getArray();
+		if(array !=null && array.size()>0){
+			return array;
+		}
+		else{
+			return null;
+		}
+	}
+
+
 	public static BasicDBResult insertDenuncies(Context c, List<Model_Denuncia> list) {
 		return executeDatabaseOperation(c, new DenunciaHelper().create(c, list));
 	}

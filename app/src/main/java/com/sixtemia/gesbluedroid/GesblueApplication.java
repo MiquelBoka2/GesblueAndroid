@@ -51,6 +51,10 @@ public class GesblueApplication extends MultiDexApplication {
 	public Context aContext = null;
 	private int intentsEnviaDenuncia =0;
 	static Context cont=null;
+
+	public static boolean EnviamentDisponible=true;
+
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -115,10 +119,15 @@ public class GesblueApplication extends MultiDexApplication {
 					connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
 				//we are connected to a network
 
-				enviaDenuncia();
-				//enviaLog();
-				//new FTPUpload().execute();
-				pujaFoto();
+				//Condicional de si algu esta enviant
+				if(EnviamentDisponible){
+					EnviamentDisponible=false;
+					enviaDenuncia();
+					//enviaLog();
+					//new FTPUpload().execute();
+					pujaFoto();
+					EnviamentDisponible=true;
+				}
 			}
       /* and here comes the "trick" */
 			handler.postDelayed(this, 120000);
@@ -208,6 +217,9 @@ public class GesblueApplication extends MultiDexApplication {
 		}
 
 	}
+
+
+
 
 	private void pujaFoto(){
 

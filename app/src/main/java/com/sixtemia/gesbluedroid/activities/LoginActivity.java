@@ -1,8 +1,10 @@
 package com.sixtemia.gesbluedroid.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.databinding.DataBindingUtil;
@@ -18,7 +20,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.sixtemia.gesbluedroid.GesblueApplication;
 import com.sixtemia.gesbluedroid.R;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.databinding.ActivityLoginBinding;
@@ -26,6 +30,7 @@ import com.sixtemia.gesbluedroid.datamanager.DatabaseAPI;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Agent;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Carrer;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Color;
+import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Denuncia;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Infraccio;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaAbonats;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_LlistaBlanca;
@@ -49,6 +54,8 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.TipusVehiclesRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.dadesbasiques.ZonesRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.EstablirComptadorDenunciaRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.NovaDenunciaRequest;
+import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.PujaFotoRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.requests.operativa.RecuperaComptadorDenunciaRequest;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.AgentsResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.CarrersResponse;
@@ -63,19 +70,34 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.N
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.TipusVehiclesResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.dadesbasiques.ZonesResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.EstablirComptadorDenunciaResponse;
+import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.NovaDenunciaResponse;
 import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.RecuperaComptadorDenunciaResponse;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
 import com.sixtemia.gesbluedroid.model.Models;
 import com.sixtemia.gesbluedroid.model.Tipus_Vehicle;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.net.util.Base64;
+
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 
 import pt.joaocruz04.lib.misc.JSoapCallback;
 
+
+import static com.sixtemia.gesbluedroid.GesblueApplication.EnviamentDisponible;
+import static com.sixtemia.gesbluedroid.datamanager.DatabaseAPI.getDenunciaPendent;
 import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
 public class LoginActivity extends GesblueFragmentActivity {
@@ -97,17 +119,28 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	private int RequestCode=4321;
 
-	private boolean antirepetidor=true;
+
+
 
 
 	private LoginResponse response;
 
 	private boolean refreshDades = false;
 
-	private ProgressDialog progress;
+
 
 	private Menu menu;
 
+
+	private ProgressDialog progress, liniar_progress;
+	private List<Model_Denuncia> denunciesPendents;
+	private int intentsEnviaDenuncia =0;
+	private boolean escapador=true;
+
+
+
+
+	private boolean antirepetidor=true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +186,12 @@ public class LoginActivity extends GesblueFragmentActivity {
 		progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		progress.setIndeterminate(true);
 		progress.setCancelable(false);
+
+		liniar_progress = new ProgressDialog(this);
+		liniar_progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
+		liniar_progress.setCancelable(false);
+
 
 		final String concessioString = PreferencesGesblue.getConcessioString(this);
 		isNoLoginConcessio = TextUtils.isEmpty(concessioString);
@@ -230,15 +269,204 @@ public class LoginActivity extends GesblueFragmentActivity {
 		});
 
 
-		if(adm){
+
+		ContadorDenuncies(true);
+
+
+
+		/** ENVIA DENUNCIES PENDENTS**/
+		mBinding.btnEnviaPendents.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(mBinding.btnEnviaPendents.isEnabled()){
+
+					ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+					if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+							connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+						//we are connected to a network
+						if (denunciesPendents.size() > 0) {
+							liniar_progress.setMax(denunciesPendents.size());
+
+							liniar_progress.show();
+							if(EnviamentDisponible){
+                                EnviamentDisponible=false;
+                                EnviarDenuncies();
+
+                            }
+							else{
+                                //aguanta el main fins que s'ha enviat la anterior
+                                while(EnviamentDisponible==false){
+
+
+                                }
+                                //Tornem a mirar les dades
+                                ContadorDenuncies(true);
+
+                                //Bloquejem els demes enviaments
+                                EnviamentDisponible=false;
+
+                                EnviarDenuncies();
+                            }
+
+							//Mante el Main activity viu mentres s'envies les denuncies
+							while(escapador){
+
+
+							}
+							liniar_progress.dismiss();
+							EnviamentDisponible=true;
+							ContadorDenuncies(false);
+						}
+
+
+
+
+					}
+					else{
+						mBinding.btnEnviaPendents.setBackgroundColor(getResources().getColor(R.color.vermellKO));
+						mBinding.layNoConexio.setVisibility(View.VISIBLE);
+
+					}
+				}
+			}
+		});
+
+		View.OnClickListener descarta_inferior=new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mBinding.layNoConexio.setVisibility(View.GONE);
+				mBinding.btnEnviaPendents.setBackgroundColor(getResources().getColor(R.color.btn_activat));
+			}
+		};
+
+		mBinding.layNoConexio.setOnClickListener(descarta_inferior);
+		mBinding.txtNoConxio.setOnClickListener(descarta_inferior);
+		mBinding.imgCreu.setOnClickListener(descarta_inferior);
+
+
+
+
+
+		/** ESBORRA TOT**/
+		mBinding.btnEsborraTot.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(mBinding.btnEsborraTot.isEnabled()){
+
+
+
+
+				}
+			}
+		});
 
 
 
 
 
 
+
+	}
+
+
+	private void EnviarDenuncies() {
+
+
+		//Crea un nou fil
+		new Thread(new Runnable() {
+			@Override
+			public void run()
+			{
+				for(int i=0;i <denunciesPendents.size();i++){
+					enviaDenunciaConcreta(denunciesPendents.get(i));
+					pujaFoto();
+
+
+					liniar_progress.setProgress(i);
+				}
+				denunciesPendents=null;
+				escapador=false;
+
+
+
+
+			}
+		}).start();
+
+
+	}
+
+	private void ContadorDenuncies(boolean recarregardades) {
+
+		//Consegueix les denuncies i adpta l'interfaz a les dades
+		if(recarregardades){
+			List<Model_Denuncia> denunciesPendentsTemp = DatabaseAPI.getDenunciesPendents(mContext);
+			if(denunciesPendentsTemp!=null) {
+
+
+				denunciesPendents = denunciesPendentsTemp.subList(0, denunciesPendentsTemp.size());
+			}
+			else{
+				denunciesPendents=null;
+			}
 		}
 
+
+
+
+
+		//Comprovem si tenim denuncies i en cas negatiu, mostrem un missatge informatiu.
+
+		if (denunciesPendents==null || denunciesPendents.size()<=0 || denunciesPendents.isEmpty()){
+			mBinding.imgCercleContador.setVisibility(View.GONE);
+			mBinding.txtNumDenuncies.setVisibility(View.GONE);
+
+			//btnEnviaPendents
+			mBinding.btnEnviaPendents.setBackgroundColor(getResources().getColor(R.color.btn_desectivat));
+			mBinding.btnEnviaPendents.setEnabled(false);
+
+
+			if(adm){
+				//btnNetejaConcessio
+				mBinding.btnNetejaConcessions.setBackgroundColor(getResources().getColor(R.color.btn_activat));
+				mBinding.btnNetejaConcessions.setEnabled(true);
+
+				//btnEsborraTot
+				mBinding.btnEsborraTot.setBackgroundColor(getResources().getColor(R.color.btn_activat));
+				mBinding.btnEsborraTot.setEnabled(true);
+
+			}
+			else {
+				//btnNetejaConcessio
+				mBinding.btnNetejaConcessions.setBackgroundColor(getResources().getColor(R.color.btn_desectivat));
+				mBinding.btnNetejaConcessions.setEnabled(true);
+
+				//btnEsborraTot
+				mBinding.btnEsborraTot.setBackgroundColor(getResources().getColor(R.color.btn_desectivat));
+				mBinding.btnEsborraTot.setEnabled(true);
+
+			}
+		}
+		else{
+			mBinding.imgCercleContador.setVisibility(View.VISIBLE);
+			mBinding.txtNumDenuncies.setVisibility(View.VISIBLE);
+
+			mBinding.txtNumDenuncies.setText(denunciesPendents.size()+"");
+
+			//btnEnviaPendents
+			mBinding.btnEnviaPendents.setBackgroundColor(getResources().getColor(R.color.btn_activat));
+			mBinding.btnEnviaPendents.setEnabled(true);
+
+
+			//btnNetejaConcessio
+			mBinding.btnNetejaConcessions.setBackgroundColor(getResources().getColor(R.color.btn_desectivat));
+			mBinding.btnNetejaConcessions.setEnabled(false);
+
+			//btnEsborraTot
+			mBinding.btnEsborraTot.setBackgroundColor(getResources().getColor(R.color.btn_desectivat));
+			mBinding.btnEsborraTot.setEnabled(false);
+
+		}
 
 	}
 
@@ -590,7 +818,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 		}
 	}
 
-	private void sincronitzarAgents(final LoginResponse loginResponse, final long concessio, final String _data) {
+	private void sincronitzarAgents(final LoginResponse loginResponse, final long concessio, final String _data)
+	{
 		if(loginResponse == null || loginResponse.showAgents()) {
 			progress.setMessage(getString(R.string.actualitzantAgents));
 			String data = PreferencesGesblue.getDataSync(mContext);
@@ -1144,6 +1373,9 @@ public class LoginActivity extends GesblueFragmentActivity {
 		});
 	}
 
+
+
+
    	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		String result="";
@@ -1229,4 +1461,164 @@ public class LoginActivity extends GesblueFragmentActivity {
 	}
 
 
+
+
+
+	private void enviaDenunciaConcreta(final Model_Denuncia denuncia){
+
+		if(denuncia!=null){
+			intentsEnviaDenuncia++;
+			final Model_Denuncia den = denuncia;
+			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss");
+
+			Log.d("Enviant denuncia", "" + denuncia.getCodidenuncia());
+			NovaDenunciaRequest ndr = new NovaDenunciaRequest(
+					denuncia.getCodidenuncia(),
+					Long.parseLong(simpleDate.format(denuncia.getFechacreacio())),
+					(long) denuncia.getAgent(),              //-- ID D'AGENT
+					(long) denuncia.getAdrecacarrer(),                //-- CARRER
+					String.valueOf(denuncia.getAdrecanum()),                                     //-- NUMERO CARRER
+					"",                                                     //-- TODO COORDENADES?
+					denuncia.getMatricula(),                                  //-- MATRICULA
+					(long) denuncia.getTipusvehicle(),    //-- CODI TIPUS VEHICLE
+					(long) denuncia.getMarca(),  //-- CODI MARCA
+					(long) denuncia.getModel(),  //-- CODI MODEL
+					(long) denuncia.getColor(),  //-- CODI COLOR
+					(long) denuncia.getInfraccio(),                   //-- MATRICULA
+					(long) denuncia.getEstatcomprovacio(),             //-- HORA ACTUAL
+					"",                //-- IMPORT
+					PreferencesGesblue.getConcessio(mContext),              //-- CONCESSIO
+					Long.parseLong(PreferencesGesblue.getTerminal(mContext)),//-- TERMINAL ID
+					Utils.getAndroidVersion(),                              //-- SO VERSION
+					Utils.getAppVersion(mContext));                         //-- APP VERSION
+
+
+			DatamanagerAPI.crida_NovaDenuncia(ndr,
+					new JSoapCallback() {
+						@Override
+						public void onSuccess(String result) {
+							Intent intent = new Intent(mContext, LoginActivity.class);
+							intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+							final NovaDenunciaResponse response;
+							try {
+								response = DatamanagerAPI.parseJson(result, NovaDenunciaResponse.class);
+							} catch (Exception ex) {
+								Log.e("", "" + ex);
+								onError(PARSE_ERROR);
+								return;
+							}
+
+							switch ((int) response.getResultat()) {
+								case -1:
+									Utils.showCustomDialog(mContext, R.string.atencio, R.string.errorEnDades);
+									break;
+								case -2:
+								case -3:
+									PreferencesGesblue.logout(mContext);
+									startActivity(intent);
+									break;
+								default:
+									//denunciaSent = true;
+									//sendPhotos();
+									DatabaseAPI.updateDenunciaPendent(mContext, den.getCodidenuncia());
+									if(intentsEnviaDenuncia<5) {
+										enviaDenunciaConcreta(denuncia);
+									}else{
+										intentsEnviaDenuncia=0;
+										return;
+									}
+							}
+
+						}
+
+						@Override
+						public void onError(int error) {
+							Log.e("Formulari", "Error NovaDenuncia: " + error);
+
+						}
+					}
+			);
+		}
+		else{
+			intentsEnviaDenuncia=0;
+			return;
+		}
+
+	}
+
+	private void pujaFoto(){
+
+		File path = new File("storage/emulated/0/Sixtemia/upload");
+
+		if(path.exists()) {
+			String[] fileNames = path.list();
+			final File[] files = path.listFiles();
+			int i=0;
+
+			if(files!=null) {
+				for (File file : files) {
+					final File f = file;
+					if (file.isDirectory() == false) {
+						i++;
+						try {
+							byte[] encoded = Base64.encodeBase64(FileUtils.readFileToByteArray(file));
+							String str_encoded = new String(encoded, StandardCharsets.US_ASCII);
+
+
+							PujaFotoRequest pjr = new PujaFotoRequest(
+									PreferencesGesblue.getConcessio(mContext),
+									str_encoded,
+									file.getName()
+							);
+							DatamanagerAPI.crida_PujaFoto(pjr,
+									new JSoapCallback() {
+										@Override
+										public void onSuccess(String result) {
+											File direct = new File("storage/emulated/0/Sixtemia/upload/done");
+
+											if (!direct.exists()) {
+												File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/done");
+												wallpaperDirectory.mkdirs();
+											}
+											File from = new File("storage/emulated/0/Sixtemia/upload/" + f.getName());
+											File to = new File("storage/emulated/0/Sixtemia/upload/done/" + f.getName());
+											from.renameTo(to);
+
+										}
+
+										@Override
+										public void onError(int error) {
+											Log.e("Formulari", "Error PujaFoto: " + error);
+											File direct = new File("storage/emulated/0/Sixtemia/upload/error");
+
+											if (!direct.exists()) {
+												File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/error");
+												wallpaperDirectory.mkdirs();
+											}
+											File from = new File("storage/emulated/0/Sixtemia/upload/" + f.getName());
+											File to = new File("storage/emulated/0/Sixtemia/upload/error/" + f.getName());
+											from.renameTo(to);
+
+										}
+									});
+
+						} catch (Exception e) {
+
+							e.printStackTrace();
+						}
+						if (i > 5) {
+							return;
+						}
+
+					}
+				}
+			}
+		}
+
+		else{
+			return;
+		}
+
+	}
 }
