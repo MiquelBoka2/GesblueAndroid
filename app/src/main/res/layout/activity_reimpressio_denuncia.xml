@@ -36,31 +36,9 @@
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/txt_capçalera"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txt_capçalera" />
+            app:layout_constraintTop_toTopOf="@+id/txt_capçalera"
+            app:srcCompat="@drawable/ic_reimpresio_no_fons" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/txt_version2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/roboto"
-        android:text="@string/preferencies"
-        android:textColor="@color/color_text_toolbar"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_capçalera"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txt_capçalera"
-        app:srcCompat="@drawable/ic_opciones" />
 
     <ScrollView
         android:id="@+id/scrollView4"
@@ -303,6 +281,14 @@
                     android:layout_weight="1"
                     android:visibility="visible"
                     tools:src="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/img_Foto4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    tools:srcCompat="@tools:sample/avatars" />
             </LinearLayout>
 
             <LinearLayout

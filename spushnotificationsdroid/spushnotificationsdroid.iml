@@ -137,5 +137,7 @@
     <orderEntry type="module" module-name="sbaseobjects" />
     <orderEntry type="module" module-name="sutils" />
     <orderEntry type="module" module-name="sbaseobjects" />
+    <orderEntry type="module" module-name="sutils" />
+    <orderEntry type="module" module-name="sbaseobjects" />
   </component>
 </module>

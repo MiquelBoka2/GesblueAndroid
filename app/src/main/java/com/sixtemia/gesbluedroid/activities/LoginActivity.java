@@ -1,28 +1,30 @@
 package com.sixtemia.gesbluedroid.activities;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.sixtemia.gesbluedroid.GesblueApplication;
 import com.sixtemia.gesbluedroid.R;
 import com.sixtemia.gesbluedroid.customstuff.GesblueFragmentActivity;
 import com.sixtemia.gesbluedroid.databinding.ActivityLoginBinding;
@@ -84,20 +86,14 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 import pt.joaocruz04.lib.misc.JSoapCallback;
 
 
 import static com.sixtemia.gesbluedroid.GesblueApplication.EnviamentDisponible;
-import static com.sixtemia.gesbluedroid.datamanager.DatabaseAPI.getDenunciaPendent;
 import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
 public class LoginActivity extends GesblueFragmentActivity {
@@ -353,10 +349,26 @@ public class LoginActivity extends GesblueFragmentActivity {
 			public void onClick(View v) {
 				if(mBinding.btnEsborraTot.isEnabled()){
 
+					if(adm==true){
+						CustomDialogClass cdd=new CustomDialogClass(LoginActivity.this);
+						cdd.show();
+
+					}
+					else{
+						Intent intent = new Intent(mContext,Login_Admin.class);
+						intent.putExtra("concessio",isNoLoginConcessio);
+						intent.putExtra("accio","Esborra_APP");
+						startActivityForResult(intent,RequestCode);
+					}
+
+
+
+
 
 
 
 				}
+
 			}
 		});
 
@@ -1450,7 +1462,9 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 			}
+
 		}
+		ContadorDenuncies(false);
 
 
 
@@ -1621,4 +1635,76 @@ public class LoginActivity extends GesblueFragmentActivity {
 		}
 
 	}
+
+	private void clearAppData() {
+		try {
+			// clearing app data
+			if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
+
+
+
+
+				((ActivityManager)getSystemService(ACTIVITY_SERVICE)).clearApplicationUserData(); // note: it has a return value!
+
+
+			} else {
+
+
+
+				String packageName = getApplicationContext().getPackageName();
+				Runtime runtime = Runtime.getRuntime();
+				runtime.exec("pm clear "+packageName);
+
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public class CustomDialogClass extends Dialog implements
+			android.view.View.OnClickListener {
+
+		public Activity c;
+		public Dialog d;
+		public Button yes, no;
+		public Boolean result=false;
+
+		public CustomDialogClass(Activity a) {
+			super(a);
+			// TODO Auto-generated constructor stub
+			this.c = a;
+		}
+
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			requestWindowFeature(Window.FEATURE_NO_TITLE);
+			setContentView(R.layout.custom_dialog_delete_all);
+			yes = (Button) findViewById(R.id.btn_yes);
+			no = (Button) findViewById(R.id.btn_no);
+			yes.setOnClickListener(this);
+			no.setOnClickListener(this);
+
+		}
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+				case R.id.btn_yes:
+					clearAppData();
+					break;
+				case R.id.btn_no:
+					result=false;
+					dismiss();
+					break;
+				default:
+					result=false;
+					break;
+			}
+			dismiss();
+		}
+	}
+
 }

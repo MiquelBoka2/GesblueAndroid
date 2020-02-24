@@ -9,16 +9,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.sixtemia.gesbluedroid.R;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 
 public class Login_Admin extends AppCompatActivity {
 
-    private Button btn_Conecta,hack;
+    private Button hack;
     private Context LContext= this;
     private Boolean adm,NO_Concessio;
     private ConstraintLayout lay_AdminLogged,lay_ForLoginActivity,lay_AdminOpcions;
+    private TextView txt_Accio;
+    private TextView btn_Accepta,btn_Anula;
+    private String Tipus_Accio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,10 @@ public class Login_Admin extends AppCompatActivity {
         lay_ForLoginActivity=findViewById(R.id.lay_AdminLoginActivity);
         lay_AdminOpcions=findViewById(R.id.lay_AdminOpcions);
 
+        txt_Accio=findViewById(R.id.txt_Accio);
+
+        btn_Accepta=findViewById(R.id.txt_ButoAccepta);
+        btn_Anula=findViewById(R.id.txt_ButoAnula);
 
         Bundle extras = getIntent().getExtras();
 
@@ -39,11 +47,14 @@ public class Login_Admin extends AppCompatActivity {
             adm=extras.getBoolean("adm");
             if(extras.get("concessio")!=null){
                 NO_Concessio=extras.getBoolean("concessio",true);
+                Tipus_Accio=extras.getString("accio");
             }
 
 
         }
 
+
+        /**TRIA EL DISENY**/
         if(adm){
 
             AdminActivat();
@@ -52,6 +63,13 @@ public class Login_Admin extends AppCompatActivity {
         else if(NO_Concessio!=null){
 
             FakeFragment();
+            if(Tipus_Accio.equals("Esborra_APP")){
+                txt_Accio.setText(R.string.accio_eliminar_tot);
+            }
+            else{
+                txt_Accio.setText(R.string.accio_esborrar_concessions);
+            }
+
         }
         else{
 
@@ -63,7 +81,7 @@ public class Login_Admin extends AppCompatActivity {
 
 
 
-        btn_Conecta = (Button)findViewById(R.id.btn_conectar_admin);
+
 
 
 
@@ -74,18 +92,6 @@ public class Login_Admin extends AppCompatActivity {
 
 
 
-        btn_Conecta.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(LContext,Opcions.class);
-                intent.putExtra("adm",true);
-                setResult(RESULT_OK, intent);
-                finish();
-
-            }
-        });
 
 
         hack.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +107,28 @@ public class Login_Admin extends AppCompatActivity {
             }
         });
 
+        btn_Accepta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LContext,Opcions.class);
+                intent.putExtra("adm",true);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
+
+
+        btn_Anula.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LContext,Opcions.class);
+                intent.putExtra("adm",false);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
     }
 
 
@@ -112,16 +140,16 @@ public class Login_Admin extends AppCompatActivity {
         lay_ForLoginActivity.setVisibility(View.VISIBLE);
 
         if (NO_Concessio){
-            findViewById(R.id.textViewConcessio).setVisibility(View.VISIBLE);
-            findViewById(R.id.editTextConcessio).setVisibility(View.VISIBLE);
-            findViewById(R.id.viewSwitcherTancaConcessio).setVisibility(View.GONE);
+
+            findViewById(R.id.lay_Concessio).setVisibility(View.VISIBLE);
+            findViewById(R.id.lay_Login).setVisibility(View.GONE);
 
 
         }
         else{
-            findViewById(R.id.textViewConcessio).setVisibility(View.GONE);
-            findViewById(R.id.editTextConcessio).setVisibility(View.GONE);
-            findViewById(R.id.viewSwitcherTancaConcessio).setVisibility(View.VISIBLE);
+
+            findViewById(R.id.lay_Concessio).setVisibility(View.GONE);
+            findViewById(R.id.lay_Login).setVisibility(View.VISIBLE);
 
         }
 

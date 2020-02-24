@@ -64,6 +64,10 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getCodiAgent;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getControl;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getFoto1;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getFoto2;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getFoto3;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getFoto4;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getPrefCodiExportadora;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getPrefCodiInstitucio;
 import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getPrefCodiTipusButlleta;
@@ -82,13 +86,15 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private String foto1;
 	private String foto2;
 	private String foto3;
+	private String foto4;
 
 	private Boolean adm=false;
 	private Button btn_Enviar;
 
-	public static final int RESULT_FOTO_1 = 1731;
-	public static final int RESULT_FOTO_2 = 1732;
-	public static final int RESULT_FOTO_3 = 1733;
+	public static final int RESULT_FOTO_1 = 1741;
+	public static final int RESULT_FOTO_2 = 1742;
+	public static final int RESULT_FOTO_3 = 1743;
+	public static final int RESULT_FOTO_4 = 1744;
 	public static final int RESULT_ESTANDARD = 1730;
 	private static final int REQUEST_GET_DEVICE = 1734;
 	private static final int REQUEST_MORE_OPTIONS = 1735;
@@ -102,6 +108,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private boolean img1IsActive = false;
 	private boolean img2IsActive = false;
 	private boolean img3IsActive = false;
+	private boolean img4IsActive = false;
 	//El primer cop que surti el dialeg d'enviar s'enviarà sol. Els seguents no
 	private boolean isFirstEnvia = true;
 
@@ -176,6 +183,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		savedInstanceState.putString("foto1", foto1);
 		savedInstanceState.putString("foto2", foto2);
 		savedInstanceState.putString("foto3", foto3);
+		savedInstanceState.putString("foto4", foto4);
 
 		// etc.
 
@@ -200,6 +208,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		foto1 = savedInstanceState.getString("foto1");
 		foto2 = savedInstanceState.getString("foto2");
 		foto3 = savedInstanceState.getString("foto3");
+		foto4 = savedInstanceState.getString("foto4");
 		if(foto1!=""){
 			pinta(foto1, mBinding.imageViewA);
 		}
@@ -208,6 +217,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		}
 		if(foto3!=""){
 			pinta(foto3, mBinding.imageViewC);
+		}
+		if(foto4!=""){
+			pinta(foto4, mBinding.imageViewD);
 		}
 	}
 	@Override
@@ -219,6 +231,26 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		mBinding.toolbar.icOpciones.setVisibility(View.GONE);
 		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
 		mBinding.toolbar.txtAny.setVisibility(View.GONE);
+
+		if(!getFoto1(this).equals("")){
+			foto1=getFoto1(this);
+			pinta(foto1, mBinding.imageViewA);
+		}
+		if(!getFoto2(this).equals("")){
+			foto2=getFoto2(this);
+			pinta(foto2, mBinding.imageViewB);
+		}
+		if(!getFoto3(this).equals("")){
+			foto3=getFoto3(this);
+			pinta(foto3, mBinding.imageViewC);
+		}
+		if(!getFoto4(this).equals("")){
+			foto4=getFoto4(this);
+			pinta(foto4, mBinding.imageViewD);
+		}
+
+
+
 		getFromIntent();
 		fillAll();
 		disableViews();
@@ -356,6 +388,26 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					pinta("storage/emulated/0/Sixtemia/upload/temp/"+f3.getName(), mBinding.imageViewC);
 					img3IsActive = true;
 					foto3 = "storage/emulated/0/Sixtemia/upload/temp/"+f3.getName();
+				}
+
+				final Pattern p4 = Pattern.compile(".*-"+numDenuncia+"4.jpg"); // I know I really have a stupid mistake on the regex;
+
+				File[] flists4 = f.listFiles(new FileFilter(){
+					@Override
+					public boolean accept(File file) {
+						return p4.matcher(file.getName()).matches();
+					}
+				});
+				if(flists4.length>0){
+					File f4 = flists4[0];
+
+
+					Log.e("Ruta foto4:",f4.getName());
+
+
+					pinta("storage/emulated/0/Sixtemia/upload/temp/"+f4.getName(), mBinding.imageViewD);
+					img4IsActive = true;
+					foto4 = "storage/emulated/0/Sixtemia/upload/temp/"+f4.getName();
 				}
 
 			}
@@ -504,6 +556,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		mBinding.imageViewA.setOnClickListener(this);
 		mBinding.imageViewB.setOnClickListener(this);
 		mBinding.imageViewC.setOnClickListener(this);
+		mBinding.imageViewD.setOnClickListener(this);
 		mBinding.btnEnviar.setOnClickListener(this);
 	}
 
@@ -560,6 +613,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					} else if (isEmpty(foto3)) {
 						intent.putExtra("position", "3");
 						startActivityForResult(intent, RESULT_FOTO_3);
+					} else if (isEmpty(foto4)) {
+						intent.putExtra("position", "4");
+						startActivityForResult(intent, RESULT_FOTO_4);
 					} else {
 						intent.putExtra("position", "1");
 						startActivityForResult(intent, RESULT_FOTO_1);
@@ -567,28 +623,6 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				}
 				break;
 			case R.id.buttonAccepta:
-				totalfotos=0;
-				if((foto1!=null)&&(foto1!="")) {
-					totalfotos++;
-				}
-				if((foto2!=null)&&(foto2!="")) {
-					totalfotos++;
-				}
-				if((foto3!=null)&&(foto3!="")) {
-					totalfotos++;
-				}
-
-				if((totalfotos<2)&&(recuperada==false)){
-					Utils.showCustomDialog(mContext, R.string.atencio, R.string.fotosObligatories);
-				}
-				else {
-					if (checkCamps()) {
-						print();
-					} else {
-						Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
-					}
-				}
-				break;
 			case R.id.buttonPrint:
 				totalfotos=0;
 				if((foto1!=null)&&(foto1!="")) {
@@ -612,6 +646,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					}
 				}
 				break;
+
 			case R.id.imageViewA:
 
 				if (img1IsActive) {
@@ -678,6 +713,26 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 				break;
 
+			case R.id.imageViewD:
+				if (img3IsActive) {
+					confirmPicture(mBinding.imageViewD, foto4, new Runnable() {
+						@Override
+						public void run() {
+							borra(foto4);
+							foto4 = null;
+							img4IsActive = false;
+							checkBotoCamera();
+						}
+					});
+				} else {
+					if(!recuperada) {
+						intent = new Intent(mContext, CameraActivity.class);
+						intent.putExtra("position", "4");
+						startActivityForResult(intent, RESULT_FOTO_4);
+					}
+				}
+
+				break;
 
 			case R.id.btn_Enviar:
 
@@ -689,6 +744,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					totalfotos++;
 				}
 				if((foto3!=null)&&(foto3!="")) {
+					totalfotos++;
+				}
+				if((foto4!=null)&&(foto4!="")) {
 					totalfotos++;
 				}
 
@@ -779,6 +837,14 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					img3IsActive = true;
 					checkBotoCamera();
 					break;
+
+				case RESULT_FOTO_4:
+					foto4 = data.getExtras().getString(KEY_RETURN_PATH);
+					pinta(foto4, mBinding.imageViewD);
+					img4IsActive = true;
+					checkBotoCamera();
+					break;
+
 				case RESULT_ESTANDARD:
 					Boolean semafor = (Boolean) data.getExtras().get("noSancio");
 
@@ -814,7 +880,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 	@SuppressLint("RestrictedApi")
 	private void checkBotoCamera() {
-		mBinding.btnCamera.setVisibility((isEmpty(foto1) || isEmpty(foto2) || isEmpty(foto3)) ? VISIBLE : INVISIBLE);
+		mBinding.btnCamera.setVisibility((isEmpty(foto1) || isEmpty(foto2) || isEmpty(foto3) || isEmpty(foto4)) ? VISIBLE : GONE);
 	}
 
 	private void pinta(String path, ImageView imgView) {
@@ -952,6 +1018,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		if(img3IsActive) {
 			denuncia.setFoto3(foto3);
 		}
+		if(img4IsActive) {
+			denuncia.setFoto4(foto4);
+		}
 
 		final ArrayList<Model_Denuncia> arrayDenuncies = new ArrayList<Model_Denuncia>();
 
@@ -1080,6 +1149,15 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			String fileName = photo.getName();
 			String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
 			File newFile = new File("storage/emulated/0/Sixtemia/upload/" + date + "-" + concessio + "-" + numDenuncia + "3.jpg");
+			photo.renameTo(newFile);
+		}
+
+		if (img4IsActive) {
+			File photo = new File(foto4);
+
+			String fileName = photo.getName();
+			String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+			File newFile = new File("storage/emulated/0/Sixtemia/upload/" + date + "-" + concessio + "-" + numDenuncia + "4.jpg");
 			photo.renameTo(newFile);
 		}
 	}

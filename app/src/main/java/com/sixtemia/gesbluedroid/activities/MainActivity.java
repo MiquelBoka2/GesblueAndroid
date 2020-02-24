@@ -1,11 +1,13 @@
 package com.sixtemia.gesbluedroid.activities;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import androidx.databinding.DataBindingUtil;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.sixtemia.gesbluedroid.R;
 import com.sixtemia.gesbluedroid.Sancio;
 import com.sixtemia.gesbluedroid.activities.passosformulari.Pas0ZonaActivity;
@@ -32,6 +35,7 @@ import com.sixtemia.gesbluedroid.datamanager.webservices.results.operativa.Compr
 import com.sixtemia.gesbluedroid.global.Constants;
 import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
+import com.sixtemia.sbaseobjects.tools.Preferences;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,6 +44,9 @@ import java.util.Date;
 import pt.joaocruz04.lib.misc.JSoapCallback;
 import pt.joaocruz04.lib.misc.JsoapError;
 
+import static android.text.TextUtils.isEmpty;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
 public class MainActivity extends GesblueFragmentActivity {
@@ -51,6 +58,15 @@ public class MainActivity extends GesblueFragmentActivity {
 	private TextView localitzacio;
 	private int RequestCode=0001;
 
+
+	private String foto1;
+	private String foto2;
+	private String foto3;
+	private String foto4;
+	private boolean imgAIsActive = false;
+	private boolean imgBIsActive = false;
+	private boolean imgCIsActive = false;
+	private boolean imgDIsActive = false;
 
 	private Boolean adm=false;
 
@@ -176,6 +192,10 @@ public class MainActivity extends GesblueFragmentActivity {
 				sancio.setMatricula(mBinding.editTextMatricula.getText().toString());
 
 				Intent intent = new Intent(mContext, FormulariActivity.class);
+				PreferencesGesblue.setFoto1(mContext, foto1);
+				PreferencesGesblue.setFoto2(mContext, foto2);
+				PreferencesGesblue.setFoto3(mContext, foto3);
+				PreferencesGesblue.setFoto4(mContext, foto4);
 				intent.putExtra(FormulariActivity.INTENT_SANCIO, sancio);
 				intent.putExtra(FormulariActivity.KEY_VINC_DE_MATRICULA, true);
                 intent.putExtra("adm",adm);
@@ -187,6 +207,35 @@ public class MainActivity extends GesblueFragmentActivity {
 			@Override
 			public void onClick(View view) {
 				changeViewComprovarMatricula();
+			}
+		});
+
+
+
+
+
+		mBinding.btnCamera.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent;
+				intent = new Intent(mContext, CameraActivity.class);
+
+				if (isEmpty(foto1)) {
+					intent.putExtra("position", "1");
+					startActivityForResult(intent, FormulariActivity.RESULT_FOTO_1);
+				} else if (isEmpty(foto2)) {
+					intent.putExtra("position", "2");
+					startActivityForResult(intent, FormulariActivity.RESULT_FOTO_2);
+				} else if (isEmpty(foto3)) {
+					intent.putExtra("position", "3");
+					startActivityForResult(intent, FormulariActivity.RESULT_FOTO_3);
+				} else if (isEmpty(foto4)) {
+					intent.putExtra("position", "4");
+					startActivityForResult(intent, FormulariActivity.RESULT_FOTO_4);
+				} else {
+					intent.putExtra("position", "1");
+					startActivityForResult(intent, FormulariActivity.RESULT_FOTO_1);
+				}
 			}
 		});
 
@@ -231,23 +280,49 @@ public class MainActivity extends GesblueFragmentActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
-			if(requestCode == 1){
+			switch (requestCode) {
+				case FormulariActivity.RESULT_FOTO_1:
+					foto1 = data.getExtras().getString(FormulariActivity.KEY_RETURN_PATH);
+					pinta(foto1, mBinding.imageViewA);
+					imgAIsActive = true;
+					checkBotoCamera();
+					break;
+				case FormulariActivity.RESULT_FOTO_2:
+					foto2 = data.getExtras().getString(FormulariActivity.KEY_RETURN_PATH);
+					pinta(foto2, mBinding.imageViewB);
+					imgBIsActive = true;
+					checkBotoCamera();
+					break;
+				case FormulariActivity.RESULT_FOTO_3:
+					foto3 = data.getExtras().getString(FormulariActivity.KEY_RETURN_PATH);
+					pinta(foto3, mBinding.imageViewC);
+					imgCIsActive = true;
+					checkBotoCamera();
+					break;
 
-				mBinding.tvZona.setText(PreferencesGesblue.getNomZona(mContext));
+				case FormulariActivity.RESULT_FOTO_4:
+					foto4 = data.getExtras().getString(FormulariActivity.KEY_RETURN_PATH);
+					pinta(foto4, mBinding.imageViewD);
+					imgCIsActive = true;
+					checkBotoCamera();
+					break;
+
+
+				case 1: {
+
+					mBinding.tvZona.setText(PreferencesGesblue.getNomZona(mContext));
+				}
+				case 2: {
+
+					mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
+
+				}
+
 			}
-			if(requestCode == 2) {
-
-				mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
-
-			}
-			if(requestCode==RequestCode){
-				Boolean result=data.getExtras().getBoolean("adm");
-				if (result != null) {
-					if (result) {
-						adm=result;
-
-
-					}
+			Boolean result = data.getExtras().getBoolean("adm");
+			if (result != null) {
+				if (result) {
+					adm = result;
 				}
 			}
 			checkAdmin(adm);
@@ -338,9 +413,10 @@ public class MainActivity extends GesblueFragmentActivity {
 
 						    estatComprovacio = 1;
 
-							changeViewNoMultable(getResources().getString(R.string.estacionament_correcte) + System.getProperty("line.separator") + Math.round(temps/60) + " " + getResources().getString(R.string.estacionament_correcte2));
+							mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps/60));
+							mBinding.txtInfo.setText(getResources().getString(R.string.estacionament_correcte2));
 						}else{
-							changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
+							mBinding.txtInfo.setText(getResources().getString(R.string.estacionament_correcte));
 							estatComprovacio = 2;
 						}
 
@@ -349,11 +425,18 @@ public class MainActivity extends GesblueFragmentActivity {
 						Log.d("Temps:",""+response.getTemps());
 						if((temps<0)&&(temps>-50400)){
 							if(temps>-3600) {
-								changeViewMultable(getResources().getString(R.string.estacionament_incorrecte) + System.getProperty("line.separator") + Math.round(temps / -60) + " " + getResources().getString(R.string.estacionament_incorrecte2));
+
+								mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps / -60));
+								mBinding.txtInfo.setText(getResources().getString(R.string.estacionament_incorrecte2));
+
+
                                 estatComprovacio = 3;
 							}
 							else{
-								changeViewMultable(getResources().getString(R.string.estacionament_incorrecte) + System.getProperty("line.separator") + Math.round(temps / -60 / 60) + " " + getResources().getString(R.string.estacionament_incorrecte3));
+								mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps / -60 / 60));
+								mBinding.txtInfo.setText(getResources().getString(R.string.estacionament_incorrecte3));
+
+
                                 estatComprovacio = 4;
 							}
 						}else{
@@ -557,6 +640,37 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.editTextMatricula.setEnabled(true);
 		mBinding.buttonComprovar.setEnabled(true);
 		mBinding.buttonComprovar.setVisibility(View.VISIBLE);
+
+	}
+
+
+	private void pinta(String path, ImageView imgView) {
+		if(!isEmpty(path)) {
+			Glide.with(mContext)
+					.load(path)
+					.asBitmap()
+					.into(new BitmapImageViewTarget(imgView) {
+						@Override
+						protected void setResource(Bitmap resource) {
+							//Play with bitmap
+							super.setResource(resource);
+						}
+					});
+
+
+			anima(mBinding.getRoot());
+			imgView.setVisibility(VISIBLE);
+		}
+	}
+
+	@SuppressLint("RestrictedApi")
+	private void checkBotoCamera() {
+		if(!isEmpty(foto1) & !isEmpty(foto2) & !isEmpty(foto3) & !isEmpty(foto4)){
+			mBinding.btnCamera.setVisibility(View.GONE);
+		}
+		else{
+			mBinding.btnCamera.setVisibility(VISIBLE);
+		}
 
 	}
 

@@ -182,47 +182,60 @@
                         android:layout_centerVertical="true"
 	                    android:gravity="center">
 
-	                    <FrameLayout
-		                    android:layout_width="0dip"
-		                    android:layout_height="wrap_content"
-		                    android:layout_weight="1">
+						<FrameLayout
+							android:layout_width="0dip"
+							android:layout_height="wrap_content"
+							android:layout_weight="1">
 
-		                    <ImageView
-			                    android:id="@+id/imageViewA"
-			                    android:layout_width="70dp"
-			                    android:layout_height="50dp"
-			                    android:src="@drawable/ic_add_a_photo_black_24dp"/>
+							<ImageView
+								android:id="@+id/imageViewA"
+								android:layout_width="70dp"
+								android:layout_height="50dp"
+								android:src="@drawable/ic_add_a_photo_black_24dp" />
 
-	                    </FrameLayout>
+						</FrameLayout>
+
+						<FrameLayout
+							android:layout_width="0dip"
+							android:layout_height="wrap_content"
+							android:layout_weight="1">
+
+							<ImageView
+								android:id="@+id/imageViewB"
+								android:layout_width="70dp"
+								android:layout_height="50dp"
+								android:src="@drawable/ic_add_a_photo_black_24dp" />
+
+						</FrameLayout>
+
+						<FrameLayout
+							android:layout_width="0dip"
+							android:layout_height="wrap_content"
+							android:layout_weight="1">
+
+							<ImageView
+								android:id="@+id/imageViewC"
+								android:layout_width="70dp"
+								android:layout_height="50dp"
+								android:src="@drawable/ic_add_a_photo_black_24dp" />
+
+						</FrameLayout>
+
+						<FrameLayout
+							android:layout_width="0dp"
+							android:layout_height="match_parent"
+							android:layout_weight="1">
+
+							<ImageView
+								android:id="@+id/imageViewD"
+								android:layout_width="70dp"
+								android:layout_height="50dp"
+								android:src="@drawable/ic_add_a_photo_black_24dp" />
+
+						</FrameLayout>
 
 
-	                    <FrameLayout
-		                    android:layout_width="0dip"
-		                    android:layout_height="wrap_content"
-		                    android:layout_weight="1">
-
-		                    <ImageView
-			                    android:id="@+id/imageViewB"
-			                    android:layout_width="70dp"
-			                    android:layout_height="50dp"
-			                    android:src="@drawable/ic_add_a_photo_black_24dp"/>
-
-	                    </FrameLayout>
-
-	                    <FrameLayout
-		                    android:layout_width="0dip"
-		                    android:layout_height="wrap_content"
-		                    android:layout_weight="1">
-
-		                    <ImageView
-			                    android:id="@+id/imageViewC"
-			                    android:layout_width="70dp"
-			                    android:layout_height="50dp"
-			                    android:src="@drawable/ic_add_a_photo_black_24dp" />
-
-	                    </FrameLayout>
-
-                    </LinearLayout>
+					</LinearLayout>
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
 	                    android:id="@+id/btnCamera"

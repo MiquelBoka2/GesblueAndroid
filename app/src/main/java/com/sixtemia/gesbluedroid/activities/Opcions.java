@@ -334,15 +334,20 @@ public class Opcions extends AppCompatActivity {
                             }
                             liniar_progress.dismiss();
                             EnviamentDisponible=true;
-                            ContadorDenuncies(false);
+                            Enviaments_Pendents.setVisibility(View.GONE);
                         }
+
 
 
 
 
                     }
                     else{
+                        Toast noConexio =
+                                Toast.makeText(getApplicationContext(),
+                                        getResources().getString(R.string.sense_conexio), Toast.LENGTH_SHORT);
 
+                        noConexio.show();
                     }
                 }
 

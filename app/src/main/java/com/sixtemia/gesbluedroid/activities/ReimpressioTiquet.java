@@ -69,13 +69,15 @@ public class ReimpressioTiquet extends AppCompatActivity {
     private String foto1;
     private String foto2;
     private String foto3;
+    private String foto4;
     private boolean img1IsActive = false;
     private boolean img2IsActive = false;
     private boolean img3IsActive = false;
+    private boolean img4IsActive = false;
     private String aux;
     private TextView txt_Matricula,txt_Tipus,txt_Marca,txt_Model,txt_Color,txt_Sancio,txt_Carrer,txt_Num;
     private Button btn_Imprimir;
-    private ImageView img_Marca,img_Foto1,img_Foto2,img_Foto3;
+    private ImageView img_Marca,img_Foto1,img_Foto2,img_Foto3,img_Foto4;
     private Spinner spn_Idioma;
     private View view_Color;
     private boolean recuperada;
@@ -222,6 +224,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
         img_Foto1=this.findViewById(R.id.img_Foto1);
         img_Foto2=this.findViewById(R.id.img_Foto2);
         img_Foto3=this.findViewById(R.id.img_Foto3);
+        img_Foto4=this.findViewById(R.id.img_Foto4);
 
         spn_Idioma=this.findViewById(R.id.spn_idioma);
 
@@ -431,6 +434,26 @@ public class ReimpressioTiquet extends AppCompatActivity {
                 pinta("storage/emulated/0/Sixtemia/upload/temp/"+f3.getName(), img_Foto3);
                 img3IsActive = true;
                 foto3 = "storage/emulated/0/Sixtemia/upload/temp/"+f3.getName();
+            }
+
+            final Pattern p4 = Pattern.compile(".*-"+numDenuncia+"4.jpg"); // I know I really have a stupid mistake on the regex;
+
+            File[] flists4 = f.listFiles(new FileFilter(){
+                @Override
+                public boolean accept(File file) {
+                    return p4.matcher(file.getName()).matches();
+                }
+            });
+            if(flists4.length>0){
+                File f4 = flists3[0];
+
+
+                Log.e("Ruta foto4:",f4.getName());
+
+
+                pinta("storage/emulated/0/Sixtemia/upload/temp/"+f4.getName(), img_Foto4);
+                img4IsActive = true;
+                foto4 = "storage/emulated/0/Sixtemia/upload/temp/"+f4.getName();
             }
 
         }
