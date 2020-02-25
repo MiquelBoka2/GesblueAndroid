@@ -39,7 +39,10 @@ import com.sixtemia.sbaseobjects.tools.Preferences;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import pt.joaocruz04.lib.misc.JSoapCallback;
 import pt.joaocruz04.lib.misc.JsoapError;
@@ -69,6 +72,10 @@ public class MainActivity extends GesblueFragmentActivity {
 	private boolean imgDIsActive = false;
 
 	private Boolean adm=false;
+
+	private Timer contador;
+
+	private long DataCaducitat;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -250,6 +257,9 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 	}
+
+
+	/** Actualitza el UI en funcio de ADMIN**/
 	private void checkAdmin(Boolean adm) {
 
 		if (adm){
@@ -280,7 +290,11 @@ public class MainActivity extends GesblueFragmentActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
+
+
 			switch (requestCode) {
+
+				/**ESPEREM EL RESULTAT DE LES FOTOS**/
 				case FormulariActivity.RESULT_FOTO_1:
 					foto1 = data.getExtras().getString(FormulariActivity.KEY_RETURN_PATH);
 					pinta(foto1, mBinding.imageViewA);
@@ -308,6 +322,9 @@ public class MainActivity extends GesblueFragmentActivity {
 					break;
 
 
+
+
+				/**ESPEREM EL RESULTAT DE LA ZONA i EL CARRER**/
 				case 1: {
 
 					mBinding.tvZona.setText(PreferencesGesblue.getNomZona(mContext));
@@ -319,6 +336,7 @@ public class MainActivity extends GesblueFragmentActivity {
 				}
 
 			}
+			/** CHECK ADMIN**/
 			Boolean result = data.getExtras().getBoolean("adm");
 			if (result != null) {
 				if (result) {
@@ -329,56 +347,11 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		}
 	}
-	/**public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
-		this.menu = menu;
 
-		String menuTitle = "";
-		try {
-			PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
-			menuTitle = pInfo.versionName;
-		} catch (PackageManager.NameNotFoundException e) {
-			e.printStackTrace();
-		}
-		menu.findItem(R.id.txt_Versio).setTitle(menuTitle);
-		return true;
-	}**/
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-			case R.id.btnLogout:
-				Utils.showCustomDialog(mContext, R.string.atencio, R.string.deslog, R.string.dacord, R.string.enrere, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						PreferencesGesblue.setUserName(mContext,"");
-						PreferencesGesblue.setPassword(mContext,"");
-						PreferencesGesblue.setConcessioString(mContext,"");
-						finish();
-					}
-				}, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-
-					}
-				}, false);
-				return true;
-
-			case R.id.buttonRecuperarDenuncia:
-				Intent intent = new Intent(mContext, RecuperarDenunciaActivity.class);
-				startActivity(intent);
-
-			default:
-				return true;
-
-		}
-	}
 	private void comprovarMatricula(String matricula) {
 		final String mat = matricula;
 		amagarTeclat();
-		mBinding.viewSwitcherComprovaAnim.showNext();
-		mBinding.editTextMatricula.setEnabled(false);
+
 
 		final boolean multable = true;
 		Log.d("crida0", Constants.OPERATIVA_COMPROVAMATRICULA_METHOD);
@@ -397,9 +370,36 @@ public class MainActivity extends GesblueFragmentActivity {
 					return;
 				}
 
-				mBinding.viewSwitcherComprovaAnim.showNext();
+				Long data =Utils.getCurrentTimeLong(mContext);
 
 				Long temps = response.getTemps();
+				DataCaducitat=data;
+
+
+				//Dies
+				if(temps/60/60/24>0){
+					DataCaducitat=DataCaducitat+Math.round((temps/60/60/24))*1000000;
+				}
+
+				//Hores
+				if(temps/60/60>0){
+					DataCaducitat=DataCaducitat+Math.round((temps/60/60))*10000;
+				}
+
+				//Minuts
+				if(temps/60>0){
+					DataCaducitat=DataCaducitat+Math.round((temps/60))*100;
+				}
+				//Segons
+				else{
+					DataCaducitat=DataCaducitat+Math.round((temps));
+				}
+
+
+
+
+
+
 
 
 				Log.d("EstatComprovacio",""+ PreferencesGesblue.getEstatComprovacio(mContext));
@@ -414,7 +414,9 @@ public class MainActivity extends GesblueFragmentActivity {
 						    estatComprovacio = 1;
 
 							mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps/60));
+							CridarThreadContador();
 							mBinding.txtInfo.setText(getResources().getString(R.string.estacionament_correcte2));
+							changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
 						}else{
 							mBinding.txtInfo.setText(getResources().getString(R.string.estacionament_correcte));
 							estatComprovacio = 2;
@@ -528,8 +530,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
 
-		mBinding.viewBtnComprobar.showNext();
-		mBinding.buttonComprovar.setVisibility(View.GONE);
+		mBinding.viewBtnComprobar.setVisibility(View.GONE);
 
 	}
 
@@ -644,6 +645,12 @@ public class MainActivity extends GesblueFragmentActivity {
 	}
 
 
+
+
+
+
+
+
 	private void pinta(String path, ImageView imgView) {
 		if(!isEmpty(path)) {
 			Glide.with(mContext)
@@ -675,6 +682,36 @@ public class MainActivity extends GesblueFragmentActivity {
 	}
 
 
+	private void CridarThreadContador(){
 
+
+		contador = new Timer();
+		contador.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				TimerMethod();
+			}
+
+		}, 0, 500);
+	}
+
+	private void TimerMethod()
+	{
+
+		this.runOnUiThread(Timer_Tick);
+	}
+
+
+	private Runnable Timer_Tick = new Runnable() {
+		public void run() {
+
+			long TempsResultant= DataCaducitat -Utils.getCurrentTimeLong(mContext);
+			mBinding.txtTemps.setText(TempsResultant+"");
+			//This method runs in the same thread as the UI.
+
+			//Do something to the UI thread here
+
+		}
+	};
 
 }
