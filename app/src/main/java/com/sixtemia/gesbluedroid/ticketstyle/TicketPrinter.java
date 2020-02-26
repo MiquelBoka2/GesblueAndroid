@@ -305,12 +305,15 @@ public class TicketPrinter {
             //------------------
             // Codi barres estàndard
             //------------------
-            if(PreferencesGesblue.getCodiBarresVisible(_context) && !TextUtils.isEmpty(butlleta)) {
-                int heightCodiBarres = LINE_HEIGHT*BARCODE_NUM_LINES;
-                printer.drawPageFrame(0, y, PAGE_WIDTH, heightCodiBarres + 2, Printer.FILL_WHITE, 1);
-                printer.setBarcode(Printer.ALIGN_CENTER, false, 2, Printer.HRI_BELOW, heightCodiBarres);
-                printer.printBarcode(Printer.BARCODE_EAN128, butlleta);
-                y = newLine(y, BARCODE_NUM_LINES + 1f);
+            if(PreferencesGesblue.getConcessio(_context)!=4){//Codi de barres estàndard excepte Banyoles
+
+                if(PreferencesGesblue.getCodiBarresVisible(_context) && !TextUtils.isEmpty(butlleta)) {
+                    int heightCodiBarres = LINE_HEIGHT * BARCODE_NUM_LINES;
+                    printer.drawPageFrame(0, y, PAGE_WIDTH, heightCodiBarres + 2, Printer.FILL_WHITE, 1);
+                    printer.setBarcode(Printer.ALIGN_CENTER, false, 2, Printer.HRI_BELOW, heightCodiBarres);
+                    printer.printBarcode(Printer.BARCODE_EAN128, butlleta);
+                    y = newLine(y, BARCODE_NUM_LINES + 1f);
+                }
             }
 
             //------------------
@@ -362,28 +365,13 @@ public class TicketPrinter {
 
             if(PreferencesGesblue.getTextPeuVisible(_context)) {
                 if((PreferencesGesblue.getConcessio(_context)!=2)||((PreferencesGesblue.getConcessio(_context)==2)&&(PreferencesGesblue.getCodiZona(_context)!=5))) {
-                   /**
-                    if(PreferencesGesblue.getConcessio(_context)==4){
 
-                        Bitmap bitmap = printConfiguration.getImatgePeu();
-                        int widthBitmap = bitmap.getWidth();
-                        int heightBitmap = bitmap.getHeight();
-                        int[] argb = new int[widthBitmap * heightBitmap];
-                        bitmap.getPixels(argb, 0, widthBitmap, 0, 0, widthBitmap, heightBitmap);
-                        bitmap.recycle();
-                        printer.printImage(argb, widthBitmap, heightBitmap, Printer.ALIGN_LEFT, true);
-                        printer.flush();
-                        printer.printTaggedText("{reset}" + "{br}", CHARSET_ENCODING);
-                        y = newLine(y, 1);
-                    }
-                    else {
-                        String textPeu = printConfiguration.getTextpeu();
-                        numLines = calcNumLines(textPeu, MAX_CHAR_LINE);
+                    String textPeu = printConfiguration.getTextpeu();
+                    numLines = calcNumLines(textPeu, MAX_CHAR_LINE);
 
-                        printer.printTaggedText("{reset}{left}{s}" + textPeu + "{br}", CHARSET_ENCODING);
-                        y = newLine(y, numLines + 1);
-                    }
-                    **/
+                    printer.printTaggedText("{reset}{left}{s}" + textPeu + "{br}", CHARSET_ENCODING);
+                    y = newLine(y, numLines + 1);
+
 
                 }
             }
