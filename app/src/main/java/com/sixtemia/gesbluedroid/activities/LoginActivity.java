@@ -486,10 +486,12 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 		if (adm){
 			mBinding.toolbar.imgUnlock.setVisibility(View.VISIBLE);
+			mBinding.toolbar.toolbarBackground.setBackgroundColor(getResources().getColor(R.color.admin));
 			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.admin));
 		}
 		else{
 			mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
+			mBinding.toolbar.toolbarBackground.setBackgroundColor(getResources().getColor(R.color.barra_estat));
 			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.barra_estat));
 		}
 	}

@@ -292,5 +292,8 @@ secretari/a de l\'Ajuntament.</string>
     <string name="esborra_tot_confimacio">Estàs segur que vols esborrar tot?</string>
 
 
+    <string name="credencials_incorrectes">Credencials incorrecta</string>
+
+
 
 </resources>

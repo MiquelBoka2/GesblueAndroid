@@ -362,6 +362,7 @@ public class TicketPrinter {
 
             if(PreferencesGesblue.getTextPeuVisible(_context)) {
                 if((PreferencesGesblue.getConcessio(_context)!=2)||((PreferencesGesblue.getConcessio(_context)==2)&&(PreferencesGesblue.getCodiZona(_context)!=5))) {
+                   /**
                     if(PreferencesGesblue.getConcessio(_context)==4){
 
                         Bitmap bitmap = printConfiguration.getImatgePeu();
@@ -382,6 +383,7 @@ public class TicketPrinter {
                         printer.printTaggedText("{reset}{left}{s}" + textPeu + "{br}", CHARSET_ENCODING);
                         y = newLine(y, numLines + 1);
                     }
+                    **/
 
                 }
             }

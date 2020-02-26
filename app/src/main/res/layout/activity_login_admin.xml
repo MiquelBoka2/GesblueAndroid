@@ -21,7 +21,7 @@
         android:id="@+id/lay_AdminLoginActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fake_fons"
@@ -30,12 +30,12 @@
             android:clickable="false"
             android:focusableInTouchMode="false"
             android:longClickable="false"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -485,7 +485,6 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto"
                     android:lineSpacingExtra="8sp"
-                    android:text="@string/aquesta_accio"
                     android:textAlignment="center"
                     android:textColor="@color/color_text_toolbar"
                     android:textSize="16sp"
@@ -503,7 +502,6 @@
                     android:layout_marginEnd="24dp"
                     android:fontFamily="@font/roboto"
                     android:lineSpacingExtra="8sp"
-                    android:text="@string/accio_esborrar_concessions"
                     android:textAlignment="center"
                     android:textColor="@color/color_text_toolbar"
                     android:textSize="16sp"
@@ -521,7 +519,6 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/roboto"
                     android:lineSpacingExtra="8sp"
-                    android:text="@string/neccesita_permisos"
                     android:textAlignment="center"
                     android:textColor="@color/color_text_toolbar"
                     android:textSize="16sp"
@@ -553,6 +550,20 @@
                     app:layout_constraintTop_toBottomOf="@+id/txt_Neccesita_permisos">
 
                     <TextView
+                        android:id="@+id/tbox_Incorecte"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/credencials_incorrectes"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@+id/txt_ButoAccepta"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_pass" />
+
+                    <TextView
                         android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -560,14 +571,14 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="8dp"
                         android:text="@string/usuari"
-                        app:layout_constraintBottom_toTopOf="@+id/editText"
+                        app:layout_constraintBottom_toTopOf="@+id/txt_user"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/editText"
+                        android:id="@+id/txt_user"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -582,7 +593,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/txt_pass"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -604,14 +615,13 @@
                         android:layout_marginTop="16dp"
                         android:text="@string/password"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editText" />
+                        app:layout_constraintTop_toBottomOf="@+id/txt_user" />
 
                     <TextView
                         android:id="@+id/txt_ButoAnula"
                         style="@style/Button.White"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginBottom="8dp"
                         android:fontFamily="@font/roboto"
@@ -620,7 +630,7 @@
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+                        app:layout_constraintTop_toTopOf="@+id/txt_ButoAccepta" />
 
                     <TextView
                         android:id="@+id/txt_ButoAccepta"
@@ -630,174 +640,19 @@
                         android:layout_marginStart="32dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="32dp"
-                        android:layout_marginBottom="8dp"
                         android:fontFamily="@font/roboto"
                         android:text="@string/accepta"
                         android:textColor="@color/admin"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/txt_ButoAnula"
+                        app:layout_constraintHorizontal_bias="0.625"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+                        app:layout_constraintTop_toBottomOf="@+id/tbox_Incorecte" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/lay_AdminOpcions"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/lay_Inside"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:background="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Capçalera">
-
-            <EditText
-                android:id="@+id/txt_admin_user"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="24dp"
-                android:ems="10"
-                android:hint="@string/user_admin"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tbox_Usuari" />
-
-            <EditText
-                android:id="@+id/txt_admin_password"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="24dp"
-                android:ems="10"
-                android:hint="@string/password_admin"
-                android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tbox_Pasword" />
-
-            <TextView
-                android:id="@+id/tbox_Pasword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/password"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_admin_user" />
-
-            <TextView
-                android:id="@+id/txt_ButoAnula2"
-                style="@style/Button.White"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/anula"
-                android:textColor="@color/colorToolBar"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txt_ButoAccepta2"
-                app:layout_constraintTop_toBottomOf="@+id/txt_admin_password"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/txt_ButoAccepta2"
-                style="@style/Button.White"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/accepta"
-                android:textColor="@color/admin"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/txt_ButoAnula2"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_admin_password"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/tbox_Usuari"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/usuari"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="218dp" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <Button
-            android:id="@+id/btn_Trampes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HACKS"
-            tools:layout_editor_absoluteX="291dp"
-            tools:layout_editor_absoluteY="639dp" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/Capçalera"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:background="@color/barra_superior"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/txt_capçalera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/Administrador"
-                android:textColor="@color/color_text_toolbar"
-                android:textSize="28sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView9"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/txt_capçalera"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_admin_no_fons" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

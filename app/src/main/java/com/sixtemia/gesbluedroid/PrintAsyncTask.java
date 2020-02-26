@@ -69,9 +69,9 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 					.setData(createCalendar(0))
 					.setMatricula(sancio.getMatricula());
 
-			if (PreferencesGesblue.getConcessio(mContext) == 4) {//Banyoles
+			/**if (PreferencesGesblue.getConcessio(mContext) == 4) {//Banyoles
 				ticketConfiguration.setImatgePeu(Picasso.with(mContext).load(PreferencesGesblue.getImatgePeu(mContext)).get());
-			}
+			}**/
 			try {
 				if (sancio.getModelMarca() != null && !TextUtils.isEmpty(sancio.getModelMarca().getImatgemarca()))
 					ticketConfiguration = ticketConfiguration.setLogoCotxe(Picasso.with(mContext).load(sancio.getModelMarca().getImatgemarca()).get());

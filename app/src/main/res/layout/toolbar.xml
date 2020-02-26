@@ -2,18 +2,20 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbarBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/barra_estat">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/toolbarContainer"
-            android:background="#0000"
-	        android:elevation="0dp"
-	        app:elevation="0dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#0000"
+            android:elevation="0dp"
+            app:elevation="0dp">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarObject"
@@ -70,15 +72,14 @@
         <TextView
             android:id="@+id/txt_Localitzacio_Estat"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:background="@color/barra_estat"
             android:fontFamily="@font/roboto"
             android:textAlignment="center"
             android:textColor="@color/color_text_toolbar"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/toolbarContainer"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/img_unlock"
             app:layout_constraintStart_toStartOf="@+id/toolbarContainer"
             app:layout_constraintTop_toBottomOf="@+id/toolbarContainer"
             app:layout_constraintVertical_bias="0.0" />
@@ -89,12 +90,14 @@
             android:layout_height="wrap_content"
             android:foregroundGravity="center"
             android:textAlignment="center"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/ic_opciones"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/ic_opciones"
             app:layout_constraintTop_toBottomOf="@+id/toolbarContainer"
-            app:srcCompat="@drawable/ic_unlock" />
+            app:srcCompat="@drawable/ic_unlock"
+            tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

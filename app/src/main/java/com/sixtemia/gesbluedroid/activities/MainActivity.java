@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -75,7 +76,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	private Timer contador;
 
-	private long DataCaducitat;
+	private long dataCaducitat_milisegons;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -264,11 +265,13 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		if (adm){
 			mBinding.toolbar.imgUnlock.setVisibility(View.VISIBLE);
+			mBinding.toolbar.toolbarBackground.setBackgroundColor(getResources().getColor(R.color.admin));
 			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.admin));
 		}
 		else{
 			mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
 			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.barra_estat));
+			mBinding.toolbar.toolbarBackground.setBackgroundColor(getResources().getColor(R.color.barra_estat));
 		}
 	}
 
@@ -373,27 +376,14 @@ public class MainActivity extends GesblueFragmentActivity {
 				Long data =Utils.getCurrentTimeLong(mContext);
 
 				Long temps = response.getTemps();
-				DataCaducitat=data;
+
+				Long dataCaducitat_milisegons=(System.currentTimeMillis()/1000)+temps;
 
 
-				//Dies
-				if(temps/60/60/24>0){
-					DataCaducitat=DataCaducitat+Math.round((temps/60/60/24))*1000000;
-				}
 
-				//Hores
-				if(temps/60/60>0){
-					DataCaducitat=DataCaducitat+Math.round((temps/60/60))*10000;
-				}
 
-				//Minuts
-				if(temps/60>0){
-					DataCaducitat=DataCaducitat+Math.round((temps/60))*100;
-				}
-				//Segons
-				else{
-					DataCaducitat=DataCaducitat+Math.round((temps));
-				}
+
+
 
 
 
@@ -429,6 +419,7 @@ public class MainActivity extends GesblueFragmentActivity {
 							if(temps>-3600) {
 
 								mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps / -60));
+								CridarThreadContador();
 								mBinding.txtInfo.setText(getResources().getString(R.string.estacionament_incorrecte2));
 
 
@@ -436,6 +427,7 @@ public class MainActivity extends GesblueFragmentActivity {
 							}
 							else{
 								mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps / -60 / 60));
+								CridarThreadContador();
 								mBinding.txtInfo.setText(getResources().getString(R.string.estacionament_incorrecte3));
 
 
@@ -587,6 +579,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.buttonComprovar.setVisibility(View.GONE);
 	}
+
 	private void changeViewNoComprovat() {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
 
@@ -705,8 +698,24 @@ public class MainActivity extends GesblueFragmentActivity {
 	private Runnable Timer_Tick = new Runnable() {
 		public void run() {
 
-			long TempsResultant= DataCaducitat -Utils.getCurrentTimeLong(mContext);
-			mBinding.txtTemps.setText(TempsResultant+"");
+			String dateString;
+			if (dataCaducitat_milisegons>Utils.getCurrentTimeLong(mContext)){
+
+				long TempsResultant=  dataCaducitat_milisegons-System.currentTimeMillis();
+
+				dateString = DateFormat.format("hh:mm:ss", new Date(TempsResultant)).toString();
+
+			}
+			else{
+
+				long TempsResultant=  System.currentTimeMillis()-dataCaducitat_milisegons;
+
+				dateString = DateFormat.format("hh:mm:ss", new Date(TempsResultant)).toString();
+			}
+
+
+
+			mBinding.txtTemps.setText(dateString);
 			//This method runs in the same thread as the UI.
 
 			//Do something to the UI thread here
