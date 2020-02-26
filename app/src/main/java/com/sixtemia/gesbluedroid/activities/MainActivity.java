@@ -380,18 +380,6 @@ public class MainActivity extends GesblueFragmentActivity {
 				Long dataCaducitat_milisegons=(System.currentTimeMillis()/1000)+temps;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 				Log.d("EstatComprovacio",""+ PreferencesGesblue.getEstatComprovacio(mContext));
 
 				int estatComprovacio = 0;
@@ -405,10 +393,10 @@ public class MainActivity extends GesblueFragmentActivity {
 
 							mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps/60));
 							CridarThreadContador();
-							mBinding.txtInfo.setText(getResources().getString(R.string.estacionament_correcte2));
+							mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
 							changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
 						}else{
-							mBinding.txtInfo.setText(getResources().getString(R.string.estacionament_correcte));
+							mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
 							estatComprovacio = 2;
 						}
 
@@ -420,7 +408,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 								mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps / -60));
 								CridarThreadContador();
-								mBinding.txtInfo.setText(getResources().getString(R.string.estacionament_incorrecte2));
+								mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_incorrecte));
 
 
                                 estatComprovacio = 3;
@@ -428,7 +416,7 @@ public class MainActivity extends GesblueFragmentActivity {
 							else{
 								mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps / -60 / 60));
 								CridarThreadContador();
-								mBinding.txtInfo.setText(getResources().getString(R.string.estacionament_incorrecte3));
+								mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_incorrecte));
 
 
                                 estatComprovacio = 4;
@@ -584,6 +572,8 @@ public class MainActivity extends GesblueFragmentActivity {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
 
 
+		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.blau));
+
 		mBinding.txtEstatEstacionament.setText(R.string.estacionament_sense_internet);
 		mBinding.layImatges.setVisibility(View.GONE);
 		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
@@ -705,13 +695,21 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				dateString = DateFormat.format("hh:mm:ss", new Date(TempsResultant)).toString();
 
+
+				mBinding.txtInfo.setText(getResources().getString(R.string.temps_Restant));
+
 			}
 			else{
 
 				long TempsResultant=  System.currentTimeMillis()-dataCaducitat_milisegons;
 
-				dateString = DateFormat.format("hh:mm:ss", new Date(TempsResultant)).toString();
+				dateString = DateFormat.format("hh 'H':mm'M':ss'S'", new Date(TempsResultant)).toString();
+
+
+				mBinding.txtInfo.setText(getResources().getString(R.string.temps_Excedit));
+
 			}
+
 
 
 
