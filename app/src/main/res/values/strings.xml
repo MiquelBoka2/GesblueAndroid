@@ -6,6 +6,7 @@
     <string name="loginActivity_label">Login</string>
     <string name="formulariActivity_label">Sanció</string>
     <string name="mainActivity_label">Matrícula</string>
+    <string name="pas0ZonaActivity_label">Sanció - ZONA</string>
     <string name="pas1TipusActivity_label">Sanció - TIPUS DE VEHICLE</string>
     <string name="pas2MarcaActivity_label">Sanció - MARCA</string>
     <string name="pas3ModelActivity_label">Sanció - MODEL</string>

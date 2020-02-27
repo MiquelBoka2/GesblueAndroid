@@ -108,38 +108,6 @@
 							android:layout_marginBottom="10dp">
 
 							<LinearLayout
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:orientation="horizontal"
-								android:weightSum="2"
-								app:layout_constraintBottom_toBottomOf="parent"
-								app:layout_constraintEnd_toEndOf="parent"
-								app:layout_constraintStart_toStartOf="parent"
-								app:layout_constraintTop_toTopOf="parent"
-								tools:visibility="visible">
-
-
-								<ViewSwitcher
-									android:id="@+id/viewSwitcherTancaConcessio"
-									android:layout_width="match_parent"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:inAnimation="@android:anim/fade_in"
-									android:outAnimation="@anim/notifications_fade_out">
-
-									<Button
-										android:id="@+id/buttonTancaConcessio"
-										android:layout_width="match_parent"
-										android:layout_height="wrap_content"
-										android:layout_margin="4dp"
-										android:text="@string/tanca_concessio" />
-
-
-								</ViewSwitcher>
-
-							</LinearLayout>
-
-							<LinearLayout
 								android:id="@+id/linearLayout"
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
@@ -160,6 +128,7 @@
 									android:inputType="number"
 									android:textColor="@color/editTextFontColor"
 									android:textSize="@dimen/editTextSize_login"
+									android:visibility="visible"
 									app:clearDrawable="@drawable/edittext_delete" />
 
 								<ViewSwitcher

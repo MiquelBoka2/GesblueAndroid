@@ -51,6 +51,7 @@ import pt.joaocruz04.lib.misc.JsoapError;
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.sixtemia.gesbluedroid.global.PreferencesGesblue.getFoto1;
 import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
 public class MainActivity extends GesblueFragmentActivity {
@@ -257,6 +258,14 @@ public class MainActivity extends GesblueFragmentActivity {
 		Log.d("Num llistaAbonats local",""+listLogs2.size());*/
 
 
+
+
+		PreferencesGesblue.setCodiCarrer(mContext, 0);
+		PreferencesGesblue.setNomCarrer(mContext, null);
+		PreferencesGesblue.setCodiZona(mContext, 0);
+		PreferencesGesblue.setNomZona(mContext, null);
+		mBinding.tvZona.setText(PreferencesGesblue.getZonaDefaultValue(mContext));
+		mBinding.tvCarrer.setText(PreferencesGesblue.getCarrerDefaultValue(mContext));
 	}
 
 
@@ -303,6 +312,7 @@ public class MainActivity extends GesblueFragmentActivity {
 					pinta(foto1, mBinding.imageViewA);
 					imgAIsActive = true;
 					checkBotoCamera();
+
 					break;
 				case FormulariActivity.RESULT_FOTO_2:
 					foto2 = data.getExtras().getString(FormulariActivity.KEY_RETURN_PATH);
@@ -320,7 +330,7 @@ public class MainActivity extends GesblueFragmentActivity {
 				case FormulariActivity.RESULT_FOTO_4:
 					foto4 = data.getExtras().getString(FormulariActivity.KEY_RETURN_PATH);
 					pinta(foto4, mBinding.imageViewD);
-					imgCIsActive = true;
+					imgDIsActive = true;
 					checkBotoCamera();
 					break;
 
@@ -693,7 +703,10 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				long TempsResultant=  dataCaducitat_milisegons-System.currentTimeMillis();
 
-				dateString = DateFormat.format("hh:mm:ss", new Date(TempsResultant)).toString();
+
+				dateString = DateFormat.format("hh", new Date(TempsResultant)).toString()+"H "+
+						DateFormat.format("mm", new Date(TempsResultant)).toString()+"M "+
+						DateFormat.format("ss", new Date(TempsResultant)).toString()+"S";
 
 
 				mBinding.txtInfo.setText(getResources().getString(R.string.temps_Restant));
@@ -703,7 +716,9 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				long TempsResultant=  System.currentTimeMillis()-dataCaducitat_milisegons;
 
-				dateString = DateFormat.format("hh 'H':mm'M':ss'S'", new Date(TempsResultant)).toString();
+				dateString = DateFormat.format("hh", new Date(TempsResultant)).toString()+"H "+
+						DateFormat.format("mm", new Date(TempsResultant)).toString()+"M "+
+						DateFormat.format("ss", new Date(TempsResultant)).toString()+"S";
 
 
 				mBinding.txtInfo.setText(getResources().getString(R.string.temps_Excedit));

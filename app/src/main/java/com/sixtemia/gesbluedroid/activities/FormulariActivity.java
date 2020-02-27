@@ -232,20 +232,22 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
 		mBinding.toolbar.txtAny.setVisibility(View.GONE);
 
-		if(!getFoto1(this).equals("")){
-			foto1=getFoto1(this);
+
+
+		if(!getFoto1(mContext).equals("")){
+			foto1=getFoto1(mContext);
 			pinta(foto1, mBinding.imageViewA);
 		}
-		if(!getFoto2(this).equals("")){
-			foto2=getFoto2(this);
+		if(!getFoto2(mContext).equals("")){
+			foto2=getFoto2(mContext);
 			pinta(foto2, mBinding.imageViewB);
 		}
-		if(!getFoto3(this).equals("")){
-			foto3=getFoto3(this);
+		if(!getFoto3(mContext).equals("")){
+			foto3=getFoto3(mContext);
 			pinta(foto3, mBinding.imageViewC);
 		}
-		if(!getFoto4(this).equals("")){
-			foto4=getFoto4(this);
+		if(!getFoto4(mContext).equals("")){
+			foto4=getFoto4(mContext);
 			pinta(foto4, mBinding.imageViewD);
 		}
 
@@ -750,17 +752,12 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					totalfotos++;
 				}
 
-				if((totalfotos<2)&&(recuperada==false)){
-					Utils.showCustomDialog(mContext, R.string.atencio, R.string.fotosObligatories);
-				}
-				else {
-					if (checkCamps()) {
-						if (isFirstEnvia) {
-							isFirstEnvia = false;
-							send();}
-					} else {
-						Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
-					}
+				if (checkCamps()) {
+					if (isFirstEnvia) {
+						isFirstEnvia = false;
+						send();}
+				} else {
+					Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
 				}
 
 
@@ -993,6 +990,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 
 		denuncia.setFechacreacio(date);
+		long NUM=PreferencesGesblue.getIdAgent(mContext);
 		denuncia.setAgent(PreferencesGesblue.getIdAgent(mContext));
 		denuncia.setAdrecacarrer(sancio.getModelCarrer().getCodicarrer());
 		if(sancio.getNumero().equals("S/N")) {

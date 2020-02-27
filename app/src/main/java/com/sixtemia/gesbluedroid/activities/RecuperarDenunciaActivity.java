@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,25 +27,45 @@ import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Marca;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Model;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_TipusVehicle;
 import com.sixtemia.gesbluedroid.datamanager.database.model.Model_Zona;
+import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
+import com.sixtemia.sbaseobjects.tools.Preferences;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class RecuperarDenunciaActivity extends AppCompatActivity implements CustomButtonListener,SearchView.OnQueryTextListener {
     private static RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     static View.OnClickListener myOnClickListener;
-    private List<Model_Denuncia> denuncies;
+    private List<Model_Denuncia> denuncies,denuncies_Personals;
     public Context mContext;
     private Button back_BTN;
+
+
+    private Boolean adm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recuperar_denuncia);
-
         mContext = this;
+
+        /**RECUPAREM DADES D'ON PROVENIM**/{
+            Bundle extras = getIntent().getExtras();
+
+            if (extras != null) {
+
+                adm=extras.getBoolean("adm");
+
+            }
+
+        }
+
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         // use this setting to improve performance if you know that changes
@@ -63,25 +85,59 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
                 onBackPressed();
 
             }
-                                    }
-
-
-        );
+        });
 
         List<Model_Denuncia> denunciesTemp = DatabaseAPI.getDenuncies(mContext);
+        denuncies_Personals = DatabaseAPI.getDenuncies(mContext);
+        denuncies_Personals.clear();
 
-        Collections.reverse(denunciesTemp);
-
-        denuncies = denunciesTemp.subList(0,Math.min(denunciesTemp.size(),50));
-
-        //Comprovem si tenim denuncies i en cas negatiu, mostrem un missatge informatiu.
-        if (denuncies.size()<=0 || denuncies.isEmpty()){
-            Utils.showCustomDatamanagerError(mContext, getString(R.string.noDenuncies));
+        if(!adm){
+            for(int i=0;i<denunciesTemp.size();i++){
+                String Agentid= PreferencesGesblue.getAgentId(mContext);
+                Long IDAgent= PreferencesGesblue.getIdAgent(mContext);
+                Long CodiAgent= PreferencesGesblue.getCodiAgent(mContext);
+                double agent_Denuncia=denunciesTemp.get(i).getAgent();
+                if(denunciesTemp.get(i).getAgent()== PreferencesGesblue.getIdAgent(mContext)){
+                    denuncies_Personals.add(denunciesTemp.get(i));
+                }
+            }
         }
 
-        // specify an adapter (see also next example)
-        mAdapter = new DenunciaAdapter(this,denuncies,this);
-        mRecyclerView.setAdapter(mAdapter);
+        if (!adm) {
+
+            Collections.reverse(denuncies_Personals);
+
+            denuncies = denuncies_Personals.subList(0,Math.min(denuncies_Personals.size(),50));
+
+            //Comprovem si tenim denuncies i en cas negatiu, mostrem un missatge informatiu.
+            if ( denuncies.isEmpty() || denuncies.size()<=0){
+                Utils.showCustomDatamanagerError(mContext, getString(R.string.noDenuncies));
+            }
+
+            // specify an adapter (see also next example)
+            mAdapter = new DenunciaAdapter(this,denuncies,this);
+            mRecyclerView.setAdapter(mAdapter);
+
+        }
+        else{
+
+            Collections.reverse(denunciesTemp);
+
+            denuncies = denunciesTemp.subList(0,Math.min(denunciesTemp.size(),50));
+
+            //Comprovem si tenim denuncies i en cas negatiu, mostrem un missatge informatiu.
+            if (denuncies.isEmpty() || denuncies.size()<=0){
+                Utils.showCustomDatamanagerError(mContext, getString(R.string.noDenuncies));
+            }
+
+            // specify an adapter (see also next example)
+            mAdapter = new DenunciaAdapter(this,denuncies,this);
+            mRecyclerView.setAdapter(mAdapter);
+
+        }
+
+
+
     }
 
     /**@Override

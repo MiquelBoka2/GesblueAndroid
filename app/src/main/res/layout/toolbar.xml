@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:foregroundGravity="center"
             android:textAlignment="center"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/ic_opciones"
             app:layout_constraintHorizontal_bias="1.0"

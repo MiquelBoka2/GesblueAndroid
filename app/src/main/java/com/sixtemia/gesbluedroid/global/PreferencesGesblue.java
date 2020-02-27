@@ -67,10 +67,10 @@ public class PreferencesGesblue extends Preferences {
 	private static final String PREF_ZONA = "zona";
 	private static final String PREF_CARRER = "carrer";
 	private static final String PREF_NUMERO = "numero";
-	private static final String PREF_FOTO1 = "";
-	private static final String PREF_FOTO2 = "";
-	private static final String PREF_FOTO3 = "";
-	private static final String PREF_FOTO4 = "";
+	private static final String PREF_FOTO1 = "foto1";
+	private static final String PREF_FOTO2 = "foto2";
+	private static final String PREF_FOTO3 = "foto3";
+	private static final String PREF_FOTO4 = "foto4";
 
 	private static final String PREF_TIPUSVEHICLE_DEFAULTVALUE = "tipusVehicleDefaultValue";
 	private static final String PREF_MARCA_DEFAULTVALUE = "MarcaDefaultValue";
@@ -678,15 +678,16 @@ public class PreferencesGesblue extends Preferences {
 	public static void setFoto1(Context _context, String foto1) {
 		put(_context, PREF_FOTO1, foto1);
 
+
 	}
 
 	public static void setFoto2(Context _context, String foto2) {
-		put(_context, PREF_FOTO1, foto2);
+		put(_context, PREF_FOTO2, foto2);
 
 	}
 
 	public static void setFoto3(Context _context, String foto3) {
-		put(_context, PREF_FOTO1, foto3);
+		put(_context, PREF_FOTO3, foto3);
 
 	}
 

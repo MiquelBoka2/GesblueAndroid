@@ -275,7 +275,7 @@
                     app:srcCompat="@drawable/cercle_contador" />
 
                 <TextView
-                    android:id="@+id/txt_NumDenuncies2"
+                    android:id="@+id/txt_NumDenuncies"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"

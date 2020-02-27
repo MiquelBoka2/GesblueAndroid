@@ -146,268 +146,454 @@ public class LoginActivity extends GesblueFragmentActivity {
 		setupVisibleToolbar(mBinding.toolbar);
 		opciones=mBinding.toolbar.icOpciones;
 
-		opciones.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+		/**EL LISTENER DE LES OPCIONS*/{
+			opciones.setOnClickListener(new View.OnClickListener() {
 
-				Intent intent = new Intent(mContext, Opcions.class);
-				intent.putExtra("estat",estat);
-				intent.putExtra("adm",adm);
-				intent.putExtra("concessio",isNoLoginConcessio);
-				startActivityForResult(intent,RequestCode);
-			}
-		});
+				@Override
+				public void onClick(View v) {
 
-		Bundle extras = getIntent().getExtras();
-
-		if (extras != null) {
-			isNoLoginConcessio =extras.getBoolean("isNoLoginConcessio",true);
-			adm = extras.getBoolean("adm");
-
+					Intent intent = new Intent(mContext, Opcions.class);
+					intent.putExtra("estat", estat);
+					intent.putExtra("adm", adm);
+					intent.putExtra("concessio", isNoLoginConcessio);
+					startActivityForResult(intent, RequestCode);
+				}
+			});
 		}
-		checkAdmin(adm);
+
+		/**RECUPAREM DADES D'ON PROVENIM**/{
+			Bundle extras = getIntent().getExtras();
 
 
+			if (extras != null) {
+				isNoLoginConcessio = extras.getBoolean("isNoLoginConcessio", true);
+				adm = extras.getBoolean("adm");
 
-
-
+			}
+			checkAdmin(adm);
+		}
 
 
 
 		mBinding.editTextPassword.setTypeface(mBinding.editTextUsuari.getTypeface());
 
 		Utils.getSyncDate(mContext);
-		progress = new ProgressDialog(this);
-		progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		progress.setIndeterminate(true);
-		progress.setCancelable(false);
 
-		liniar_progress = new ProgressDialog(this);
-		liniar_progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		/*PROPIETATS DE LA BARRA DE PROGRES*/
+		{
+			progress = new ProgressDialog(this);
+			progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progress.setIndeterminate(true);
+			progress.setCancelable(false);
 
-		liniar_progress.setCancelable(false);
+			liniar_progress = new ProgressDialog(this);
+			liniar_progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
-
-		final String concessioString = PreferencesGesblue.getConcessioString(this);
-		isNoLoginConcessio = TextUtils.isEmpty(concessioString);
-
-		Log.e("Er login de la conzezió", isNoLoginConcessio +"-----");
-
-		concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
-
-		localitzacio=mBinding.toolbar.txtLocalitzacioEstat;
-
-		if(!isNoLoginConcessio) {
-			estat="login_concessio";
-			mBinding.textViewConcessio.setVisibility(View.GONE);
-			mBinding.editTextConcessio.setVisibility(View.GONE);
-			concessio_txt = PreferencesGesblue.getConcessioString(mContext);
-			localitzacio=mBinding.toolbar.txtLocalitzacioEstat;
-			localitzacio.setText(concessio_txt);
-
-		}
-		else{
-			localitzacio.setText(getString(R.string.no_concessio));
-			mBinding.viewSwitcherTancaConcessio.setVisibility(View.GONE);
+			liniar_progress.setCancelable(false);
 		}
 
-		mBinding.buttonTancaConcessio.setVisibility(View.GONE);
 
+		/** DEFINIM LA CONCESSIO SI EN HI HA*/{
+			final String concessioString = PreferencesGesblue.getConcessioString(this);
+			isNoLoginConcessio = TextUtils.isEmpty(concessioString);
+
+			concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
+
+			localitzacio = mBinding.toolbar.txtLocalitzacioEstat;
+			Log.e("Er login de la conzezió", isNoLoginConcessio + "-----");
+		}
+
+		/** MODIFIQUEM EL LAYOUT EN FUNCIO DE SI HI HA CONCCESIO O NO*/{
+			if(!isNoLoginConcessio) {
+				estat="login_concessio";
+				mBinding.textViewConcessio.setVisibility(View.GONE);
+				mBinding.editTextConcessio.setVisibility(View.GONE);
+				concessio_txt = PreferencesGesblue.getConcessioString(mContext);
+				localitzacio=mBinding.toolbar.txtLocalitzacioEstat;
+				localitzacio.setText(concessio_txt);
+
+			}
+			else{
+				localitzacio.setText(getString(R.string.no_concessio));
+
+			}
+		}
+
+
+
+		//POSEM EL USUARI QUE TENIM GUARDAT
 		mBinding.editTextUsuari.setText(PreferencesGesblue.getUserName(mContext));
 
-		mBinding.buttonTancaConcessio.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
 
 
 
-			}
-		});
-
-		mBinding.buttonAccepta.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				amagarTeclat();
-
-				String username = mBinding.editTextUsuari.getText().toString();
-				String password = mBinding.editTextPassword.getText().toString();
-				concessio = mBinding.editTextConcessio.getText().toString();
-				if(TextUtils.isEmpty(concessio)) concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 
 
-				Log.e("Concesio antes",concessio);
-
-				PreferencesGesblue.setUserName(mContext, username);
-				PreferencesGesblue.setPassword(mContext, password);
-				PreferencesGesblue.setConcessio(mContext, Long.parseLong(concessio));
-
-				Log.e("Concesio despues",concessio);
-				Log.e("isNoLoginConcessio",""+ isNoLoginConcessio);
-
-				if(username.equals("") || password.equals("") || (concessio.equals("") && isNoLoginConcessio)) {
-					Utils.showFaltenDadesError(mContext);
-				} else {
-					enableEditTexts(false);
-
-					if(isNoLoginConcessio) {
-						cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
-
-						Log.d("Login -1","Vivo en una piña");
-					} else {
-						cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
-
-						Log.d("Login -2","Fallo Aquí");
-						cridaLogin(mBinding.editTextUsuari.getText().toString(), mBinding.editTextPassword.getText().toString(), TextUtils.isEmpty(concessio) ? 0 : Long.parseLong(concessio),PreferencesGesblue.getDataSync(mContext));
-					}
-				}
-			}
-		});
-
-
-
+		//Obtenir si hi ha denuncies Pendents
 		ContadorDenuncies(true);
 
 
+		/**LISTENER DE BUTO ACCEPTA**/{
+			mBinding.buttonAccepta.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					amagarTeclat();
 
-		/** ENVIA DENUNCIES PENDENTS**/
-		mBinding.btnEnviaPendents.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(mBinding.btnEnviaPendents.isEnabled()){
-
-					ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-					if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-							connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-						//we are connected to a network
-						if (denunciesPendents.size() > 0) {
-							liniar_progress.setMax(denunciesPendents.size());
-
-							liniar_progress.show();
-							if(EnviamentDisponible){
-                                EnviamentDisponible=false;
-                                EnviarDenuncies();
-
-                            }
-							else{
-                                //aguanta el main fins que s'ha enviat la anterior
-                                while(EnviamentDisponible==false){
+					String username = mBinding.editTextUsuari.getText().toString();
+					String password = mBinding.editTextPassword.getText().toString();
+					concessio = mBinding.editTextConcessio.getText().toString();
+					if (TextUtils.isEmpty(concessio))
+						concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 
 
-                                }
-                                //Tornem a mirar les dades
-                                ContadorDenuncies(true);
+					Log.e("Concesio antes", concessio);
 
-                                //Bloquejem els demes enviaments
-                                EnviamentDisponible=false;
+					PreferencesGesblue.setUserName(mContext, username);
+					PreferencesGesblue.setPassword(mContext, password);
+					PreferencesGesblue.setConcessio(mContext, Long.parseLong(concessio));
 
-                                EnviarDenuncies();
-                            }
+					Log.e("Concesio despues", concessio);
+					Log.e("isNoLoginConcessio", "" + isNoLoginConcessio);
 
-							//Mante el Main activity viu mentres s'envies les denuncies
-							while(escapador){
+					if (username.equals("") || password.equals("") || (concessio.equals("") && isNoLoginConcessio)) {
+						Utils.showFaltenDadesError(mContext);
+					} else {
+						enableEditTexts(false);
 
+						if (isNoLoginConcessio) {
+							cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
+
+							Log.d("Login -1", "Vivo en una piña");
+						} else {
+							cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
+
+							Log.d("Login -2", "Fallo Aquí");
+							cridaLogin(mBinding.editTextUsuari.getText().toString(), mBinding.editTextPassword.getText().toString(), TextUtils.isEmpty(concessio) ? 0 : Long.parseLong(concessio), PreferencesGesblue.getDataSync(mContext));
+						}
+					}
+				}
+			});
+		}
+
+		/**LISTENER DE BUTO ENVIA DENUNCIES PENDENTS**/{
+			mBinding.btnEnviaPendents.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (mBinding.btnEnviaPendents.isEnabled()) {
+
+						ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+						if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+								connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+							//we are connected to a network
+							if (denunciesPendents.size() > 0) {
+								liniar_progress.setMax(denunciesPendents.size());
+
+								liniar_progress.show();
+								if (EnviamentDisponible) {
+									EnviamentDisponible = false;
+									EnviarDenuncies();
+
+								} else {
+									//aguanta el main fins que s'ha enviat la anterior
+									while (EnviamentDisponible == false) {
+
+
+									}
+									//Tornem a mirar les dades
+									ContadorDenuncies(true);
+
+									//Bloquejem els demes enviaments
+									EnviamentDisponible = false;
+
+									EnviarDenuncies();
+								}
+
+								//Mante el Main activity viu mentres s'envies les denuncies
+								while (escapador) {
+
+
+								}
+								liniar_progress.dismiss();
+								EnviamentDisponible = true;
+								ContadorDenuncies(false);
+							}
+
+
+						} else {
+							mBinding.btnEnviaPendents.setBackgroundColor(getResources().getColor(R.color.vermellKO));
+							mBinding.layNoConexio.setVisibility(View.VISIBLE);
+
+						}
+					}
+				}
+			});
+		}
+
+		/**LISTENERTS I OBJECTES DE DESCARTAR LA NOTIFICACIO QUE SURT AL NO TENIR INTERTNET*/{
+			View.OnClickListener descarta_inferior = new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					mBinding.layNoConexio.setVisibility(View.GONE);
+					mBinding.btnEnviaPendents.setBackgroundColor(getResources().getColor(R.color.btn_activat));
+				}
+			};
+
+			mBinding.layNoConexio.setOnClickListener(descarta_inferior);
+			mBinding.txtNoConxio.setOnClickListener(descarta_inferior);
+			mBinding.imgCreu.setOnClickListener(descarta_inferior);
+		}
+
+		/**LISTENER DE BUTO ESBORRA TOT**/{
+			mBinding.btnEsborraTot.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (mBinding.btnEsborraTot.isEnabled()) {
+
+						if (adm == true) {
+							DatabaseAPI.deleteAllDenuncies(mContext);
+							PreferencesGesblue.clearFormulari(mContext);
+							CustomDialogClass cdd = new CustomDialogClass(LoginActivity.this);
+							cdd.show();
+						} else {
+							Intent intent = new Intent(mContext, Login_Admin.class);
+							intent.putExtra("concessio", isNoLoginConcessio);
+							intent.putExtra("accio", "Esborra_APP");
+							startActivityForResult(intent, RequestCode);
+						}
+					}
+				}
+			});
+		}
+
+		/**LISTENER DE NETEJA DADES**/{
+			mBinding.btnNetejaConcessions.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if(adm){
+
+						DatabaseAPI.deleteAllAgents(mContext);
+						DatabaseAPI.deleteAllMarques(mContext);
+						DatabaseAPI.deleteAllModels(mContext);
+						DatabaseAPI.deleteAllTipusVehicles(mContext);
+						DatabaseAPI.deleteAllTipusAnulacions(mContext);
+						DatabaseAPI.deleteAllCarrers(mContext);
+						DatabaseAPI.deleteAllInfraccions(mContext);
+						DatabaseAPI.deleteAllZones(mContext);
+						DatabaseAPI.deleteAllLlistaBlanca(mContext);
+
+						PreferencesGesblue.setConcessioString(mContext,"");
+						PreferencesGesblue.setConcessio(mContext,0);
+						PreferencesGesblue.saveDataSync(mContext,"0");
+
+						isNoLoginConcessio = true;
+
+						mBinding.textViewConcessio.setVisibility(View.VISIBLE);
+						mBinding.editTextConcessio.setVisibility(View.VISIBLE);
+						localitzacio.setText(getString(R.string.no_concessio));
+
+
+
+
+
+
+					}
+					else{
+						Intent intent = new Intent(mContext, Login_Admin.class);
+						intent.putExtra("concessio", isNoLoginConcessio);
+						intent.putExtra("accio", "");
+						startActivityForResult(intent, RequestCode);
+
+					}
+				}
+			});
+
+
+
+
+		}
+	}
+
+
+	/**FUNCIONAMENT DEL LA FUNCIO ENVIAR DENUNCIES PENDENTS**/
+		private void enviaDenunciaConcreta ( final Model_Denuncia denuncia){
+
+			if (denuncia != null) {
+				intentsEnviaDenuncia++;
+				final Model_Denuncia den = denuncia;
+				SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss");
+
+				Log.d("Enviant denuncia", "" + denuncia.getCodidenuncia());
+				NovaDenunciaRequest ndr = new NovaDenunciaRequest(
+						denuncia.getCodidenuncia(),
+						Long.parseLong(simpleDate.format(denuncia.getFechacreacio())),
+						(long) denuncia.getAgent(),              //-- ID D'AGENT
+						(long) denuncia.getAdrecacarrer(),                //-- CARRER
+						String.valueOf(denuncia.getAdrecanum()),                                     //-- NUMERO CARRER
+						"",                                                     //-- TODO COORDENADES?
+						denuncia.getMatricula(),                                  //-- MATRICULA
+						(long) denuncia.getTipusvehicle(),    //-- CODI TIPUS VEHICLE
+						(long) denuncia.getMarca(),  //-- CODI MARCA
+						(long) denuncia.getModel(),  //-- CODI MODEL
+						(long) denuncia.getColor(),  //-- CODI COLOR
+						(long) denuncia.getInfraccio(),                   //-- MATRICULA
+						(long) denuncia.getEstatcomprovacio(),             //-- HORA ACTUAL
+						"",                //-- IMPORT
+						PreferencesGesblue.getConcessio(mContext),              //-- CONCESSIO
+						Long.parseLong(PreferencesGesblue.getTerminal(mContext)),//-- TERMINAL ID
+						Utils.getAndroidVersion(),                              //-- SO VERSION
+						Utils.getAppVersion(mContext));                         //-- APP VERSION
+
+
+				DatamanagerAPI.crida_NovaDenuncia(ndr,
+						new JSoapCallback() {
+							@Override
+							public void onSuccess(String result) {
+								Intent intent = new Intent(mContext, LoginActivity.class);
+								intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+								final NovaDenunciaResponse response;
+								try {
+									response = DatamanagerAPI.parseJson(result, NovaDenunciaResponse.class);
+								} catch (Exception ex) {
+									Log.e("", "" + ex);
+									onError(PARSE_ERROR);
+									return;
+								}
+
+								switch ((int) response.getResultat()) {
+									case -1:
+										Utils.showCustomDialog(mContext, R.string.atencio, R.string.errorEnDades);
+										break;
+									case -2:
+									case -3:
+										PreferencesGesblue.logout(mContext);
+										startActivity(intent);
+										break;
+									default:
+										//denunciaSent = true;
+										//sendPhotos();
+										DatabaseAPI.updateDenunciaPendent(mContext, den.getCodidenuncia());
+										if (intentsEnviaDenuncia < 5) {
+											enviaDenunciaConcreta(denuncia);
+										} else {
+											intentsEnviaDenuncia = 0;
+											return;
+										}
+								}
 
 							}
-							liniar_progress.dismiss();
-							EnviamentDisponible=true;
-							ContadorDenuncies(false);
+
+							@Override
+							public void onError(int error) {
+								Log.e("Formulari", "Error NovaDenuncia: " + error);
+
+							}
 						}
+				);
+			} else {
+				intentsEnviaDenuncia = 0;
+				return;
+			}
+
+		}
+
+		private void pujaFoto () {
+
+			File path = new File("storage/emulated/0/Sixtemia/upload");
+
+			if (path.exists()) {
+				String[] fileNames = path.list();
+				final File[] files = path.listFiles();
+				int i = 0;
+
+				if (files != null) {
+					for (File file : files) {
+						final File f = file;
+						if (file.isDirectory() == false) {
+							i++;
+							try {
+								byte[] encoded = Base64.encodeBase64(FileUtils.readFileToByteArray(file));
+								String str_encoded = new String(encoded, StandardCharsets.US_ASCII);
 
 
+								PujaFotoRequest pjr = new PujaFotoRequest(
+										PreferencesGesblue.getConcessio(mContext),
+										str_encoded,
+										file.getName()
+								);
+								DatamanagerAPI.crida_PujaFoto(pjr,
+										new JSoapCallback() {
+											@Override
+											public void onSuccess(String result) {
+												File direct = new File("storage/emulated/0/Sixtemia/upload/done");
 
+												if (!direct.exists()) {
+													File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/done");
+													wallpaperDirectory.mkdirs();
+												}
+												File from = new File("storage/emulated/0/Sixtemia/upload/" + f.getName());
+												File to = new File("storage/emulated/0/Sixtemia/upload/done/" + f.getName());
+												from.renameTo(to);
 
-					}
-					else{
-						mBinding.btnEnviaPendents.setBackgroundColor(getResources().getColor(R.color.vermellKO));
-						mBinding.layNoConexio.setVisibility(View.VISIBLE);
+											}
 
+											@Override
+											public void onError(int error) {
+												Log.e("Formulari", "Error PujaFoto: " + error);
+												File direct = new File("storage/emulated/0/Sixtemia/upload/error");
+
+												if (!direct.exists()) {
+													File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/error");
+													wallpaperDirectory.mkdirs();
+												}
+												File from = new File("storage/emulated/0/Sixtemia/upload/" + f.getName());
+												File to = new File("storage/emulated/0/Sixtemia/upload/error/" + f.getName());
+												from.renameTo(to);
+
+											}
+										});
+
+							} catch (Exception e) {
+
+								e.printStackTrace();
+							}
+							if (i > 5) {
+								return;
+							}
+
+						}
 					}
 				}
+			} else {
+				return;
 			}
-		});
 
-		View.OnClickListener descarta_inferior=new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mBinding.layNoConexio.setVisibility(View.GONE);
-				mBinding.btnEnviaPendents.setBackgroundColor(getResources().getColor(R.color.btn_activat));
-			}
-		};
+		}
 
-		mBinding.layNoConexio.setOnClickListener(descarta_inferior);
-		mBinding.txtNoConxio.setOnClickListener(descarta_inferior);
-		mBinding.imgCreu.setOnClickListener(descarta_inferior);
-
+		/*AQUESTA FUNCIO CREA EL FIL*/
+		private void EnviarDenuncies () {
+			//Crea un nou fil
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					for (int i = 0; i < denunciesPendents.size(); i++) {
+						enviaDenunciaConcreta(denunciesPendents.get(i));
+						pujaFoto();
 
 
-
-
-		/** ESBORRA TOT**/
-		mBinding.btnEsborraTot.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(mBinding.btnEsborraTot.isEnabled()){
-
-					if(adm==true){
-						CustomDialogClass cdd=new CustomDialogClass(LoginActivity.this);
-						cdd.show();
-
+						liniar_progress.setProgress(i);
 					}
-					else{
-						Intent intent = new Intent(mContext,Login_Admin.class);
-						intent.putExtra("concessio",isNoLoginConcessio);
-						intent.putExtra("accio","Esborra_APP");
-						startActivityForResult(intent,RequestCode);
-					}
-
-
-
-
-
-
-
+					denunciesPendents = null;
+					escapador = false;
 				}
+			}).start();
 
-			}
-		});
-
-
+		}
 
 
 
-
-
-	}
-
-
-	private void EnviarDenuncies() {
-
-
-		//Crea un nou fil
-		new Thread(new Runnable() {
-			@Override
-			public void run()
-			{
-				for(int i=0;i <denunciesPendents.size();i++){
-					enviaDenunciaConcreta(denunciesPendents.get(i));
-					pujaFoto();
-
-
-					liniar_progress.setProgress(i);
-				}
-				denunciesPendents=null;
-				escapador=false;
-
-
-
-
-			}
-		}).start();
-
-
-	}
-
+	/**RECUPERA LES DENUNCIES PENDENTS I ACTUALITZA EL UI**/
 	private void ContadorDenuncies(boolean recarregardades) {
 
 		//Consegueix les denuncies i adpta l'interfaz a les dades
@@ -482,6 +668,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	}
 
+
+	/** Actualitza el UI en funcio de ADMIN**/
 	private void checkAdmin(Boolean adm) {
 
 		if (adm){
@@ -496,32 +684,16 @@ public class LoginActivity extends GesblueFragmentActivity {
 		}
 	}
 
+
 	@Override
 	protected void onResume() {
 
 
-		checkAdmin(adm);
-		super.onResume();
 
+		super.onResume();
+		checkAdmin(adm);
 
 	}
-
-	/**
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.login, menu);
-		this.menu = menu;
-
-		String menuTitle = "";
-		try {
-			PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
-			menuTitle = pInfo.versionName;
-		} catch (PackageManager.NameNotFoundException e) {
-			e.printStackTrace();
-		}
-		menu.findItem(R.id.txt_Versio).setTitle(menuTitle);
-		return true;
-	}**/
 
 	private void showLoadingAnimButton(boolean show) {
 		boolean showingLoading = mBinding.viewSwitcherLoginAnim.getCurrentView() != mBinding.buttonAccepta;
@@ -616,7 +788,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 			}
 		});
 	}
-
 	private void guardarDadesAlPreferences(NouTerminalResponse nt, String username) {
 		PreferencesGesblue.setTerminal(mContext, Long.toString(nt.getTerminal()));
 		PreferencesGesblue.saveLogo(mContext, nt.getLogo());
@@ -645,7 +816,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 		PreferencesGesblue.savePrefCodiTipusButlleta(mContext, nt.hasCodiTipusButlleta());
 		PreferencesGesblue.savPrefCodiInstitucio(mContext, nt.hasCodiInstitucio());
 	}
-
 	private void cridaLogin(final String username, final String password, final long concessio, @Nullable final String _data) {
 		Log.e("Login -0",concessio+"------");
 
@@ -814,7 +984,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 		}
 
 	}
-
 	private void sincronitzarTot(LoginResponse loginResponse, long concessio, String _data) {
 		sincronitzarAgents(loginResponse, concessio, _data);
 
@@ -831,7 +1000,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 			}
 		}
 	}
-
 	private void sincronitzarAgents(final LoginResponse loginResponse, final long concessio, final String _data)
 	{
 		if(loginResponse == null || loginResponse.showAgents()) {
@@ -873,7 +1041,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 			sincronitzarMarques(loginResponse, concessio, _data);
 		}
 	}
-
 	private void sincronitzarMarques(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showMarques()) {
 			progress.setMessage(getString(R.string.actualitzantMarques));
@@ -918,7 +1085,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 			sincronitzarModels(loginResponse, concessio, _data);
 		}
 	}
-
 	private void sincronitzarModels(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showColors()) {
 			progress.setMessage(getString(R.string.actualitzantModels));
@@ -960,7 +1126,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 			sincronitzarColors(loginResponse, concessio, _data);
 		}
 	}
-
 	private void sincronitzarColors(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showModels()) {
 			progress.setMessage(getString(R.string.actualitzantColors));
@@ -1001,7 +1166,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 			sincronitzarTipusVehicles(loginResponse, concessio, _data);
 		}
 	}
-
 	private void sincronitzarTipusVehicles(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showTipusVehicles()) {
 			progress.setMessage(getString(R.string.actualitzantTipusVehicles));
@@ -1087,7 +1251,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 			sincronitzarCarrers(loginResponse, concessio, _data);
 		}
 	}
-
 	private void sincronitzarCarrers(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showCarrers()) {
 			progress.setMessage(getString(R.string.actualitzantCarrers));
@@ -1132,7 +1295,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 			sincronitzarInfraccions(loginResponse, concessio, _data);
 		}
 	}
-
 	private void sincronitzarInfraccions(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showInfraccions()) {
 			progress.setMessage(getString(R.string.actualitzantInfraccions));
@@ -1312,7 +1474,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 			});
 
 	}
-
 	private void crida_establirComptadorDenuncia() {
 		PreferencesGesblue.saveDataSync(mContext,Utils.getCurrentTimeStringShort(mContext));
 		Log.d("DataSync",""+PreferencesGesblue.getDataSync(mContext));
@@ -1389,7 +1550,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 
-
+	/**EL RETORN**/
    	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		String result="";
@@ -1440,8 +1601,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 						PreferencesGesblue.setConcessioString(mContext,"");
 						PreferencesGesblue.setConcessio(mContext,0);
 						PreferencesGesblue.saveDataSync(mContext,"0");
-						mBinding.viewSwitcherTancaConcessio.setVisibility(View.GONE);
-						mBinding.buttonTancaConcessio.setVisibility(View.GONE);
+
 						mBinding.textViewConcessio.setVisibility(View.VISIBLE);
 						mBinding.editTextConcessio.setVisibility(View.VISIBLE);
 						localitzacio.setText(getString(R.string.no_concessio));
@@ -1476,237 +1636,76 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	}
 
+	/**ES BORRA EL PAKAGE**/
+		private void clearAppData() {
+			try {
+				// clearing app data
+				if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
 
 
 
 
-	private void enviaDenunciaConcreta(final Model_Denuncia denuncia){
-
-		if(denuncia!=null){
-			intentsEnviaDenuncia++;
-			final Model_Denuncia den = denuncia;
-			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss");
-
-			Log.d("Enviant denuncia", "" + denuncia.getCodidenuncia());
-			NovaDenunciaRequest ndr = new NovaDenunciaRequest(
-					denuncia.getCodidenuncia(),
-					Long.parseLong(simpleDate.format(denuncia.getFechacreacio())),
-					(long) denuncia.getAgent(),              //-- ID D'AGENT
-					(long) denuncia.getAdrecacarrer(),                //-- CARRER
-					String.valueOf(denuncia.getAdrecanum()),                                     //-- NUMERO CARRER
-					"",                                                     //-- TODO COORDENADES?
-					denuncia.getMatricula(),                                  //-- MATRICULA
-					(long) denuncia.getTipusvehicle(),    //-- CODI TIPUS VEHICLE
-					(long) denuncia.getMarca(),  //-- CODI MARCA
-					(long) denuncia.getModel(),  //-- CODI MODEL
-					(long) denuncia.getColor(),  //-- CODI COLOR
-					(long) denuncia.getInfraccio(),                   //-- MATRICULA
-					(long) denuncia.getEstatcomprovacio(),             //-- HORA ACTUAL
-					"",                //-- IMPORT
-					PreferencesGesblue.getConcessio(mContext),              //-- CONCESSIO
-					Long.parseLong(PreferencesGesblue.getTerminal(mContext)),//-- TERMINAL ID
-					Utils.getAndroidVersion(),                              //-- SO VERSION
-					Utils.getAppVersion(mContext));                         //-- APP VERSION
+					((ActivityManager)getSystemService(ACTIVITY_SERVICE)).clearApplicationUserData(); // note: it has a return value!
 
 
-			DatamanagerAPI.crida_NovaDenuncia(ndr,
-					new JSoapCallback() {
-						@Override
-						public void onSuccess(String result) {
-							Intent intent = new Intent(mContext, LoginActivity.class);
-							intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-							final NovaDenunciaResponse response;
-							try {
-								response = DatamanagerAPI.parseJson(result, NovaDenunciaResponse.class);
-							} catch (Exception ex) {
-								Log.e("", "" + ex);
-								onError(PARSE_ERROR);
-								return;
-							}
-
-							switch ((int) response.getResultat()) {
-								case -1:
-									Utils.showCustomDialog(mContext, R.string.atencio, R.string.errorEnDades);
-									break;
-								case -2:
-								case -3:
-									PreferencesGesblue.logout(mContext);
-									startActivity(intent);
-									break;
-								default:
-									//denunciaSent = true;
-									//sendPhotos();
-									DatabaseAPI.updateDenunciaPendent(mContext, den.getCodidenuncia());
-									if(intentsEnviaDenuncia<5) {
-										enviaDenunciaConcreta(denuncia);
-									}else{
-										intentsEnviaDenuncia=0;
-										return;
-									}
-							}
-
-						}
-
-						@Override
-						public void onError(int error) {
-							Log.e("Formulari", "Error NovaDenuncia: " + error);
-
-						}
-					}
-			);
-		}
-		else{
-			intentsEnviaDenuncia=0;
-			return;
-		}
-
-	}
-
-	private void pujaFoto(){
-
-		File path = new File("storage/emulated/0/Sixtemia/upload");
-
-		if(path.exists()) {
-			String[] fileNames = path.list();
-			final File[] files = path.listFiles();
-			int i=0;
-
-			if(files!=null) {
-				for (File file : files) {
-					final File f = file;
-					if (file.isDirectory() == false) {
-						i++;
-						try {
-							byte[] encoded = Base64.encodeBase64(FileUtils.readFileToByteArray(file));
-							String str_encoded = new String(encoded, StandardCharsets.US_ASCII);
+				} else {
 
 
-							PujaFotoRequest pjr = new PujaFotoRequest(
-									PreferencesGesblue.getConcessio(mContext),
-									str_encoded,
-									file.getName()
-							);
-							DatamanagerAPI.crida_PujaFoto(pjr,
-									new JSoapCallback() {
-										@Override
-										public void onSuccess(String result) {
-											File direct = new File("storage/emulated/0/Sixtemia/upload/done");
 
-											if (!direct.exists()) {
-												File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/done");
-												wallpaperDirectory.mkdirs();
-											}
-											File from = new File("storage/emulated/0/Sixtemia/upload/" + f.getName());
-											File to = new File("storage/emulated/0/Sixtemia/upload/done/" + f.getName());
-											from.renameTo(to);
+					String packageName = getApplicationContext().getPackageName();
+					Runtime runtime = Runtime.getRuntime();
+					runtime.exec("pm clear "+packageName);
 
-										}
 
-										@Override
-										public void onError(int error) {
-											Log.e("Formulari", "Error PujaFoto: " + error);
-											File direct = new File("storage/emulated/0/Sixtemia/upload/error");
-
-											if (!direct.exists()) {
-												File wallpaperDirectory = new File("storage/emulated/0/Sixtemia/upload/error");
-												wallpaperDirectory.mkdirs();
-											}
-											File from = new File("storage/emulated/0/Sixtemia/upload/" + f.getName());
-											File to = new File("storage/emulated/0/Sixtemia/upload/error/" + f.getName());
-											from.renameTo(to);
-
-										}
-									});
-
-						} catch (Exception e) {
-
-							e.printStackTrace();
-						}
-						if (i > 5) {
-							return;
-						}
-
-					}
 				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 
-		else{
-			return;
-		}
+		public class CustomDialogClass extends Dialog implements
+				android.view.View.OnClickListener {
 
-	}
+			public Activity c;
+			public Dialog d;
+			public Button yes, no;
+			public Boolean result=false;
 
-	private void clearAppData() {
-		try {
-			// clearing app data
-			if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
+			public CustomDialogClass(Activity a) {
+				super(a);
+				// TODO Auto-generated constructor stub
+				this.c = a;
+			}
 
-
-
-
-				((ActivityManager)getSystemService(ACTIVITY_SERVICE)).clearApplicationUserData(); // note: it has a return value!
-
-
-			} else {
-
-
-
-				String packageName = getApplicationContext().getPackageName();
-				Runtime runtime = Runtime.getRuntime();
-				runtime.exec("pm clear "+packageName);
-
+			@Override
+			protected void onCreate(Bundle savedInstanceState) {
+				super.onCreate(savedInstanceState);
+				requestWindowFeature(Window.FEATURE_NO_TITLE);
+				setContentView(R.layout.custom_dialog_delete_all);
+				yes = (Button) findViewById(R.id.btn_yes);
+				no = (Button) findViewById(R.id.btn_no);
+				yes.setOnClickListener(this);
+				no.setOnClickListener(this);
 
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public class CustomDialogClass extends Dialog implements
-			android.view.View.OnClickListener {
-
-		public Activity c;
-		public Dialog d;
-		public Button yes, no;
-		public Boolean result=false;
-
-		public CustomDialogClass(Activity a) {
-			super(a);
-			// TODO Auto-generated constructor stub
-			this.c = a;
-		}
-
-		@Override
-		protected void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			requestWindowFeature(Window.FEATURE_NO_TITLE);
-			setContentView(R.layout.custom_dialog_delete_all);
-			yes = (Button) findViewById(R.id.btn_yes);
-			no = (Button) findViewById(R.id.btn_no);
-			yes.setOnClickListener(this);
-			no.setOnClickListener(this);
-
-		}
-
-		@Override
-		public void onClick(View v) {
-			switch (v.getId()) {
-				case R.id.btn_yes:
-					clearAppData();
-					break;
-				case R.id.btn_no:
-					result=false;
-					dismiss();
-					break;
-				default:
-					result=false;
-					break;
+			@Override
+			public void onClick(View v) {
+				switch (v.getId()) {
+					case R.id.btn_yes:
+						clearAppData();
+						break;
+					case R.id.btn_no:
+						result=false;
+						dismiss();
+						break;
+					default:
+						result=false;
+						break;
+				}
+				dismiss();
 			}
-			dismiss();
 		}
-	}
 
 }
