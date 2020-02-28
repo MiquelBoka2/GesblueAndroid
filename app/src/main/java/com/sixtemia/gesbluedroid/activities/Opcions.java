@@ -604,8 +604,12 @@ public class Opcions extends AppCompatActivity {
                 @Override
                 public void run() {
                     for (int i = 0; i < denunciesPendents.size(); i++) {
-                        enviaDenunciaConcreta(denunciesPendents.get(i));
-                        pujaFoto();
+                        try {
+                            enviaDenunciaConcreta(denunciesPendents.get(i));
+                            pujaFoto();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
 
                         liniar_progress.setProgress(i);

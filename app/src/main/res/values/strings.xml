@@ -261,7 +261,7 @@ secretari/a de l\'Ajuntament.</string>
     <string name="NO">NO</string>
     <string name="SI">SI</string>
     <string name="envia_denuncies_pendents">ENVIA\nDENUNCIES\nPENDENTS</string>
-    <string name="recarrega_dadesMayus">RECARREGA\nDADES</string>
+    <string name="recarrega_dadesMayus">ESBORRAR\nDADES</string>
     <string name="esborra_tot">ESBORRA\nTOT</string>
 
 
@@ -296,5 +296,6 @@ secretari/a de l\'Ajuntament.</string>
 
     <string name="temps_Restant">Temps Restant</string>
     <string name="temps_Excedit">Temps Excedit</string>
+    <string name="sense_tiquet">Sense Tiquet</string>
 
 </resources>

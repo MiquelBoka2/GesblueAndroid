@@ -101,7 +101,8 @@ public class DatamanagerAPI {
 		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_COMPROVAMATRICULA_METHOD, Constants.OPERATIVA_COMPROVAMATRICULA_SOAPACTION, _comprovaMatriculaRequest, ComprovaMatriculaResponse.class, _listener);
 	}
 	public static AsyncTask crida_NovaDenuncia(NovaDenunciaRequest _novaDenunciaRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_NOVADENUNCIA_METHOD, Constants.OPERATIVA_NOVADENUNCIA_SOAPACTION, _novaDenunciaRequest, NovaDenunciaResponse.class, _listener);
+		AsyncTask resposta=SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_NOVADENUNCIA_METHOD, Constants.OPERATIVA_NOVADENUNCIA_SOAPACTION, _novaDenunciaRequest, NovaDenunciaResponse.class, _listener);
+		return resposta;
 	}
 	public static AsyncTask crida_NouLog(NouLogRequest _nouLogRequest, JSoapCallback _listener) {
 		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_NOULOG_METHOD, Constants.OPERATIVA_NOULOG_SOAPACTION, _nouLogRequest, NouLogResponse.class, _listener);

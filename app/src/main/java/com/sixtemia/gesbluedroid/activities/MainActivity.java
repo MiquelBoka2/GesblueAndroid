@@ -38,10 +38,12 @@ import com.sixtemia.gesbluedroid.global.PreferencesGesblue;
 import com.sixtemia.gesbluedroid.global.Utils;
 import com.sixtemia.sbaseobjects.tools.Preferences;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -77,7 +79,8 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	private Timer contador;
 
-	private long dataCaducitat_milisegons;
+	private long dataCaducitat_milisegons=0;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -197,6 +200,11 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.buttonDenunciar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+
+				if(PreferencesGesblue.getEstatComprovacio(mContext)==1 || PreferencesGesblue.getEstatComprovacio(mContext)==3|| PreferencesGesblue.getEstatComprovacio(mContext)==4){
+						contador.cancel();
+				}
+
 				Sancio sancio = new Sancio();
 				sancio.setMatricula(mBinding.editTextMatricula.getText().toString());
 
@@ -215,6 +223,9 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.buttonNoDenunciar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				if(PreferencesGesblue.getEstatComprovacio(mContext)==1 || PreferencesGesblue.getEstatComprovacio(mContext)==3|| PreferencesGesblue.getEstatComprovacio(mContext)==4){
+					contador.cancel();
+				}
 				changeViewComprovarMatricula();
 			}
 		});
@@ -259,13 +270,14 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 
-
-		PreferencesGesblue.setCodiCarrer(mContext, 0);
-		PreferencesGesblue.setNomCarrer(mContext, null);
-		PreferencesGesblue.setCodiZona(mContext, 0);
-		PreferencesGesblue.setNomZona(mContext, null);
-		mBinding.tvZona.setText(PreferencesGesblue.getZonaDefaultValue(mContext));
-		mBinding.tvCarrer.setText(PreferencesGesblue.getCarrerDefaultValue(mContext));
+		/**ESTAT PER DEFECTE DE LES DADES*/{
+			PreferencesGesblue.setCodiCarrer(mContext, 0);
+			PreferencesGesblue.setNomCarrer(mContext, null);
+			PreferencesGesblue.setCodiZona(mContext, 0);
+			PreferencesGesblue.setNomZona(mContext, null);
+			mBinding.tvZona.setText(PreferencesGesblue.getZonaDefaultValue(mContext));
+			mBinding.tvCarrer.setText(PreferencesGesblue.getCarrerDefaultValue(mContext));
+		}
 	}
 
 
@@ -370,6 +382,8 @@ public class MainActivity extends GesblueFragmentActivity {
 		Log.d("crida0", Constants.OPERATIVA_COMPROVAMATRICULA_METHOD);
 		Log.d("params",PreferencesGesblue.getConcessio(mContext)+" - "+Utils.getDeviceId(mContext)+" - "+matricula+" - "+ Utils.getCurrentTimeLong(mContext)+" - "+PreferencesGesblue.getCodiCarrer(mContext)+" - "+PreferencesGesblue.getCodiZona(mContext)+" - "+PreferencesGesblue.getCodiAgent(mContext));
 
+
+
 		DatamanagerAPI.crida_ComprovaMatricula(new ComprovaMatriculaRequest(PreferencesGesblue.getConcessio(mContext), Utils.getDeviceId(mContext), matricula, Utils.getCurrentTimeLong(mContext),PreferencesGesblue.getCodiCarrer(mContext),PreferencesGesblue.getCodiZona(mContext)), new JSoapCallback() {
 			@Override
 			public void onSuccess(String result) {
@@ -387,7 +401,8 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				Long temps = response.getTemps();
 
-				Long dataCaducitat_milisegons=(System.currentTimeMillis()/1000)+temps;
+				dataCaducitat_milisegons=(System.currentTimeMillis())+temps*1000;
+
 
 
 				Log.d("EstatComprovacio",""+ PreferencesGesblue.getEstatComprovacio(mContext));
@@ -404,7 +419,7 @@ public class MainActivity extends GesblueFragmentActivity {
 							mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps/60));
 							CridarThreadContador();
 							mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
-							changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
+							changeViewNoMultable();
 						}else{
 							mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
 							estatComprovacio = 2;
@@ -418,21 +433,20 @@ public class MainActivity extends GesblueFragmentActivity {
 
 								mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps / -60));
 								CridarThreadContador();
-								mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_incorrecte));
-
+								changeViewMultable();
 
                                 estatComprovacio = 3;
 							}
 							else{
 								mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps / -60 / 60));
 								CridarThreadContador();
-								mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_incorrecte));
-
+								changeViewMultable();
 
                                 estatComprovacio = 4;
 							}
 						}else{
-							changeViewMultable(getResources().getString(R.string.estacionament_incorrecte));
+							changeViewMultable();
+							mBinding.txtInfo.setText(getResources().getString(R.string.sense_tiquet));
                             estatComprovacio = 5;
 						}
 						break;
@@ -483,7 +497,7 @@ public class MainActivity extends GesblueFragmentActivity {
 							Date date = new Date();
 							if( date.after(datainici) && date.before(datafi)){
                                 estatComprovacio = 9;
-								changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
+								changeViewNoMultable();
 							}
 							else{
                                 estatComprovacio = 8;
@@ -495,14 +509,14 @@ public class MainActivity extends GesblueFragmentActivity {
 
                         Log.d("comprovacio","abonat");
                         estatComprovacio = 9;
-                        changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
+                        changeViewNoMultable();
 
                     }
 				}
 				else{
                     Log.d("comprovacio","blanca");
                     estatComprovacio = 10;
-					changeViewNoMultable(getResources().getString(R.string.estacionament_correcte));
+					changeViewNoMultable();
 
 				}
 
@@ -511,11 +525,11 @@ public class MainActivity extends GesblueFragmentActivity {
 		});
 	}
 
-	private void changeViewNoMultable(String text) {
+	private void changeViewNoMultable() {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
 
 		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.verdOK));
-		mBinding.txtEstatEstacionament.setText(text);
+		mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
 		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
 
 		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
@@ -527,7 +541,7 @@ public class MainActivity extends GesblueFragmentActivity {
 	private void changeViewJaDenunciat() {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
 
-		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.admin));
+		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.ja_denunciat));
 
 		mBinding.txtInfo.setText(R.string.vehicle_ja_denunciat);
 		mBinding.txtInfo.setVisibility(View.VISIBLE);
@@ -550,13 +564,14 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.buttonComprovar.setVisibility(View.GONE);
 	}
 
-	private void changeViewMultable(String text) {
+	private void changeViewMultable() {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
 
 		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.vermellKO));
 
 		mBinding.layImatges.setVisibility(View.VISIBLE);
-		mBinding.txtEstatEstacionament.setText(text);
+
+		mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_incorrecte));
 		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
 
 
@@ -674,15 +689,18 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	}
 
-
+	/**FUNCIONALITAT DEL CONTADOR DE TEMPS**/
 	private void CridarThreadContador(){
 
 
+		mBinding.txtTemps.setVisibility(VISIBLE);
+		mBinding.txtInfo.setVisibility(VISIBLE);
 		contador = new Timer();
 		contador.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				TimerMethod();
+
 			}
 
 		}, 0, 500);
@@ -699,14 +717,23 @@ public class MainActivity extends GesblueFragmentActivity {
 		public void run() {
 
 			String dateString;
-			if (dataCaducitat_milisegons>Utils.getCurrentTimeLong(mContext)){
+
+			SimpleDateFormat formatTempsH=new SimpleDateFormat("HH");
+			SimpleDateFormat formatTempsM=new SimpleDateFormat("mm");
+			SimpleDateFormat formatTempsS=new SimpleDateFormat("ss");
+
+			formatTempsH.setTimeZone(TimeZone.getTimeZone("GMT"));
+			formatTempsM.setTimeZone(TimeZone.getTimeZone("GMT"));
+			formatTempsS.setTimeZone(TimeZone.getTimeZone("GMT"));
+			if (dataCaducitat_milisegons>System.currentTimeMillis()){
 
 				long TempsResultant=  dataCaducitat_milisegons-System.currentTimeMillis();
 
 
-				dateString = DateFormat.format("hh", new Date(TempsResultant)).toString()+"H "+
-						DateFormat.format("mm", new Date(TempsResultant)).toString()+"M "+
-						DateFormat.format("ss", new Date(TempsResultant)).toString()+"S";
+
+				dateString = formatTempsH.format(TempsResultant)+"H : "+
+						formatTempsM.format(TempsResultant)+"M : "+
+						formatTempsS.format(TempsResultant)+"S";
 
 
 				mBinding.txtInfo.setText(getResources().getString(R.string.temps_Restant));
@@ -716,10 +743,9 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				long TempsResultant=  System.currentTimeMillis()-dataCaducitat_milisegons;
 
-				dateString = DateFormat.format("hh", new Date(TempsResultant)).toString()+"H "+
-						DateFormat.format("mm", new Date(TempsResultant)).toString()+"M "+
-						DateFormat.format("ss", new Date(TempsResultant)).toString()+"S";
-
+				dateString = formatTempsH.format(TempsResultant)+"H : "+
+						formatTempsM.format(TempsResultant)+"M : "+
+						formatTempsS.format(TempsResultant)+"S";
 
 				mBinding.txtInfo.setText(getResources().getString(R.string.temps_Excedit));
 

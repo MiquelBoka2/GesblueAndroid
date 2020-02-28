@@ -348,9 +348,10 @@ public class LoginActivity extends GesblueFragmentActivity {
 			mBinding.btnEsborraTot.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if (mBinding.btnEsborraTot.isEnabled()) {
+					if (mBinding.btnEsborraTot.isEnabled() ) {
 
-						if (adm == true) {
+						if (adm) {
+
 							DatabaseAPI.deleteAllDenuncies(mContext);
 							PreferencesGesblue.clearFormulari(mContext);
 							CustomDialogClass cdd = new CustomDialogClass(LoginActivity.this);
@@ -370,43 +371,50 @@ public class LoginActivity extends GesblueFragmentActivity {
 			mBinding.btnNetejaConcessions.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if(adm){
-
-						DatabaseAPI.deleteAllAgents(mContext);
-						DatabaseAPI.deleteAllMarques(mContext);
-						DatabaseAPI.deleteAllModels(mContext);
-						DatabaseAPI.deleteAllTipusVehicles(mContext);
-						DatabaseAPI.deleteAllTipusAnulacions(mContext);
-						DatabaseAPI.deleteAllCarrers(mContext);
-						DatabaseAPI.deleteAllInfraccions(mContext);
-						DatabaseAPI.deleteAllZones(mContext);
-						DatabaseAPI.deleteAllLlistaBlanca(mContext);
-
-						PreferencesGesblue.setConcessioString(mContext,"");
-						PreferencesGesblue.setConcessio(mContext,0);
-						PreferencesGesblue.saveDataSync(mContext,"0");
-
-						isNoLoginConcessio = true;
-
-						mBinding.textViewConcessio.setVisibility(View.VISIBLE);
-						mBinding.editTextConcessio.setVisibility(View.VISIBLE);
-						localitzacio.setText(getString(R.string.no_concessio));
+					if(mBinding.btnNetejaConcessions.isEnabled()){
 
 
 
+						if(adm){
+
+							DatabaseAPI.deleteAllAgents(mContext);
+							DatabaseAPI.deleteAllMarques(mContext);
+							DatabaseAPI.deleteAllModels(mContext);
+							DatabaseAPI.deleteAllTipusVehicles(mContext);
+							DatabaseAPI.deleteAllTipusAnulacions(mContext);
+							DatabaseAPI.deleteAllCarrers(mContext);
+							DatabaseAPI.deleteAllInfraccions(mContext);
+							DatabaseAPI.deleteAllZones(mContext);
+							DatabaseAPI.deleteAllLlistaBlanca(mContext);
+
+							PreferencesGesblue.setConcessioString(mContext,"");
+							PreferencesGesblue.setConcessio(mContext,0);
+							PreferencesGesblue.saveDataSync(mContext,"0");
+
+							isNoLoginConcessio = true;
+
+							mBinding.textViewConcessio.setVisibility(View.VISIBLE);
+							mBinding.editTextConcessio.setVisibility(View.VISIBLE);
+							localitzacio.setText(getString(R.string.no_concessio));
 
 
 
+
+
+
+						}
+						else{
+							Intent intent = new Intent(mContext, Login_Admin.class);
+							intent.putExtra("concessio", isNoLoginConcessio);
+							intent.putExtra("accio", "");
+							startActivityForResult(intent, RequestCode);
+
+						}
 					}
-					else{
-						Intent intent = new Intent(mContext, Login_Admin.class);
-						intent.putExtra("concessio", isNoLoginConcessio);
-						intent.putExtra("accio", "");
-						startActivityForResult(intent, RequestCode);
 
-					}
 				}
 			});
+
 
 
 
@@ -692,6 +700,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 		super.onResume();
 		checkAdmin(adm);
+
 
 	}
 
@@ -985,6 +994,15 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	}
 	private void sincronitzarTot(LoginResponse loginResponse, long concessio, String _data) {
+		DatabaseAPI.deleteAllAgents(mContext);
+		DatabaseAPI.deleteAllMarques(mContext);
+		DatabaseAPI.deleteAllModels(mContext);
+		DatabaseAPI.deleteAllTipusVehicles(mContext);
+		DatabaseAPI.deleteAllTipusAnulacions(mContext);
+		DatabaseAPI.deleteAllCarrers(mContext);
+		DatabaseAPI.deleteAllInfraccions(mContext);
+		DatabaseAPI.deleteAllZones(mContext);
+		DatabaseAPI.deleteAllLlistaBlanca(mContext);
 		sincronitzarAgents(loginResponse, concessio, _data);
 
 		if(isRunning()) {
