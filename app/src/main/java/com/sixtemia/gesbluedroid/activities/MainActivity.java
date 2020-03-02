@@ -410,6 +410,8 @@ public class MainActivity extends GesblueFragmentActivity {
 				int estatComprovacio = 0;
 
 
+
+
 				switch(response.getResultat()) {
 					case 0: //Matricula correcta(no denunciar)
 						if((temps>0)) {
@@ -528,9 +530,21 @@ public class MainActivity extends GesblueFragmentActivity {
 	private void changeViewNoMultable() {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
 
+		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
+		mBinding.txtTemps.setVisibility(View.VISIBLE);
+		mBinding.txtInfo.setVisibility(View.VISIBLE);
+
 		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.verdOK));
 		mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
 		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
+
+		//Recomana NO Denunciar
+		mBinding.buttonDenunciar.setBackground(getResources().getDrawable(R.drawable.button_white_selector));
+		mBinding.buttonNoDenunciar.setBackground(getResources().getDrawable(R.drawable.button_selector));
+
+		mBinding.buttonDenunciar.setTextColor(getResources().getColor(R.color.text_no_recomenat));
+		mBinding.buttonNoDenunciar.setTextColor(getResources().getColor(R.color.text_recomenat));
+
 
 		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
 
@@ -541,10 +555,13 @@ public class MainActivity extends GesblueFragmentActivity {
 	private void changeViewJaDenunciat() {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
 
+		mBinding.txtEstatEstacionament.setVisibility(View.GONE);
+		mBinding.txtTemps.setVisibility(View.GONE);
+		mBinding.txtInfo.setVisibility(View.VISIBLE);
+
 		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.ja_denunciat));
 
 		mBinding.txtInfo.setText(R.string.vehicle_ja_denunciat);
-		mBinding.txtInfo.setVisibility(View.VISIBLE);
 
 
 		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
@@ -567,13 +584,15 @@ public class MainActivity extends GesblueFragmentActivity {
 	private void changeViewMultable() {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
 
+		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
+		mBinding.txtTemps.setVisibility(View.VISIBLE);
+		mBinding.txtInfo.setVisibility(View.VISIBLE);
+
 		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.vermellKO));
 
 		mBinding.layImatges.setVisibility(View.VISIBLE);
 
 		mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_incorrecte));
-		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
-
 
 
 		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
@@ -597,11 +616,19 @@ public class MainActivity extends GesblueFragmentActivity {
 		//Amaguem el nom de l'ajuntament per qüestió estètica.
 
 
-		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.blau));
 
-		mBinding.txtEstatEstacionament.setText(R.string.estacionament_sense_internet);
+		mBinding.txtEstatEstacionament.setVisibility(View.GONE);
+		mBinding.txtTemps.setVisibility(View.GONE);
+		mBinding.txtInfo.setVisibility(View.VISIBLE);
+
+		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.ja_denunciat));
+
+		mBinding.txtInfo.setText(R.string.estacionament_sense_internet);
 		mBinding.layImatges.setVisibility(View.GONE);
-		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
+
+		if(mBinding.viewSwitcherComprovaAnim.getCurrentView() != mBinding.buttonComprovar) {
+			mBinding.viewSwitcherComprovaAnim.showNext();
+		}
 
 
 		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
@@ -623,11 +650,13 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	private void changeViewComprovarMatricula() {
 		//Mostrem el nom de l'ajuntament per qüestió estètica.
-		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.barra_estat));
-
 		mBinding.txtEstatEstacionament.setVisibility(View.INVISIBLE);
 		mBinding.txtTemps.setVisibility(View.INVISIBLE);
 		mBinding.txtInfo.setVisibility(View.INVISIBLE);
+
+		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.barra_estat));
+
+
 		mBinding.layImatges.setVisibility(View.GONE);
 		mBinding.editTextMatricula.setText("");
 
@@ -718,34 +747,82 @@ public class MainActivity extends GesblueFragmentActivity {
 
 			String dateString;
 
+
+
+
 			SimpleDateFormat formatTempsH=new SimpleDateFormat("HH");
 			SimpleDateFormat formatTempsM=new SimpleDateFormat("mm");
 			SimpleDateFormat formatTempsS=new SimpleDateFormat("ss");
 
+
 			formatTempsH.setTimeZone(TimeZone.getTimeZone("GMT"));
 			formatTempsM.setTimeZone(TimeZone.getTimeZone("GMT"));
 			formatTempsS.setTimeZone(TimeZone.getTimeZone("GMT"));
+			/** TEMPS POSITIU**/
 			if (dataCaducitat_milisegons>System.currentTimeMillis()){
 
 				long TempsResultant=  dataCaducitat_milisegons-System.currentTimeMillis();
 
+				/** + DE 2 DIES**/
+				if(TempsResultant>=172800000){
 
 
-				dateString = formatTempsH.format(TempsResultant)+"H : "+
-						formatTempsM.format(TempsResultant)+"M : "+
-						formatTempsS.format(TempsResultant)+"S";
+					dateString = (((((TempsResultant)/1000)/60)/60)/24)+" "+getResources().getString(R.string.Dies);
+
+
+
+
+				}/** 1 a 2 DIES**/
+				else if(TempsResultant>=86400000){
+
+					dateString =
+							(((((TempsResultant)/1000)/60)/60)/24)+"D : "+
+							formatTempsH.format(TempsResultant)+"H : "+
+							formatTempsM.format(TempsResultant)+"M : "+
+							formatTempsS.format(TempsResultant)+"S";
+
+
+
+
+
+
+				}/** NORMA GENERAL**/
+				else{
+
+
+
+
+
+					dateString =
+							formatTempsH.format(TempsResultant)+"H : "+
+							formatTempsM.format(TempsResultant)+"M : "+
+							formatTempsS.format(TempsResultant)+"S";
+
+
+
+
+				}
+				/** GENERAL */
+
 
 
 				mBinding.txtInfo.setText(getResources().getString(R.string.temps_Restant));
 
-			}
-			else{
 
+
+			}
+			/** TEMPS NEGATIU**/
+			else{
+				/** GENERAL */
 				long TempsResultant=  System.currentTimeMillis()-dataCaducitat_milisegons;
 
-				dateString = formatTempsH.format(TempsResultant)+"H : "+
-						formatTempsM.format(TempsResultant)+"M : "+
-						formatTempsS.format(TempsResultant)+"S";
+				dateString =
+							formatTempsH.format(TempsResultant)+"H : "+
+							formatTempsM.format(TempsResultant)+"M : "+
+							formatTempsS.format(TempsResultant)+"S";
+
+
+
 
 				mBinding.txtInfo.setText(getResources().getString(R.string.temps_Excedit));
 

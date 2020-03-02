@@ -136,7 +136,8 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:inAnimation="@android:anim/fade_in"
-						android:outAnimation="@anim/notifications_fade_out">
+						android:outAnimation="@anim/notifications_fade_out"
+						tools:visibility="visible">
 
 						<Button
 							android:id="@+id/buttonComprovar"
@@ -173,6 +174,8 @@
 					android:id="@+id/ll_btn_Denuncies"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:layout_marginStart="5dp"
+					android:layout_marginEnd="5dp"
 					android:gravity="center_vertical"
 					android:orientation="horizontal"
 					android:visibility="gone"
@@ -248,7 +251,8 @@
 					app:layout_constraintBottom_toTopOf="@+id/txt_Info"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/txt_estat_estacionament" />
+					app:layout_constraintTop_toBottomOf="@+id/txt_estat_estacionament"
+					tools:visibility="visible" />
 
 				<TextView
 					android:id="@+id/txt_estat_estacionament"
@@ -261,7 +265,8 @@
 					app:layout_constraintBottom_toTopOf="@+id/txt_Temps"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent" />
+					app:layout_constraintTop_toTopOf="parent"
+					tools:visibility="visible" />
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 

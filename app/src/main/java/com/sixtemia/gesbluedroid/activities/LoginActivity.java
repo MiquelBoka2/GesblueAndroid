@@ -352,8 +352,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 						if (adm) {
 
-							DatabaseAPI.deleteAllDenuncies(mContext);
-							PreferencesGesblue.clearFormulari(mContext);
 							CustomDialogClass cdd = new CustomDialogClass(LoginActivity.this);
 							cdd.show();
 						} else {
@@ -1712,6 +1710,10 @@ public class LoginActivity extends GesblueFragmentActivity {
 			public void onClick(View v) {
 				switch (v.getId()) {
 					case R.id.btn_yes:
+						DatabaseAPI.deleteAllDenuncies(mContext);
+						PreferencesGesblue.clearFormulari(mContext);
+						File path = new File("storage/emulated/0/Sixtemia");
+						BorratRecursiu(path);
 						clearAppData();
 						break;
 					case R.id.btn_no:
@@ -1725,5 +1727,15 @@ public class LoginActivity extends GesblueFragmentActivity {
 				dismiss();
 			}
 		}
+
+
+		void BorratRecursiu(File fileOrDirectory) {
+			if (fileOrDirectory.isDirectory())
+				for (File child : fileOrDirectory.listFiles())
+					BorratRecursiu(child);
+
+			fileOrDirectory.delete();
+		}
+
 
 }
