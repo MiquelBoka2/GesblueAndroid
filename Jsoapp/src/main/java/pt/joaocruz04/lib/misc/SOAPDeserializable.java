@@ -9,7 +9,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 
 /**
- * Created by Joao Cruz on 16/12/14.
+ * Created by Boka2.
  */
 public abstract class SOAPDeserializable {
 

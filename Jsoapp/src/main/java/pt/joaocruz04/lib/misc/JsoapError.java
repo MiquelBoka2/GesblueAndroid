@@ -1,7 +1,7 @@
 package pt.joaocruz04.lib.misc;
 
 /**
- * Created by Joao Cruz on 08/01/15.
+ * Created by Boka2.
  */
 public class JsoapError {
 

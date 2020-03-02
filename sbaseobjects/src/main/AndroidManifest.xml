@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sixtemia.sbaseobjects">
+    package="com.boka2.sbaseobjects">
 
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
         <activity
-            android:name=".SWebViewActivity"
+            android:name="com.boka2.sbaseobjects.SWebViewActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
-            android:name=".tools.pickerImatges.SelectImatgesActivity"
+            android:name="com.boka2.sbaseobjects.tools.pickerImatges.SelectImatgesActivity"
             android:theme="@style/AppTheme" />
     </application>
 

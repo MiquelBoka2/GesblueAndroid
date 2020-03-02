@@ -1,9 +1,9 @@
-package com.sixtemia.spushnotificationsdroid.db;
+package com.boka2.spushnotificationsdroid.db;
 
 import com.mobandme.ada.ObjectContext;
 import com.mobandme.ada.ObjectSet;
 import com.mobandme.ada.exceptions.AdaFrameworkException;
-import com.sixtemia.spushnotificationsdroid.model.SModPushNotification;
+import com.boka2.spushnotificationsdroid.model.SModPushNotification;
 
 import java.util.ArrayList;
 import java.util.List;

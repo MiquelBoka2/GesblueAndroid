@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid;
+package com.boka2.spushnotificationsdroid;
 
 import java.util.ArrayList;
 
@@ -19,16 +19,16 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.sixtemia.spushnotificationsdroid.adapters.NotificationListItemAdapter;
-import com.sixtemia.spushnotificationsdroid.classes.GCMIntentService;
-import com.sixtemia.spushnotificationsdroid.classes.PreferencesSPush;
-import com.sixtemia.spushnotificationsdroid.datamanager.DataManagerSPushNotifications;
-import com.sixtemia.spushnotificationsdroid.datamanager.SDataManagerListener;
-import com.sixtemia.spushnotificationsdroid.db.DataBase;
-import com.sixtemia.spushnotificationsdroid.model.SModPushNotification;
-import com.sixtemia.spushnotificationsdroid.model.SModPushNotificationsListResult;
-import com.sixtemia.spushnotificationsdroid.objects.TextViewCustomFont;
-import com.sixtemia.spushnotificationsdroid.styles.SPushNotificationsStyleManager;
+import com.boka2.spushnotificationsdroid.adapters.NotificationListItemAdapter;
+import com.boka2.spushnotificationsdroid.classes.GCMIntentService;
+import com.boka2.spushnotificationsdroid.classes.PreferencesSPush;
+import com.boka2.spushnotificationsdroid.datamanager.DataManagerSPushNotifications;
+import com.boka2.spushnotificationsdroid.datamanager.SDataManagerListener;
+import com.boka2.spushnotificationsdroid.db.DataBase;
+import com.boka2.spushnotificationsdroid.model.SModPushNotification;
+import com.boka2.spushnotificationsdroid.model.SModPushNotificationsListResult;
+import com.boka2.spushnotificationsdroid.objects.TextViewCustomFont;
+import com.boka2.spushnotificationsdroid.styles.SPushNotificationsStyleManager;
 
 public class SModPushNotificationsListFragment extends Fragment {
 

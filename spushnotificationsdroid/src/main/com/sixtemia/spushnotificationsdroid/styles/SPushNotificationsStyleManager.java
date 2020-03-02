@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid.styles;
+package com.boka2.spushnotificationsdroid.styles;
 
 import java.io.BufferedReader;
 import java.io.IOException;

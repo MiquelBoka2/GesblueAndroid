@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid;
+package com.boka2.spushnotificationsdroid;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -11,9 +11,9 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.sixtemia.spushnotificationsdroid.objects.SPushFragmentActivity;
-import com.sixtemia.spushnotificationsdroid.objects.TextViewCustomFont;
-import com.sixtemia.spushnotificationsdroid.styles.SPushNotificationsStyleManager;
+import com.boka2.spushnotificationsdroid.objects.SPushFragmentActivity;
+import com.boka2.spushnotificationsdroid.objects.TextViewCustomFont;
+import com.boka2.spushnotificationsdroid.styles.SPushNotificationsStyleManager;
 
 public class SModPushNotificationsWebviewActivity extends SPushFragmentActivity {
 

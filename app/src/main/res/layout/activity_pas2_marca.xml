@@ -7,7 +7,7 @@
         android:id="@+id/activity_pas1_tipus"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.sixtemia.gesbluedroid.activities.passosformulari.Pas1TipusActivity"
+        tools:context="com.boka2.gesblue.activities.passosformulari.Pas1TipusActivity"
         android:background="@color/colorFons"
         android:focusable="true"
         android:focusableInTouchMode="true">

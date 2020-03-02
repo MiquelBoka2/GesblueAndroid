@@ -15,12 +15,14 @@
 		android:paddingBottom="@dimen/smodpushnotifications_item_notification_content_padding_bottom"
 		android:layout_marginRight="@dimen/smodpushnotifications_item_notification_content_margin_right">
 
-		<com.sixtemia.spushnotifications.objects.TextViewCustomFont android:id="@+id/txtDescription"
+		<com.boka2.spushnotifications.objects.TextViewCustomFont
+            android:id="@+id/txtDescription"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="left" />
 
-		<com.sixtemia.spushnotifications.objects.TextViewCustomFont android:id="@+id/txtDate"
+		<com.boka2.spushnotifications.objects.TextViewCustomFont
+            android:id="@+id/txtDate"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="left"

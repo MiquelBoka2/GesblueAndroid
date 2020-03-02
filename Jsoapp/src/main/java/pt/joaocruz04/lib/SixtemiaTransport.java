@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 /**
- * Created by joelabello on 9/9/16.
+ * Created by Boka2.
  */
 
 public class SixtemiaTransport extends Transport {

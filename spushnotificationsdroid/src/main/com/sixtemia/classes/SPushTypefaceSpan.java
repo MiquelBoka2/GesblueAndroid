@@ -1,4 +1,4 @@
-package com.sixtemia.classes;
+package com.boka2.classes;
 
 import java.io.IOException;
 import java.util.Arrays;

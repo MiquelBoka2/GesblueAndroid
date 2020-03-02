@@ -1,7 +1,7 @@
-package com.sixtemia.spushnotificationsdroid.styles;
+package com.boka2.spushnotificationsdroid.styles;
 
 import com.google.gson.annotations.SerializedName;
-import com.sixtemia.sutils.classes.SUtils;
+import com.boka2.sutils.classes.SUtils;
 
 public class StyleSPushNotifications {
 

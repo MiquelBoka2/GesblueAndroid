@@ -6,7 +6,7 @@
 		android:id="@+id/activity_formulari"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-        tools:context="com.sixtemia.gesbluedroid.activities.FormulariActivity"
+        tools:context="com.boka2.gesblue.activities.FormulariActivity"
         android:background="@color/colorFons"
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true">
@@ -31,7 +31,7 @@
 				android:paddingBottom="6dp"
 				android:orientation="vertical">
 
-				<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+				<com.boka2.gesblue.customstuff.views.SGBTextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:id="@+id/tvMatricula"
@@ -51,7 +51,7 @@
 						android:orientation="vertical"
                         android:layout_weight="1">
 
-						<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+						<com.boka2.gesblue.customstuff.views.SGBTextView
 							android:id="@+id/tvTipus"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                             android:textColor="@color/textview_formulari"
                             style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
 
-						<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+						<com.boka2.gesblue.customstuff.views.SGBTextView
 							android:id="@+id/tvMarca"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                             android:textColor="@color/textview_formulari"
                             style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
 
-						<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+						<com.boka2.gesblue.customstuff.views.SGBTextView
 							android:id="@+id/tvModel"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-	                <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+	                <com.boka2.gesblue.customstuff.views.SGBTextView
 	                    android:id="@+id/tvColor"
 	                    android:layout_width="0dp"
 	                    android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
 
                 </LinearLayout>
 
-                <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+                <com.boka2.gesblue.customstuff.views.SGBTextView
                     android:id="@+id/tvInfraccio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+                    <com.boka2.gesblue.customstuff.views.SGBTextView
                         android:id="@+id/tvCarrer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -156,7 +156,7 @@
 	                    android:lines="1"
 	                    android:ellipsize="end"/>
 
-                    <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+                    <com.boka2.gesblue.customstuff.views.SGBTextView
                         android:id="@+id/tvNum"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -292,7 +292,7 @@
 								android:src="@android:drawable/ic_menu_send"
 								android:tint="@color/colorFons" />
 
-							<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+							<com.boka2.gesblue.customstuff.views.SGBTextView
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:text="ENVIA"
@@ -334,7 +334,7 @@
 								android:src="@drawable/ic_impresora"
 								android:tint="@color/colorFons" />
 
-							<com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+							<com.boka2.gesblue.customstuff.views.SGBTextView
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:text="@string/imprimeix"
@@ -401,7 +401,7 @@
 				app:elevation="20dp"
 				android:orientation="vertical">
 
-				<com.sixtemia.gesbluedroid.customstuff.views.imageZoom.ImageViewTouch
+				<com.boka2.gesblue.customstuff.views.imageZoom.ImageViewTouch
 					android:id="@+id/preview"
 					android:layout_width="match_parent"
 					android:layout_margin="4dp"
@@ -413,7 +413,7 @@
 					android:layout_height="wrap_content"
 					android:orientation="horizontal">
 
-					<com.sixtemia.sbaseobjects.views.SButton
+					<com.boka2.sbaseobjects.views.SButton
 						android:id="@+id/repetir"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
@@ -423,7 +423,7 @@
 						android:text="@string/foto_eliminar"
 						android:textColor="@color/text_btn_camera_confirm_selector"/>
 
-					<com.sixtemia.sbaseobjects.views.SButton
+					<com.boka2.sbaseobjects.views.SButton
 						android:id="@+id/confirmar"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"

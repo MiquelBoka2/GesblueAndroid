@@ -15,7 +15,11 @@
             android:layout_height="wrap_content"
             android:background="#0000"
             android:elevation="0dp"
-            app:elevation="0dp">
+            app:elevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/txt_Localitzacio_Estat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarObject"

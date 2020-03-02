@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid.classes;
+package com.boka2.spushnotificationsdroid.classes;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -17,12 +17,12 @@ import android.util.Log;
 import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.GCMRegistrar;
 import com.google.gson.Gson;
-import com.sixtemia.spushnotificationsdroid.R;
-import com.sixtemia.spushnotificationsdroid.SModPushNotificationsListActivity;
-import com.sixtemia.spushnotificationsdroid.SModPushNotificationsWebviewActivity;
-import com.sixtemia.spushnotificationsdroid.datamanager.DataManagerSPushNotifications;
-import com.sixtemia.spushnotificationsdroid.datamanager.SDataManagerListener;
-import com.sixtemia.spushnotificationsdroid.model.SModPushRegisterResult;
+import com.boka2.spushnotificationsdroid.R;
+import com.boka2.spushnotificationsdroid.SModPushNotificationsListActivity;
+import com.boka2.spushnotificationsdroid.SModPushNotificationsWebviewActivity;
+import com.boka2.spushnotificationsdroid.datamanager.DataManagerSPushNotifications;
+import com.boka2.spushnotificationsdroid.datamanager.SDataManagerListener;
+import com.boka2.spushnotificationsdroid.model.SModPushRegisterResult;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;

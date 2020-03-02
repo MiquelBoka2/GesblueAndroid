@@ -5,7 +5,7 @@
 		android:id="@+id/activity_more_info_to_print"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		tools:context="com.sixtemia.gesbluedroid.activities.MoreInfoToPrintActivity"
+		tools:context="com.boka2.gesblue.activities.MoreInfoToPrintActivity"
 		android:background="@android:color/white">
 
 		<include
@@ -25,21 +25,21 @@
 			android:background="@color/buscadorBackground"
 			android:layout_below="@+id/toolbar">
 
-			<com.sixtemia.sbaseobjects.views.SEditText
+			<com.boka2.sbaseobjects.views.SEditText
 				android:id="@+id/etNumeroTiquet"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="10dp"
 				android:hint="@string/introdueixNumeroTiquet"/>
 
-			<com.sixtemia.sbaseobjects.views.SEditText
+			<com.boka2.sbaseobjects.views.SEditText
 				android:id="@+id/etData"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="10dp"
 				android:hint="@string/IntrodueixLaData"/>
 
-			<com.sixtemia.sbaseobjects.views.SEditText
+			<com.boka2.sbaseobjects.views.SEditText
 				android:id="@+id/etImport"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
 
 			<View style="@style/btnsInferiors_liniaSuperior" />
 
-			<com.sixtemia.gesbluedroid.customstuff.views.SGBButton
+			<com.boka2.gesblue.customstuff.views.SGBButton
 				android:id="@+id/btnAcceptar"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"

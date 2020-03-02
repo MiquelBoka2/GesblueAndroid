@@ -15,7 +15,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_centerInParent="true" />
 	    
-	    <com.sixtemia.sbaseobjects.views.STextView
+	    <com.boka2.sbaseobjects.views.STextView
 	        android:id="@+id/txtLoading"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
 	        android:gravity="center_horizontal"
 	        android:layout_marginTop="5dp" />
 	    
-	    <com.sixtemia.sbaseobjects.views.STextView
+	    <com.boka2.sbaseobjects.views.STextView
 	        android:id="@+id/txtNoResults"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"

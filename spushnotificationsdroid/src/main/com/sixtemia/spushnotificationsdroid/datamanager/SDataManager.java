@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid.datamanager;
+package com.boka2.spushnotificationsdroid.datamanager;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -27,17 +27,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
 
-import com.sixtemia.sutils.classes.SNetworkUtils;
-import com.sixtemia.sutils.classes.SUtils;
+import com.boka2.sutils.classes.SNetworkUtils;
+import com.boka2.sutils.classes.SUtils;
 
 /**
- * Classe base per implementar Data Managers. * Crear una subclasse d'aquesta amb els mŽtodes especifics per cada App.
+ * Classe base per implementar Data Managers. * Crear una subclasse d'aquesta amb els mï¿½todes especifics per cada App.
  * 
- * El constructor de la subclasse ha de fixar el parametre URL_BASE Tambe pot modificar els noms dels parametres OK, KO i tipus d'acci—.
+ * El constructor de la subclasse ha de fixar el parametre URL_BASE Tambe pot modificar els noms dels parametres OK, KO i tipus d'acciï¿½.
  * 
- * La subclasse pot afegir parametres communs afeint Pairs a l'atribut commonParams. (veure mŽtode initBaseCommonParams() per un exemple )
+ * La subclasse pot afegir parametres communs afeint Pairs a l'atribut commonParams. (veure mï¿½tode initBaseCommonParams() per un exemple )
  * 
- * Cada tipus de crida ha de tenir el seu propi listener, no es pot compartir entre accions, ja que al acabar la connexi—
+ * Cada tipus de crida ha de tenir el seu propi listener, no es pot compartir entre accions, ja que al acabar la connexiï¿½
  * el datamanager notifica el listener, i si s'han fer crides diferents l'activity no sap a quina crida correspon.
  * 
  * @author alejandromartinez
@@ -135,12 +135,12 @@ public class SDataManager {
 
 	/**
 	 * @param params
-	 *            Parametres per la petici— POST
+	 *            Parametres per la peticiï¿½ POST
 	 * @param urlPath
 	 *            Path per afegir al final de la URL_BASE o null si no n'hi ha
 	 * @param method
 	 *            GET o POST
-	 * @return La resposta de realitzar la connexi— POST amb el servidor per defecte.
+	 * @return La resposta de realitzar la connexiï¿½ POST amb el servidor per defecte.
 	 */
 	private String getResponse(List<NameValuePair> params, String urlPath, HttpMethod method) {
 		String strUrl = URL_BASE;
@@ -249,7 +249,7 @@ public class SDataManager {
 						//Log.d(TAG, twoHyphens + boundary + lineEnd);
 
 						String nameParam = nvp.getName();
-						nameParam = nameParam.replace(MULTIPART_PREFIX, "");//el nom del parˆmetre que espera el server Žs sense el prefix
+						nameParam = nameParam.replace(MULTIPART_PREFIX, "");//el nom del parï¿½metre que espera el server ï¿½s sense el prefix
 						String valueParam = nvp.getValue();
 
 						String extension = nvp.getValue().substring(nvp.getValue().lastIndexOf(".") + 1, nvp.getValue().length());
@@ -259,7 +259,7 @@ public class SDataManager {
 								+ lineEnd);
 						//Log.d(TAG, "Content-Disposition: form-data; name=\""+nameParam+"\";filename=\"" + "file.png" + "\"" + lineEnd);
 
-						// JAUME: Test per comprovar si es poden pujar imatges com qualsevol altre document. Si aix˜ funciona no caldrˆ fer res mŽs.
+						// JAUME: Test per comprovar si es poden pujar imatges com qualsevol altre document. Si aixï¿½ funciona no caldrï¿½ fer res mï¿½s.
 						// Si no funciona haurem de muntar un sistema per diferenciar imatges i altres fitxers
 						//dos.writeBytes("Content-Type: image/jpeg" + lineEnd);
 						//Log.d(TAG, "Content-Type: image/jpeg" + lineEnd);
@@ -389,10 +389,10 @@ public class SDataManager {
 
 		/**
 	 * @param params
-	 *            Parametres per la petici— POST
+	 *            Parametres per la peticiï¿½ POST
 	 * @param method
 	 *            GET o POST
-	 * @return Un string amb la resposta al realitzar la connexi— amb el servidor.
+	 * @return Un string amb la resposta al realitzar la connexiï¿½ amb el servidor.
 	 */
 	protected String getJSON(List<NameValuePair> params, HttpMethod method) {
 		return getJSON(params, null, method);
@@ -400,10 +400,10 @@ public class SDataManager {
 
 	/**
 	 * @param params
-	 *            Parametres per la petici— POST
+	 *            Parametres per la peticiï¿½ POST
 	 * @param method
 	 *            GET o POST
-	 * @return Un string amb la resposta al realitzar la connexi— amb el servidor.
+	 * @return Un string amb la resposta al realitzar la connexiï¿½ amb el servidor.
 	 */
 	protected String getJSON(List<NameValuePair> params, String urlPath, HttpMethod method) {
 		return getJSON(params, urlPath, method, true);
@@ -411,12 +411,12 @@ public class SDataManager {
 
 	/**
 	 * @param params
-	 *            Parametres per la petici—
+	 *            Parametres per la peticiï¿½
 	 * @param urlPath
 	 *            Path per afegir al final de la URL_BASE o null si no n'hi ha
 	 * @param method
 	 *            GET o POST
-	 * @return Un string amb la resposta al realitzar la connexi— amb el servidor.
+	 * @return Un string amb la resposta al realitzar la connexiï¿½ amb el servidor.
 	 */
 	protected String getJSON(List<NameValuePair> params, String urlPath, HttpMethod method, boolean _useCache) {
 		try {
@@ -516,7 +516,7 @@ public class SDataManager {
 	 * 
 	 * @param params
 	 * @param urlPath
-	 * @return Crea un string format per la url i els parameters que es pot fer servir per identificar la petici—.
+	 * @return Crea un string format per la url i els parameters que es pot fer servir per identificar la peticiï¿½.
 	 */
 	protected String createUrlForCache(List<NameValuePair> params, String urlPath) {
 		String res = URL_BASE;

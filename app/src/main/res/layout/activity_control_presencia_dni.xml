@@ -8,7 +8,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:fitsSystemWindows="false"
-		tools:context="com.sixtemia.gesbluedroid.activities.FormulariActivity">
+		tools:context="com.boka2.gesblue.activities.FormulariActivity">
 
 		<com.google.android.cameraview.CameraView
 			android:id="@+id/camera"
@@ -57,7 +57,7 @@
 				app:elevation="20dp"
 				android:orientation="vertical">
 
-				<com.sixtemia.gesbluedroid.customstuff.views.imageZoom.ImageViewTouch
+				<com.boka2.gesblue.customstuff.views.imageZoom.ImageViewTouch
 					android:id="@+id/preview"
 					android:layout_width="match_parent"
 					android:layout_margin="4dp"
@@ -69,7 +69,7 @@
 					android:layout_height="wrap_content"
 					android:orientation="horizontal">
 
-					<com.sixtemia.sbaseobjects.views.SButton
+					<com.boka2.sbaseobjects.views.SButton
 						android:id="@+id/repetir"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
 						android:text="@string/foto_repetir"
 						android:textColor="@color/text_btn_camera_confirm_selector"/>
 
-					<com.sixtemia.sbaseobjects.views.SButton
+					<com.boka2.sbaseobjects.views.SButton
 						android:id="@+id/confirmar"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"

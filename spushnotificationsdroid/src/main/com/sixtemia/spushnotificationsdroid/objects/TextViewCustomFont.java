@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid.objects;
+package com.boka2.spushnotificationsdroid.objects;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -6,8 +6,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.sixtemia.spushnotificationsdroid.objects.FontManager;
-import com.sixtemia.spushnotificationsdroid.classes.ConstantsSPush;
+import com.boka2.spushnotificationsdroid.objects.FontManager;
+import com.boka2.spushnotificationsdroid.classes.ConstantsSPush;
 
 public class TextViewCustomFont extends TextView {
 

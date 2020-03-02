@@ -22,7 +22,7 @@
         android:orientation="horizontal"
         android:layout_marginBottom="10dp">
 
-        <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+        <com.boka2.gesblue.customstuff.views.SGBTextView
             android:id="@+id/firstLetter"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="12">
 
-            <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+            <com.boka2.gesblue.customstuff.views.SGBTextView
                 android:id="@+id/titolMarca"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"

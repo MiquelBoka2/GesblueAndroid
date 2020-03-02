@@ -7,7 +7,7 @@
 		android:id="@+id/activity_pas2_marca"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		tools:context="com.sixtemia.gesbluedroid.activities.passosformulari.Pas2MarcaActivity"
+		tools:context="com.boka2.gesblue.activities.passosformulari.Pas2MarcaActivity"
 		android:background="@android:color/white">
 
 		<include

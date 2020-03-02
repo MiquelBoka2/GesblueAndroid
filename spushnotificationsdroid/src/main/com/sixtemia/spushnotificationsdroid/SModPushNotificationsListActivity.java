@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid;
+package com.boka2.spushnotificationsdroid;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,9 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.sixtemia.spushnotificationsdroid.classes.PreferencesSPush;
-import com.sixtemia.spushnotificationsdroid.objects.SPushFragmentActivity;
-import com.sixtemia.spushnotificationsdroid.styles.SPushNotificationsStyleManager;
+import com.boka2.spushnotificationsdroid.classes.PreferencesSPush;
+import com.boka2.spushnotificationsdroid.objects.SPushFragmentActivity;
+import com.boka2.spushnotificationsdroid.styles.SPushNotificationsStyleManager;
 
 
 public class SModPushNotificationsListActivity extends SPushFragmentActivity {

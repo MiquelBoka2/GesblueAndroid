@@ -25,14 +25,16 @@
 		              android:paddingTop="@dimen/smodpushnotifications_item_notification_content_padding_top"
 		              android:paddingBottom="@dimen/smodpushnotifications_item_notification_content_padding_bottom">
 
-			<com.sixtemia.sbaseobjects.views.STextView android:id="@+id/txtDate"
+			<com.boka2.sbaseobjects.views.STextView
+                android:id="@+id/txtDate"
 			                                           android:layout_width="match_parent"
 			                                           android:layout_height="wrap_content"
 			                                           android:layout_marginTop="12dp"
 			                                           android:layout_marginBottom="18dp"
 			                                           android:textColor="#878787" />
 
-			<com.sixtemia.sbaseobjects.views.STextView android:id="@+id/txtDescription"
+			<com.boka2.sbaseobjects.views.STextView
+                android:id="@+id/txtDescription"
 			                                           android:layout_width="match_parent"
 			                                           android:layout_height="wrap_content"
 			                                           android:layout_below="@+id/txtDate"

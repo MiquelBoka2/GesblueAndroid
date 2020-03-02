@@ -1,17 +1,17 @@
-package com.sixtemia.spushnotificationsdroid;
+package com.boka2.spushnotificationsdroid;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import com.sixtemia.spushnotificationsdroid.classes.GCMIntentService;
-import com.sixtemia.spushnotificationsdroid.classes.PreferencesSPush;
-import com.sixtemia.spushnotificationsdroid.classes.SModPushNotificationsManagerListener;
-import com.sixtemia.spushnotificationsdroid.datamanager.DataManagerSPushNotifications;
-import com.sixtemia.spushnotificationsdroid.datamanager.SDataManagerListener;
-import com.sixtemia.spushnotificationsdroid.db.DataBase;
-import com.sixtemia.spushnotificationsdroid.model.SModPushPendingNotificationsCountResult;
-import com.sixtemia.sutils.classes.SDateUtils;
+import com.boka2.spushnotificationsdroid.classes.GCMIntentService;
+import com.boka2.spushnotificationsdroid.classes.PreferencesSPush;
+import com.boka2.spushnotificationsdroid.classes.SModPushNotificationsManagerListener;
+import com.boka2.spushnotificationsdroid.datamanager.DataManagerSPushNotifications;
+import com.boka2.spushnotificationsdroid.datamanager.SDataManagerListener;
+import com.boka2.spushnotificationsdroid.db.DataBase;
+import com.boka2.spushnotificationsdroid.model.SModPushPendingNotificationsCountResult;
+import com.boka2.sutils.classes.SDateUtils;
 
 public class SModPushNotificationsManager {
 

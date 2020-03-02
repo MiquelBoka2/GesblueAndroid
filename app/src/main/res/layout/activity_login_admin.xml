@@ -75,7 +75,7 @@
                         android:paddingRight="16dp"
                         android:paddingBottom="6dp">
 
-                        <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+                        <com.boka2.gesblue.customstuff.views.SGBTextView
                             android:id="@+id/textViewUsuari"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                             android:text="@string/usuari"
                             android:textColor="@color/loginTextGreen" />
 
-                        <com.sixtemia.sbaseobjects.views.SEditText
+                        <com.boka2.sbaseobjects.views.SEditText
                             android:id="@+id/editTextUsuari"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                             app:clearDrawable="@drawable/edittext_delete" />
 
 
-                        <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+                        <com.boka2.gesblue.customstuff.views.SGBTextView
                             android:id="@+id/textViewPassword"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
                             android:text="@string/password"
                             android:textColor="@color/loginTextGreen" />
 
-                        <com.sixtemia.sbaseobjects.views.SEditText
+                        <com.boka2.sbaseobjects.views.SEditText
                             android:id="@+id/editTextPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                             android:textSize="@dimen/editTextSize_login"
                             app:clearDrawable="@drawable/edittext_delete" />
 
-                        <com.sixtemia.gesbluedroid.customstuff.views.SGBTextView
+                        <com.boka2.gesblue.customstuff.views.SGBTextView
                             android:id="@+id/textViewConcessio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -207,7 +207,7 @@
                                 app:layout_constraintTop_toTopOf="parent"
                                 tools:visibility="visible">
 
-                                <com.sixtemia.sbaseobjects.views.SEditText
+                                <com.boka2.sbaseobjects.views.SEditText
                                     android:id="@+id/editTextConcessio"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -241,7 +241,7 @@
                                         android:longClickable="false"
                                         android:text="@string/accepta" />
 
-                                    <com.sixtemia.sbaseobjects.views.SProgressBar
+                                    <com.boka2.sbaseobjects.views.SProgressBar
                                         android:id="@+id/progressBar"
                                         style="?android:attr/progressBarStyle"
                                         android:layout_width="wrap_content"

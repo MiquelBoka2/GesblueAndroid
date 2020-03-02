@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid.datamanager;
+package com.boka2.spushnotificationsdroid.datamanager;
 
 public interface SDataManagerListener {
 	void onCompletion(Object result);

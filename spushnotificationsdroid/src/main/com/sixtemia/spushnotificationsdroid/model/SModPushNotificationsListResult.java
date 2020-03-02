@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid.model;
+package com.boka2.spushnotificationsdroid.model;
 
 import java.util.ArrayList;
 

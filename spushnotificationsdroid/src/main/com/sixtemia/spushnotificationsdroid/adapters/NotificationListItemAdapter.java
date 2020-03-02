@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid.adapters;
+package com.boka2.spushnotificationsdroid.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 
-import com.sixtemia.spushnotificationsdroid.R;
-import com.sixtemia.spushnotificationsdroid.model.SModPushNotification;
-import com.sixtemia.spushnotificationsdroid.objects.TextViewCustomFont;
-import com.sixtemia.spushnotificationsdroid.styles.SPushNotificationsStyleManager;
-import com.sixtemia.sutils.classes.SDateUtils;
+import com.boka2.spushnotificationsdroid.R;
+import com.boka2.spushnotificationsdroid.model.SModPushNotification;
+import com.boka2.spushnotificationsdroid.objects.TextViewCustomFont;
+import com.boka2.spushnotificationsdroid.styles.SPushNotificationsStyleManager;
+import com.boka2.sutils.classes.SDateUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

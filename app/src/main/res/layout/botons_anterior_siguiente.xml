@@ -19,15 +19,17 @@
 
 			<Button
 				android:id="@+id/anterior"
+				style="@style/StepButton"
 				android:text="@string/anterior"
-				style="@style/StepButton"/>
+				android:textSize="18sp" />
 
 			<View style="@style/btnsInferiors_liniaSeparadora" />
 
 			<Button
 				android:id="@+id/seguent"
+				style="@style/StepButton"
 				android:text="@string/seguent"
-				style="@style/StepButton"/>
+				android:textSize="18sp" />
 
 		</LinearLayout>
 

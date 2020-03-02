@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid.objects;
+package com.boka2.spushnotificationsdroid.objects;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -13,9 +13,9 @@ import android.text.SpannableString;
 import android.util.Log;
 
 import com.flurry.android.FlurryAgent;
-import com.sixtemia.classes.SPushTypefaceSpan;
-import com.sixtemia.spushnotificationsdroid.R;
-import com.sixtemia.spushnotificationsdroid.styles.SPushNotificationsStyleManager;
+import com.boka2.classes.SPushTypefaceSpan;
+import com.boka2.spushnotificationsdroid.R;
+import com.boka2.spushnotificationsdroid.styles.SPushNotificationsStyleManager;
 
 public class SPushFragmentActivity extends FragmentActivity {
 

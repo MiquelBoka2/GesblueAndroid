@@ -17,7 +17,7 @@
    Contact: Txus Ballesteros <txus.ballesteros@mobandme.com>
 */
 
-package com.sixtemia.spushnotificationsdroid.db;
+package com.boka2.spushnotificationsdroid.db;
 
 public class DataBase {
 	public static DataContext Context;

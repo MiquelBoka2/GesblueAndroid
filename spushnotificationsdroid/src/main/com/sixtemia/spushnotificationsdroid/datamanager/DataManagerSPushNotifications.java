@@ -1,18 +1,18 @@
-package com.sixtemia.spushnotificationsdroid.datamanager;
+package com.boka2.spushnotificationsdroid.datamanager;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 
 import com.google.gson.Gson;
-import com.sixtemia.spushnotificationsdroid.R;
-import com.sixtemia.spushnotificationsdroid.classes.PreferencesSPush;
-import com.sixtemia.spushnotificationsdroid.db.DataBase;
-import com.sixtemia.spushnotificationsdroid.model.SModPushNotification;
-import com.sixtemia.spushnotificationsdroid.model.SModPushNotificationsListResult;
-import com.sixtemia.spushnotificationsdroid.model.SModPushPendingNotificationsCountResult;
-import com.sixtemia.spushnotificationsdroid.model.SModPushRegisterResult;
-import com.sixtemia.sutils.classes.SNetworkUtils;
+import com.boka2.spushnotificationsdroid.R;
+import com.boka2.spushnotificationsdroid.classes.PreferencesSPush;
+import com.boka2.spushnotificationsdroid.db.DataBase;
+import com.boka2.spushnotificationsdroid.model.SModPushNotification;
+import com.boka2.spushnotificationsdroid.model.SModPushNotificationsListResult;
+import com.boka2.spushnotificationsdroid.model.SModPushPendingNotificationsCountResult;
+import com.boka2.spushnotificationsdroid.model.SModPushRegisterResult;
+import com.boka2.sutils.classes.SNetworkUtils;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;

@@ -39,7 +39,7 @@ import pt.joaocruz04.lib.misc.JsoapError;
 import pt.joaocruz04.lib.misc.SoapDeserializer;
 
 /**
- * Created by Joao Cruz on 16/12/14.
+ * Created by Boka2.
  */
 public class SOAPManager {
 

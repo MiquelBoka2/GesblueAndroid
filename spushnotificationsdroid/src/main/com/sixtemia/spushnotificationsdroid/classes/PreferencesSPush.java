@@ -1,10 +1,10 @@
-package com.sixtemia.spushnotificationsdroid.classes;
+package com.boka2.spushnotificationsdroid.classes;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.sixtemia.spushnotificationsdroid.R;
+import com.boka2.spushnotificationsdroid.R;
 
 public class PreferencesSPush {
 

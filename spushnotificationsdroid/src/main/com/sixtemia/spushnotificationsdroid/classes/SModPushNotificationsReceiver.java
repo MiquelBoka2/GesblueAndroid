@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid.classes;
+package com.boka2.spushnotificationsdroid.classes;
 
 import android.content.Context;
 

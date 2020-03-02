@@ -75,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.sixtemia.sbaseobjects.views.SProgressBar
+    <com.boka2.sbaseobjects.views.SProgressBar
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_below="@+id/toolbarContainer"
         android:layout_width="match_parent"

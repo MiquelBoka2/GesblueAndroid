@@ -1,12 +1,12 @@
-package com.sixtemia.spushnotificationsdroid;
+package com.boka2.spushnotificationsdroid;
 
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.sixtemia.spushnotificationsdroid.classes.PreferencesSPush;
-import com.sixtemia.spushnotificationsdroid.objects.SPushActivity;
-import com.sixtemia.sutils.classes.SDateUtils;
+import com.boka2.spushnotificationsdroid.classes.PreferencesSPush;
+import com.boka2.spushnotificationsdroid.objects.SPushActivity;
+import com.boka2.sutils.classes.SDateUtils;
 
 public class RegisterExampleActivity extends SPushActivity {
 

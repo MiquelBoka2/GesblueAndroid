@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid.db;
+package com.boka2.spushnotificationsdroid.db;
 
 import java.io.File;
 
@@ -7,8 +7,8 @@ import android.os.Environment;
 
 import com.mobandme.ada.ObjectContext;
 import com.mobandme.ada.exceptions.AdaFrameworkException;
-import com.sixtemia.spushnotificationsdroid.model.SModPushNotification;
-import com.sixtemia.sutils.classes.SSystemUtils;
+import com.boka2.spushnotificationsdroid.model.SModPushNotification;
+import com.boka2.sutils.classes.SSystemUtils;
 
 /*
  * CLASSE NECESSARIA PER UTILITZAR ADA DATAFRAMEWORK (framework base de dades)
@@ -16,7 +16,7 @@ import com.sixtemia.sutils.classes.SSystemUtils;
 
 public class DataContext extends ObjectContext {
 
-	final static String DATABASE_FOLDER = "%s/Sixtemia/";
+	final static String DATABASE_FOLDER = "%s/Boka2/";
 	final static String DATABASE_NAME = "spushnotifications.db";
 	final static int DATABASE_VERSION = 2;
 

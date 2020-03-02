@@ -1,4 +1,4 @@
-package com.sixtemia.spushnotificationsdroid.objects;
+package com.boka2.spushnotificationsdroid.objects;
 
 import android.content.Context;
 import android.graphics.Typeface;

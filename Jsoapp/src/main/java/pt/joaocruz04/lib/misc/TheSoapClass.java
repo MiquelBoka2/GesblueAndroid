@@ -16,7 +16,7 @@ import pt.joaocruz04.lib.annotations.JSoapClass;
 import pt.joaocruz04.lib.annotations.JSoapReqField;
 
 /**
- * Created by joaocruz04 on 04/02/15.
+ * Created by Boka2.
  */
 public class TheSoapClass extends SoapObject{
     public HashMap<Integer, Field> fields_map;;

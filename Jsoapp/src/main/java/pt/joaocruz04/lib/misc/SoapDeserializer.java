@@ -11,7 +11,7 @@ import pt.joaocruz04.lib.annotations.JSoapAttribute;
 import pt.joaocruz04.lib.annotations.JSoapResField;
 
 /**
- * Created by joaocruz04 on 04/02/15.
+ * Created by Boka2.
  */
 public class SoapDeserializer {
     
