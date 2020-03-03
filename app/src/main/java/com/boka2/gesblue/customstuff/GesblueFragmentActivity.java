@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.boka2.gesbluedroid.databinding.ToolbarBinding;
+import com.boka2.gesblue.databinding.ToolbarBinding;
 import com.flurry.android.FlurryAgent;
 import com.boka2.gesblue.R;
 import com.boka2.sbaseobjects.objects.SFragmentActivity;

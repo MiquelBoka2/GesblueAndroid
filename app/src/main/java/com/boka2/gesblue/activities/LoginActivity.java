@@ -647,9 +647,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 		}
 
 
-
-
-
 		//Comprovem si tenim denuncies i en cas negatiu, mostrem un missatge informatiu.
 
 		if (denunciesPendents==null || denunciesPendents.size()<=0 || denunciesPendents.isEmpty()){
@@ -1745,6 +1742,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 						PreferencesGesblue.clearFormulari(mContext);
 						//File path = new File("storage/emulated/0/Sixtemia");
 						File path = new File("storage/emulated/0/Boka2");
+						BorratRecursiu(path);
+						path = new File("storage/emulated/0/Sixtemia");
 						BorratRecursiu(path);
 						clearAppData();
 						break;

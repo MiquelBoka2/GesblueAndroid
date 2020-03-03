@@ -30,6 +30,9 @@
 				android:id="@+id/scrollView6"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="1.0"
+				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
 				<LinearLayout
@@ -348,8 +351,8 @@
 					android:elevation="2dp"
 					android:scaleType="center"
 					android:src="@drawable/ic_foto"
-					android:theme="@style/AppTheme.FAB"
-					android:tint="@color/colorFons"
+					android:tint="#FFFFFF"
+					app:backgroundTint="@color/btn_activat"
 					app:elevation="2dp"
 					app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
 					app:layout_constraintEnd_toEndOf="parent"

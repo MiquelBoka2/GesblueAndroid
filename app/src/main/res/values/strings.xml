@@ -285,6 +285,7 @@ secretari/a de l\'Ajuntament.</string>
     <string name="user_admin">usuari administrador</string>
     <string name="password_admin">password administrador</string>
     <string name="anula">ANULA</string>
+    <string name="admin_off">Mode administrador apagat</string>
 
     <string name="sense_conexio">No s\'ha detectat connexió a internet,\n comprovi la connexió i torni a provar</string>
 

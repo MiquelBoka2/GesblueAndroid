@@ -237,19 +237,22 @@
 
 					</LinearLayout>
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-	                    android:id="@+id/btnCamera"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_foto"
-	                    android:layout_centerVertical="true"
-                        android:layout_margin="6dp"
-                        android:tint="@color/colorFons"
-                        android:scaleType="center"
-                        android:elevation="2dp"
-                        app:elevation="2dp"
-                        android:theme="@style/AppTheme.FAB"/>
+					<com.google.android.material.floatingactionbutton.FloatingActionButton
+						android:id="@+id/btnCamera"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:layout_marginStart="6dp"
+						android:layout_marginTop="6dp"
+						android:layout_marginEnd="6dp"
+						android:layout_marginBottom="6dp"
+						android:elevation="2dp"
+						android:scaleType="center"
+						android:src="@drawable/ic_foto"
+						android:tint="@color/colorFons"
+						app:backgroundTint="@color/btn_activat"
+						app:elevation="2dp" />
 
 
                 </RelativeLayout>

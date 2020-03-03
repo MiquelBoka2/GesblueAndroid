@@ -234,7 +234,7 @@ public class Idiomes extends AppCompatActivity {
 
     public void Reiniciar() {
 
-        Intent refresh = new Intent(this, SplashActivity.class);
+        Intent refresh = new Intent(this, LoginActivity.class);
         finish();
         startActivity(refresh);
     }

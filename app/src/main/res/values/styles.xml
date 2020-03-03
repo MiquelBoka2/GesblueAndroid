@@ -12,9 +12,8 @@
 
 	</style>
 
-	<style name="AppTheme.FAB">
-		<item name="colorAccent">@color/taronja</item>
-	</style>
+
+
 
 	<style name="AppTheme.Dialog" parent="Theme.AppCompat.Dialog">
 
@@ -89,9 +88,6 @@
 		<item name="android:background">@color/button_inferior_separador</item>
 	</style>
 
-	<style name="SplashTheme" parent="AppTheme">
-		<item name="android:windowBackground">@drawable/splash</item>
-	</style>
 
 
 </resources>

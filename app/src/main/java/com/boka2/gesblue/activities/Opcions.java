@@ -348,9 +348,25 @@ public class Opcions extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(oContext, Login_Admin.class);
-                    intent.putExtra("adm", adm);
-                    startActivityForResult(intent, RequestCode);
+                    if (adm){
+                        adm=false;
+                        Intent intent = new Intent(oContext, LoginActivity.class);
+                        intent.putExtra("result", "");
+                        intent.putExtra("adm", adm);
+                        setResult(RESULT_OK, intent);
+                        Toast adminOff =
+                                Toast.makeText(getApplicationContext(),
+                                        getResources().getString(R.string.admin_off), Toast.LENGTH_SHORT);
+
+                        adminOff.show();
+                        finish();
+                    }
+                    else{
+                        Intent intent = new Intent(oContext, Login_Admin.class);
+                        intent.putExtra("adm", adm);
+                        startActivityForResult(intent, RequestCode);
+                    }
+
                 }
             });
 

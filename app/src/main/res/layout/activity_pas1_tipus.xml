@@ -169,14 +169,18 @@
 			<View
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="1"/>
-
-			<View style="@style/btnsInferiors_liniaSeparadora" />
+				android:layout_marginStart="16dp"
+				android:layout_marginEnd="8dp"
+				android:layout_weight="1" />
 
 			<Button
 				android:id="@+id/seguent"
+				style="@style/StepButton"
+				android:layout_marginTop="16dp"
+				android:layout_marginEnd="16dp"
+				android:layout_marginBottom="16dp"
 				android:text="@string/seguent"
-				style="@style/StepButton"/>
+				android:textSize="18sp" />
 
 		</LinearLayout>
 

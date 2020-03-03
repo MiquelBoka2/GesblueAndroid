@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import android.graphics.Bitmap;
@@ -249,18 +250,13 @@ public class MainActivity extends GesblueFragmentActivity {
 				} else {
 					AlertDialog.Builder builder= new AlertDialog.Builder(mContext)
 							.setTitle(getResources().getString(R.string.no_mes_fotos))
-
-							// Specifying a listener allows you to take an action before dismissing the dialog.
-							// The dialog is automatically dismissed when a dialog button is clicked.
-							.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+							.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
 									dialog.cancel();
-									// Continue with delete operation
-								}
-							})
 
-							// A null listener allows the button to dismiss the dialog and take no further action.
-							.setIcon(android.R.drawable.ic_dialog_alert);
+								}
+							});
+
 
 					AlertDialog alert = builder.create();
 					alert.show();
@@ -721,10 +717,10 @@ public class MainActivity extends GesblueFragmentActivity {
 	@SuppressLint("RestrictedApi")
 	private void checkBotoCamera() {
 		if(!isEmpty(foto1) & !isEmpty(foto2) & !isEmpty(foto3) & !isEmpty(foto4)){
-			mBinding.btnCamera.setBackgroundColor(getResources().getColor(R.color.btn_desectivat));
+			mBinding.btnCamera.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.btn_desectivat));
 		}
 		else{
-			mBinding.btnCamera.setBackgroundColor(getResources().getColor(R.color.btn_activat));
+			mBinding.btnCamera.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.btn_activat));
 		}
 
 	}

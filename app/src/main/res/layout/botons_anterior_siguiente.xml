@@ -20,14 +20,18 @@
 			<Button
 				android:id="@+id/anterior"
 				style="@style/StepButton"
+				android:layout_marginStart="16dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginEnd="4dp"
+				android:layout_marginBottom="16dp"
 				android:text="@string/anterior"
 				android:textSize="18sp" />
-
-			<View style="@style/btnsInferiors_liniaSeparadora" />
 
 			<Button
 				android:id="@+id/seguent"
 				style="@style/StepButton"
+				android:layout_marginStart="4dp"
+				android:layout_marginEnd="16dp"
 				android:text="@string/seguent"
 				android:textSize="18sp" />
 
