@@ -129,7 +129,5 @@
     <orderEntry type="library" name="Gradle: com.andkulikov:transitionseverywhere:1.6.2@aar" level="project" />
     <orderEntry type="module" module-name="sutils" />
     <orderEntry type="module" module-name="sutils" />
-    <orderEntry type="module" module-name="sutils" />
-    <orderEntry type="module" module-name="sutils" />
   </component>
 </module>

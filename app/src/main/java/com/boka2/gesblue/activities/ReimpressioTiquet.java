@@ -2,6 +2,8 @@ package com.boka2.gesblue.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -17,6 +19,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -107,6 +110,8 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
     private ProgressDialog mDialog;
 
+    private Context mContext;
+
     private ProgressDialog getDialog( String title,  String message) {
         if(null == mDialog || !mDialog.isShowing()) {
             mDialog = new ProgressDialog(this);
@@ -170,20 +175,15 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
         btn_Imprimir.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {Utils.showAlertSelectedLanguage(RTContext, R.string.atencio, R.string.confirmacio,spn_Idioma.getSelectedItem().toString(), R.string.butlletaImpresaOk_imprimir, R.string.butlletaImpresaOk_enviar, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                   print();
-                }
-            }, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    onBackPressed();
-                }
-            }, false);
+            public void onClick(View v) {
+
+                CustomDialogClass ccd = new CustomDialogClass(ReimpressioTiquet.this);
+                ccd.show();
 
             }
         });
+
+
 
 
 
@@ -370,7 +370,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
 
         /** IMG***/
-        File f = new File("storage/emulated/0/Boka2/upload/temp");
+        File f = new File("storage/emulated/0/Boka2/upload/done");
         if (f.exists() && f.isDirectory()){
             final Pattern p = Pattern.compile(".*-"+numDenuncia+"1.jpg"); // I know I really have a stupid mistake on the regex;
 
@@ -386,9 +386,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
                 Log.e("Ruta foto1:",f1.getName());
 
-                pinta("storage/emulated/0/Boka2/upload/temp/"+f1.getName(),img_Foto1);
+                pinta("storage/emulated/0/Boka2/upload/done/"+f1.getName(),img_Foto1);
                 img1IsActive = true;
-                foto1 = "storage/emulated/0/Boka2/upload/temp/"+f1.getName();
+                foto1 = "storage/emulated/0/Boka2/upload/done/"+f1.getName();
             }
 
             final Pattern p2 = Pattern.compile(".*-"+numDenuncia+"2.jpg"); // I know I really have a stupid mistake on the regex;
@@ -405,9 +405,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
                 Log.e("Ruta foto2:",f2.getName());
 
 
-                pinta("storage/emulated/0/Boka2/upload/temp/"+f2.getName(), img_Foto2);
+                pinta("storage/emulated/0/Boka2/upload/done/"+f2.getName(), img_Foto2);
                 img2IsActive = true;
-                foto2 = "storage/emulated/0/Boka2/upload/temp/"+f2.getName();
+                foto2 = "storage/emulated/0/Boka2/upload/done/"+f2.getName();
             }
 
 
@@ -426,9 +426,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
                 Log.e("Ruta foto3:",f3.getName());
 
 
-                pinta("storage/emulated/0/Boka2/upload/temp/"+f3.getName(), img_Foto3);
+                pinta("storage/emulated/0/Boka2/upload/done/"+f3.getName(), img_Foto3);
                 img3IsActive = true;
-                foto3 = "storage/emulated/0/Boka2/upload/temp/"+f3.getName();
+                foto3 = "storage/emulated/0/Boka2/upload/done/"+f3.getName();
             }
 
             final Pattern p4 = Pattern.compile(".*-"+numDenuncia+"4.jpg"); // I know I really have a stupid mistake on the regex;
@@ -446,9 +446,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
                 Log.e("Ruta foto4:",f4.getName());
 
 
-                pinta("storage/emulated/0/Boka2/upload/temp/"+f4.getName(), img_Foto4);
+                pinta("storage/emulated/0/Boka2/upload/done/"+f4.getName(), img_Foto4);
                 img4IsActive = true;
-                foto4 = "storage/emulated/0/Boka2/upload/temp/"+f4.getName();
+                foto4 = "storage/emulated/0/Boka2/upload/done/"+f4.getName();
             }
 
         }
@@ -549,25 +549,8 @@ public class ReimpressioTiquet extends AppCompatActivity {
                 public void onFinish(Exception ex, boolean isFirstTime) {
                     if(null == ex) {
                         dismissDialog();
-                        Utils.showCustomDialog(RTContext, R.string.atencio, R.string.butlletaImpresaOk, R.string.butlletaImpresaOk_imprimir, R.string.butlletaImpresaOk_enviar, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                printFinal();
-
-                            }
-                        }, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                CanviarIdioma(idiomaAntic);
-
-
-                                Intent intent = new Intent(RTContext, MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-
-                            }
-                        }, false);
-
+                        CustomDialogClass ccd = new CustomDialogClass(ReimpressioTiquet.this);
+                        ccd.show();
 
                     }
                     else {
@@ -863,6 +846,56 @@ public class ReimpressioTiquet extends AppCompatActivity {
         res.updateConfiguration(conf, dm);
     }
 
+
+    private class CustomDialogClass extends Dialog implements
+            android.view.View.OnClickListener {
+
+        public Activity c;
+        public Dialog d;
+        public Button yesR, noR,yes;
+
+        public CustomDialogClass(Activity a) {
+            super(a);
+            // TODO Auto-generated constructor stub
+            this.c = a;
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            setContentView(R.layout.custom_dialog_impressio);
+            yes = (Button) findViewById(R.id.btn_yes);
+            noR = (Button) findViewById(R.id.btn_noR);
+            yesR=(Button)findViewById(R.id.btn_yesR);
+            yes.setOnClickListener(this);
+            noR.setOnClickListener(this);
+            yesR.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_yes:
+                    DatabaseAPI.updateDenunciaImpresa(mContext,numDenuncia);
+                    break;
+
+                case R.id.btn_yesR:
+                    DatabaseAPI.updateDenunciaImpresa(mContext,numDenuncia);
+                    printFinal();
+                    break;
+
+
+                case R.id.btn_noR:
+                    printFinal();
+                    break;
+
+            }
+            dismiss();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -893,4 +926,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
             }
         }
     }
+
+
+
 }

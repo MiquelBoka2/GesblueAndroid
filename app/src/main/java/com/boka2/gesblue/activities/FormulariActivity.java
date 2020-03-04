@@ -1,6 +1,8 @@
 package com.boka2.gesblue.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -11,13 +13,19 @@ import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.boka2.gesblue.datamanager.webservices.DatamanagerAPI;
+import com.boka2.gesblue.datamanager.webservices.requests.operativa.NovaDenunciaRequest;
+import com.boka2.gesblue.datamanager.webservices.requests.operativa.PujaFotoRequest;
+import com.boka2.gesblue.datamanager.webservices.results.operativa.NovaDenunciaResponse;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.datecs.api.emsr.EMSR;
@@ -45,12 +53,16 @@ import com.boka2.gesblue.global.Utils;
 import com.boka2.gesblue.network.PrinterServer;
 import com.boka2.gesblue.network.PrinterServerListener;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.net.util.Base64;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -58,10 +70,13 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import pt.joaocruz04.lib.misc.JSoapCallback;
+
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.boka2.gesblue.GesblueApplication.EnviamentDisponible;
 import static com.boka2.gesblue.global.PreferencesGesblue.getCodiAgent;
 import static com.boka2.gesblue.global.PreferencesGesblue.getControl;
 import static com.boka2.gesblue.global.PreferencesGesblue.getFoto1;
@@ -72,6 +87,8 @@ import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiExportadora
 import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiInstitucio;
 import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiTipusButlleta;
 import static com.boka2.gesblue.global.PreferencesGesblue.getTerminal;
+import static com.boka2.gesblue.global.Utils.generateCodiButlleta;
+import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
 public class FormulariActivity extends GesblueFragmentActivity implements View.OnClickListener{
 
@@ -87,6 +104,10 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private String foto2;
 	private String foto3;
 	private String foto4;
+
+	private Bitmap imageBitmap;
+	private Model_Denuncia denuncia = new Model_Denuncia();
+
 
 	private Boolean adm=false;
 	private Button btn_Enviar;
@@ -211,15 +232,19 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		foto4 = savedInstanceState.getString("foto4");
 		if(foto1!=""){
 			pinta(foto1, mBinding.imageViewA);
+			img1IsActive=true;
 		}
 		if(foto2!=""){
 			pinta(foto2, mBinding.imageViewB);
+			img2IsActive=true;
 		}
 		if(foto3!=""){
 			pinta(foto3, mBinding.imageViewC);
+			img3IsActive=true;
 		}
 		if(foto4!=""){
 			pinta(foto4, mBinding.imageViewD);
+			img4IsActive=true;
 		}
 	}
 	@Override
@@ -237,18 +262,22 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		if(!getFoto1(mContext).equals("")){
 			foto1=getFoto1(mContext);
 			pinta(foto1, mBinding.imageViewA);
+			img1IsActive=true;
 		}
 		if(!getFoto2(mContext).equals("")){
 			foto2=getFoto2(mContext);
 			pinta(foto2, mBinding.imageViewB);
+			img2IsActive=true;
 		}
 		if(!getFoto3(mContext).equals("")){
 			foto3=getFoto3(mContext);
 			pinta(foto3, mBinding.imageViewC);
+			img3IsActive=true;
 		}
 		if(!getFoto4(mContext).equals("")){
 			foto4=getFoto4(mContext);
 			pinta(foto4, mBinding.imageViewD);
+			img4IsActive=true;
 		}
 
 
@@ -330,7 +359,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
         Log.e("Recuperada?:",""+recuperada);
 
-		if(recuperada==true) {
+		/*if(recuperada==true) {
 			File f = new File("storage/emulated/0/Boka2/upload/temp");
 			if (f.exists() && f.isDirectory()){
 				final Pattern p = Pattern.compile(".*-"+numDenuncia+"1.jpg"); // I know I really have a stupid mistake on the regex;
@@ -413,7 +442,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				}
 
 			}
-		}
+		}*/
 
 	}
 
@@ -604,23 +633,41 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				break;
 			case R.id.btnCamera:
 				if(!recuperada) {
-					intent = new Intent(mContext, CameraActivity.class);
+					Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 					if (isEmpty(foto1)) {
-						intent.putExtra("position", "1");
-						startActivityForResult(intent, RESULT_FOTO_1);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+						}
+						else{						}
+
+
 					} else if (isEmpty(foto2)) {
-						intent.putExtra("position", "2");
-						startActivityForResult(intent, RESULT_FOTO_2);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
+						}
+						else{						}
+
+
 					} else if (isEmpty(foto3)) {
-						intent.putExtra("position", "3");
-						startActivityForResult(intent, RESULT_FOTO_3);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
+						}
+						else{						}
+
+
 					} else if (isEmpty(foto4)) {
-						intent.putExtra("position", "4");
-						startActivityForResult(intent, RESULT_FOTO_4);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
+						}
+						else{						}
+
+
 					} else {
-						intent.putExtra("position", "1");
-						startActivityForResult(intent, RESULT_FOTO_1);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+						}
+						else{						}
 					}
 				}
 				break;
@@ -666,9 +713,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				} else {
 
 					if(!recuperada) {
-						intent = new Intent(mContext, CameraActivity.class);
-						intent.putExtra("position", "1");
-						startActivityForResult(intent, RESULT_FOTO_1);
+						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+						}
+						else{						}
 					}
 				}
 
@@ -687,9 +736,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					});
 				} else {
 					if(!recuperada) {
-						intent = new Intent(mContext, CameraActivity.class);
-						intent.putExtra("position", "2");
-						startActivityForResult(intent, RESULT_FOTO_2);
+						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
+						}
+						else{						}
 					}
 				}
 
@@ -707,9 +758,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						});
 					} else {
 						if(!recuperada) {
-							intent = new Intent(mContext, CameraActivity.class);
-							intent.putExtra("position", "3");
-							startActivityForResult(intent, RESULT_FOTO_3);
+							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
+							}
+							else{						}
 						}
 					}
 
@@ -728,9 +781,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					});
 				} else {
 					if(!recuperada) {
-						intent = new Intent(mContext, CameraActivity.class);
-						intent.putExtra("position", "4");
-						startActivityForResult(intent, RESULT_FOTO_4);
+						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
+						} else {
+						}
 					}
 				}
 
@@ -815,28 +870,47 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if(resultCode == RESULT_OK) {
+			Bundle extras = data.getExtras();
+
 			switch (requestCode) {
-				case RESULT_FOTO_1:
-					foto1 = data.getExtras().getString(KEY_RETURN_PATH);
+
+				/**ESPEREM EL RESULTAT DE LES FOTOS**/
+				case Utils.REQUEST_IMAGE_CAPTURE_1:
+
+					imageBitmap = (Bitmap) extras.get("data");
+					foto1=Utils.savePicture(imageBitmap,mContext,"1");
 					pinta(foto1, mBinding.imageViewA);
 					img1IsActive = true;
 					checkBotoCamera();
 					break;
-				case RESULT_FOTO_2:
-					foto2 = data.getExtras().getString(KEY_RETURN_PATH);
+
+
+
+				case Utils.REQUEST_IMAGE_CAPTURE_2:
+
+					imageBitmap = (Bitmap) extras.get("data");
+					foto2=Utils.savePicture(imageBitmap,mContext,"2");
 					pinta(foto2, mBinding.imageViewB);
 					img2IsActive = true;
 					checkBotoCamera();
 					break;
-				case RESULT_FOTO_3:
-					foto3 = data.getExtras().getString(KEY_RETURN_PATH);
+
+
+
+				case Utils.REQUEST_IMAGE_CAPTURE_3:
+
+					imageBitmap = (Bitmap) extras.get("data");
+					foto3=Utils.savePicture(imageBitmap,mContext,"3");
 					pinta(foto3, mBinding.imageViewC);
 					img3IsActive = true;
 					checkBotoCamera();
 					break;
 
-				case RESULT_FOTO_4:
-					foto4 = data.getExtras().getString(KEY_RETURN_PATH);
+
+				case Utils.REQUEST_IMAGE_CAPTURE_4:
+
+					imageBitmap = (Bitmap) extras.get("data");
+					foto4=Utils.savePicture(imageBitmap,mContext,"4");
 					pinta(foto4, mBinding.imageViewD);
 					img4IsActive = true;
 					checkBotoCamera();
@@ -851,11 +925,14 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					disableViews();
 					fillAll();
 					break;
+
 				case REQUEST_MORE_OPTIONS:
 					sancio = (Sancio) data.getExtras().get(INTENT_SANCIO);
 					dataInfraccio = (String) data.getExtras().get(KEY_DATA_INFRACCIO);
 					numeroTiquet = (String) data.getExtras().get(KEY_NUMERO_TIQUET);
 					break;
+
+
 				case REQUEST_GET_DEVICE:
 					String address = data.getStringExtra(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
 					if (BluetoothAdapter.checkBluetoothAddress(address)) {
@@ -981,7 +1058,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		Date date;
 		if(recuperada==false) {
 			date = new Date();
-			denuncia.setCodidenuncia(generateCodiButlleta());
+			denuncia.setCodidenuncia(generateCodiButlleta(mContext));
 		}
 		else{
 			date = dataCreacio;
@@ -998,6 +1075,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		}else {
 			denuncia.setAdrecanum(Double.parseDouble(sancio.getNumero()));
 		}
+
 		denuncia.setPosicio("");
 		denuncia.setMatricula (sancio.getMatricula());
 		denuncia.setTipusvehicle (sancio.getModelTipusVehicle().getCoditipusvehicle());
@@ -1028,7 +1106,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 			DatabaseAPI.insertDenuncies(mContext,arrayDenuncies);
 			sendPhotos();
+			isFirstEnvia=false;
 		}
+		/*
 		Utils.showCustomDialog(mContext, R.string.atencio, R.string.butlletaEnviadaOk, R.string.butlletaEnviadaOk_acceptar, R.string.butlletaEnviadaOk_cancelar, new DialogInterface.OnClickListener()
 		{
 			@Override
@@ -1042,7 +1122,10 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				//GBFTP.close();
 				goToMain();
 			}
-		}, false);
+		}, false);*/
+
+
+
 
 
 /*
@@ -1124,7 +1207,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 	private void sendPhotos() {
 		String concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
-		String numDenuncia = generateCodiButlleta();
+		String numDenuncia = generateCodiButlleta(mContext);
 		if (img1IsActive) {
 			File photo = new File(foto1);
 
@@ -1178,13 +1261,17 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void printFinal(boolean isFirstTime) {
+		if(isFirstTime) {
+			send();
+		}
 		if(PreferencesGesblue.getTiquetUsuari(mContext) || PreferencesGesblue.getDataImportTiquet(mContext)) {
 			Intent intent = new Intent(mContext, MoreInfoToPrintActivity.class);
 			intent.putExtra(MoreInfoToPrintActivity.KEY_TIQUET,PreferencesGesblue.getTiquetUsuari(mContext));
 			intent.putExtra(MoreInfoToPrintActivity.KEY_DATAIMPORT,PreferencesGesblue.getDataImportTiquet(mContext));
 			intent.putExtra(INTENT_SANCIO,sancio);
 			startActivityForResult(intent, REQUEST_MORE_OPTIONS);
-		} else {
+		}
+		else {
 			try{
 				runOnUiThread(new Runnable() {
 					public void run() {
@@ -1201,7 +1288,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				fecha = dataCreacio;
 			}
 			else{
-				codibutlleta=generateCodiButlleta();
+				codibutlleta=generateCodiButlleta(mContext);
 				fecha = new Date();
 			}
 			PrintAsyncTask p = new PrintAsyncTask(mPrinter, mContext, sancio, codibutlleta, fecha, isFirstTime, new PrintAsyncTask.PrintListener() {
@@ -1209,22 +1296,22 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				public void onFinish(Exception ex, boolean isFirstTime) {
 					if(null == ex) {
 						dismissDialog();
-						if (isFirstEnvia) {
-							isFirstEnvia = false;
-							send();
-						} else {
-							Utils.showCustomDialog(mContext, R.string.atencio, R.string.butlletaImpresaOk, R.string.butlletaImpresaOk_imprimir, R.string.butlletaImpresaOk_enviar, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									printFinal(true);
-								}
-							}, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									goToMain();
-								}
-							}, false);
-						}
+						CustomDialogClass ccd = new CustomDialogClass(FormulariActivity.this);
+						ccd.show();
+
+
+						/*Utils.showCustomDialog(mContext, R.string.atencio, R.string.butlletaImpresaOk, R.string.butlletaImpresaOk_imprimir, R.string.butlletaImpresaOk_enviar, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								printFinal(true);
+							}
+						}, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								goToMain();
+							}
+						}, false);*/
+
 					} else {
 						ELog(ex);
 						if(isFirstTime) {
@@ -1272,134 +1359,58 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 //
 //	}
 
-	private String generateCodiButlleta() {
-		if(!isEmpty(numeroTiquet)) {
-			return numeroTiquet;
-		} else {
-			long codiAgent = getCodiAgent(mContext);
-			String terminal = getTerminal(mContext);
+	private class CustomDialogClass extends Dialog implements
+			android.view.View.OnClickListener {
 
-			int comptadorDenuncia = PreferencesGesblue.getComptadorDenuncia(getApplicationContext())+1;
-			PreferencesGesblue.saveComptadorDenuncia(mContext, comptadorDenuncia);
+		public Activity c;
+		public Dialog d;
+		public Button yesR, noR,yes;
 
-			int control = getControl(mContext);
+		public CustomDialogClass(Activity a) {
+			super(a);
+			// TODO Auto-generated constructor stub
+			this.c = a;
+		}
 
-			DLog("comptadorDenuncia: "+comptadorDenuncia);
-			int codiexportadora = getPrefCodiExportadora(mContext);
-			String coditipusbutlleta = getPrefCodiTipusButlleta(mContext);
-			Log.e("coditipusbutlleta",coditipusbutlleta);
-			String codiinstitucio = getPrefCodiInstitucio(mContext);
-			Log.e("codiinstitucio",codiinstitucio);
-            StringBuilder sb = new StringBuilder();
-            //sb.append("1");
-			int padding = 0;
-			switch(codiexportadora) {
-				case 1://Consell Comarcal de la Selva
-					sb.append(coditipusbutlleta);
-					Log.e("codiexportadora 1",coditipusbutlleta);
-					sb.append(codiinstitucio);
-					if (terminal.length() < 2) {
-						sb.append("0");
-					}
-					sb.append(terminal);
-					padding = 5 - String.valueOf(comptadorDenuncia).length();
-					for (int i = 0; i < padding; i++) {
-						sb.append("0");
-					}
-					sb.append(comptadorDenuncia);
-					break;
-				case 2://Consell Comarcal del Baix Empordà
-					Log.e("codiexportadora 2",coditipusbutlleta);
-					sb.append(coditipusbutlleta);
-					sb.append(codiinstitucio);
-					if (terminal.length() < 2) {
-						sb.append("0");
-					}
-					sb.append(terminal);
-					padding = 6 - String.valueOf(comptadorDenuncia).length();
-						for (int i = 0; i < padding; i++) {
-							sb.append("0");
-						}
-						sb.append(comptadorDenuncia);
-					break;
-				case 3://Xaloc
-					Log.e("codiexportadora 3",coditipusbutlleta);
-					sb.append(coditipusbutlleta);
-					sb.append(codiinstitucio);
-					if (terminal.length() < 2) {
-						sb.append("0");
-					}
-					sb.append(terminal);
-					padding = 5 - String.valueOf(comptadorDenuncia).length();
-					for (int i = 0; i < padding; i++) {
-						sb.append("0");
-					}
-					sb.append(comptadorDenuncia);
-					break;
-				case 4://Somintec
-					Log.e("codiexportadora 4",coditipusbutlleta);
-					sb.append(coditipusbutlleta);
-					sb.append(codiinstitucio);
-					if (terminal.length() < 2) {
-						sb.append("0");
-					}
-					sb.append(terminal);
-					padding = 5 - String.valueOf(comptadorDenuncia).length();
-					for (int i = 0; i < padding; i++) {
-						sb.append("0");
-					}
-					sb.append(comptadorDenuncia);
-					break;
-				case 5://Policia Local de Calonge
-					Log.e("codiexportadora 5",coditipusbutlleta);
-					sb.append(coditipusbutlleta);
-					sb.append(codiinstitucio);
-					if (terminal.length() < 2) {
-						sb.append("0");
-					}
-					sb.append(terminal);
-					padding = 5 - String.valueOf(comptadorDenuncia).length();
-					for (int i = 0; i < padding; i++) {
-						sb.append("0");
-					}
-					sb.append(comptadorDenuncia);
-					break;
-				case 6://Consell Comarcal de la Selva
-					Log.e("codiexportadora 6",coditipusbutlleta);
-					sb.append(coditipusbutlleta);
-					sb.append(codiinstitucio);
-					if (terminal.length() < 2) {
-						sb.append("0");
-					}
-					sb.append(terminal);
-					padding = 5 - String.valueOf(comptadorDenuncia).length();
-					for (int i = 0; i < padding; i++) {
-						sb.append("0");
-					}
-					sb.append(comptadorDenuncia);
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			requestWindowFeature(Window.FEATURE_NO_TITLE);
+			setContentView(R.layout.custom_dialog_impressio);
+			yes = (Button) findViewById(R.id.btn_yes);
+			noR = (Button) findViewById(R.id.btn_noR);
+			yesR=(Button)findViewById(R.id.btn_yesR);
+			yes.setOnClickListener(this);
+			noR.setOnClickListener(this);
+			yesR.setOnClickListener(this);
+
+		}
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+				case R.id.btn_yes:
+					DatabaseAPI.updateDenunciaImpresa(mContext,denuncia.getCodidenuncia());
+					goToMain();
 					break;
 
-				case 7://Diputació de Barcelona.
-					coditipusbutlleta = "8";
-					Log.e("codiexportadora 7",coditipusbutlleta);
-					sb.append(coditipusbutlleta);
-					sb.append(codiinstitucio);
-					if (terminal.length() < 2) {
-						sb.append("0");
-					}
-					sb.append(terminal);
-					padding = 5 - String.valueOf(comptadorDenuncia).length();
-					for (int i = 0; i < padding; i++) {
-						sb.append("0");
-					}
-					sb.append(comptadorDenuncia);
+				case R.id.btn_yesR:
+					DatabaseAPI.updateDenunciaImpresa(mContext,denuncia.getCodidenuncia());
+					printFinal(isFirstEnvia);
 					break;
+
+
+				case R.id.btn_noR:
+					printFinal(isFirstEnvia);
+					break;
+
 			}
-            numeroTiquet = sb.toString();
-
-			return numeroTiquet;
+			dismiss();
 		}
 	}
+
+
+
 
 	public static Calendar createCalendar(int aSumar) {
 		if(aSumar == -1) {

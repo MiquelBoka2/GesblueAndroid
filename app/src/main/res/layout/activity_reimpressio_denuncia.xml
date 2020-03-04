@@ -38,6 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txt_capçalera"
             app:srcCompat="@drawable/ic_reimpresio_no_fons" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView

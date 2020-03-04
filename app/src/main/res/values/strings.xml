@@ -178,8 +178,17 @@ secretari/a de l\'Ajuntament.</string>
     <string name="enviantDenuncia">Enviant denúncia&#8230;</string>
     <string name="butlletaEnviadaOk">Butlleta enviada correctament. Desitjes imprimir una còpia?</string>
     <string name="butlletaImpresaOk">Butlleta impresa correctament. Vols imprimir una altra còpia?</string>
-    <string name="butlletaImpresaOk_imprimir">Si</string>
-    <string name="butlletaImpresaOk_enviar">No</string>
+    <string name="butlletaImpresaOk_impressa">Si</string>
+    <string name="butlletaImpresaOk_I_reimprimir">Si i\n reimprimir</string>
+    <string name="butlletaImpresaNo_I_reimprimir">No i\n reimprimir</string>
+
+    <string name="pendent_Imprimir">Pendent Imprimir</string>
+    <string name="pendent_Enviar">Pendent Enviar</string>
+    <string name="Enviada">Enviada</string>
+
+
+
+
     <string name="firma">Firma</string>
 
     <string name="LOG_TAG" translatable="false">Gesblue</string>

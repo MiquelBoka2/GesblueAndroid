@@ -383,6 +383,7 @@ public class TicketPrinter {
             printer.selectStandardMode();
             printer.feedPaper(LINE_HEIGHT*5);
             printer.flush();
+
             return true;
         } else {
             return false;

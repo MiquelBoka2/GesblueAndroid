@@ -3,6 +3,8 @@ package com.boka2.gesblue.adapters;
 import android.content.Context;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +20,14 @@ import java.util.List;
 /**
  * Created by Boka2.
  */
+;
 
 public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.DenunciaViewHolder>  {
 
     //this context we will use to inflate the layout
     private Context mCtx;
+
+
 
     private CustomButtonListener customButtonListener;
 
@@ -63,6 +68,22 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
         holder.textViewFecha.setText(simpleDate.format(denuncia.getFechacreacio()));
         holder.textViewMatricula.setText(denuncia.getMatricula());
         holder.textViewNumDenuncia.setText(String.valueOf(denuncia.getCodidenuncia()));
+        String text=String.valueOf(denuncia.getTipusanulacio());
+        if (String.valueOf(denuncia.getTipusanulacio()).equals("-1.0")){
+            text=mCtx.getResources().getString(R.string.pendent_Imprimir);
+            holder.textViewEstat.setTextColor(Color.RED);
+        }
+        else if(String.valueOf(denuncia.getTipusanulacio()).equals("0.0")){
+            text=mCtx.getResources().getString(R.string.pendent_Enviar);
+            holder.textViewEstat.setTextColor(Color.YELLOW);
+
+        }
+        else if(String.valueOf(denuncia.getTipusanulacio()).equals("1.0")){
+            text=mCtx.getResources().getString(R.string.Enviada);
+
+            holder.textViewEstat.setTextColor(Color.GREEN);
+        }
+            holder.textViewEstat.setText(text);
 
         holder.cardViewDenuncia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,13 +106,14 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
 
     class DenunciaViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewFecha, textViewMatricula, textViewNumDenuncia;
+        TextView textViewFecha, textViewMatricula, textViewNumDenuncia,textViewEstat;
         CardView cardViewDenuncia;
         public DenunciaViewHolder(View itemView) {
             super(itemView);
             textViewFecha = (TextView) itemView.findViewById(R.id.textViewFecha);
             textViewMatricula = (TextView) itemView.findViewById(R.id.textViewMatricula);
             textViewNumDenuncia = (TextView) itemView.findViewById(R.id.textViewNumDenuncia);
+            textViewEstat= (TextView) itemView.findViewById(R.id.textViewEstat);
             cardViewDenuncia = (CardView) itemView.findViewById(R.id.cardViewDenuncia);
             //itemView.setOnClickListener(this);
         }

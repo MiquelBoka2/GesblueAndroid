@@ -167,6 +167,7 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 
 					Boolean b= PreferencesGesblue.getTextPeuVisible(mContext);
 
+
 			return ticketPrinter.print(mContext, ticketConfiguration);
 		} catch (IOException e) {
 			e.printStackTrace();

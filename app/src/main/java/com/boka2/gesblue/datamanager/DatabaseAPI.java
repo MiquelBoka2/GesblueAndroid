@@ -209,12 +209,28 @@ public class DatabaseAPI {
 	public static ArrayList<Model_Denuncia> getDenuncies(Context c) {
 		return (ArrayList<Model_Denuncia>) _getDenuncies(c).getArray();
 	}
-	private static BasicDBResult _getDenunciaPendent(Context c) {
+	private static BasicDBResult _getDenunciaPendentEnviar(Context c) {
+		return executeDatabaseOperation(c, new DenunciaHelper().getField(c,"tipusanulacio","0"));
+	}
+
+	private static BasicDBResult _getDenunciaPendentImprimir(Context c) {
 		return executeDatabaseOperation(c, new DenunciaHelper().getField(c,"tipusanulacio","-1"));
 	}
-	public static Model_Denuncia getDenunciaPendent(Context c) {
 
-		ArrayList<Model_Denuncia> array= (ArrayList<Model_Denuncia>) _getDenunciaPendent(c).getArray();
+	public static ArrayList<Model_Denuncia> getDenunciesPendentsImprmir(Context c) {
+
+		ArrayList<Model_Denuncia> array= (ArrayList<Model_Denuncia>) _getDenunciaPendentImprimir(c).getArray();
+		if(array !=null && array.size()>0){
+			return array;
+		}
+		else{
+			return null;
+		}
+	}
+
+	public static Model_Denuncia getDenunciaPendentEnviar(Context c) {
+
+		ArrayList<Model_Denuncia> array= (ArrayList<Model_Denuncia>) _getDenunciaPendentEnviar(c).getArray();
 		if(array !=null && array.size()>0){
 			return array.get(0);
 		}
@@ -223,9 +239,9 @@ public class DatabaseAPI {
 		}
 	}
 
-	public static ArrayList<Model_Denuncia> getDenunciesPendents(Context c) {
+	public static ArrayList<Model_Denuncia> getDenunciesPendentsEnviar(Context c) {
 
-		ArrayList<Model_Denuncia> array= (ArrayList<Model_Denuncia>) _getDenunciaPendent(c).getArray();
+		ArrayList<Model_Denuncia> array= (ArrayList<Model_Denuncia>) _getDenunciaPendentEnviar(c).getArray();
 		if(array !=null && array.size()>0){
 			return array;
 		}
@@ -242,6 +258,11 @@ public class DatabaseAPI {
 	public static void updateDenunciaPendent(Context c,String id){
 		executeDatabaseOperation(c, new DenunciaHelper().update(c,"codidenuncia",id,"tipusanulacio",1));
 	}
+
+	public static void updateDenunciaImpresa(Context c,String id){
+		executeDatabaseOperation(c, new DenunciaHelper().update(c,"codidenuncia",id,"tipusanulacio",0));
+	}
+
 
 	public static BasicDBResult deleteAllDenuncies(Context c) {
 		return executeDatabaseOperation(c, new DenunciaHelper().deleteAll(c));

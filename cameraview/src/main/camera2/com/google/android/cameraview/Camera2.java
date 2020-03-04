@@ -125,10 +125,12 @@ class Camera2 extends CameraViewImpl {
             if (mCamera == null) {
                 return;
             }
+
             mCaptureSession = session;
             updateAutoFocus();
             updateFlash();
             try {
+
                 mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(),
                         mCaptureCallback, null);
             } catch (CameraAccessException e) {

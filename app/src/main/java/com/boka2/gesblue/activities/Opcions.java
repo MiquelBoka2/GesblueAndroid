@@ -214,13 +214,13 @@ public class Opcions extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    Utils.showCustomDialog(oContext, R.string.atencio, R.string.deslog, R.string.dacord, R.string.enrere, new DialogInterface.OnClickListener() {
+                    Utils.showCustomDialog(oContext, R.string.atencio, R.string.deslog, R.string.SI, R.string.NO, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             PreferencesGesblue.setUserName(oContext, "");
                             PreferencesGesblue.setPassword(oContext, "");
                             PreferencesGesblue.setConcessioString(oContext, "");
-                            Intent refresh = new Intent(oContext, SplashActivity.class);
+                            Intent refresh = new Intent(oContext, LoginActivity.class);
                             finish();
                             startActivity(refresh);
                         }
@@ -317,7 +317,11 @@ public class Opcions extends AppCompatActivity {
                                     //Bloquejem els demes enviaments
                                     EnviamentDisponible = false;
 
-                                    EnviarDenuncies();
+                                    if (denunciesPendents!=null) {
+                                        if (denunciesPendents.size() > 0) {
+                                            EnviarDenuncies();
+                                        }
+                                    }
                                 }
 
                                 //Mante el Main activity viu mentres s'envies les denuncies
@@ -640,7 +644,7 @@ public class Opcions extends AppCompatActivity {
 
         //Consegueix les denuncies i adpta l'interfaz a les dades
         if(recarregardades){
-            List<Model_Denuncia> denunciesPendentsTemp = DatabaseAPI.getDenunciesPendents(oContext);
+            List<Model_Denuncia> denunciesPendentsTemp = DatabaseAPI.getDenunciesPendentsEnviar(oContext);
             if(denunciesPendentsTemp!=null) {
 
 

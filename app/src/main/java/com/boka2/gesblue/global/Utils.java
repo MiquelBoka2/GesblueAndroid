@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import androidx.appcompat.app.AlertDialog;
@@ -12,12 +13,18 @@ import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.boka2.gesblue.R;
 import com.boka2.gesblue.datamanager.webservices.DatamanagerAPI;
 import com.boka2.gesblue.datamanager.webservices.requests.dadesbasiques.RecuperaDataRequest;
 import com.boka2.gesblue.datamanager.webservices.results.dadesbasiques.RecuperaDataResponse;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.DateFormat;
 import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,6 +40,13 @@ import javax.crypto.spec.DESKeySpec;
 import pt.joaocruz04.lib.misc.JSoapCallback;
 import pt.joaocruz04.lib.misc.JsoapError;
 
+import static android.text.TextUtils.isEmpty;
+import static com.boka2.gesblue.global.PreferencesGesblue.getControl;
+import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiExportadora;
+import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiInstitucio;
+import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiTipusButlleta;
+import static com.boka2.sbaseobjects.tools.ImageTools.getFileAfterResize;
+
 /**
  * Created by Boka2.
  */
@@ -40,6 +54,14 @@ import pt.joaocruz04.lib.misc.JsoapError;
 
 
 public class Utils {
+
+
+
+    static public final int REQUEST_IMAGE_CAPTURE_1= 10;
+    static public final int REQUEST_IMAGE_CAPTURE_2= 20;
+    static public final int REQUEST_IMAGE_CAPTURE_3= 30;
+    static public final int REQUEST_IMAGE_CAPTURE_4= 40;
+
 
     public static Activity current_Activity;
     private static String cp = "sup3rS3xy";
@@ -406,6 +428,170 @@ public class Utils {
         Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
         pbutton.setTextColor(Color.BLACK);
     }
+
+
+    public static String generateCodiButlleta(Context mContext) {
+        String numeroTiquet="";
+        if(!isEmpty(numeroTiquet)) {
+            Log.d("Camera","No empty");
+            return numeroTiquet;
+        } else {
+            long codiAgent = PreferencesGesblue.getCodiAgent(mContext);
+            String terminal = PreferencesGesblue.getTerminal(mContext);
+
+            int comptadorDenuncia = PreferencesGesblue.getComptadorDenuncia(mContext.getApplicationContext())+1;
+            //PreferencesGesblue.saveComptadorDenuncia(mContext, comptadorDenuncia);
+
+            int control = getControl(mContext);
+
+            Log.d("comptadorDenuncia: ",comptadorDenuncia+"");
+            int codiexportadora = getPrefCodiExportadora(mContext);
+            String coditipusbutlleta = getPrefCodiTipusButlleta(mContext);
+            String codiinstitucio = getPrefCodiInstitucio(mContext);
+            StringBuilder sb = new StringBuilder();
+            //sb.append("1");
+            int padding = 0;
+            switch(codiexportadora) {
+                case 1://Consell Comarcal de la Selva
+                    sb.append(coditipusbutlleta);
+                    sb.append(codiinstitucio);
+                    if (terminal.length() < 2) {
+                        sb.append("0");
+                    }
+                    sb.append(terminal);
+                    padding = 5 - String.valueOf(comptadorDenuncia).length();
+                    for (int i = 0; i < padding; i++) {
+                        sb.append("0");
+                    }
+                    sb.append(comptadorDenuncia);
+                    break;
+                case 2://Consell Comarcal del Baix Empordà
+                    sb.append(coditipusbutlleta);
+                    sb.append(codiinstitucio);
+                    if (terminal.length() < 2) {
+                        sb.append("0");
+                    }
+                    sb.append(terminal);
+                    padding = 6 - String.valueOf(comptadorDenuncia).length();
+                    for (int i = 0; i < padding; i++) {
+                        sb.append("0");
+                    }
+                    sb.append(comptadorDenuncia);
+                    break;
+                case 3://Xaloc
+                    sb.append(coditipusbutlleta);
+                    sb.append(codiinstitucio);
+                    if (terminal.length() < 2) {
+                        sb.append("0");
+                    }
+                    sb.append(terminal);
+                    padding = 5 - String.valueOf(comptadorDenuncia).length();
+                    for (int i = 0; i < padding; i++) {
+                        sb.append("0");
+                    }
+                    sb.append(comptadorDenuncia);
+                    break;
+                case 4://Somintec
+                    sb.append(coditipusbutlleta);
+                    sb.append(codiinstitucio);
+                    if (terminal.length() < 2) {
+                        sb.append("0");
+                    }
+                    sb.append(terminal);
+                    padding = 5 - String.valueOf(comptadorDenuncia).length();
+                    for (int i = 0; i < padding; i++) {
+                        sb.append("0");
+                    }
+                    sb.append(comptadorDenuncia);
+                    break;
+                case 5://Policia Local de Calonge
+                    sb.append(coditipusbutlleta);
+                    sb.append(codiinstitucio);
+                    if (terminal.length() < 2) {
+                        sb.append("0");
+                    }
+                    sb.append(terminal);
+                    padding = 5 - String.valueOf(comptadorDenuncia).length();
+                    for (int i = 0; i < padding; i++) {
+                        sb.append("0");
+                    }
+                    sb.append(comptadorDenuncia);
+                    break;
+                case 6://Consell Comarcal de la Selva
+                    sb.append(coditipusbutlleta);
+                    sb.append(codiinstitucio);
+                    if (terminal.length() < 2) {
+                        sb.append("0");
+                    }
+                    sb.append(terminal);
+                    padding = 5 - String.valueOf(comptadorDenuncia).length();
+                    for (int i = 0; i < padding; i++) {
+                        sb.append("0");
+                    }
+                    sb.append(comptadorDenuncia);
+                    break;
+            }
+            numeroTiquet = sb.toString();
+
+            return numeroTiquet;
+        }
+    }
+
+    public static String savePicture(Bitmap FotoBitmap, Context mContext, String position) {
+            String concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
+            String numDenuncia = generateCodiButlleta(mContext);
+            while(numDenuncia == ""){
+                numDenuncia = generateCodiButlleta(mContext);
+                Log.d("Camera","Error calculant Codi Butlleta");
+            }
+            Log.d ("Camera",numDenuncia);
+            DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+            String currentDateString = dateFormat.format(new Date());
+            File direct = new File("storage/emulated/0/Boka2/upload/temp");
+
+            if (!direct.exists()) {
+                File wallpaperDirectory = new File("storage/emulated/0/Boka2/upload/temp");
+                wallpaperDirectory.mkdirs();
+            }
+            File file = new File(direct, currentDateString  + "-" + concessio + "-" + numDenuncia + position + ".jpg");
+            //OutputStream os = null;
+            //String error = getString(R.string.foto_error_guardar_desconocido);
+
+            try (FileOutputStream out = new FileOutputStream(file)) {
+                FotoBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return file.toString();
+
+
+            /**try {
+                os = new FileOutputStream(file);
+                os.write(data);
+                os.close();
+            } catch (IOException e) {
+                Log.w(getTag(), "Cannot write to " + file, e);
+                error = e.getLocalizedMessage();
+            } finally {
+                if (os != null) {
+                    try {
+                        os.close();
+                    } catch (IOException e) {
+                        // Ignore
+                        error = e.getLocalizedMessage();
+                    }
+                }
+            }
+            if(file.exists()) {
+                file = getFileAfterResize(file);
+                confirmIntent(file.getAbsolutePath());
+            } else {
+                Toast.makeText(mContext, getString(R.string.foto_error_guardar, error), Toast.LENGTH_SHORT).show();
+            }**/
+        }
+
+
 
 
 

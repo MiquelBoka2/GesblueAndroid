@@ -1,16 +1,21 @@
 package com.boka2.gesblue.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.Menu;
@@ -18,7 +23,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.boka2.gesblue.GesblueApplication;
+import com.boka2.sbaseobjects.tools.Preferences;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.boka2.gesblue.R;
@@ -69,6 +77,7 @@ public class MainActivity extends GesblueFragmentActivity {
 	private boolean imgBIsActive = false;
 	private boolean imgCIsActive = false;
 	private boolean imgDIsActive = false;
+	private Bitmap imageBitmap;
 
 	private Boolean adm=false;
 
@@ -76,13 +85,17 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	private long dataCaducitat_milisegons=0;
 
+	private Activity mActivity=this;
+
+
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 		setupVisibleToolbar(mBinding.toolbar);
-
+		GesblueApplication.DenunciaEnCurs =false;
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
@@ -211,6 +224,7 @@ public class MainActivity extends GesblueFragmentActivity {
 				intent.putExtra(FormulariActivity.INTENT_SANCIO, sancio);
 				intent.putExtra(FormulariActivity.KEY_VINC_DE_MATRICULA, true);
                 intent.putExtra("adm",adm);
+				GesblueApplication.DenunciaEnCurs =true;
 				startActivity(intent);
 			}
 		});
@@ -232,21 +246,45 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.btnCamera.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent;
-				intent = new Intent(mContext, CameraActivity.class);
 
 				if (isEmpty(foto1)) {
-					intent.putExtra("position", "1");
-					startActivityForResult(intent, FormulariActivity.RESULT_FOTO_1);
+
+					Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+						startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+
+					}
+					else{
+
+					}
+
 				} else if (isEmpty(foto2)) {
-					intent.putExtra("position", "2");
-					startActivityForResult(intent, FormulariActivity.RESULT_FOTO_2);
+					Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+						startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
+
+					}
+					else{
+
+					}
 				} else if (isEmpty(foto3)) {
-					intent.putExtra("position", "3");
-					startActivityForResult(intent, FormulariActivity.RESULT_FOTO_3);
+					Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+						startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
+
+					}
+					else{
+
+					}
 				} else if (isEmpty(foto4)) {
-					intent.putExtra("position", "4");
-					startActivityForResult(intent, FormulariActivity.RESULT_FOTO_4);
+					Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+						startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
+
+					}
+					else{
+
+					}
 				} else {
 					AlertDialog.Builder builder= new AlertDialog.Builder(mContext)
 							.setTitle(getResources().getString(R.string.no_mes_fotos))
@@ -321,38 +359,52 @@ public class MainActivity extends GesblueFragmentActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
+			Bundle extras = data.getExtras();
 
 
 			switch (requestCode) {
 
 				/**ESPEREM EL RESULTAT DE LES FOTOS**/
-				case FormulariActivity.RESULT_FOTO_1:
-					foto1 = data.getExtras().getString(FormulariActivity.KEY_RETURN_PATH);
+				case Utils.REQUEST_IMAGE_CAPTURE_1:
+
+					imageBitmap = (Bitmap) extras.get("data");
+					foto1=Utils.savePicture(imageBitmap,mContext,"1");
 					pinta(foto1, mBinding.imageViewA);
 					imgAIsActive = true;
 					checkBotoCamera();
-
 					break;
-				case FormulariActivity.RESULT_FOTO_2:
-					foto2 = data.getExtras().getString(FormulariActivity.KEY_RETURN_PATH);
+
+
+
+				case Utils.REQUEST_IMAGE_CAPTURE_2:
+
+					imageBitmap = (Bitmap) extras.get("data");
+					foto2=Utils.savePicture(imageBitmap,mContext,"2");
 					pinta(foto2, mBinding.imageViewB);
 					imgBIsActive = true;
 					checkBotoCamera();
 					break;
-				case FormulariActivity.RESULT_FOTO_3:
-					foto3 = data.getExtras().getString(FormulariActivity.KEY_RETURN_PATH);
+
+
+
+				case Utils.REQUEST_IMAGE_CAPTURE_3:
+
+					imageBitmap = (Bitmap) extras.get("data");
+					foto3=Utils.savePicture(imageBitmap,mContext,"3");
 					pinta(foto3, mBinding.imageViewC);
 					imgCIsActive = true;
 					checkBotoCamera();
 					break;
 
-				case FormulariActivity.RESULT_FOTO_4:
-					foto4 = data.getExtras().getString(FormulariActivity.KEY_RETURN_PATH);
+
+				case Utils.REQUEST_IMAGE_CAPTURE_4:
+
+					imageBitmap = (Bitmap) extras.get("data");
+					foto4=Utils.savePicture(imageBitmap,mContext,"4");
 					pinta(foto4, mBinding.imageViewD);
 					imgDIsActive = true;
 					checkBotoCamera();
 					break;
-
 
 
 
@@ -366,6 +418,8 @@ public class MainActivity extends GesblueFragmentActivity {
 					mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
 
 				}
+
+
 
 			}
 			/** CHECK ADMIN**/
@@ -754,9 +808,6 @@ public class MainActivity extends GesblueFragmentActivity {
 
 			String dateString;
 
-
-
-
 			SimpleDateFormat formatTempsH=new SimpleDateFormat("HH");
 			SimpleDateFormat formatTempsM=new SimpleDateFormat("mm");
 			SimpleDateFormat formatTempsS=new SimpleDateFormat("ss");
@@ -797,25 +848,17 @@ public class MainActivity extends GesblueFragmentActivity {
 				else{
 
 
-
-
-
 					dateString =
 							formatTempsH.format(TempsResultant)+"H : "+
 							formatTempsM.format(TempsResultant)+"M : "+
 							formatTempsS.format(TempsResultant)+"S";
 
 
-
-
 				}
 				/** GENERAL */
 
 
-
 				mBinding.txtInfo.setText(getResources().getString(R.string.temps_Restant));
-
-
 
 			}
 			/** TEMPS NEGATIU**/

@@ -53,6 +53,7 @@ public class GesblueApplication extends MultiDexApplication {
 	static Context cont=null;
 
 	public static boolean EnviamentDisponible=true;
+	public static boolean DenunciaEnCurs=false;
 
 
 	@Override
@@ -126,7 +127,12 @@ public class GesblueApplication extends MultiDexApplication {
 					//enviaLog();
 					//new FTPUpload().execute();
 					pujaFoto();
-					EnviamentDisponible=true;
+
+					//SI HI HA UNA DENUNCIA EN CURS ES DEIXA EN FALSE PER EVITAR ENVIAMENTS
+					if(!DenunciaEnCurs){
+						EnviamentDisponible=true;
+					}
+
 				}
 			}
       /* and here comes the "trick" */
@@ -136,7 +142,7 @@ public class GesblueApplication extends MultiDexApplication {
 
 	private void enviaDenuncia(){
 		Model_Denuncia denuncia;
-		denuncia = DatabaseAPI.getDenunciaPendent(aContext);
+		denuncia = DatabaseAPI.getDenunciaPendentEnviar(aContext);
 		if(denuncia!=null){
 			intentsEnviaDenuncia++;
 			final Model_Denuncia den = denuncia;

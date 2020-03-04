@@ -1,5 +1,6 @@
 package com.boka2.gesblue.activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -142,11 +143,35 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(R.style.AppTheme);
+
+
+
 		super.onCreate(savedInstanceState);
+
+		askForPermissions(new String[]{
+				Manifest.permission.ACCESS_COARSE_LOCATION,
+				Manifest.permission.WRITE_EXTERNAL_STORAGE,
+				Manifest.permission.READ_PHONE_STATE,
+				Manifest.permission.CAMERA
+		}, new PermissionListener() {
+			@Override
+			public void onPermissionsGranted() {
+			}
+
+			@Override
+			public void onPermissionsDenied() {
+				finish();
+			}
+		});
+
+
+
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 		setupVisibleToolbar(mBinding.toolbar);
 		opciones=mBinding.toolbar.icOpciones;
+
 
 
 		/**EL LISTENER DE LES OPCIONS*/{
@@ -311,7 +336,12 @@ public class LoginActivity extends GesblueFragmentActivity {
 									//Bloquejem els demes enviaments
 									EnviamentDisponible = false;
 
-									EnviarDenuncies();
+
+									if (denunciesPendents!=null) {
+										if (denunciesPendents.size() > 0) {
+											EnviarDenuncies();
+										}
+									}
 								}
 
 								//Mante el Main activity viu mentres s'envies les denuncies
@@ -635,7 +665,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 		//Consegueix les denuncies i adpta l'interfaz a les dades
 		if(recarregardades){
-			List<Model_Denuncia> denunciesPendentsTemp = DatabaseAPI.getDenunciesPendents(mContext);
+			List<Model_Denuncia> denunciesPendentsTemp = DatabaseAPI.getDenunciesPendentsEnviar(mContext);
 			if(denunciesPendentsTemp!=null) {
 
 
@@ -754,7 +784,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 			public void onSuccess(String result) {
 				final NouTerminalResponse response;
 
-				Log.e("Er rezurtao---------->", result);
+				//Log.e("Er rezurtao---------->", result);
 
 				try {
 					response = DatamanagerAPI.parseJson(result, NouTerminalResponse.class);
@@ -770,7 +800,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 				showLoadingAnimButton(false);
 				enableEditTexts(true);
 
-				Log.e("Er otro rezurtao------>",""+response.getResultat());
+				//Log.e("Er otro rezurtao------>",""+response.getResultat());
 
 				switch((int) response.getResultat()) {
 					case 0:
@@ -1708,7 +1738,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 			}
 		}
 
-		public class CustomDialogClass extends Dialog implements
+		private class CustomDialogClass extends Dialog implements
 				android.view.View.OnClickListener {
 
 			public Activity c;
