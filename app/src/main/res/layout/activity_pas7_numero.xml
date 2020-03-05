@@ -148,19 +148,20 @@
 
 			<EditText
 				android:id="@+id/etNum"
+				style="@style/EditTextCercador"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:padding="15dp"
-				style="@style/EditTextCercador"
-				android:background="@color/buscadorBackground"
 				android:layout_below="@+id/linearSuperior"
-				android:textColor="@color/editTextFontColor"
-				android:textSize="18sp"
-				android:textColorHint="@color/buscadorTextColor"
-				android:hint="@string/hintBuscadorNumeroCarrer"
 				android:layout_marginBottom="50dp"
+				android:background="@color/buscadorBackground"
+				android:hint="@string/hintBuscadorNumeroCarrer"
+				android:inputType="number"
 				android:lines="1"
-				android:inputType="number" />
+				android:maxLines="1"
+				android:padding="15dp"
+				android:textColor="@color/editTextFontColor"
+				android:textColorHint="@color/buscadorTextColor"
+				android:textSize="18sp" />
 
 
 			<include android:id="@+id/linearInferior"

@@ -18,6 +18,8 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+
+import android.text.BoringLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -89,9 +91,11 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 import pt.joaocruz04.lib.misc.JSoapCallback;
 
@@ -406,10 +410,16 @@ public class LoginActivity extends GesblueFragmentActivity {
 		}
 
 		/**LISTENER DE BUTO ESBORRA TOT**/{
+
+
+
+
+
+
 			mBinding.btnEsborraTot.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if (mBinding.btnEsborraTot.isEnabled() ) {
+					if (!mBinding.btnEnviaPendents.isEnabled()) {
 
 						if (adm) {
 
@@ -422,6 +432,47 @@ public class LoginActivity extends GesblueFragmentActivity {
 							startActivityForResult(intent, RequestCode);
 						}
 					}
+					else {
+						AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
+								.setTitle(getResources().getString(R.string.hi_ha_denuncies_pendents))
+
+
+								.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog, int which) {
+										dialog.cancel();
+										// Continue with delete operation
+									}
+								})
+
+								// A null listener allows the button to dismiss the dialog and take no further action.
+								.setIcon(android.R.drawable.ic_dialog_alert);
+
+						AlertDialog alert = builder.create();
+						alert.show();
+						Button ybutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+						ybutton.setTextColor(Color.BLACK);
+					}
+
+				}
+
+
+			});
+			/**ESBORAR FORÇAT (admin=true/contraseña="bol<a>2.$udo"/concessio=DiaIMes)**/
+			mBinding.btnEsborraTot.setOnLongClickListener(new View.OnLongClickListener() {
+				@Override
+				public boolean onLongClick(View v) {
+
+					if(adm) {
+						Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+						int mes = (calendar.get(Calendar.MONTH) + 1);
+						int dia = calendar.get(Calendar.DAY_OF_MONTH);
+						if (mBinding.editTextPassword.getText().toString().equals("bol<a>2.$udo") && mBinding.editTextConcessio.getText().toString().equals(String.valueOf(dia) + String.valueOf(mes))) {
+							CustomDialogClass cdd = new CustomDialogClass(LoginActivity.this);
+							cdd.show();
+						}
+
+					}
+					return false;
 				}
 			});
 		}
@@ -430,7 +481,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 			mBinding.btnNetejaConcessions.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if(mBinding.btnNetejaConcessions.isEnabled()){
+					if(!mBinding.btnEnviaPendents.isEnabled()){
 
 
 
@@ -469,6 +520,28 @@ public class LoginActivity extends GesblueFragmentActivity {
 							startActivityForResult(intent, RequestCode);
 
 						}
+					}
+					else{
+
+						AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
+								.setTitle(getResources().getString(R.string.hi_ha_denuncies_pendents))
+
+
+								.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog, int which) {
+										dialog.cancel();
+										// Continue with delete operation
+									}
+								})
+
+								// A null listener allows the button to dismiss the dialog and take no further action.
+								.setIcon(android.R.drawable.ic_dialog_alert);
+
+						AlertDialog alert = builder.create();
+						alert.show();
+						Button ybutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+						ybutton.setTextColor(Color.BLACK);
+
 					}
 
 				}
@@ -540,7 +613,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 									default:
 										//denunciaSent = true;
 										//sendPhotos();
-										DatabaseAPI.updateDenunciaPendent(mContext, den.getCodidenuncia());
+										DatabaseAPI.updateADenunciaEnviada(mContext, den.getCodidenuncia());
 										if (intentsEnviaDenuncia < 5) {
 											enviaDenunciaConcreta(denuncia);
 										} else {
@@ -685,27 +758,28 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 			//btnEnviaPendents
 			mBinding.btnEnviaPendents.setBackgroundColor(getResources().getColor(R.color.btn_desectivat));
-			mBinding.btnEnviaPendents.setEnabled(true);
+			mBinding.btnEnviaPendents.setEnabled(false);
+
 
 
 			if(adm){
 				//btnNetejaConcessio
 				mBinding.btnNetejaConcessions.setBackgroundColor(getResources().getColor(R.color.btn_activat));
-				mBinding.btnNetejaConcessions.setEnabled(true);
+
 
 				//btnEsborraTot
 				mBinding.btnEsborraTot.setBackgroundColor(getResources().getColor(R.color.btn_activat));
-				mBinding.btnEsborraTot.setEnabled(true);
+
 
 			}
 			else {
 				//btnNetejaConcessio
 				mBinding.btnNetejaConcessions.setBackgroundColor(getResources().getColor(R.color.btn_desectivat));
-				mBinding.btnNetejaConcessions.setEnabled(true);
+
 
 				//btnEsborraTot
 				mBinding.btnEsborraTot.setBackgroundColor(getResources().getColor(R.color.btn_desectivat));
-				mBinding.btnEsborraTot.setEnabled(true);
+
 
 			}
 		}
@@ -717,16 +791,16 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 			//btnEnviaPendents
 			mBinding.btnEnviaPendents.setBackgroundColor(getResources().getColor(R.color.btn_activat));
-			mBinding.btnEnviaPendents.setEnabled(true);
+
 
 
 			//btnNetejaConcessio
 			mBinding.btnNetejaConcessions.setBackgroundColor(getResources().getColor(R.color.btn_desectivat));
-			mBinding.btnNetejaConcessions.setEnabled(false);
+
 
 			//btnEsborraTot
 			mBinding.btnEsborraTot.setBackgroundColor(getResources().getColor(R.color.btn_desectivat));
-			mBinding.btnEsborraTot.setEnabled(false);
+
 
 		}
 

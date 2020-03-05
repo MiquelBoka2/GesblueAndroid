@@ -1,6 +1,7 @@
 package com.boka2.gesblue.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -15,6 +16,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -28,6 +30,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.boka2.gesblue.GesblueApplication;
+import com.boka2.gesblue.datamanager.database.model.Model_Denuncia;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.datecs.api.emsr.EMSR;
@@ -85,7 +89,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
     private String idiomaImpressio="";
     private String idiomaAntic=Locale.getDefault().getLanguage();
 
-
+    public static Boolean errorDialog=false;
 
     private Context RTContext=this;
 
@@ -95,6 +99,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
     public static final String INTENT_DATA_CREACIO = "dataCreacio";
     public static final String KEY_DATA_INFRACCIO = "dataInfraccio";
     public static final String KEY_NUMERO_TIQUET = "numeroTiquet";
+    public static final String INTENT_DENUNCIA="denuncia";
     private static final int REQUEST_MORE_OPTIONS = 1735;
     private static final int REQUEST_GET_DEVICE = 1734;
     private static RC663 mRC663;
@@ -107,6 +112,8 @@ public class ReimpressioTiquet extends AppCompatActivity {
     private static PrinterServer mPrinterServer;
     private static BluetoothSocket mBtSocket;
 
+
+    private Model_Denuncia denuncia;
 
     private ProgressDialog mDialog;
 
@@ -177,8 +184,21 @@ public class ReimpressioTiquet extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                CustomDialogClass ccd = new CustomDialogClass(ReimpressioTiquet.this);
-                ccd.show();
+                Utils.showAlertSelectedLanguage(RTContext, R.string.atencio, R.string.confirmacio,spn_Idioma.getSelectedItem().toString(), R.string.SI, R.string.NO, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        errorDialog=false;
+                        print();
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onBackPressed();
+                    }
+                }, false);
+
+
+
 
             }
         });
@@ -244,6 +264,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
 
         sancio = intent.getParcelableExtra(INTENT_SANCIO);
+        denuncia=intent.getParcelableExtra(INTENT_DENUNCIA);
 
         if(intent.getBooleanExtra(INTENT_RECUPERADA,false)) {
             recuperada = true;
@@ -270,7 +291,6 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
         /**TIPUS**/
         if(sancio.getModelTipusVehicle() != null) {
-
 
             aux = txt_Tipus.getText().toString();
 
@@ -370,6 +390,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
 
         /** IMG***/
+
         File f = new File("storage/emulated/0/Boka2/upload/done");
         if (f.exists() && f.isDirectory()){
             final Pattern p = Pattern.compile(".*-"+numDenuncia+"1.jpg"); // I know I really have a stupid mistake on the regex;
@@ -549,8 +570,10 @@ public class ReimpressioTiquet extends AppCompatActivity {
                 public void onFinish(Exception ex, boolean isFirstTime) {
                     if(null == ex) {
                         dismissDialog();
-                        CustomDialogClass ccd = new CustomDialogClass(ReimpressioTiquet.this);
-                        ccd.show();
+                        if(errorDialog==false) {
+                            CustomDialogClass ccd = new CustomDialogClass(ReimpressioTiquet.this);
+                            ccd.show();
+                        }
 
                     }
                     else {
@@ -558,6 +581,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
                         if (isFirstTime) {
                             //printFinal();
                         } else {
+                            errorDialog=true;
                             Utils.showCustomDialog(RTContext, R.string.atencio, R.string.printerConnection_failedConnect, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -618,9 +642,12 @@ public class ReimpressioTiquet extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(btAdapter.getState()==BluetoothAdapter.STATE_OFF) {
+                                if(btAdapter.getState()==BluetoothAdapter.STATE_OFF)
+                                {
+                                    errorDialog=true;
                                     Utils.showCustomDialog(RTContext, R.string.printerConnection_failedTitle, R.string.printerConnection_failedEngegaBluetooth);
                                 } else {
+                                    errorDialog=true;
                                     Utils.showCustomDialog(RTContext, R.string.printerConnection_failedTitle, R.string.printerConnection_failedConnect);
                                     PreferencesGesblue.saveAdressBluetoothPrinter(RTContext, "");
                                 }
@@ -639,6 +666,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if(btAdapter.getState()==BluetoothAdapter.STATE_ON) {
+                                    errorDialog=true;
                                     Utils.showCustomDialog(RTContext, R.string.printerConnection_failedTitle, R.string.printerConnection_failedInitialize);
                                 }
                                 DLog("FAILED to initiallize: " + e.getMessage());
@@ -660,12 +688,15 @@ public class ReimpressioTiquet extends AppCompatActivity {
     private void showErrorImpresora(int code) {
         switch(code) {
             case 0:
+                errorDialog=true;
                 Utils.showCustomDialog(RTContext, R.string.errorAtencio, R.string.errorTemperatura);
                 break;
             case 1:
+                errorDialog=true;
                 Utils.showCustomDialog(RTContext, R.string.errorAtencio, R.string.errorPaper);
                 break;
             case 2:
+                errorDialog=true;
                 Utils.showCustomDialog(RTContext, R.string.errorAtencio, R.string.errorBateria);
                 break;
         }
@@ -852,7 +883,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
         public Activity c;
         public Dialog d;
-        public Button yesR, noR,yes;
+        public ConstraintLayout yesR, noR,yes;
 
         public CustomDialogClass(Activity a) {
             super(a);
@@ -865,36 +896,47 @@ public class ReimpressioTiquet extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             setContentView(R.layout.custom_dialog_impressio);
-            yes = (Button) findViewById(R.id.btn_yes);
-            noR = (Button) findViewById(R.id.btn_noR);
-            yesR=(Button)findViewById(R.id.btn_yesR);
+            yes = (ConstraintLayout) findViewById(R.id.lay_Yes);
+            noR = (ConstraintLayout) findViewById(R.id.lay_NoR);
+            yesR = (ConstraintLayout) findViewById(R.id.lay_YesR);
             yes.setOnClickListener(this);
             noR.setOnClickListener(this);
             yesR.setOnClickListener(this);
+            this.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            setCancelable(false);
+
 
         }
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btn_yes:
-                    DatabaseAPI.updateDenunciaImpresa(mContext,numDenuncia);
+                case R.id.lay_Yes:
+                    if(denuncia.getTipusanulacio()==-1.0) {
+                        DatabaseAPI.updateADenunciaImpresa(mContext, numDenuncia);
+                    }
+                    finishActivity(RecuperarDenunciaActivity.INTENT_RETORN);
+                    finish();
                     break;
 
-                case R.id.btn_yesR:
-                    DatabaseAPI.updateDenunciaImpresa(mContext,numDenuncia);
-                    printFinal();
+                case R.id.lay_YesR:
+                    if(denuncia.getTipusanulacio()==-1.0) {
+                        DatabaseAPI.updateADenunciaImpresa(mContext, numDenuncia);
+                    }
+                    print();
                     break;
 
 
-                case R.id.btn_noR:
-                    printFinal();
+                case R.id.lay_NoR:
+                    print();
                     break;
 
             }
             dismiss();
         }
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -175,10 +175,16 @@ public class MainActivity extends GesblueFragmentActivity {
 			@Override
 			public void onClick(View view) {
 
-				Intent intent = new Intent(mContext, Pas6CarrerActivity.class);
-				intent.putExtra("formPrimerCop", false);
-				intent.putExtra("adm",adm);
-				startActivityForResult(intent,2);
+				if(mBinding.tvZona.getText().toString()!=getResources().getString(R.string.zona) & mBinding.tvZona.getText().toString()!="" & mBinding.tvZona.getText().toString()!=null){
+					Intent intent = new Intent(mContext, Pas6CarrerActivity.class);
+					intent.putExtra("formPrimerCop", false);
+					intent.putExtra("adm",adm);
+					startActivityForResult(intent,2);
+				}
+				else{
+					Toast.makeText(mContext,getResources().getString(R.string.seleciona_zona_primer), Toast.LENGTH_LONG).show();
+				}
+
 			}
 		});
 
@@ -344,6 +350,7 @@ public class MainActivity extends GesblueFragmentActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		GesblueApplication.DenunciaEnCurs =false;
 		mBinding.tvZona.setText(PreferencesGesblue.getNomZona(mContext));
 		mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
 		checkAdmin(adm);

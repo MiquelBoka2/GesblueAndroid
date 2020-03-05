@@ -198,7 +198,7 @@ public class GesblueApplication extends MultiDexApplication {
 								default:
 									//denunciaSent = true;
 									//sendPhotos();
-									DatabaseAPI.updateDenunciaPendent(aContext, den.getCodidenuncia());
+									DatabaseAPI.updateADenunciaEnviada(aContext, den.getCodidenuncia());
 									if(intentsEnviaDenuncia<5) {
 										enviaDenuncia();
 									}else{

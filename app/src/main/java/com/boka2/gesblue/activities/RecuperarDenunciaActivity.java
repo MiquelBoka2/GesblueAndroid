@@ -11,6 +11,7 @@ import androidx.appcompat.widget.SearchView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.boka2.gesblue.R;
 import com.boka2.gesblue.Sancio;
@@ -40,6 +41,7 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
     public Context mContext;
     private Button back_BTN;
 
+    public final static int INTENT_RETORN=1547;
 
     private Boolean adm;
     @Override
@@ -69,7 +71,7 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
+        mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
         back_BTN=this.findViewById(R.id.btn_Back);
         back_BTN.setOnClickListener(new View.OnClickListener() {
@@ -170,16 +172,25 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         Model_Carrer carrer = DatabaseAPI.getCarrer(mContext,String.valueOf((int)denuncia.getAdrecacarrer()));
         Model_Zona zona = DatabaseAPI.getZona(mContext,String.valueOf((int)denuncia.getZona()));
         Sancio mSancio = new Sancio(denuncia.getMatricula(),String.valueOf(denuncia.getAdrecanum()),tipusVehicle,marca,model,color,infraccio,carrer,zona);
+
         intent.putExtra(ReimpressioTiquet.INTENT_SANCIO, mSancio);
         intent.putExtra(ReimpressioTiquet.INTENT_NUM_DENUNCIA,denuncia.getCodidenuncia());
         intent.putExtra(ReimpressioTiquet.INTENT_DATA_CREACIO,denuncia.getFechacreacio());
+        intent.putExtra(ReimpressioTiquet.INTENT_DENUNCIA, denuncia);
 
 
 
 
 
         intent.putExtra(ReimpressioTiquet.INTENT_RECUPERADA,true);
-        startActivity(intent);
+        startActivityForResult(intent,INTENT_RETORN);
+    }
+
+    /**EL RETORN**/
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        recreate();
     }
 
 

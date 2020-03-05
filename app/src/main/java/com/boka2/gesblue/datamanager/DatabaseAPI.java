@@ -228,6 +228,8 @@ public class DatabaseAPI {
 		}
 	}
 
+
+
 	public static Model_Denuncia getDenunciaPendentEnviar(Context c) {
 
 		ArrayList<Model_Denuncia> array= (ArrayList<Model_Denuncia>) _getDenunciaPendentEnviar(c).getArray();
@@ -255,11 +257,11 @@ public class DatabaseAPI {
 		return executeDatabaseOperation(c, new DenunciaHelper().create(c, list));
 	}
 
-	public static void updateDenunciaPendent(Context c,String id){
+	public static void updateADenunciaEnviada(Context c, String id){
 		executeDatabaseOperation(c, new DenunciaHelper().update(c,"codidenuncia",id,"tipusanulacio",1));
 	}
 
-	public static void updateDenunciaImpresa(Context c,String id){
+	public static void updateADenunciaImpresa(Context c, String id){
 		executeDatabaseOperation(c, new DenunciaHelper().update(c,"codidenuncia",id,"tipusanulacio",0));
 	}
 

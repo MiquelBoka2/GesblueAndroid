@@ -187,6 +187,13 @@ secretari/a de l\'Ajuntament.</string>
     <string name="Enviada">Enviada</string>
 
 
+    <string name="denuncia_impresa">DENÚNCIA IMPRESA</string>
+    <string name="confirmar_denuncia">Confirmes que la denúncia \n s’ha imprés correctament?</string>
+    <string name="nova_denuncia">NOVA DENÚNCIA</string>
+    <string name="imprimir_una_copia">IMPRIMIR UNA CÒPIA</string>
+    <string name="tornar_a_provar">TORNA A PROVAR</string>
+
+
 
 
     <string name="firma">Firma</string>
@@ -305,11 +312,15 @@ secretari/a de l\'Ajuntament.</string>
 
 
     <string name="no_mes_fotos">Has assolit el límit màxim de fotos</string>
-    <string name="no_denuncies_a_enviar">No hi han denuncies a enviar</string>
+    <string name="no_denuncies_a_enviar">No hi han denuncies d\'enviar</string>
+    <string name="hi_ha_denuncies_pendents">Hi han denuncies pendents d\'enviar</string>
+
 
     <string name="temps_Restant">Temps Restant</string>
     <string name="temps_Excedit">Temps Excedit</string>
     <string name="sense_tiquet">Sense Tiquet</string>
+
+    <string name="seleciona_zona_primer">Has de selccionar una zona primer</string>
 
     <string name="Dies">Dies</string>
 

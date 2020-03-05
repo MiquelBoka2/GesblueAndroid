@@ -9,9 +9,12 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -22,10 +25,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.boka2.gesblue.datamanager.webservices.DatamanagerAPI;
-import com.boka2.gesblue.datamanager.webservices.requests.operativa.NovaDenunciaRequest;
-import com.boka2.gesblue.datamanager.webservices.requests.operativa.PujaFotoRequest;
-import com.boka2.gesblue.datamanager.webservices.results.operativa.NovaDenunciaResponse;
+import com.boka2.gesblue.GesblueApplication;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.datecs.api.emsr.EMSR;
@@ -53,50 +53,36 @@ import com.boka2.gesblue.global.Utils;
 import com.boka2.gesblue.network.PrinterServer;
 import com.boka2.gesblue.network.PrinterServerListener;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.net.util.Base64;
-
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
-import java.util.regex.Pattern;
-
-import pt.joaocruz04.lib.misc.JSoapCallback;
 
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.boka2.gesblue.GesblueApplication.EnviamentDisponible;
-import static com.boka2.gesblue.global.PreferencesGesblue.getCodiAgent;
-import static com.boka2.gesblue.global.PreferencesGesblue.getControl;
 import static com.boka2.gesblue.global.PreferencesGesblue.getFoto1;
 import static com.boka2.gesblue.global.PreferencesGesblue.getFoto2;
 import static com.boka2.gesblue.global.PreferencesGesblue.getFoto3;
 import static com.boka2.gesblue.global.PreferencesGesblue.getFoto4;
-import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiExportadora;
-import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiInstitucio;
-import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiTipusButlleta;
-import static com.boka2.gesblue.global.PreferencesGesblue.getTerminal;
 import static com.boka2.gesblue.global.Utils.generateCodiButlleta;
-import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
-public class FormulariActivity extends GesblueFragmentActivity implements View.OnClickListener{
+public class FormulariActivity extends GesblueFragmentActivity implements View.OnClickListener {
 
 	public static final String INTENT_RECUPERADA = "recuperada";
 	public static final String INTENT_SANCIO = "sancio";
 	public static final String INTENT_NUM_DENUNCIA = "numDenuncia";
 	public static final String INTENT_DATA_CREACIO = "dataCreacio";
 
+
+	private static String codiDenuncia;
 
 	private ActivityFormulariBinding mBinding;
 	private Sancio sancio;
@@ -108,8 +94,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private Bitmap imageBitmap;
 	private Model_Denuncia denuncia = new Model_Denuncia();
 
+	private static Boolean errorDialog=false;
 
-	private Boolean adm=false;
+	private Boolean adm = false;
 	private Button btn_Enviar;
 
 	public static final int RESULT_FOTO_1 = 1741;
@@ -150,24 +137,24 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 	private ProgressDialog mDialog;
 
-	private ProgressDialog getDialog( String title,  String message) {
-		if(null == mDialog || !mDialog.isShowing()) {
+	private ProgressDialog getDialog(String title, String message) {
+		if (null == mDialog || !mDialog.isShowing()) {
 			mDialog = new ProgressDialog(this);
 			mDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 			mDialog.setIndeterminate(true);
 			mDialog.setCancelable(false);
-			if(!isFinishing())mDialog.show();
+			if (!isFinishing()) mDialog.show();
 		}
-		if(null != title) {
+		if (null != title) {
 			mDialog.setTitle(title);
 		}
-		if(null != message) {
+		if (null != message) {
 			mDialog.setMessage(message);
 		}
 		return mDialog;
 	}
 
-	private ProgressDialog getDialog( String message) {
+	private ProgressDialog getDialog(String message) {
 		return getDialog(null, message);
 	}
 
@@ -183,7 +170,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				if(null != mDialog) {
+				if (null != mDialog) {
 					try {
 						mDialog.dismiss();
 					} catch (Exception ex) {
@@ -194,6 +181,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			}
 		});
 	}
+
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 
@@ -222,7 +210,6 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		// This bundle has also been passed to onCreate.
 
 
-
 		boolean myBoolean = savedInstanceState.getBoolean("MyBoolean");
 		double myDouble = savedInstanceState.getDouble("myDouble");
 		int myInt = savedInstanceState.getInt("MyInt");
@@ -230,23 +217,24 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		foto2 = savedInstanceState.getString("foto2");
 		foto3 = savedInstanceState.getString("foto3");
 		foto4 = savedInstanceState.getString("foto4");
-		if(foto1!=""){
+		if (foto1 != "") {
 			pinta(foto1, mBinding.imageViewA);
-			img1IsActive=true;
+			img1IsActive = true;
 		}
-		if(foto2!=""){
+		if (foto2 != "") {
 			pinta(foto2, mBinding.imageViewB);
-			img2IsActive=true;
+			img2IsActive = true;
 		}
-		if(foto3!=""){
+		if (foto3 != "") {
 			pinta(foto3, mBinding.imageViewC);
-			img3IsActive=true;
+			img3IsActive = true;
 		}
-		if(foto4!=""){
+		if (foto4 != "") {
 			pinta(foto4, mBinding.imageViewD);
-			img4IsActive=true;
+			img4IsActive = true;
 		}
 	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -258,28 +246,26 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		mBinding.toolbar.txtAny.setVisibility(View.GONE);
 
 
-
-		if(!getFoto1(mContext).equals("")){
-			foto1=getFoto1(mContext);
+		if (!getFoto1(mContext).equals("")) {
+			foto1 = getFoto1(mContext);
 			pinta(foto1, mBinding.imageViewA);
-			img1IsActive=true;
+			img1IsActive = true;
 		}
-		if(!getFoto2(mContext).equals("")){
-			foto2=getFoto2(mContext);
+		if (!getFoto2(mContext).equals("")) {
+			foto2 = getFoto2(mContext);
 			pinta(foto2, mBinding.imageViewB);
-			img2IsActive=true;
+			img2IsActive = true;
 		}
-		if(!getFoto3(mContext).equals("")){
-			foto3=getFoto3(mContext);
+		if (!getFoto3(mContext).equals("")) {
+			foto3 = getFoto3(mContext);
 			pinta(foto3, mBinding.imageViewC);
-			img3IsActive=true;
+			img3IsActive = true;
 		}
-		if(!getFoto4(mContext).equals("")){
-			foto4=getFoto4(mContext);
+		if (!getFoto4(mContext).equals("")) {
+			foto4 = getFoto4(mContext);
 			pinta(foto4, mBinding.imageViewD);
-			img4IsActive=true;
+			img4IsActive = true;
 		}
-
 
 
 		getFromIntent();
@@ -287,6 +273,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		disableViews();
 		initOnClicks();
 	}
+
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 
@@ -297,38 +284,38 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 			borra(foto3);*/
 
-		Log.e("onKeyDown pulsado:",""+keyCode);
+			Log.e("onKeyDown pulsado:", "" + keyCode);
 
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+
 	private void getFromIntent() {
 		Intent intent = getIntent();
 
 		sancio = intent.getParcelableExtra(INTENT_SANCIO);
 
-		if(intent.getBooleanExtra(INTENT_RECUPERADA,false)) {
+		if (intent.getBooleanExtra(INTENT_RECUPERADA, false)) {
 			recuperada = true;
 		}
-		if(!isEmpty(intent.getStringExtra(INTENT_NUM_DENUNCIA))) {
+		if (!isEmpty(intent.getStringExtra(INTENT_NUM_DENUNCIA))) {
 			numDenuncia = intent.getStringExtra(INTENT_NUM_DENUNCIA);
 		}
-		if(recuperada==true){
-			dataCreacio =(Date)intent.getSerializableExtra(INTENT_DATA_CREACIO);
-		}
-		else{
+		if (recuperada == true) {
+			dataCreacio = (Date) intent.getSerializableExtra(INTENT_DATA_CREACIO);
+		} else {
 
 			Model_Carrer carrer = DatabaseAPI.getCarrer(mContext, String.valueOf(PreferencesGesblue.getCodiCarrer(mContext)));
 
 			sancio.setModelCarrer(carrer);
 		}
-		if(!isEmpty(intent.getStringExtra(KEY_DATA_INFRACCIO))) {
+		if (!isEmpty(intent.getStringExtra(KEY_DATA_INFRACCIO))) {
 			dataInfraccio = intent.getStringExtra(KEY_DATA_INFRACCIO);
 		}
-		if(!isEmpty(intent.getStringExtra(KEY_NUMERO_TIQUET))) {
+		if (!isEmpty(intent.getStringExtra(KEY_NUMERO_TIQUET))) {
 			numeroTiquet = intent.getStringExtra(KEY_NUMERO_TIQUET);
 		}
-		if(intent.getExtras().getBoolean("adm")) {
+		if (intent.getExtras().getBoolean("adm")) {
 			adm = intent.getExtras().getBoolean("adm");
 
 			if (adm) {
@@ -337,11 +324,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			}
 		}
 
-		if(intent.getBooleanExtra(KEY_VINC_DE_MATRICULA, false)) {
+		if (intent.getBooleanExtra(KEY_VINC_DE_MATRICULA, false)) {
 			intent = new Intent(mContext, Pas1TipusActivity.class);
 			intent.putExtra(INTENT_SANCIO, sancio);
 			intent.putExtra(KEY_FORMULARI_PRIMER_COP, true);
-			intent.putExtra("adm",adm);
+			intent.putExtra("adm", adm);
 			startActivity(intent);
 		}
 
@@ -357,7 +344,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		fillCarrer();
 		fillNum();
 
-        Log.e("Recuperada?:",""+recuperada);
+		Log.e("Recuperada?:", "" + recuperada);
 
 		/*if(recuperada==true) {
 			File f = new File("storage/emulated/0/Boka2/upload/temp");
@@ -447,7 +434,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void fillMatricula() {
-		if(!isEmpty(sancio.getMatricula())) {
+		if (!isEmpty(sancio.getMatricula())) {
 			mBinding.tvMatricula.setText(sancio.getMatricula());
 		} else {
 			finish();
@@ -455,15 +442,15 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void fillTipus() {
-		if(sancio.getModelTipusVehicle() != null) {
+		if (sancio.getModelTipusVehicle() != null) {
 
 			String aux = mBinding.tvTipus.getText().toString();
 
-			if(isEmpty(aux)) {
+			if (isEmpty(aux)) {
 				mBinding.tvTipus.setText(Utils.languageMultiplexer(sancio.getModelTipusVehicle().getNomtipusvehiclees(), sancio.getModelTipusVehicle().getNomtipusvehiclecat()));
 				mBinding.tvMarca.setEnabled(true);
 			} else {
-				if(!(aux.equals(Utils.languageMultiplexer(sancio.getModelTipusVehicle().getNomtipusvehiclees(), sancio.getModelTipusVehicle().getNomtipusvehiclecat())))) {
+				if (!(aux.equals(Utils.languageMultiplexer(sancio.getModelTipusVehicle().getNomtipusvehiclees(), sancio.getModelTipusVehicle().getNomtipusvehiclecat())))) {
 					mBinding.tvTipus.setText(Utils.languageMultiplexer(sancio.getModelTipusVehicle().getNomtipusvehiclees(), sancio.getModelTipusVehicle().getNomtipusvehiclecat()));
 
 					mBinding.tvMarca.setText("");
@@ -480,17 +467,17 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void fillMarca() {
-		if(mBinding.tvMarca.isEnabled()) {
-			if(sancio.getModelMarca() != null) {
+		if (mBinding.tvMarca.isEnabled()) {
+			if (sancio.getModelMarca() != null) {
 
 				String aux = mBinding.tvMarca.getText().toString();
 
-				if(isEmpty(aux)) {
+				if (isEmpty(aux)) {
 					Glide.with(mContext).load(sancio.getModelMarca().getImatgemarca()).into(mBinding.imageViewMarca);
 					mBinding.tvMarca.setText(sancio.getModelMarca().getNommarca());
 					mBinding.tvModel.setEnabled(true);
 				} else {
-					if(!(aux.equals(sancio.getModelMarca().getNommarca()))) {
+					if (!(aux.equals(sancio.getModelMarca().getNommarca()))) {
 						Glide.with(mContext).load(sancio.getModelMarca().getImatgemarca()).into(mBinding.imageViewMarca);
 						mBinding.tvMarca.setText(sancio.getModelMarca().getNommarca());
 						mBinding.tvModel.setText("");
@@ -504,15 +491,15 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void fillModel() {
-		if(mBinding.tvModel.isEnabled()) {
-			if(sancio.getModelModel() != null) {
+		if (mBinding.tvModel.isEnabled()) {
+			if (sancio.getModelModel() != null) {
 
 				String aux = mBinding.tvModel.getText().toString();
 
-				if(isEmpty(aux)) {
+				if (isEmpty(aux)) {
 					mBinding.tvModel.setText(sancio.getModelModel().getNommodel());
 				} else {
-					if(!(aux.equals(sancio.getModelModel().getNommodel()))) {
+					if (!(aux.equals(sancio.getModelModel().getNommodel()))) {
 						mBinding.tvModel.setText(sancio.getModelModel().getNommodel());
 
 					}
@@ -522,8 +509,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void fillColor() {
-		if(mBinding.tvColor.isEnabled()) {
-			if(sancio.getModelColor() != null) {
+		if (mBinding.tvColor.isEnabled()) {
+			if (sancio.getModelColor() != null) {
 				mBinding.tvColor.setText(Utils.languageMultiplexer(sancio.getModelColor().getNomcolores(), sancio.getModelColor().getNomcolorcat()));
 				mBinding.viewColor.setBackgroundColor(Color.parseColor("#" + sancio.getModelColor().getHexcolor()));
 			}
@@ -531,16 +518,16 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void fillSancio() {
-		if(mBinding.tvInfraccio.isEnabled()) {
-			if(sancio.getModelInfraccio() != null) {
+		if (mBinding.tvInfraccio.isEnabled()) {
+			if (sancio.getModelInfraccio() != null) {
 				mBinding.tvInfraccio.setText(sancio.getModelInfraccio().getNom());
 			}
 		}
 	}
 
 	private void fillCarrer() {
-		if(mBinding.tvCarrer.isEnabled()) {
-			if(sancio.getModelCarrer() != null) {
+		if (mBinding.tvCarrer.isEnabled()) {
+			if (sancio.getModelCarrer() != null) {
 				mBinding.tvCarrer.setText(sancio.getModelCarrer().getNomcarrer());
 /*				String aux = mBinding.tvCarrer.getText().toString();
 
@@ -564,8 +551,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void fillNum() {
-		if(mBinding.tvNum.isEnabled()) {
-			if(!isEmpty(sancio.getNumero())) {
+		if (mBinding.tvNum.isEnabled()) {
+			if (!isEmpty(sancio.getNumero())) {
 				mBinding.tvNum.setText(sancio.getNumero());
 			}
 		}
@@ -597,98 +584,98 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		int totalfotos;
 		switch (v.getId()) {
 			case R.id.tvTipus:
-				if(!recuperada) {
+				if (!recuperada) {
 					startActivityFromIntent(new Intent(mContext, Pas1TipusActivity.class));
 				}
 				break;
 			case R.id.tvMarca:
-				if(!recuperada) {
+				if (!recuperada) {
 					startActivityFromIntent(new Intent(mContext, Pas2MarcaActivity.class));
 				}
 				break;
 			case R.id.tvModel:
-				if(!recuperada) {
+				if (!recuperada) {
 					startActivityFromIntent(new Intent(mContext, Pas3ModelActivity.class));
 				}
 				break;
 			case R.id.tvColor:
-				if(!recuperada) {
+				if (!recuperada) {
 					startActivityFromIntent(new Intent(mContext, Pas4ColorActivity.class));
 				}
 				break;
 			case R.id.tvInfraccio:
-				if(!recuperada) {
+				if (!recuperada) {
 					startActivityFromIntent(new Intent(mContext, Pas5InfraccioActivity.class));
 				}
 				break;
 			case R.id.tvCarrer:
-				if(!recuperada) {
+				if (!recuperada) {
 					startActivityFromIntent(new Intent(mContext, Pas6CarrerActivity.class));
 				}
 				break;
 			case R.id.tvNum:
-				if(!recuperada) {
+				if (!recuperada) {
 					startActivityFromIntent(new Intent(mContext, Pas7NumeroActivity.class));
 				}
 				break;
 			case R.id.btnCamera:
-				if(!recuperada) {
+				if (!recuperada) {
 					Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 					if (isEmpty(foto1)) {
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+						} else {
 						}
-						else{						}
 
 
 					} else if (isEmpty(foto2)) {
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
+						} else {
 						}
-						else{						}
 
 
 					} else if (isEmpty(foto3)) {
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
+						} else {
 						}
-						else{						}
 
 
 					} else if (isEmpty(foto4)) {
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
+						} else {
 						}
-						else{						}
 
 
 					} else {
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+						} else {
 						}
-						else{						}
 					}
 				}
 				break;
 			case R.id.buttonAccepta:
 			case R.id.buttonPrint:
-				totalfotos=0;
-				if((foto1!=null)&&(foto1!="")) {
+				totalfotos = 0;
+				if ((foto1 != null) && (foto1 != "")) {
 					totalfotos++;
 				}
-				if((foto2!=null)&&(foto2!="")) {
+				if ((foto2 != null) && (foto2 != "")) {
 					totalfotos++;
 				}
-				if((foto3!=null)&&(foto3!="")) {
+				if ((foto3 != null) && (foto3 != "")) {
 					totalfotos++;
 				}
 
-				if((totalfotos<2)&&(recuperada==false)){
+				if ((totalfotos < 2) && (recuperada == false)) {
 					Utils.showCustomDialog(mContext, R.string.atencio, R.string.fotosObligatories);
-				}
-				else {
+				} else {
 					if (checkCamps()) {
+						errorDialog=false;
 						print();
 					} else {
 						Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
@@ -712,12 +699,12 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					});
 				} else {
 
-					if(!recuperada) {
+					if (!recuperada) {
 						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+						} else {
 						}
-						else{						}
 					}
 				}
 
@@ -735,36 +722,36 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						}
 					});
 				} else {
-					if(!recuperada) {
+					if (!recuperada) {
 						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
+						} else {
 						}
-						else{						}
 					}
 				}
 
 				break;
 			case R.id.imageViewC:
-					if (img3IsActive) {
-						confirmPicture(mBinding.imageViewC, foto3, new Runnable() {
-							@Override
-							public void run() {
-								borra(foto3);
-								foto3 = null;
-								img3IsActive = false;
-								checkBotoCamera();
-							}
-						});
-					} else {
-						if(!recuperada) {
-							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
-							}
-							else{						}
+				if (img3IsActive) {
+					confirmPicture(mBinding.imageViewC, foto3, new Runnable() {
+						@Override
+						public void run() {
+							borra(foto3);
+							foto3 = null;
+							img3IsActive = false;
+							checkBotoCamera();
+						}
+					});
+				} else {
+					if (!recuperada) {
+						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
+						} else {
 						}
 					}
+				}
 
 				break;
 
@@ -780,7 +767,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						}
 					});
 				} else {
-					if(!recuperada) {
+					if (!recuperada) {
 						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
@@ -790,31 +777,33 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				}
 
 				break;
-
+			/**ENVIAR ADMIN***/
 			case R.id.btn_Enviar:
 
-				totalfotos=0;
-				if((foto1!=null)&&(foto1!="")) {
+				totalfotos = 0;
+				if ((foto1 != null) && (foto1 != "")) {
 					totalfotos++;
 				}
-				if((foto2!=null)&&(foto2!="")) {
+				if ((foto2 != null) && (foto2 != "")) {
 					totalfotos++;
 				}
-				if((foto3!=null)&&(foto3!="")) {
+				if ((foto3 != null) && (foto3 != "")) {
 					totalfotos++;
 				}
-				if((foto4!=null)&&(foto4!="")) {
+				if ((foto4 != null) && (foto4 != "")) {
 					totalfotos++;
 				}
 
 				if (checkCamps()) {
 					if (isFirstEnvia) {
 						isFirstEnvia = false;
-						send();}
+						send();
+						DatabaseAPI.updateADenunciaImpresa(mContext, denuncia.getCodidenuncia());
+						goToMain();
+					}
 				} else {
 					Utils.showCustomDialog(mContext, R.string.atencio, R.string.campsObligatoris);
 				}
-
 
 
 				break;
@@ -822,7 +811,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private boolean checkCamps() {
-		return(
+		return (
 				sancio != null &&
 						sancio.getModelCarrer() != null &&
 						sancio.getModelCarrer().getCodicarrer() != 0 &&
@@ -843,7 +832,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void print() {
-		if(isLinked) {
+		if (isLinked) {
 			printFinal(true);
 		} else {
 			getDialog(R.string.msg_connecting);
@@ -852,7 +841,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void link() {
-		if(!isEmpty(PreferencesGesblue.getAddressBluetoothPrinter(mContext))) {
+		if (!isEmpty(PreferencesGesblue.getAddressBluetoothPrinter(mContext))) {
 			establishBluetoothConnection(PreferencesGesblue.getAddressBluetoothPrinter(mContext));
 
 		} else {
@@ -869,7 +858,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode == RESULT_OK) {
+		if (resultCode == RESULT_OK) {
 			Bundle extras = data.getExtras();
 
 			switch (requestCode) {
@@ -878,29 +867,27 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				case Utils.REQUEST_IMAGE_CAPTURE_1:
 
 					imageBitmap = (Bitmap) extras.get("data");
-					foto1=Utils.savePicture(imageBitmap,mContext,"1");
+					foto1 = Utils.savePicture(imageBitmap, mContext, "1");
 					pinta(foto1, mBinding.imageViewA);
 					img1IsActive = true;
 					checkBotoCamera();
 					break;
 
 
-
 				case Utils.REQUEST_IMAGE_CAPTURE_2:
 
 					imageBitmap = (Bitmap) extras.get("data");
-					foto2=Utils.savePicture(imageBitmap,mContext,"2");
+					foto2 = Utils.savePicture(imageBitmap, mContext, "2");
 					pinta(foto2, mBinding.imageViewB);
 					img2IsActive = true;
 					checkBotoCamera();
 					break;
 
 
-
 				case Utils.REQUEST_IMAGE_CAPTURE_3:
 
 					imageBitmap = (Bitmap) extras.get("data");
-					foto3=Utils.savePicture(imageBitmap,mContext,"3");
+					foto3 = Utils.savePicture(imageBitmap, mContext, "3");
 					pinta(foto3, mBinding.imageViewC);
 					img3IsActive = true;
 					checkBotoCamera();
@@ -910,7 +897,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				case Utils.REQUEST_IMAGE_CAPTURE_4:
 
 					imageBitmap = (Bitmap) extras.get("data");
-					foto4=Utils.savePicture(imageBitmap,mContext,"4");
+					foto4 = Utils.savePicture(imageBitmap, mContext, "4");
 					pinta(foto4, mBinding.imageViewD);
 					img4IsActive = true;
 					checkBotoCamera();
@@ -919,7 +906,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				case RESULT_ESTANDARD:
 					Boolean semafor = (Boolean) data.getExtras().get("noSancio");
 
-					if(semafor == null) {
+					if (semafor == null) {
 						sancio = (Sancio) data.getExtras().get(KEY_FORMULARI_CONFIRMAR);
 					}
 					disableViews();
@@ -943,7 +930,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				default:
 					break;
 			}
-		} else if(resultCode == RESULT_CANCELED || resultCode == 1) {
+		} else if (resultCode == RESULT_CANCELED || resultCode == 1) {
 			switch (requestCode) {
 				case REQUEST_GET_DEVICE:
 					dismissDialog();
@@ -958,7 +945,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void pinta(String path, ImageView imgView) {
-		if(!isEmpty(path)) {
+		if (!isEmpty(path)) {
 			Glide.with(mContext)
 					.load(path)
 					.asBitmap()
@@ -979,7 +966,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private boolean borra(String path) {
 		try {
 			File f = new File(path);
-			if(f.exists()) {
+			if (f.exists()) {
 				return f.delete();
 			}
 		} catch (Exception ex) {
@@ -990,10 +977,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 	private void confirmPicture(final ImageView iv, String path, final Runnable onDelete) {
 		try {
-			if(!recuperada) {
+			if (!recuperada) {
 				mBinding.repetir.setVisibility(VISIBLE);
-			}
-			else{
+			} else {
 				mBinding.repetir.setVisibility(INVISIBLE);
 
 			}
@@ -1056,45 +1042,46 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 		Model_Denuncia denuncia = new Model_Denuncia();
 		Date date;
-		if(recuperada==false) {
+		if (recuperada == false) {
 			date = new Date();
 			denuncia.setCodidenuncia(generateCodiButlleta(mContext));
-		}
-		else{
+			codiDenuncia=denuncia.getCodidenuncia();
+		} else {
 			date = dataCreacio;
 			denuncia.setCodidenuncia(numDenuncia);
+
 		}
 
 
 		denuncia.setFechacreacio(date);
-		long NUM=PreferencesGesblue.getIdAgent(mContext);
+		long NUM = PreferencesGesblue.getIdAgent(mContext);
 		denuncia.setAgent(PreferencesGesblue.getIdAgent(mContext));
 		denuncia.setAdrecacarrer(sancio.getModelCarrer().getCodicarrer());
-		if(sancio.getNumero().equals("S/N")) {
+		if (sancio.getNumero().equals("S/N")) {
 			denuncia.setAdrecanum(0);
-		}else {
+		} else {
 			denuncia.setAdrecanum(Double.parseDouble(sancio.getNumero()));
 		}
 
 		denuncia.setPosicio("");
-		denuncia.setMatricula (sancio.getMatricula());
-		denuncia.setTipusvehicle (sancio.getModelTipusVehicle().getCoditipusvehicle());
-		denuncia.setMarca (Long.parseLong(sancio.getModelMarca().getCodimarca()));
-		denuncia.setModel (Long.parseLong(sancio.getModelModel().getCodimodel()));
+		denuncia.setMatricula(sancio.getMatricula());
+		denuncia.setTipusvehicle(sancio.getModelTipusVehicle().getCoditipusvehicle());
+		denuncia.setMarca(Long.parseLong(sancio.getModelMarca().getCodimarca()));
+		denuncia.setModel(Long.parseLong(sancio.getModelModel().getCodimodel()));
 		denuncia.setColor(Long.parseLong(sancio.getModelColor().getCodicolor()));
 		denuncia.setInfraccio(sancio.getModelInfraccio().getCodi());
 		denuncia.setTerminal(Long.parseLong(PreferencesGesblue.getTerminal(mContext)));
 		denuncia.setEstatcomprovacio(PreferencesGesblue.getEstatComprovacio(mContext));
-		if(img1IsActive) {
+		if (img1IsActive) {
 			denuncia.setFoto1(foto1);
 		}
-		if(img2IsActive) {
+		if (img2IsActive) {
 			denuncia.setFoto2(foto2);
 		}
-		if(img3IsActive) {
+		if (img3IsActive) {
 			denuncia.setFoto3(foto3);
 		}
-		if(img4IsActive) {
+		if (img4IsActive) {
 			denuncia.setFoto4(foto4);
 		}
 
@@ -1102,107 +1089,14 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 		arrayDenuncies.add(denuncia);
 
-		if(!recuperada) {
+		if (!recuperada && isFirstEnvia) {
 
-			DatabaseAPI.insertDenuncies(mContext,arrayDenuncies);
+			DatabaseAPI.insertDenuncies(mContext, arrayDenuncies);
 			sendPhotos();
-			isFirstEnvia=false;
+			int augmentar_Contador_Denuncia = PreferencesGesblue.getComptadorDenuncia(mContext) + 1;
+			PreferencesGesblue.saveComptadorDenuncia(mContext, augmentar_Contador_Denuncia);
+			isFirstEnvia = false;
 		}
-		/*
-		Utils.showCustomDialog(mContext, R.string.atencio, R.string.butlletaEnviadaOk, R.string.butlletaEnviadaOk_acceptar, R.string.butlletaEnviadaOk_cancelar, new DialogInterface.OnClickListener()
-		{
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if(dialog != null) dialog.dismiss();
-				printFinal(true);
-			}
-		}, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				//GBFTP.close();
-				goToMain();
-			}
-		}, false);*/
-
-
-
-
-
-/*
-		NovaDenunciaRequest ndr = new NovaDenunciaRequest(
-				generateCodiButlleta(),
-//                    Utils.getCurrentTimeLong(mContext),
-				(isEmpty(dataInfraccio) ? Utils.getCurrentTimeLong(mContext) : Long.parseLong(dataInfraccio)),
-				PreferencesGesblue.getIdAgent(mContext),              //-- ID D'AGENT
-				sancio.getModelCarrer().getCodicarrer(),                //-- CARRER
-				sancio.getNumero(),                                     //-- NUMERO CARRER
-				"",                                                     //-- TODO COORDENADES?
-				sancio.getMatricula(),                                  //-- MATRICULA
-				sancio.getModelTipusVehicle().getCoditipusvehicle(),    //-- CODI TIPUS VEHICLE
-				Long.parseLong(sancio.getModelMarca().getCodimarca()),  //-- CODI MARCA
-				Long.parseLong(sancio.getModelModel().getCodimodel()),  //-- CODI MODEL
-				Long.parseLong(sancio.getModelColor().getCodicolor()),  //-- CODI COLOR
-				sancio.getModelInfraccio().getCodi(),                   //-- MATRICULA
-				Utils.getCurrentTimeLong(mContext),             //-- HORA ACTUAL
-				sancio.getModelInfraccio().getImporte(),                //-- IMPORT
-				PreferencesGesblue.getConcessio(mContext),              //-- CONCESSIO
-				Long.parseLong(PreferencesGesblue.getTerminal(mContext)),//-- TERMINAL ID
-				Utils.getAndroidVersion(),                              //-- SO VERSION
-				Utils.getAppVersion(mContext));                         //-- APP VERSION
-
-
-
-		DatamanagerAPI.crida_NovaDenuncia(ndr,
-				new JSoapCallback() {
-					@Override
-					public void onSuccess(String result) {
-						Intent intent = new Intent(mContext, LoginActivity.class);
-						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-						final NovaDenunciaResponse response;
-						try {
-							response = DatamanagerAPI.parseJson(result, NovaDenunciaResponse.class);
-						} catch (Exception ex) {
-							ELog(ex);
-							onError(PARSE_ERROR);
-							return;
-						}
-
-						switch((int) response.getResultat()) {
-							case -1:
-								Utils.showCustomDialog(mContext, R.string.atencio, R.string.errorEnDades);
-								break;
-							case -2:
-							case -3:
-								PreferencesGesblue.logout(mContext);
-								startActivity(intent);
-								break;
-							default:
-								denunciaSent = true;
-								sendPhotos();
-								return; //Return aqui per no tancar el ProgressDialog
-						}
-						dismissDialog();
-					}
-
-					@Override
-					public void onError(int error) {
-						Log.e("Formulari", "Error NovaDenuncia: " + error);
-						dismissDialog();
-						Utils.showCustomDialog(mContext, -1, R.string.sendDenuncia_failed_title, R.string.sendDenuncia_failed_send, R.string.sendDenuncia_failed_cancel, new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								send();
-							}
-						}, new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								if(dialog != null) dialog.dismiss();
-							}
-						}, false);
-					}
-				}
-		);*/
 	}
 
 	private void sendPhotos() {
@@ -1246,12 +1140,13 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private void goToMain() {
 		Intent intent = new Intent(mContext, MainActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		GesblueApplication.DenunciaEnCurs = false;
 		startActivity(intent);
 	}
 
 	@Override
 	public void onBackPressed() {
-		if(mBinding.linearPreview.getVisibility() == VISIBLE) {
+		if (mBinding.linearPreview.getVisibility() == VISIBLE) {
 			anima(mBinding.getRoot(), 150);
 			mBinding.linearPreview.setVisibility(GONE);
 			mBinding.preview.setImageResource(R.mipmap.ic_launcher);
@@ -1261,18 +1156,17 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void printFinal(boolean isFirstTime) {
-		if(isFirstTime) {
+		if (isFirstTime) {
 			send();
 		}
-		if(PreferencesGesblue.getTiquetUsuari(mContext) || PreferencesGesblue.getDataImportTiquet(mContext)) {
+		if (PreferencesGesblue.getTiquetUsuari(mContext) || PreferencesGesblue.getDataImportTiquet(mContext)) {
 			Intent intent = new Intent(mContext, MoreInfoToPrintActivity.class);
-			intent.putExtra(MoreInfoToPrintActivity.KEY_TIQUET,PreferencesGesblue.getTiquetUsuari(mContext));
-			intent.putExtra(MoreInfoToPrintActivity.KEY_DATAIMPORT,PreferencesGesblue.getDataImportTiquet(mContext));
-			intent.putExtra(INTENT_SANCIO,sancio);
+			intent.putExtra(MoreInfoToPrintActivity.KEY_TIQUET, PreferencesGesblue.getTiquetUsuari(mContext));
+			intent.putExtra(MoreInfoToPrintActivity.KEY_DATAIMPORT, PreferencesGesblue.getDataImportTiquet(mContext));
+			intent.putExtra(INTENT_SANCIO, sancio);
 			startActivityForResult(intent, REQUEST_MORE_OPTIONS);
-		}
-		else {
-			try{
+		} else {
+			try {
 				runOnUiThread(new Runnable() {
 					public void run() {
 						getDialog(R.string.dialogImprimint);
@@ -1281,40 +1175,31 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			String codibutlleta;
+			final String codibutlleta;
 			Date fecha;
-			if(recuperada){
-				codibutlleta=numDenuncia;
+			if (recuperada) {
+				codibutlleta = numDenuncia;
 				fecha = dataCreacio;
-			}
-			else{
-				codibutlleta=generateCodiButlleta(mContext);
+			} else {
+				codibutlleta = generateCodiButlleta(mContext);
 				fecha = new Date();
 			}
 			PrintAsyncTask p = new PrintAsyncTask(mPrinter, mContext, sancio, codibutlleta, fecha, isFirstTime, new PrintAsyncTask.PrintListener() {
 				@Override
 				public void onFinish(Exception ex, boolean isFirstTime) {
-					if(null == ex) {
+					if (null == ex) {
 						dismissDialog();
-						CustomDialogClass ccd = new CustomDialogClass(FormulariActivity.this);
-						ccd.show();
+						if(errorDialog==false) {
+							String test=codiDenuncia;
+							CustomDialogClass ccd = new CustomDialogClass(FormulariActivity.this,codiDenuncia);
+							ccd.show();
+						}
 
 
-						/*Utils.showCustomDialog(mContext, R.string.atencio, R.string.butlletaImpresaOk, R.string.butlletaImpresaOk_imprimir, R.string.butlletaImpresaOk_enviar, new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								printFinal(true);
-							}
-						}, new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								goToMain();
-							}
-						}, false);*/
 
 					} else {
 						ELog(ex);
-						if(isFirstTime) {
+						if (isFirstTime) {
 							printFinal(false);
 						} else {
 							Utils.showCustomDialog(mContext, R.string.atencio, R.string.printerConnection_failedConnect, new DialogInterface.OnClickListener() {
@@ -1364,12 +1249,14 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 		public Activity c;
 		public Dialog d;
-		public Button yesR, noR,yes;
+		public ConstraintLayout yesR, noR, yes;
+		public String codiDenun;
 
-		public CustomDialogClass(Activity a) {
+		public CustomDialogClass(Activity a,String codiDenuncia) {
 			super(a);
 			// TODO Auto-generated constructor stub
 			this.c = a;
+			this.codiDenun=codiDenuncia;
 		}
 
 		@Override
@@ -1377,30 +1264,34 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			super.onCreate(savedInstanceState);
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 			setContentView(R.layout.custom_dialog_impressio);
-			yes = (Button) findViewById(R.id.btn_yes);
-			noR = (Button) findViewById(R.id.btn_noR);
-			yesR=(Button)findViewById(R.id.btn_yesR);
+			yes = (ConstraintLayout) findViewById(R.id.lay_Yes);
+			noR = (ConstraintLayout) findViewById(R.id.lay_NoR);
+			yesR = (ConstraintLayout) findViewById(R.id.lay_YesR);
 			yes.setOnClickListener(this);
 			noR.setOnClickListener(this);
 			yesR.setOnClickListener(this);
+			this.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
 		}
 
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-				case R.id.btn_yes:
-					DatabaseAPI.updateDenunciaImpresa(mContext,denuncia.getCodidenuncia());
+				case R.id.lay_Yes:
+					String temp=codiDenun;
+
+					DatabaseAPI.updateADenunciaImpresa(mContext, codiDenun);
+
 					goToMain();
 					break;
 
-				case R.id.btn_yesR:
-					DatabaseAPI.updateDenunciaImpresa(mContext,denuncia.getCodidenuncia());
+				case R.id.lay_YesR:
+					DatabaseAPI.updateADenunciaImpresa(mContext, codiDenun);
 					printFinal(isFirstEnvia);
 					break;
 
 
-				case R.id.btn_noR:
+				case R.id.lay_NoR:
 					printFinal(isFirstEnvia);
 					break;
 
@@ -1410,10 +1301,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 
-
-
 	public static Calendar createCalendar(int aSumar) {
-		if(aSumar == -1) {
+		if (aSumar == -1) {
 			return null;
 		} else {
 			Calendar calendar = Calendar.getInstance();
@@ -1425,8 +1314,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			return calendar;
 		}
 	}
+
 	public static Calendar createCalendarCount(int aSumar) {
-		if(aSumar == -1) {
+		if (aSumar == -1) {
 			return null;
 		} else {
 			Calendar calendar = Calendar.getInstance();
@@ -1438,6 +1328,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			return calendar;
 		}
 	}
+
 	private synchronized void waitForConnection() {
 //		closeActiveConnection();
 
@@ -1603,15 +1494,19 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	}
 
 	private void showErrorImpresora(int code) {
-		switch(code) {
+
+		switch (code) {
 			case 0:
 				Utils.showCustomDialog(mContext, R.string.errorAtencio, R.string.errorTemperatura);
+				errorDialog=true;
 				break;
 			case 1:
 				Utils.showCustomDialog(mContext, R.string.errorAtencio, R.string.errorPaper);
+				errorDialog=true;
 				break;
 			case 2:
 				Utils.showCustomDialog(mContext, R.string.errorAtencio, R.string.errorBateria);
+				errorDialog=true;
 				break;
 		}
 	}
@@ -1647,10 +1542,12 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
-								if(btAdapter.getState()==BluetoothAdapter.STATE_OFF) {
+								if (btAdapter.getState() == BluetoothAdapter.STATE_OFF) {
 									Utils.showCustomDialog(mContext, R.string.printerConnection_failedTitle, R.string.printerConnection_failedEngegaBluetooth);
+									errorDialog=true;
 								} else {
 									Utils.showCustomDialog(mContext, R.string.printerConnection_failedTitle, R.string.printerConnection_failedConnect);
+									errorDialog=true;
 									PreferencesGesblue.saveAdressBluetoothPrinter(mContext, "");
 								}
 								DLog("FAILED to connect: " + e.getMessage());
@@ -1667,8 +1564,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
-								if(btAdapter.getState()==BluetoothAdapter.STATE_ON) {
+								if (btAdapter.getState() == BluetoothAdapter.STATE_ON) {
 									Utils.showCustomDialog(mContext, R.string.printerConnection_failedTitle, R.string.printerConnection_failedInitialize);
+									errorDialog=true;
 								}
 								DLog("FAILED to initiallize: " + e.getMessage());
 							}
@@ -1684,4 +1582,5 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		});
 		t.start();
 	}
+
 }

@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.boka2.gesblue.R;
@@ -27,6 +28,8 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 		super.onCreate(savedInstanceState);
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_pas7_numero);
 		setupVisibleToolbar(mBinding.toolbar);
+
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
 		mBinding.toolbar.txtLocalitzacioEstat.setVisibility(View.GONE);
 		mBinding.toolbar.icOpciones.setVisibility(View.GONE);

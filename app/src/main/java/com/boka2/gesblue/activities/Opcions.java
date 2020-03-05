@@ -42,6 +42,7 @@ import java.util.List;
 
 import pt.joaocruz04.lib.misc.JSoapCallback;
 
+import static com.boka2.gesblue.GesblueApplication.DenunciaEnCurs;
 import static com.boka2.gesblue.GesblueApplication.EnviamentDisponible;
 import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
@@ -68,11 +69,12 @@ public class Opcions extends AppCompatActivity {
     private int intentsEnviaDenuncia =0;
     private boolean escapador=true;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-
+        DenunciaEnCurs=false;
         setContentView(R.layout.activity_opcions);
 
         /**DECLAREM LES PARTS**/{
@@ -418,6 +420,7 @@ public class Opcions extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         checkAdmin(adm);
+        ContadorDenuncies(true);
 
 
 
@@ -447,6 +450,7 @@ public class Opcions extends AppCompatActivity {
                 }
             }
         }
+        ContadorDenuncies(true);
     }
 
 
@@ -510,7 +514,7 @@ public class Opcions extends AppCompatActivity {
                                     default:
                                         //denunciaSent = true;
                                         //sendPhotos();
-                                        DatabaseAPI.updateDenunciaPendent(oContext, den.getCodidenuncia());
+                                        DatabaseAPI.updateADenunciaEnviada(oContext, den.getCodidenuncia());
                                         if (intentsEnviaDenuncia < 5) {
                                             enviaDenunciaConcreta(denuncia);
                                         } else {
