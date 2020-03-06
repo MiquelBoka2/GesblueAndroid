@@ -8,7 +8,7 @@ import com.j256.ormlite.support.ConnectionSource;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
+/*
  * Created by Boka2.
  * La funcionalitat d'aquesta classe és d'encapsular les connexions al a bdd de forma concurrent,
  * i els cops que s'obre i es tanca de forma centralitzada i única.
@@ -28,7 +28,7 @@ public class GeneralDBHelper {
     private DatabaseModelHelper db_helper;
     private ConnectionSource connection;
 
-    /**
+    /*
      * @param _context Hauria de ser el context de l'App, perquè la instància del Helper estarà oberta per a totes les transaccións
      *                 durant totes les pantalles de l'App.
      *                 COMPTE! NO FER SERVIR!! AQUEST CONSTRUCTOR HAURIA DE SER PRIVAT, PERÒ EL ORMLITE PETA SI NO ÉS PUBLIC. LA IDEA ÉS
@@ -63,7 +63,7 @@ public class GeneralDBHelper {
     public DatabaseModelHelper getDb_helper() {
         return db_helper;
     }
-    /**
+    /*
      * S'hauria de cridar només quan es tanca l'app, o s'està segur de que no es tornaran a fer crides a la BDD.
      * Idelament en el onDestroy de l'activity.
      * Després de molta recerca

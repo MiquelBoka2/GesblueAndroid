@@ -31,7 +31,7 @@ import static com.boka2.sbaseobjects.tools.pickerImatges.SelectImatgesActivity.E
 import static com.boka2.sbaseobjects.tools.pickerImatges.SelectImatgesActivity.EXTRA_MULTIFILE_ENABLE;
 import static com.boka2.sbaseobjects.tools.pickerImatges.SelectImatgesActivity.EXTRA_PATH_SELECTED_FILES;
 
-/**
+/*
  * Created by Boka2.
  */
 public class ImageTools {
@@ -54,7 +54,7 @@ public class ImageTools {
         public abstract void onError(Exception ex);
     }
 
-    /**
+    /*
      * Redimensiona, converteix a jpg i comprimeix l'array de imatges.
      * @param c Contexte vàlid per trobar la carpeta de la app
      * @param imatgeFiles ArrayList amb els File de les imatges a comprimir
@@ -156,7 +156,7 @@ public class ImageTools {
         }
     }
 
-    /**
+    /*
      * Obre una galeria i rep N imatges
      * @param mContext Un contexte vàlid
      * @param imageBroadcastReceiver Un ImageBroadcastReceiver per rebre les imatges
@@ -184,7 +184,7 @@ public class ImageTools {
         mContext.startActivity(intent);
     }
 
-    /**
+    /*
      * Crida a la càmera per demanar una foto.
      * Cal cridar a checkCameraActivityResult al onActivityResult de la Activity que cridi a aquesta funció.
      * @param a
@@ -209,7 +209,7 @@ public class ImageTools {
         }
     }
 
-    /**
+    /*
      * Comprova si s'ha tornat una imatge.
      * @param a La activity actual
      * @param requestCode El requestCode del onActivityResult

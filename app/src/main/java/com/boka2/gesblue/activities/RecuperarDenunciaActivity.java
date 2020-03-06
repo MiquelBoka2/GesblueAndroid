@@ -50,7 +50,7 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         setContentView(R.layout.activity_recuperar_denuncia);
         mContext = this;
 
-        /**RECUPAREM DADES D'ON PROVENIM**/{
+        /*RECUPAREM DADES D'ON PROVENIM**/{
             Bundle extras = getIntent().getExtras();
 
             if (extras != null) {
@@ -60,6 +60,20 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
             }
 
         }
+
+        back_BTN=this.findViewById(R.id.btn_Back);
+        back_BTN.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("adm",adm);
+                startActivity(intent);
+                finish();
+
+            }
+        });
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -71,17 +85,9 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-        back_BTN=this.findViewById(R.id.btn_Back);
-        back_BTN.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
 
-            }
-        });
 
         List<Model_Denuncia> denunciesTemp = DatabaseAPI.getDenuncies(mContext);
         denuncies_Personals = DatabaseAPI.getDenuncies(mContext);
@@ -105,14 +111,6 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
 
             denuncies = denuncies_Personals.subList(0,Math.min(denuncies_Personals.size(),50));
 
-            //Comprovem si tenim denuncies i en cas negatiu, mostrem un missatge informatiu.
-            if ( denuncies.isEmpty() || denuncies.size()<=0){
-                Utils.showCustomDatamanagerError(mContext, getString(R.string.noDenuncies));
-            }
-
-            // specify an adapter (see also next example)
-            mAdapter = new DenunciaAdapter(this,denuncies,this);
-            mRecyclerView.setAdapter(mAdapter);
 
         }
         else{
@@ -121,22 +119,23 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
 
             denuncies = denunciesTemp.subList(0,Math.min(denunciesTemp.size(),50));
 
-            //Comprovem si tenim denuncies i en cas negatiu, mostrem un missatge informatiu.
-            if (denuncies.isEmpty() || denuncies.size()<=0){
-                Utils.showCustomDatamanagerError(mContext, getString(R.string.noDenuncies));
-            }
-
-            // specify an adapter (see also next example)
-            mAdapter = new DenunciaAdapter(this,denuncies,this);
-            mRecyclerView.setAdapter(mAdapter);
 
         }
+
+        //Comprovem si tenim denuncies i en cas negatiu, mostrem un missatge informatiu.
+        if ( denuncies.isEmpty() || denuncies.size()<=0){
+            Utils.showCustomDatamanagerError(mContext, getString(R.string.noDenuncies));
+        }
+
+        // specify an adapter (see also next example)
+        mAdapter = new DenunciaAdapter(this,denuncies,this);
+        mRecyclerView.setAdapter(mAdapter);
 
 
 
     }
 
-    /**@Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_menu, menu);
 
@@ -186,7 +185,7 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         startActivityForResult(intent,INTENT_RETORN);
     }
 
-    /**EL RETORN**/
+    /*EL RETORN**/
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

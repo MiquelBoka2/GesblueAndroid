@@ -42,7 +42,7 @@ public class SPushNotificationsStyleManager {
 
 	// Fi Singleton
 
-	/**
+	/*
 	 * Mètode utilitzat per inicialitzar l'objecte en cas de voler-lo inicialitzar abans d'utilitzar-lo.
 	 * @param _context
 	 */

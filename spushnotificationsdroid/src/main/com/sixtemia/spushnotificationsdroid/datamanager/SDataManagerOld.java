@@ -31,7 +31,7 @@ import android.util.Log;
 import com.boka2.sutils.classes.SNetworkUtils;
 import com.boka2.sutils.classes.SUtils;
 
-/**
+/*
  * Classe base per implementar Data Managers. * Crear una subclasse d'aquesta amb els m�todes especifics per cada App.
  * 
  * El constructor de la subclasse ha de fixar el parametre URL_BASE Tambe pot modificar els noms dels parametres OK, KO i tipus d'acci�.
@@ -85,7 +85,7 @@ public class SDataManagerOld {
 		// commonParams.add(new BasicNameValuePair("lang", "ca"));
 	}
 
-	/**
+	/*
 	 * Configure the future request to user the basic http authentification
 	 * @param user
 	 * @param password
@@ -120,7 +120,7 @@ public class SDataManagerOld {
 		return result.toString();
 	}
 
-	/**
+	/*
 	 * @param params
 	 *            Parametres per la petici� POST
 	 * @param urlPath
@@ -249,7 +249,7 @@ public class SDataManagerOld {
 		return str;
 	}
 
-	/**
+	/*
 	 * @param params
 	 *            Parametres per la petici� POST
 	 * @param strUrlBase
@@ -380,7 +380,7 @@ public class SDataManagerOld {
 		return str;
 	}
 
-	/**
+	/*
 	 * @param params
 	 *            Parametres per la petici� POST
 	 * @param method
@@ -395,7 +395,7 @@ public class SDataManagerOld {
 		return getJSON(params, urlPath, method, true);
 	}
 
-	/**
+	/*
 	 * @param params
 	 *            Parametres per la petici�
 	 * @param urlPath
@@ -496,7 +496,7 @@ public class SDataManagerOld {
 		return timestamp;
 	}
 
-	/**
+	/*
 	 * 
 	 * @param params
 	 * @param urlPath
@@ -517,7 +517,7 @@ public class SDataManagerOld {
 		return res;
 	}
 
-	/**
+	/*
 	 * Guarda a la cache. Actualment es guarda un fitxer a la memoria externa del dispositiu.
 	 * 
 	 * @param key

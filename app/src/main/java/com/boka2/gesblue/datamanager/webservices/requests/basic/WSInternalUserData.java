@@ -6,7 +6,7 @@ import com.boka2.gesblue.global.PreferencesGesblue;
 
 import pt.joaocruz04.lib.annotations.JSoapReqField;
 
-/**
+/*
  * Created by Boka2.
  */
 

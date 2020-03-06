@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.google.android.gcm.GCMBroadcastReceiver;
 
-/**
+/*
  * Created by Boka2.
  */
 

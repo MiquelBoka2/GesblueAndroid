@@ -22,7 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.collection.SparseArrayCompat;
 
 
-/**
+/*
  * Immutable class for describing proportional relationship between width and height.
  */
 public class AspectRatio implements Comparable<AspectRatio>, Parcelable {
@@ -33,7 +33,7 @@ public class AspectRatio implements Comparable<AspectRatio>, Parcelable {
     private final int mX;
     private final int mY;
 
-    /**
+    /*
      * Returns an instance of {@link AspectRatio} specified by {@code x} and {@code y} values.
      * The values {@code x} and {@code} will be reduced by their greatest common divider.
      *
@@ -136,7 +136,7 @@ public class AspectRatio implements Comparable<AspectRatio>, Parcelable {
         return -1;
     }
 
-    /**
+    /*
      * @return The inverse of this {@link AspectRatio}.
      */
     public AspectRatio inverse() {

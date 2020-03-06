@@ -6,7 +6,7 @@ import com.boka2.sbaseobjects.tools.DataUtils;
 
 import java.util.Date;
 
-/**
+/*
  * Created by Boka2.
  */
 public class GBData extends DataUtils {

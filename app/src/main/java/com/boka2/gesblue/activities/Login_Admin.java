@@ -62,7 +62,7 @@ public class Login_Admin extends AppCompatActivity {
         }
 
 
-        /**TRIA EL DISENY**/
+        /*TRIA EL DISENY**/
         if(adm){
 
             AdminActivat();
@@ -143,6 +143,7 @@ public class Login_Admin extends AppCompatActivity {
 
         lay_AdminLogged.setVisibility(View.GONE);
         lay_FakeFons.setVisibility(View.VISIBLE);
+        txt_Accio.setVisibility(View.VISIBLE);
 
         if (NO_Concessio){
 
@@ -175,6 +176,7 @@ public class Login_Admin extends AppCompatActivity {
     private void Habitual_Activity() {
         lay_FakeFons.setVisibility(View.GONE);
         lay_AdminLogged.setVisibility(View.GONE);
+        txt_Accio.setVisibility(View.GONE);
 
 
     }

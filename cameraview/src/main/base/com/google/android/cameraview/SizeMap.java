@@ -23,14 +23,14 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-/**
+/*
  * A collection class that automatically groups {@link Size}s by their {@link AspectRatio}s.
  */
 class SizeMap {
 
     private final ArrayMap<AspectRatio, SortedSet<Size>> mRatios = new ArrayMap<>();
 
-    /**
+    /*
      * Add a new {@link Size} to this collection.
      *
      * @param size The size to add.

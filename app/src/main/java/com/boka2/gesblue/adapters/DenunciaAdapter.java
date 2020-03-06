@@ -17,7 +17,7 @@ import com.boka2.gesblue.datamanager.database.model.Model_Denuncia;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-/**
+/*
  * Created by Boka2.
  */
 ;
@@ -31,9 +31,7 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
 
     private CustomButtonListener customButtonListener;
 
-    public interface DenunciaClickListener {
-        void recyclerViewClick(String albumID);
-    }
+
 
 
 
@@ -52,7 +50,7 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
     public DenunciaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //inflating and returning our view holder
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.layout_denuncia, null);
+        View view = inflater.inflate(R.layout.layout_denuncia, parent,false);
         return new DenunciaViewHolder(view);
     }
 
@@ -69,6 +67,8 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
         holder.textViewMatricula.setText(denuncia.getMatricula());
         holder.textViewNumDenuncia.setText(String.valueOf(denuncia.getCodidenuncia()));
         String text=String.valueOf(denuncia.getTipusanulacio());
+
+
         if (String.valueOf(denuncia.getTipusanulacio()).equals("-1.0")){
             text=mCtx.getResources().getString(R.string.pendent_Imprimir);
             holder.textViewEstat.setTextColor(Color.RED);
@@ -93,7 +93,9 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
                     customButtonListener.onButtonClickListener(position);
                 }
             }
-});
+        });
+
+
 
     }
 

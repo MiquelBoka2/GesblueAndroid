@@ -61,7 +61,7 @@ public class PreferencesSPush {
 		editor.commit();
 	}
 
-	/**
+	/*
 	 * Defineix el path complert de la classe que s'ha d'obrir al fer back des del llistat de notificacions
 	 * Exemple: com.sixtemia.sauledacatalegs.CategoriesListActivity
 	 * 
@@ -73,7 +73,7 @@ public class PreferencesSPush {
 		return preferences.getString(PREFERENCE_PUSH_NOTIFICATIONS_RETURN_CLASS_PACKAGE, "");
 	}
 
-	/**
+	/*
 	 * Retorna el path complert de la classe que s'ha d'obrir al fer back des del llistat de notificacions
 	 * Exemple: com.sixtemia.sauledacatalegs.CategoriesListActivity
 	 * 

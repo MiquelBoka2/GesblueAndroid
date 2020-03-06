@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.boka2.gesblue.GesblueApplication;
 import com.boka2.gesblue.R;
 import com.boka2.gesblue.customstuff.GesblueFragmentActivity;
 import com.boka2.gesblue.databinding.ActivityLoginBinding;
@@ -95,6 +96,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import pt.joaocruz04.lib.misc.JSoapCallback;
@@ -151,6 +153,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 
+
 		super.onCreate(savedInstanceState);
 
 		askForPermissions(new String[]{
@@ -178,7 +181,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 
-		/**EL LISTENER DE LES OPCIONS*/{
+		/*EL LISTENER DE LES OPCIONS*/{
 			opciones.setOnClickListener(new View.OnClickListener() {
 
 				@Override
@@ -193,7 +196,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 			});
 		}
 
-		/**RECUPAREM DADES D'ON PROVENIM**/{
+		/*RECUPAREM DADES D'ON PROVENIM**/{
 			Bundle extras = getIntent().getExtras();
 
 
@@ -211,7 +214,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 		Utils.getSyncDate(mContext);
 
-		/**PROPIETATS DE LA BARRA DE PROGRES**/
+		/*PROPIETATS DE LA BARRA DE PROGRES**/
 		{
 			progress = new ProgressDialog(this);
 			progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -225,17 +228,17 @@ public class LoginActivity extends GesblueFragmentActivity {
 		}
 
 
-		/** DEFINIM LA CONCESSIO SI EN HI HA*/{
+		/* DEFINIM LA CONCESSIO SI EN HI HA*/{
 			final String concessioString = PreferencesGesblue.getConcessioString(this);
 			isNoLoginConcessio = TextUtils.isEmpty(concessioString);
 
 			concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 
 			localitzacio = mBinding.toolbar.txtLocalitzacioEstat;
-			Log.e("Er login de la conzezió", isNoLoginConcessio + "-----");
+			//Log.e("Er login de la conzezió", isNoLoginConcessio + "-----");
 		}
 
-		/** MODIFIQUEM EL LAYOUT EN FUNCIO DE SI HI HA CONCCESIO O NO*/{
+		/* MODIFIQUEM EL LAYOUT EN FUNCIO DE SI HI HA CONCCESIO O NO*/{
 			if(!isNoLoginConcessio) {
 				estat="login_concessio";
 				mBinding.textViewConcessio.setVisibility(View.GONE);
@@ -265,7 +268,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 		ContadorDenuncies(true);
 
 
-		/**LISTENER DE BUTO ACCEPTA**/{
+		/*LISTENER DE BUTO ACCEPTA**/{
 			mBinding.buttonAccepta.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
@@ -278,14 +281,14 @@ public class LoginActivity extends GesblueFragmentActivity {
 						concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 
 
-					Log.e("Concesio antes", concessio);
+					//Log.e("Concesio antes", concessio);
 
 					PreferencesGesblue.setUserName(mContext, username);
 					PreferencesGesblue.setPassword(mContext, password);
 					PreferencesGesblue.setConcessio(mContext, Long.parseLong(concessio));
 
-					Log.e("Concesio despues", concessio);
-					Log.e("isNoLoginConcessio", "" + isNoLoginConcessio);
+					//Log.e("Concesio despues", concessio);
+					//Log.e("isNoLoginConcessio", "" + isNoLoginConcessio);
 
 					if (username.equals("") || password.equals("") || (concessio.equals("") && isNoLoginConcessio)) {
 						Utils.showFaltenDadesError(mContext);
@@ -295,11 +298,11 @@ public class LoginActivity extends GesblueFragmentActivity {
 						if (isNoLoginConcessio) {
 							cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
 
-							Log.d("Login -1", "Vivo en una piña");
+							//Log.d("Login -1", "Vivo en una piña");
 						} else {
 							cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
 
-							Log.d("Login -2", "Fallo Aquí");
+							//Log.d("Login -2", "Fallo Aquí");
 							cridaLogin(mBinding.editTextUsuari.getText().toString(), mBinding.editTextPassword.getText().toString(), TextUtils.isEmpty(concessio) ? 0 : Long.parseLong(concessio), PreferencesGesblue.getDataSync(mContext));
 						}
 					}
@@ -307,7 +310,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 			});
 		}
 
-		/**LISTENER DE BUTO ENVIA DENUNCIES PENDENTS**/{
+		/*LISTENER DE BUTO ENVIA DENUNCIES PENDENTS**/{
 			mBinding.btnEnviaPendents.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -395,7 +398,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 			});
 		}
 
-		/**LISTENERTS I OBJECTES DE DESCARTAR LA NOTIFICACIO QUE SURT AL NO TENIR INTERTNET*/{
+		/*LISTENERTS I OBJECTES DE DESCARTAR LA NOTIFICACIO QUE SURT AL NO TENIR INTERTNET*/{
 			View.OnClickListener descarta_inferior = new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -409,13 +412,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 			mBinding.imgCreu.setOnClickListener(descarta_inferior);
 		}
 
-		/**LISTENER DE BUTO ESBORRA TOT**/{
-
-
-
-
-
-
+		/*LISTENER DE BUTO ESBORRA TOT**/{
 			mBinding.btnEsborraTot.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -457,7 +454,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 			});
-			/**ESBORAR FORÇAT (admin=true/contraseña="bol<a>2.$udo"/concessio=DiaIMes)**/
+			/*ESBORAR FORÇAT (admin=true/contraseña="bol<a>2.$udo"/concessio=DiaIMes)**/
 			mBinding.btnEsborraTot.setOnLongClickListener(new View.OnLongClickListener() {
 				@Override
 				public boolean onLongClick(View v) {
@@ -477,7 +474,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 			});
 		}
 
-		/**LISTENER DE NETEJA DADES**/{
+		/*LISTENER DE NETEJA DADES**/{
 			mBinding.btnNetejaConcessions.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -555,7 +552,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	}
 
 
-	/**FUNCIONAMENT DEL LA FUNCIO ENVIAR DENUNCIES PENDENTS**/
+	/*FUNCIONAMENT DEL LA FUNCIO ENVIAR DENUNCIES PENDENTS**/
 		private void enviaDenunciaConcreta ( final Model_Denuncia denuncia){
 
 			if (denuncia != null) {
@@ -733,7 +730,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 
-	/**RECUPERA LES DENUNCIES PENDENTS I ACTUALITZA EL UI**/
+	/*RECUPERA LES DENUNCIES PENDENTS I ACTUALITZA EL UI**/
 	private void ContadorDenuncies(boolean recarregardades) {
 
 		//Consegueix les denuncies i adpta l'interfaz a les dades
@@ -807,7 +804,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	}
 
 
-	/** Actualitza el UI en funcio de ADMIN**/
+	/* Actualitza el UI en funcio de ADMIN**/
 	private void checkAdmin(Boolean adm) {
 
 		if (adm){
@@ -825,8 +822,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	@Override
 	protected void onResume() {
-
-
 
 		super.onResume();
 		checkAdmin(adm);
@@ -956,19 +951,19 @@ public class LoginActivity extends GesblueFragmentActivity {
 		PreferencesGesblue.savPrefCodiInstitucio(mContext, nt.hasCodiInstitucio());
 	}
 	private void cridaLogin(final String username, final String password, final long concessio, @Nullable final String _data) {
-		Log.e("Login -0",concessio+"------");
+		//Log.e("Login -0",concessio+"------");
 
 		showLoadingAnimButton(true);
 		//mContext=null;
 		Long data =  Long.parseLong(PreferencesGesblue.getDataSync(mContext));
 
-		Log.e("Login 0",concessio+"------"+data);
+		//Log.e("Login 0",concessio+"------"+data);
 		boolean connected = false;
 		ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(mContext.CONNECTIVITY_SERVICE);
 		if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
 				connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
 			//we are connected to a network
-					Log.e("Login 1","xXx");
+					//Log.e("Login 1","xXx");
 
 
 			DatamanagerAPI.crida_Login(new LoginRequest(username, password, concessio, Utils.getDeviceId(mContext), Utils.getAndroidVersion(), Utils.getAppVersion(mContext), data), new JSoapCallback() {
@@ -977,14 +972,14 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 					try {
 						response = DatamanagerAPI.parseJson(result, LoginResponse.class);
-						Log.e("Arenita","Mejilla"+response);
+
 					} catch (Exception ex) {
 						ELog(ex);
 						onError(PARSE_ERROR);
 						return;
 					}
 
-					Log.d("Login 2","xxX");
+					//Log.d("Login 2","xxX");
 					showLoadingAnimButton(false);
 					enableEditTexts(true);
 
@@ -1018,12 +1013,12 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 							Log.d("Num logs locals",""+listLogs.size());*/
 
-							Log.e("Login 3","Eugene");
+
 
 							if(isNoLoginConcessio) {
 
 								//LOG SENSE CONCESSIO PREVIA
-								Log.e("Sheldon","Plankton");
+
 
 								Intent intent = new Intent(mContext, MainActivity.class);
 								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1036,7 +1031,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 							}
 							else {
 
-								Log.e("Login 5","Cangrejo");
+
 								String d = PreferencesGesblue.getDataSync(mContext);
 								sincronitzarTot(response, concessio, d);
 							}
@@ -1113,7 +1108,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 				final ArrayList<Model_Log> listLogs = DatabaseAPI.getLogs(mContext);
 
-				Log.e("Num logs locals",""+listLogs.size());
+				//Log.e("Num logs locals",""+listLogs.size());
 
 				Intent intent = new Intent(mContext, MainActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1157,7 +1152,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 			DatamanagerAPI.crida_Agents(new AgentsRequest(concessio, data), new JSoapCallback() {
 				@Override
 				public void onSuccess(String result) {
-					Log.d("Resultat agents:",result);
+					//Log.d("Resultat agents:",result);
 					AgentsResponse response;
 					try {
 						response = DatamanagerAPI.parseJson(result, AgentsResponse.class);
@@ -1698,7 +1693,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 
-	/**EL RETORN**/
+	/*EL RETORN**/
    	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		String result="";
@@ -1784,7 +1779,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	}
 
-	/**ES BORRA EL PAKAGE**/
+	/*ES BORRA EL PAKAGE**/
 		private void clearAppData() {
 			try {
 				// clearing app data

@@ -20,7 +20,7 @@ import android.view.ViewConfiguration;
 
 public class ImageViewTouch extends ImageViewTouchBase {
 	static final float SCROLL_DELTA_THRESHOLD = 1.0f;
-	/** minimum time between a scale event and a valid fling event */
+	/* minimum time between a scale event and a valid fling event */
 	public static long MIN_FLING_DELTA_TIME = 150;
 	private float mScaleFactor;
 	protected ScaleGestureDetector mScaleDetector;
@@ -252,7 +252,7 @@ public class ImageViewTouch extends ImageViewTouchBase {
 		return !mViewPort.contains(bitmapRect);
 	}
 
-	/**
+	/*
 	 * Determines whether this ImageViewTouch can be scrolled.
 	 *
 	 * @param direction

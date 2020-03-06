@@ -16,9 +16,9 @@
     <string name="dadesTiquetUsuari">Dades tiquet usuari</string>
 
     <string name="usuari">USUARI</string>
-    <string name="password">PASSWORD</string>
+    <string name="password">CONTRASENYA</string>
     <string name="concessio">CONCESSIÓ</string>
-    <string name="accepta">ACCEPTA</string>
+    <string name="accepta">ACCEPTAR</string>
     <string name="editTextUsuariHint">Nom d\'usuari</string>
     <string name="editTextPasswordHint">Contrasenya</string>
     <string name="campsObligatoris">Falten camps obligatoris</string>
@@ -27,11 +27,10 @@
     <string name="atencio">Atenció</string>
 
     <string name="estacionament_incorrecte">ESTAC. INCORRECTE</string>
-    <string name="estacionament_incorrecte2">MINUTS PASATS</string>
-    <string name="estacionament_incorrecte3">HORES PASADES</string>
+
     <string name="estacionament_sense_internet">SENSE INTERNET. MATRICULA NO COMPROVADA</string>
     <string name="estacionament_correcte">ESTAC. CORRECTE</string>
-    <string name="estacionament_correcte2">MINUTS RESTANTS</string>
+
     <string name="vehicle_ja_denunciat">VEHICLE JA DENUNCIAT AVUI</string>
     <string name="noDenunciar">NO DENUNCIAR</string>
     <string name="denunciar">DENUNCIAR</string>
@@ -178,19 +177,8 @@ secretari/a de l\'Ajuntament.</string>
 
     <string name="firma">Firma</string>
 
-    <string name="LOG_TAG" translatable="false">Gesblue</string>
-    <string name="cela_1" translatable="false">o6n</string>
-    <string name="cela_3" translatable="false">Sjos</string>
-    <string name="gbf_1" translatable="false">gesblue.com</string>
     <integer name="gbf_2" translatable="false">21</integer>
-    <string name="gbf_3" translatable="false">gesblue</string>
-    <string name="gbf_5" translatable="false">%1$s/%2$s</string>
-    <string name="gbf_7" translatable="false">%1$s/%2$s.jpg</string>
-    <string name="gbf_6" translatable="false">%1$s/%2$s/%3$s.jpg</string>
-    <string name="hasLoggedLocationPreference" translatable="false">hasLoggedLocation</string>
-    <string name="hasLoggedPreference" translatable="false">hasLogued</string>
 
-    <string name="path_ftp" translatable="false">web/admin/fotosdenuncies/</string>
     <!-- /13-10-2016 -->
     <string name="pujarFotosTitle">Enviant fotografies</string>
 
@@ -223,7 +211,7 @@ secretari/a de l\'Ajuntament.</string>
 
     <string name="dacord">D\'acord</string>
     <string name="enrere">Enrere</string>
-    <string name="deslog">Estas a punt de desloguejar-te. Estàs d\'acord?</string>
+    <string name="deslog">Estàs a punt de desconnectar-te. Estàs d\'acord?</string>
 
     <string name="errorConcessio">Hi ha hagut un error en recuperar la concessió, torna a intentar-ho.</string>
 
@@ -247,7 +235,7 @@ secretari/a de l\'Ajuntament.</string>
     <string name="Opcions">Opcions</string>
     <string name="Idiomes">Idiomes</string>
     <string name="alerta">Alerta</string>
-    <string name="confirmacio">" Segur que vols imprimir en:"</string>
+    <string name="confirmacio">Segur que vols imprimir en:</string>
 
 
     <string-array name="Idiomes">
@@ -257,6 +245,48 @@ secretari/a de l\'Ajuntament.</string>
         <item>Francès</item>
         <item>Alemany</item>
     </string-array>
+    <string name="Administrador">Administrador</string>
+    <string name="Dies">Dies</string>
+    <string name="Enviada">Enviada</string>
+    <string name="acces_admin">" ACCESO ADMINISTRADOR"</string>
+    <string name="accio_eliminar_tot">ELIMINARÀ TOTES LES DADES\n  HISTÒRIQUES DE L’APLICACIÓ</string>
+    <string name="accio_esborrar_concessions">ELIMINARÀ TOTES LES DADES\n DE CONCESSIONS ANTIGUES</string>
+    <string name="anula">ANUL·LA</string>
+    <string name="aquesta_accio">Esta acción</string>
+    <string name="btn_guardar">GUARDAR</string>
+    <string name="canviar_concessio">Canviar concessió</string>
+    <string name="confirmar_denuncia">Confirmes que la denúncia s’ha imprés correctament?</string>
+    <string name="credencials_incorrectes">Credencials incorrectes</string>
+    <string name="denuncia_impresa">DENÚNCIA IMPRESA</string>
+    <string name="denuncies_pendents">Denúncies pendents</string>
+    <string name="desconectar">Desconnecta\'t</string>
+    <string name="envia_denuncies_pendents">ENVIA DENÚNCIES PENDENTS</string>
+    <string name="esborra_tot">ESBORRAR TOT</string>
+    <string name="esborra_tot_confimacio">Estàs segur que vols esborrar tot?</string>
+    <string name="hi_ha_denuncies_pendents">Hi ha denúncies pendents d\'enviar</string>
+    <string name="idioma_aplicació">Idioma aplicació</string>
+    <string name="imprimir_una_copia">IMPRIMIR UNA CÒPIA</string>
+    <string name="neccesita_permisos">i necessita permisos\n  d’administrador</string>
+    <string name="pas0ZonaActivity_label">Sanció - ZONA</string>
+    <string name="no_concessio">SENSE CONCESSIÓ</string>
+    <string name="no_denuncies_a_enviar">No hi ha denuncies que enviar</string>
+    <string name="no_mes_fotos">Has assolit el límit màxim de fotos</string>
+    <string name="nova_denuncia">NOVA DENÚNCIA</string>
+    <string name="password_admin">Contrasenya administrador</string>
+    <string name="pendent_Enviar">Pendent Enviar</string>
+    <string name="pendent_Imprimir">Pendent Imprimir</string>
+    <string name="preferencies">Preferències</string>
+    <string name="recarrega_dadesMayus">BORRAR DATOS</string>
+    <string name="recarregar_dades">Recarregar dades</string>
+    <string name="reimpressió">Reimpressió</string>
+    <string name="seleciona_zona_primer">Selecciona una zona primer</string>
+    <string name="sense_conexio">No s\'ha detectat connexió a internet,  comprovi la connexió i torni a provar</string>
+    <string name="sense_tiquet">Sense Tiquet</string>
+    <string name="temps_Excedit">Temps Excedit</string>
+    <string name="temps_Restant">Temps Restant</string>
+    <string name="tornar_a_provar">TORNA A PROVAR</string>
+    <string name="user_admin">usuari administrador</string>
+    <string name="admin_off">Modo administrador apagado</string>
 
 
 </resources>

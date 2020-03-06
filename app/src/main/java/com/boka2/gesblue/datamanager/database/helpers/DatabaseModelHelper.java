@@ -1,6 +1,6 @@
 package com.boka2.gesblue.datamanager.database.helpers;
 
-/**
+/*
  * Created by Boka2.
  * S'encarrega de crear les taules, la base de dades, té el nom de la base de dades i la carpeta on es vol desar
  * S'hauria d'abstraure el tema d'on escriu la BDD.

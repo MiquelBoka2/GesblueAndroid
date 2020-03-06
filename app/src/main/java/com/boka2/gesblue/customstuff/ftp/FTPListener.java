@@ -1,6 +1,6 @@
 package com.boka2.gesblue.customstuff.ftp;
 
-/**
+/*
  * Created by Boka2.
  */
 public abstract class FTPListener {

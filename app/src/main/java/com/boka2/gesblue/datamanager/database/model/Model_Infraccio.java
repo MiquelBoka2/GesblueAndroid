@@ -8,7 +8,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.boka2.gesblue.datamanager.database.Taules;
 
-/**
+/*
  * Created by Boka2.
  */
 @DatabaseTable(tableName = Taules.TAULA_INFRACCIO)

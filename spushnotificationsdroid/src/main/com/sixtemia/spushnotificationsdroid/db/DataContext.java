@@ -20,17 +20,17 @@ public class DataContext extends ObjectContext {
 	final static String DATABASE_NAME = "spushnotifications.db";
 	final static int DATABASE_VERSION = 2;
 
-	/**************************************************/
+	/*************************************************/
 	/* OBJECTSETS DEFINITION */
-	/**************************************************/
+	/*************************************************/
 	public NotificationsObjectSet NotificacionsSet;
 		
 	
 	public static Context mContext;
 
-	/**************************************************/
+	/*************************************************/
 	/* CONSTRUCTORS */
-	/**************************************************/
+	/*************************************************/
 
 	public DataContext(Context pContext) {
 		// Set a custom DataBase path and version.
@@ -61,18 +61,18 @@ public class DataContext extends ObjectContext {
 		return folderPath;
 	}
 
-	/**************************************************/
+	/*************************************************/
 	/* EVENTS */
-	/**************************************************/
+	/*************************************************/
 	/*
 	 * @Override protected void onPopulate(SQLiteDatabase pDatabase) { }
 	 * 
 	 * @Override protected void onError(Exception pException) { ExceptionsHelper.manage(getContext(), pException); }
 	 */
 
-	/**************************************************/
+	/*************************************************/
 	/* PRIVATE METHOS */
-	/**************************************************/
+	/*************************************************/
 
 	private void initializeContext() {
 		try {

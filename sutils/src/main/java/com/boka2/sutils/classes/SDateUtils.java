@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-/**
+/*
  * Commonly used methods related to Dates.
  * 
  * @author jaumebech
@@ -14,7 +14,7 @@ import java.util.TimeZone;
  */
 public class SDateUtils {
 
-	/**
+	/*
 	 * Return a string date in specified format.
 	 * 
 	 * @param _milliSeconds Date in milliseconds
@@ -31,7 +31,7 @@ public class SDateUtils {
 		return formatter.format(calendar.getTime());
 	}
 
-	/**
+	/*
 	 * Converts a String into a date
 	 * @param _strData String representing a date
 	 * @param _dateFormatInput Format of the input string
@@ -66,7 +66,7 @@ public class SDateUtils {
 		return dateResultat;
 	}
 
-	/**
+	/*
 	 * Converts a String into an equivalent UTC date 
 	 * @param _strData String representing a date
 	 * @param _dateFormatInput Format of the input string
@@ -101,7 +101,7 @@ public class SDateUtils {
 		return dateResultat;
 	}
 
-	/**
+	/*
 	 * Return a string date in specified format and UTC
 	 * @param _milliSeconds Date in milliseconds
 	 * @param _strDateFormat Date format
@@ -118,7 +118,7 @@ public class SDateUtils {
 		return formatter.format(calendar.getTime());
 	}
 
-	/**
+	/*
 	 * Checks if a date is today
 	 * 
 	 * @param _date the date to check if it's today
@@ -139,7 +139,7 @@ public class SDateUtils {
 		return dDay == nDay && dYear == nYear;
 	}
 
-	/**
+	/*
 	 * Function to convert milliseconds time to Timer Format Hours:Minutes:Seconds
 	 * 
 	 * @param _milliseconds Number of milliseconds to format
@@ -180,7 +180,7 @@ public class SDateUtils {
 		return finalTimerString;
 	}
 
-	/**
+	/*
 	 * Function to convert milliseconds time to
 	 * Timer Format  Hours:Minutes:Seconds
 	 * 

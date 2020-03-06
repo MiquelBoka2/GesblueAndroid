@@ -15,7 +15,7 @@ import pt.joaocruz04.lib.annotations.JSoapAttribute;
 import pt.joaocruz04.lib.annotations.JSoapClass;
 import pt.joaocruz04.lib.annotations.JSoapReqField;
 
-/**
+/*
  * Created by Boka2.
  */
 public class TheSoapClass extends SoapObject{

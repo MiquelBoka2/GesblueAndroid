@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
+/*
  * Created by Boka2.
  * TOTES LES CRIDES D'AQUESTA API HAN DE SER SINCRONES (ELS MÈTODES NO RETORNEN RES FINS A ACABAR PERQUÈ CADA MÈTODE ÉS UNA OPERACIÓ A LA BASE DE DADES)
  * NOTA: UNA OPERACIÓ DE BASE DE DADES S'ENCAPSULA EN EL HELPER, I POT FER MOLTES TRANSACCIÓNS. PER TANT, SI ES VOLEN FER MOLTES TRANSACCIONS EN UNA
@@ -77,7 +77,7 @@ public class DatabaseAPI {
 		return result;
 	}
 
-	/** AccioPosicio **/
+	/* AccioPosicio **/
 	private static BasicDBResult _getAccioPosicions(Context c) {
 		return executeDatabaseOperation(c, new AccioPosicioHelper().getAll(c));
 	}
@@ -97,10 +97,10 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteAllAccioPosicions(Context c) {
 		return executeDatabaseOperation(c, new AccioPosicioHelper().deleteAll(c));
 	}
-	/** /AccioPosicio **/
+	/* /AccioPosicio **/
 
 
-	/** Zona **/
+	/* Zona **/
 	private static BasicDBResult _getZones(Context c) {
 		return executeDatabaseOperation(c, new ZonaHelper().getAllGroupById(c));
 	}
@@ -128,9 +128,9 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteZona(Context c, String codi) {
 		return executeDatabaseOperation(c, new ZonaHelper().deleteWhere(c, "codizona", codi));
 	}
-	/** /Zona **/
+	/* /Zona **/
 
-	/** Carrer **/
+	/* Carrer **/
 	private static BasicDBResult _getCarrers(Context c) {
 		return executeDatabaseOperation(c, new CarrerHelper().getAllGroupById(c));
 	}
@@ -167,10 +167,10 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteCarrer(Context c, String codi) {
 		return executeDatabaseOperation(c, new CarrerHelper().deleteWhere(c, "codicarrer", codi));
 	}
-	/** /Carrer **/
+	/* /Carrer **/
 
 
-	/** Color **/
+	/* Color **/
 	private static BasicDBResult _getColors(Context c) {
 		return executeDatabaseOperation(c, new ColorHelper().getAllGroupById(c));
 	}
@@ -198,10 +198,10 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteColor(Context c, String color) {
 		return executeDatabaseOperation(c, new ColorHelper().deleteWhere(c, "codicolor", color));
 	}
-	/** /Color **/
+	/* /Color **/
 
 
-	/** Denuncia **/
+	/* Denuncia **/
 	private static BasicDBResult _getDenuncies(Context c) {
 		return executeDatabaseOperation(c, new DenunciaHelper().getAll(c));
 	}
@@ -269,10 +269,10 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteAllDenuncies(Context c) {
 		return executeDatabaseOperation(c, new DenunciaHelper().deleteAll(c));
 	}
-	/** /Denuncia **/
+	/* /Denuncia **/
 
 
-	/** Infraccio **/
+	/* Infraccio **/
 	private static BasicDBResult _getInfraccions(Context c) {
 		return executeDatabaseOperation(c, new InfraccioHelper().getAllGroupById(c));
 	}
@@ -308,9 +308,9 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteInfraccio(Context c, long codi) {
 		return executeDatabaseOperation(c, new InfraccioHelper().deleteWhere(c, "codiinfraccio", codi));
 	}
-	/** /Infraccio **/
+	/* /Infraccio **/
 
-	/** LlistaBlanca **/
+	/* LlistaBlanca **/
 	private static BasicDBResult _getLlistaBlanca(Context c) {
 		return executeDatabaseOperation(c, new LlistaBlancaHelper().getAllGroupById(c));
 	}
@@ -350,9 +350,9 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteLlistaBlanca(Context c, long codi) {
 		return executeDatabaseOperation(c, new LlistaBlancaHelper().deleteWhere(c, "codillistablanca", codi));
 	}
-	/** /LlistaBlanca **/
+	/* /LlistaBlanca **/
 
-    /** LlistaAbonats **/
+    /* LlistaAbonats **/
     private static BasicDBResult _getLlistaAbonats(Context c) {
         return executeDatabaseOperation(c, new LlistaAbonatsHelper().getAllGroupById(c));
     }
@@ -392,9 +392,9 @@ public class DatabaseAPI {
     public static BasicDBResult deleteLlistaAbonats(Context c, long codi) {
         return executeDatabaseOperation(c, new LlistaAbonatsHelper().deleteWhere(c, "codillistaabonats", codi));
     }
-    /** /LlistaAbonats **/
+    /* /LlistaAbonats **/
 
-	/** Log **/
+	/* Log **/
 	private static BasicDBResult _getLogs(Context c) {
 		return executeDatabaseOperation(c, new LogHelper().getAllGroupById(c));
 	}
@@ -436,10 +436,10 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteLog(Context c, String log) {
 		return executeDatabaseOperation(c, new LogHelper().deleteWhere(c, "codilog", log));
 	}
-	/** /Log **/
+	/* /Log **/
 
 
-	/** Agent **/
+	/* Agent **/
 	private static BasicDBResult _getAgents(Context c) {
 		return executeDatabaseOperation(c, new AgentHelper().getAllGroupById(c));
 	}
@@ -476,9 +476,9 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteAgent(Context c, String codi) {
 		return executeDatabaseOperation(c, new AgentHelper().deleteWhere(c, "codiagent", codi));
 	}
-	/** /Agent **/
+	/* /Agent **/
 
-	/** Marca **/
+	/* Marca **/
 	private static BasicDBResult _getMarques(Context c) {
 		return executeDatabaseOperation(c, new MarcaHelper().getAllGroupById(c));
 	}
@@ -506,10 +506,10 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteMarca(Context c, String codi) {
 		return executeDatabaseOperation(c, new MarcaHelper().deleteWhere(c, "codimarca", codi));
 	}
-	/** /Marca **/
+	/* /Marca **/
 
 
-	/** Model **/
+	/* Model **/
 	private static BasicDBResult _getModels(Context c) {
 		return executeDatabaseOperation(c, new ModelHelper().getAllGroupById(c));
 	}
@@ -547,10 +547,10 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteModel(Context c, String codi) {
 		return executeDatabaseOperation(c, new ModelHelper().deleteWhere(c, "codimodel", codi));
 	}
-	/** /Model **/
+	/* /Model **/
 
 
-	/** PosicioAgent **/
+	/* PosicioAgent **/
 	private static BasicDBResult _getPosicionsAgent(Context c) {
 		return executeDatabaseOperation(c, new PosicioAgentHelper().getAll(c));
 	}
@@ -566,10 +566,10 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteAllPosicionsAgent(Context c) {
 		return executeDatabaseOperation(c, new PosicioAgentHelper().deleteAll(c));
 	}
-	/** /PosicioAgent **/
+	/* /PosicioAgent **/
 
 
-	/** Terminal **/
+	/* Terminal **/
 	private static BasicDBResult _getTerminals(Context c) {
 		return executeDatabaseOperation(c, new TerminalHelper().getAll(c));
 	}
@@ -585,10 +585,10 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteAllTerminals(Context c) {
 		return executeDatabaseOperation(c, new TerminalHelper().deleteAll(c));
 	}
-	/** /Terminal **/
+	/* /Terminal **/
 
 
-	/** TipusAnulacio **/
+	/* TipusAnulacio **/
 	private static BasicDBResult _getTipusAnulacions(Context c) {
 		return executeDatabaseOperation(c, new TipusAnulacioHelper().getAll(c));
 	}
@@ -604,10 +604,10 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteAllTipusAnulacions(Context c) {
 		return executeDatabaseOperation(c, new TipusAnulacioHelper().deleteAll(c));
 	}
-	/** /TipusAnulacio **/
+	/* /TipusAnulacio **/
 
 
-	/** TipusVehicle **/
+	/* TipusVehicle **/
 	private static BasicDBResult _getTipusVehicles(Context c) {
 		return executeDatabaseOperation(c, new TipusVehicleHelper().getAllGroupById(c));
 	}
@@ -634,5 +634,5 @@ public class DatabaseAPI {
 	public static BasicDBResult deleteTipusVehicle(Context c, long codi) {
 		return executeDatabaseOperation(c, new TipusVehicleHelper().deleteWhere(c, Model_TipusVehicle.ID, codi));
 	}
-	/** /TipusVehicle **/
+	/* /TipusVehicle **/
 }

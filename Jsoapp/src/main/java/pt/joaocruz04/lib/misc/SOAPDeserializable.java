@@ -8,7 +8,7 @@ import pt.joaocruz04.lib.annotations.JSoapResField;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 
-/**
+/*
  * Created by Boka2.
  */
 public abstract class SOAPDeserializable {

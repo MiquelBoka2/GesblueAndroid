@@ -13,7 +13,7 @@ import android.text.TextPaint;
 import android.text.style.MetricAffectingSpan;
 
 public class SPushTypefaceSpan extends MetricAffectingSpan {
-	/** An <code>LruCache</code> for previously loaded typefaces. */
+	/* An <code>LruCache</code> for previously loaded typefaces. */
 	private static LruCache<String, Typeface> sTypefaceCache = new LruCache<String, Typeface>(12);
 
 	private Typeface mTypeface;
@@ -21,7 +21,7 @@ public class SPushTypefaceSpan extends MetricAffectingSpan {
 	private float textSize;
 	private boolean colorAndSizeChanged;
 
-	/**
+	/*
 	 * Load the {@link Typeface} and apply to a {@link Spannable}.
 	 */
 	public SPushTypefaceSpan(Context context, String typefaceName) {

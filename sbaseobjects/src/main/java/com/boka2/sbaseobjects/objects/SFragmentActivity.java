@@ -37,7 +37,7 @@ import com.transitionseverywhere.TransitionManager;
 import java.util.ArrayList;
 import java.util.Locale;
 
-/**
+/*
  * Created by Boka2.
  */
 public class SFragmentActivity extends AppCompatActivity {
@@ -153,7 +153,7 @@ public class SFragmentActivity extends AppCompatActivity {
 		return debuggable;
 	}
 
-	/**
+	/*
 	 * Intenta fer la status bar transparent o treu la transparència
 	 * @param makeTranslucent
 	 * @return true si s'ha fet transparent

@@ -18,7 +18,7 @@ package com.google.android.cameraview;
 
 import androidx.annotation.NonNull;
 
-/**
+/*
  * Immutable class for describing width and height dimensions in pixels.
  */
 public class Size implements Comparable<Size> {
@@ -26,7 +26,7 @@ public class Size implements Comparable<Size> {
     private final int mWidth;
     private final int mHeight;
 
-    /**
+    /*
      * Create a new immutable Size instance.
      *
      * @param width  The width of the size, in pixels

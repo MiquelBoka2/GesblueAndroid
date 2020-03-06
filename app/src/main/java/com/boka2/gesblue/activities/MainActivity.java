@@ -321,7 +321,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 
-		/**ESTAT PER DEFECTE DE LES DADES*/{
+		/*ESTAT PER DEFECTE DE LES DADES*/{
 			PreferencesGesblue.setCodiCarrer(mContext, 0);
 			PreferencesGesblue.setNomCarrer(mContext, null);
 			PreferencesGesblue.setCodiZona(mContext, 0);
@@ -332,7 +332,7 @@ public class MainActivity extends GesblueFragmentActivity {
 	}
 
 
-	/** Actualitza el UI en funcio de ADMIN**/
+	/* Actualitza el UI en funcio de ADMIN**/
 	private void checkAdmin(Boolean adm) {
 
 		if (adm){
@@ -371,7 +371,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 			switch (requestCode) {
 
-				/**ESPEREM EL RESULTAT DE LES FOTOS**/
+				/*ESPEREM EL RESULTAT DE LES FOTOS**/
 				case Utils.REQUEST_IMAGE_CAPTURE_1:
 
 					imageBitmap = (Bitmap) extras.get("data");
@@ -415,7 +415,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 
-				/**ESPEREM EL RESULTAT DE LA ZONA i EL CARRER**/
+				/*ESPEREM EL RESULTAT DE LA ZONA i EL CARRER**/
 				case 1: {
 
 					mBinding.tvZona.setText(PreferencesGesblue.getNomZona(mContext));
@@ -429,7 +429,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 			}
-			/** CHECK ADMIN**/
+			/* CHECK ADMIN**/
 			Boolean result = data.getExtras().getBoolean("adm");
 			if (result != null) {
 				if (result) {
@@ -786,7 +786,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	}
 
-	/**FUNCIONALITAT DEL CONTADOR DE TEMPS**/
+	/*FUNCIONALITAT DEL CONTADOR DE TEMPS**/
 	private void CridarThreadContador(){
 
 
@@ -823,12 +823,12 @@ public class MainActivity extends GesblueFragmentActivity {
 			formatTempsH.setTimeZone(TimeZone.getTimeZone("GMT"));
 			formatTempsM.setTimeZone(TimeZone.getTimeZone("GMT"));
 			formatTempsS.setTimeZone(TimeZone.getTimeZone("GMT"));
-			/** TEMPS POSITIU**/
+			/* TEMPS POSITIU**/
 			if (dataCaducitat_milisegons>System.currentTimeMillis()){
 
 				long TempsResultant=  dataCaducitat_milisegons-System.currentTimeMillis();
 
-				/** + DE 2 DIES**/
+				/* + DE 2 DIES**/
 				if(TempsResultant>=172800000){
 
 
@@ -837,7 +837,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 
-				}/** 1 a 2 DIES**/
+				}/* 1 a 2 DIES**/
 				else if(TempsResultant>=86400000){
 
 					dateString =
@@ -851,7 +851,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 
-				}/** NORMA GENERAL**/
+				}/* NORMA GENERAL**/
 				else{
 
 
@@ -862,15 +862,15 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 				}
-				/** GENERAL */
+				/* GENERAL */
 
 
 				mBinding.txtInfo.setText(getResources().getString(R.string.temps_Restant));
 
 			}
-			/** TEMPS NEGATIU**/
+			/* TEMPS NEGATIU**/
 			else{
-				/** GENERAL */
+				/* GENERAL */
 				long TempsResultant=  System.currentTimeMillis()-dataCaducitat_milisegons;
 
 				dateString =

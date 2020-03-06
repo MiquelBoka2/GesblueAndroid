@@ -14,7 +14,7 @@ public class TextViewCustomFont extends TextView {
 
 	private static final String TAG = "TextViewCustomFontSPush";
 
-	/**
+	/*
 	 * VERSIÓ SIMPLIFICADA DE L'OBJECTE TEXTVIEWCUSTOMFONT. PER VEURE LA VERSIÓ COMPLETA ES POT ANAR AL PROJECTE BASE DEL TOPPO
 	 */
 	//	public static final String FONT_TYPE_EXTRA_LIGHT = "ExtraLight";

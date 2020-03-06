@@ -18,22 +18,22 @@ import java.util.ArrayList;
 
 public class SStickyScrollView extends ScrollView {
 
-    /**
+    /*
      * Tag for views that should stick and have constant drawing. e.g. TextViews, ImageViews etc
      */
     public static final String STICKY_TAG = "sticky";
 
-    /**
+    /*
      * Flag for views that should stick and have non-constant drawing. e.g. Buttons, ProgressBars etc
      */
     public static final String FLAG_NONCONSTANT = "-nonconstant";
 
-    /**
+    /*
      * Flag for views that have aren't fully opaque
      */
     public static final String FLAG_HASTRANSPARENCY = "-hastransparency";
 
-    /**
+    /*
      * Default height of the shadow peeking out below the stuck view.
      */
     private static final int DEFAULT_SHADOW_HEIGHT = 10; // dp;
@@ -100,7 +100,7 @@ public class SStickyScrollView extends ScrollView {
 
     }
 
-    /**
+    /*
      * Sets the height of the shadow drawable in pixels.
      *
      * @param height
@@ -331,7 +331,7 @@ public class SStickyScrollView extends ScrollView {
         removeCallbacks(invalidateRunnable);
     }
 
-    /**
+    /*
      * Notify that the sticky attribute has been added or removed from one or more views in the View hierarchy
      */
     public void notifyStickyAttributeChanged() {

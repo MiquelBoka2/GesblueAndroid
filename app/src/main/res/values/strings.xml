@@ -21,9 +21,9 @@
 
 
     <string name="usuari">USUARI</string>
-    <string name="password">PASSWORD</string>
+    <string name="password">CONTRASENYA</string>
     <string name="concessio">CONCESSIÓ</string>
-    <string name="accepta">ACCEPTA</string>
+    <string name="accepta">ACCEPTAR</string>
     <string name="editTextUsuariHint">Nom d\'usuari</string>
     <string name="editTextPasswordHint">Contrasenya</string>
     <string name="campsObligatoris">Falten camps obligatoris</string>
@@ -178,9 +178,6 @@ secretari/a de l\'Ajuntament.</string>
     <string name="enviantDenuncia">Enviant denúncia&#8230;</string>
     <string name="butlletaEnviadaOk">Butlleta enviada correctament. Desitjes imprimir una còpia?</string>
     <string name="butlletaImpresaOk">Butlleta impresa correctament. Vols imprimir una altra còpia?</string>
-    <string name="butlletaImpresaOk_impressa">Si</string>
-    <string name="butlletaImpresaOk_I_reimprimir">Si i\n reimprimir</string>
-    <string name="butlletaImpresaNo_I_reimprimir">No i\n reimprimir</string>
 
     <string name="pendent_Imprimir">Pendent Imprimir</string>
     <string name="pendent_Enviar">Pendent Enviar</string>
@@ -188,7 +185,7 @@ secretari/a de l\'Ajuntament.</string>
 
 
     <string name="denuncia_impresa">DENÚNCIA IMPRESA</string>
-    <string name="confirmar_denuncia">Confirmes que la denúncia \n s’ha imprés correctament?</string>
+    <string name="confirmar_denuncia">Confirmes que la denúncia   s’ha imprés correctament?</string>
     <string name="nova_denuncia">NOVA DENÚNCIA</string>
     <string name="imprimir_una_copia">IMPRIMIR UNA CÒPIA</string>
     <string name="tornar_a_provar">TORNA A PROVAR</string>
@@ -243,7 +240,7 @@ secretari/a de l\'Ajuntament.</string>
 
     <string name="dacord">D\'acord</string>
     <string name="enrere">Enrere</string>
-    <string name="deslog">Estas a punt de desloguejar-te. Estàs d\'acord?</string>
+    <string name="deslog">Estàs a punt de desconnectar-te. Estàs d\'acord?</string>
 
     <string name="errorConcessio">Hi ha hagut un error en recuperar la concessió, torna a intentar-ho.</string>
 
@@ -276,15 +273,15 @@ secretari/a de l\'Ajuntament.</string>
     <string name="MistageReinici">Reiniciar l\'aplicació per aplicar els canvis en l\'idioma?</string>
     <string name="NO">NO</string>
     <string name="SI">SI</string>
-    <string name="envia_denuncies_pendents">ENVIA\nDENUNCIES\nPENDENTS</string>
-    <string name="recarrega_dadesMayus">ESBORRAR\nDADES</string>
-    <string name="esborra_tot">ESBORRA\nTOT</string>
+    <string name="envia_denuncies_pendents">ENVIA DENÚNCIES PENDENTS</string>
+    <string name="recarrega_dadesMayus">ESBORRAR DADES</string>
+    <string name="esborra_tot">ESBORRAR TOT</string>
 
 
 
     <string name="preferencies">Preferències</string>
     <string name="canviar_concessio">Canviar concessió</string>
-    <string name="desconectar">Desconecta\'t</string>
+    <string name="desconectar">Desconnecta\'t</string>
     <string name="recarregar_dades">Recarregar dades</string>
     <string name="reimpressió">Reimpressió</string>
     <string name="idioma_aplicació">Idioma aplicació</string>
@@ -296,32 +293,34 @@ secretari/a de l\'Ajuntament.</string>
     <string name="acces_admin">ACCÉS ADMINISTRADOR</string>
     <string name="aquesta_accio">Aquesta acció</string>
     <string name="accio_eliminar_tot">ELIMINARÀ TOTES LES DADES\n HISTÒRIQUES DE L’APLICACIÓ</string>
-    <string name="accio_esborrar_concessions">ELIMINARÀ TOTES LES DADES DE CONCESSIONS ANTIGUES</string>
+    <string name="accio_esborrar_concessions">ELIMINARÀ TOTES LES DADES\n DE CONCESSIONS ANTIGUES</string>
     <string name="neccesita_permisos">i necessita permisos\n d’administrador</string>
     <string name="user_admin">usuari administrador</string>
-    <string name="password_admin">password administrador</string>
-    <string name="anula">ANULA</string>
-    <string name="admin_off">Mode administrador apagat</string>
+    <string name="password_admin">Contrasenya administrador</string>
+    <string name="anula">ANUL·LA</string>
 
-    <string name="sense_conexio">No s\'ha detectat connexió a internet,\n comprovi la connexió i torni a provar</string>
+    <string name="sense_conexio">No s\'ha detectat connexió a internet, comprovi la connexió i torni a provar</string>
 
     <string name="esborra_tot_confimacio">Estàs segur que vols esborrar tot?</string>
 
 
-    <string name="credencials_incorrectes">Credencials incorrecta</string>
+    <string name="credencials_incorrectes">Credencials incorrectes</string>
 
 
     <string name="no_mes_fotos">Has assolit el límit màxim de fotos</string>
-    <string name="no_denuncies_a_enviar">No hi han denuncies d\'enviar</string>
-    <string name="hi_ha_denuncies_pendents">Hi han denuncies pendents d\'enviar</string>
+    <string name="no_denuncies_a_enviar">No hi ha denuncies que enviar</string>
+    <string name="hi_ha_denuncies_pendents">Hi ha denúncies pendents d\'enviar</string>
 
 
     <string name="temps_Restant">Temps Restant</string>
     <string name="temps_Excedit">Temps Excedit</string>
     <string name="sense_tiquet">Sense Tiquet</string>
 
-    <string name="seleciona_zona_primer">Has de selccionar una zona primer</string>
+    <string name="seleciona_zona_primer">Selecciona una zona primer</string>
 
     <string name="Dies">Dies</string>
+    <string name="admin_off">Mode administrador apagat</string>
+
+
 
 </resources>

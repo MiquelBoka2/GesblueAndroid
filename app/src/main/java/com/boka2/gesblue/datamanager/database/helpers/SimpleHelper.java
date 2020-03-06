@@ -19,7 +19,7 @@ import java.util.List;
 
 import static com.boka2.gesblue.datamanager.database.results.BasicDBResult.KO;
 
-/**
+/*
  * Created by Boka2.
  */
 

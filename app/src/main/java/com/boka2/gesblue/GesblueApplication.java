@@ -40,7 +40,7 @@ import pt.joaocruz04.lib.misc.JSoapCallback;
 import static com.boka2.sutils.classes.SSystemUtils.isDebugging;
 import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
-/**
+/*
  * Created by Boka2.
  */
 

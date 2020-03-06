@@ -124,11 +124,12 @@ public class DatamanagerAPI {
 		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_RECUPERACOMPTADORDENUNCIA_METHOD, Constants.OPERATIVA_RECUPERACOMPTADORDENUNCIA_SOAPACTION, _recuperaComptadorDenunciaRequest, RecuperaComptadorDenunciaResponse.class, _listener);
 	}
 
+	/*Descomenta els Log.e Per verure els resultats del datamanager*/
 	public static <T> T parseJson(String _json, Class<T> classOfT) throws MalformedJsonException {
 		Gson gson = new Gson();
-		Log.e("GSON","Vaig a parsejar " + classOfT.getCanonicalName());
+		//Log.e("GSON","Vaig a parsejar " + classOfT.getCanonicalName());
 		T response = gson.fromJson(_json, (Type) classOfT);
-		Log.e("La response datamanager",""+response);
+		//Log.e("La response datamanager",""+response);
 		return response;
 	}
 

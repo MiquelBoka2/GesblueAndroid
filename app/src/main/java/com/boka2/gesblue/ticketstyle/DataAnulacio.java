@@ -2,7 +2,7 @@ package com.boka2.gesblue.ticketstyle;
 
 import java.util.Calendar;
 
-/**
+/*
  * Data d'anulació. Tupla de import + data.
  */
 public class DataAnulacio {

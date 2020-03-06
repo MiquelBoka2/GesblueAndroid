@@ -2,7 +2,7 @@ package com.boka2.gesblue.global;
 
 import com.boka2.gesblue.datamanager.webservices.WSConstantsGB;
 
-/**
+/*
  * Created by Boka2.
  */
 public class Constants {

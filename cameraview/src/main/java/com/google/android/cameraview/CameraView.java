@@ -39,34 +39,34 @@ import java.util.Set;
 
 public class CameraView extends FrameLayout {
 
-    /** The camera device faces the opposite direction as the device's screen. */
+    /* The camera device faces the opposite direction as the device's screen. */
     public static final int FACING_BACK = Constants.FACING_BACK;
 
-    /** The camera device faces the same direction as the device's screen. */
+    /* The camera device faces the same direction as the device's screen. */
     public static final int FACING_FRONT = Constants.FACING_FRONT;
 
-    /** Direction the camera faces relative to device screen. */
+    /* Direction the camera faces relative to device screen. */
     @IntDef({FACING_BACK, FACING_FRONT})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Facing {
     }
 
-    /** Flash will not be fired. */
+    /* Flash will not be fired. */
     public static final int FLASH_OFF = Constants.FLASH_OFF;
 
-    /** Flash will always be fired during snapshot. */
+    /* Flash will always be fired during snapshot. */
     public static final int FLASH_ON = Constants.FLASH_ON;
 
-    /** Constant emission of light during preview, auto-focus and snapshot. */
+    /* Constant emission of light during preview, auto-focus and snapshot. */
     public static final int FLASH_TORCH = Constants.FLASH_TORCH;
 
-    /** Flash will be fired automatically when required. */
+    /* Flash will be fired automatically when required. */
     public static final int FLASH_AUTO = Constants.FLASH_AUTO;
 
-    /** Flash will be fired in red-eye reduction mode. */
+    /* Flash will be fired in red-eye reduction mode. */
     public static final int FLASH_RED_EYE = Constants.FLASH_RED_EYE;
 
-    /** The mode for for the camera device's flash control */
+    /* The mode for for the camera device's flash control */
     @IntDef({FLASH_OFF, FLASH_ON, FLASH_TORCH, FLASH_AUTO, FLASH_RED_EYE})
     public @interface Flash {
     }
@@ -218,7 +218,7 @@ public class CameraView extends FrameLayout {
         setFlash(ss.flash);
     }
 
-    /**
+    /*
      * Open a camera device and start showing camera preview. This is typically called from
      * {@link Activity#onResume()}.
      */
@@ -226,7 +226,7 @@ public class CameraView extends FrameLayout {
         mImpl.start();
     }
 
-    /**
+    /*
      * Stop camera preview and close the device. This is typically called from
      * {@link Activity#onPause()}.
      */
@@ -234,14 +234,14 @@ public class CameraView extends FrameLayout {
         mImpl.stop();
     }
 
-    /**
+    /*
      * @return {@code true} if the camera is opened.
      */
     public boolean isCameraOpened() {
         return mImpl.isCameraOpened();
     }
 
-    /**
+    /*
      * Add a new callback.
      *
      * @param callback The {@link Callback} to add.
@@ -251,7 +251,7 @@ public class CameraView extends FrameLayout {
         mCallbacks.add(callback);
     }
 
-    /**
+    /*
      * Remove a callback.
      *
      * @param callback The {@link Callback} to remove.
@@ -261,7 +261,7 @@ public class CameraView extends FrameLayout {
         mCallbacks.remove(callback);
     }
 
-    /**
+    /*
      * @param adjustViewBounds {@code true} if you want the CameraView to adjust its bounds to
      *                         preserve the aspect ratio of camera.
      * @see #getAdjustViewBounds()
@@ -273,7 +273,7 @@ public class CameraView extends FrameLayout {
         }
     }
 
-    /**
+    /*
      * @return True when this CameraView is adjusting its bounds to preserve the aspect ratio of
      * camera.
      * @see #setAdjustViewBounds(boolean)
@@ -282,7 +282,7 @@ public class CameraView extends FrameLayout {
         return mAdjustViewBounds;
     }
 
-    /**
+    /*
      * Chooses camera by the direction it faces.
      *
      * @param facing The camera facing. Must be either {@link #FACING_BACK} or
@@ -292,7 +292,7 @@ public class CameraView extends FrameLayout {
         mImpl.setFacing(facing);
     }
 
-    /**
+    /*
      * Gets the direction that the current camera faces.
      *
      * @return The camera facing.
@@ -303,14 +303,14 @@ public class CameraView extends FrameLayout {
         return mImpl.getFacing();
     }
 
-    /**
+    /*
      * Gets all the aspect ratios supported by the current camera.
      */
     public Set<AspectRatio> getSupportedAspectRatios() {
         return mImpl.getSupportedAspectRatios();
     }
 
-    /**
+    /*
      * Sets the aspect ratio of camera.
      *
      * @param ratio The {@link AspectRatio} to be set.
@@ -319,7 +319,7 @@ public class CameraView extends FrameLayout {
         mImpl.setAspectRatio(ratio);
     }
 
-    /**
+    /*
      * Gets the current aspect ratio of camera.
      *
      * @return The current {@link AspectRatio}. Can be {@code null} if no camera is opened yet.
@@ -329,7 +329,7 @@ public class CameraView extends FrameLayout {
         return mImpl.getAspectRatio();
     }
 
-    /**
+    /*
      * Enables or disables the continuous auto-focus mode. When the current camera doesn't support
      * auto-focus, calling this method will be ignored.
      *
@@ -340,7 +340,7 @@ public class CameraView extends FrameLayout {
         mImpl.setAutoFocus(autoFocus);
     }
 
-    /**
+    /*
      * Returns whether the continuous auto-focus mode is enabled.
      *
      * @return {@code true} if the continuous auto-focus mode is enabled. {@code false} if it is
@@ -350,7 +350,7 @@ public class CameraView extends FrameLayout {
         return mImpl.getAutoFocus();
     }
 
-    /**
+    /*
      * Sets the flash mode.
      *
      * @param flash The desired flash mode.
@@ -359,7 +359,7 @@ public class CameraView extends FrameLayout {
         mImpl.setFlash(flash);
     }
 
-    /**
+    /*
      * Gets the current flash mode.
      *
      * @return The current flash mode.
@@ -370,7 +370,7 @@ public class CameraView extends FrameLayout {
         return mImpl.getFlash();
     }
 
-    /**
+    /*
      * Take a picture. The result will be returned to
      * {@link Callback#onPictureTaken(CameraView, byte[])}.
      */
@@ -478,13 +478,13 @@ public class CameraView extends FrameLayout {
 
     }
 
-    /**
+    /*
      * Callback for monitoring events about {@link CameraView}.
      */
     @SuppressWarnings("UnusedParameters")
     public abstract static class Callback {
 
-        /**
+        /*
          * Called when camera is opened.
          *
          * @param cameraView The associated {@link CameraView}.
@@ -492,7 +492,7 @@ public class CameraView extends FrameLayout {
         public void onCameraOpened(CameraView cameraView) {
         }
 
-        /**
+        /*
          * Called when camera is closed.
          *
          * @param cameraView The associated {@link CameraView}.
@@ -500,7 +500,7 @@ public class CameraView extends FrameLayout {
         public void onCameraClosed(CameraView cameraView) {
         }
 
-        /**
+        /*
          * Called when a picture is taken.
          *
          * @param cameraView The associated {@link CameraView}.

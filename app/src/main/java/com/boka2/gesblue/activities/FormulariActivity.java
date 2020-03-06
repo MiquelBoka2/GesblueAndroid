@@ -62,6 +62,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import static android.text.TextUtils.isEmpty;
@@ -82,7 +83,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	public static final String INTENT_DATA_CREACIO = "dataCreacio";
 
 
-	private static String codiDenuncia;
+
 
 	private ActivityFormulariBinding mBinding;
 	private Sancio sancio;
@@ -92,7 +93,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private String foto4;
 
 	private Bitmap imageBitmap;
-	private Model_Denuncia denuncia = new Model_Denuncia();
+	private static Model_Denuncia denunciaStatica;
 
 	private static Boolean errorDialog=false;
 
@@ -346,90 +347,6 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 		Log.e("Recuperada?:", "" + recuperada);
 
-		/*if(recuperada==true) {
-			File f = new File("storage/emulated/0/Boka2/upload/temp");
-			if (f.exists() && f.isDirectory()){
-				final Pattern p = Pattern.compile(".*-"+numDenuncia+"1.jpg"); // I know I really have a stupid mistake on the regex;
-
-				File[] flists = f.listFiles(new FileFilter(){
-					@Override
-					public boolean accept(File file) {
-						Log.e("Matched?:","-"+file);
-						return p.matcher(file.getName()).matches();
-					}
-				});
-				if(flists.length>0){
-					File f1 = flists[0];
-
-					Log.e("Ruta foto1:",f1.getName());
-
-					pinta("storage/emulated/0/Boka2/upload/temp/"+f1.getName(), mBinding.imageViewA);
-					img1IsActive = true;
-					foto1 = "storage/emulated/0/Boka2/upload/temp/"+f1.getName();
-				}
-
-				final Pattern p2 = Pattern.compile(".*-"+numDenuncia+"2.jpg"); // I know I really have a stupid mistake on the regex;
-
-				File[] flists2 = f.listFiles(new FileFilter(){
-					@Override
-					public boolean accept(File file) {
-						return p2.matcher(file.getName()).matches();
-					}
-				});
-				if(flists2.length>0){
-					File f2 = flists2[0];
-
-					Log.e("Ruta foto2:",f2.getName());
-
-
-					pinta("storage/emulated/0/Boka2/upload/temp/"+f2.getName(), mBinding.imageViewB);
-					img2IsActive = true;
-					foto2 = "storage/emulated/0/Boka2/upload/temp/"+f2.getName();
-				}
-
-
-				final Pattern p3 = Pattern.compile(".*-"+numDenuncia+"3.jpg"); // I know I really have a stupid mistake on the regex;
-
-				File[] flists3 = f.listFiles(new FileFilter(){
-					@Override
-					public boolean accept(File file) {
-						return p3.matcher(file.getName()).matches();
-					}
-				});
-				if(flists3.length>0){
-					File f3 = flists3[0];
-
-
-					Log.e("Ruta foto3:",f3.getName());
-
-
-					pinta("storage/emulated/0/Boka2/upload/temp/"+f3.getName(), mBinding.imageViewC);
-					img3IsActive = true;
-					foto3 = "storage/emulated/0/Boka2/upload/temp/"+f3.getName();
-				}
-
-				final Pattern p4 = Pattern.compile(".*-"+numDenuncia+"4.jpg"); // I know I really have a stupid mistake on the regex;
-
-				File[] flists4 = f.listFiles(new FileFilter(){
-					@Override
-					public boolean accept(File file) {
-						return p4.matcher(file.getName()).matches();
-					}
-				});
-				if(flists4.length>0){
-					File f4 = flists4[0];
-
-
-					Log.e("Ruta foto4:",f4.getName());
-
-
-					pinta("storage/emulated/0/Boka2/upload/temp/"+f4.getName(), mBinding.imageViewD);
-					img4IsActive = true;
-					foto4 = "storage/emulated/0/Boka2/upload/temp/"+f4.getName();
-				}
-
-			}
-		}*/
 
 	}
 
@@ -756,7 +673,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				break;
 
 			case R.id.imageViewD:
-				if (img3IsActive) {
+				if (img4IsActive) {
 					confirmPicture(mBinding.imageViewD, foto4, new Runnable() {
 						@Override
 						public void run() {
@@ -777,7 +694,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				}
 
 				break;
-			/**ENVIAR ADMIN***/
+			/*ENVIAR ADMIN***/
 			case R.id.btn_Enviar:
 
 				totalfotos = 0;
@@ -798,7 +715,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					if (isFirstEnvia) {
 						isFirstEnvia = false;
 						send();
-						DatabaseAPI.updateADenunciaImpresa(mContext, denuncia.getCodidenuncia());
+						DatabaseAPI.updateADenunciaImpresa(mContext, denunciaStatica.getCodidenuncia());
 						goToMain();
 					}
 				} else {
@@ -863,7 +780,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 			switch (requestCode) {
 
-				/**ESPEREM EL RESULTAT DE LES FOTOS**/
+				/*ESPEREM EL RESULTAT DE LES FOTOS**/
 				case Utils.REQUEST_IMAGE_CAPTURE_1:
 
 					imageBitmap = (Bitmap) extras.get("data");
@@ -1045,7 +962,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		if (recuperada == false) {
 			date = new Date();
 			denuncia.setCodidenuncia(generateCodiButlleta(mContext));
-			codiDenuncia=denuncia.getCodidenuncia();
+
 		} else {
 			date = dataCreacio;
 			denuncia.setCodidenuncia(numDenuncia);
@@ -1090,7 +1007,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		arrayDenuncies.add(denuncia);
 
 		if (!recuperada && isFirstEnvia) {
-
+			denunciaStatica=denuncia;
 			DatabaseAPI.insertDenuncies(mContext, arrayDenuncies);
 			sendPhotos();
 			int augmentar_Contador_Denuncia = PreferencesGesblue.getComptadorDenuncia(mContext) + 1;
@@ -1141,6 +1058,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		Intent intent = new Intent(mContext, MainActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		GesblueApplication.DenunciaEnCurs = false;
+		intent.putExtra("adm",adm);
 		startActivity(intent);
 	}
 
@@ -1189,9 +1107,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				public void onFinish(Exception ex, boolean isFirstTime) {
 					if (null == ex) {
 						dismissDialog();
+						//No mostra res si hi ha agut un error
 						if(errorDialog==false) {
-							String test=codiDenuncia;
-							CustomDialogClass ccd = new CustomDialogClass(FormulariActivity.this,codiDenuncia);
+							CustomDialogClass ccd = new CustomDialogClass(FormulariActivity.this,denunciaStatica);
 							ccd.show();
 						}
 
@@ -1250,13 +1168,13 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		public Activity c;
 		public Dialog d;
 		public ConstraintLayout yesR, noR, yes;
-		public String codiDenun;
+		public Model_Denuncia denuncia;
 
-		public CustomDialogClass(Activity a,String codiDenuncia) {
+		public CustomDialogClass(Activity a,Model_Denuncia denuncia) {
 			super(a);
 			// TODO Auto-generated constructor stub
 			this.c = a;
-			this.codiDenun=codiDenuncia;
+			this.denuncia=denuncia;
 		}
 
 		@Override
@@ -1277,20 +1195,18 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
+				//SI
 				case R.id.lay_Yes:
-					String temp=codiDenun;
-
-					DatabaseAPI.updateADenunciaImpresa(mContext, codiDenun);
-
+					DatabaseAPI.updateADenunciaImpresa(mContext, denuncia.getCodidenuncia());
 					goToMain();
 					break;
-
+				//SI I REIMPRIMIR
 				case R.id.lay_YesR:
-					DatabaseAPI.updateADenunciaImpresa(mContext, codiDenun);
+					DatabaseAPI.updateADenunciaImpresa(mContext, denuncia.getCodidenuncia());
 					printFinal(isFirstEnvia);
 					break;
 
-
+				//NO I REIMPRIMIR
 				case R.id.lay_NoR:
 					printFinal(isFirstEnvia);
 					break;

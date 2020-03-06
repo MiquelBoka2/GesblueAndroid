@@ -18,7 +18,7 @@ public abstract class SModPushNotificationsListBaseActivity extends SPushFragmen
 
 	public SModPushNotificationsListBaseFragment fragmentNotificacions;
 	
-	/**
+	/*
 	 * Torna la ID del layout a fer servir.
 	 * Ha de tenir com a minim un FrameLayout
 	 * 
@@ -28,7 +28,7 @@ public abstract class SModPushNotificationsListBaseActivity extends SPushFragmen
 		return R.layout.activity_push_notifications_list;
 	}
 	
-	/**
+	/*
 	 * Torna la ID del FrameLayout a on posarem el fragment.
 	 * 
 	 * @return La ID del FrameLayout (R.id.framelayoutid)
@@ -37,7 +37,7 @@ public abstract class SModPushNotificationsListBaseActivity extends SPushFragmen
 		return R.id.content_frame_list_notifications;
 	}
 	
-	/**
+	/*
 	 * Instancia un fragment que heredi de SModPushNotificationsListBaseFragment
 	 * per fer-la servir a la activity.
 	 * 
@@ -45,7 +45,7 @@ public abstract class SModPushNotificationsListBaseActivity extends SPushFragmen
 	 */
 	protected abstract SModPushNotificationsListBaseFragment newFragmentInstance();
 	
-	/**
+	/*
 	 * Torna la ID del menu a mostrar
 	 * 
 	 * @return La ID del menu (R.menu.pushmenu) o 0 per no mostrar-ne cap

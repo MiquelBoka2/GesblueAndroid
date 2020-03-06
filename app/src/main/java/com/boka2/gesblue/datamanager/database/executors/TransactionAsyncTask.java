@@ -13,7 +13,7 @@ import com.boka2.sdatamanager.common.Constants;
 
 import java.util.concurrent.ExecutorService;
 
-/**
+/*
  * Created by Boka2.
  * La responsabilitat d'aquesta classe és d'executar la transacció de la base de dades, de gestionar
  * es possibles errors de la transacció i d'obrir i tancar el helper de manera centralitzada, única
@@ -24,7 +24,7 @@ public class TransactionAsyncTask extends AsyncTask<OperationExecutorHelper, Voi
     protected SDataBaseListener listener;   //Permet saber quan i com acabat el Asynctask
     protected Context context;              //Com s'han de fer operacions de la BDD es necessita el context
     protected BasicDBResult res;            //Conté el resultat de la crida. Es retorna al final de l'asynctask i al listener.
-    /**
+    /*
      * Creates an AsyncTask but doesn't execute it. You must call start after this constructor to execute it.
      * @param _listener
      * @param _context
@@ -34,7 +34,7 @@ public class TransactionAsyncTask extends AsyncTask<OperationExecutorHelper, Voi
         context = _context;
     }
 
-    /**
+    /*
      * Creates an AsynTask and executes it.
      * @param _listener
      * @param _config

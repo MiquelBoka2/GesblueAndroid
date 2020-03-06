@@ -7,7 +7,7 @@ import com.boka2.gesblue.global.PreferencesGesblue;
 import com.boka2.gesblue.R;
 import com.boka2.spushnotifications.base.GCMIntentServiceBase;
 
-/**
+/*
  * Created by Boka2.
  */
 

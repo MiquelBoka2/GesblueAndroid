@@ -22,7 +22,7 @@ import com.boka2.gesblue.customstuff.views.imageZoom.graphics.FastBitmapDrawable
 import com.boka2.gesblue.customstuff.views.imageZoom.utils.IDisposable;
 
 
-/**
+/*
  * Base View to manage image zoom/scrool/pinch operations
  *
  * @author alessandro
@@ -30,7 +30,7 @@ import com.boka2.gesblue.customstuff.views.imageZoom.utils.IDisposable;
 public abstract class ImageViewTouchBase extends ImageView implements IDisposable {
 
     public interface OnDrawableChangeListener {
-        /**
+        /*
          * Callback invoked when a new drawable has been
          * assigned to the view
          *
@@ -42,7 +42,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
     ;
 
     public interface OnLayoutChangeListener {
-        /**
+        /*
          * Callback invoked when the layout bounds changed
          *
          * @param changed
@@ -56,18 +56,18 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
 
     ;
 
-    /**
+    /*
      * Use this to change the {@link ImageViewTouchBase#setDisplayType(DisplayType)} of
      * this View
      *
      * @author alessandro
      */
     public enum DisplayType {
-        /** Image is not scaled by default */
+        /* Image is not scaled by default */
         NONE,
-        /** Image will be always presented using this view's bounds */
+        /* Image will be always presented using this view's bounds */
         FIT_TO_SCREEN,
-        /** Image will be scaled only if bigger than the bounds of this view */
+        /* Image will be scaled only if bigger than the bounds of this view */
         FIT_IF_BIGGER
     }
 
@@ -137,14 +137,14 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         setScaleType(ScaleType.MATRIX);
     }
 
-    /**
+    /*
      * Clear the current drawable
      */
     public void clear() {
         setImageBitmap(null);
     }
 
-    /**
+    /*
      * Change the display type
      */
     public void setDisplayType(DisplayType type) {
@@ -372,7 +372,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         }
     }
 
-    /**
+    /*
      * Restore the original display
      */
     public void resetDisplay() {
@@ -418,7 +418,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         setImageDrawable(getContext().getResources().getDrawable(resId));
     }
 
-    /**
+    /*
      * {@inheritDoc} Set the new image to display and reset the internal matrix.
      *
      * @param bitmap the {@link Bitmap} to display
@@ -429,7 +429,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         setImageBitmap(bitmap, null, ZOOM_INVALID, ZOOM_INVALID);
     }
 
-    /**
+    /*
      * @param bitmap
      * @param matrix
      * @param min_zoom
@@ -449,7 +449,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         setImageDrawable(drawable, null, ZOOM_INVALID, ZOOM_INVALID);
     }
 
-    /**
+    /*
      * Note: if the scaleType is FitToScreen then min_zoom must be <= 1 and max_zoom must be >= 1
      *
      * @param drawable       the new drawable
@@ -526,7 +526,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         }
     }
 
-    /**
+    /*
      * Fired as soon as a new Bitmap has been set
      *
      * @param drawable
@@ -551,7 +551,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         }
     }
 
-    /**
+    /*
      * Called just after {@link #onLayout(boolean, int, int, int, int)}
      * if the view's bounds has changed or a new Drawable has been set
      * or the {@link DisplayType} has been modified
@@ -603,7 +603,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         return scale;
     }
 
-    /**
+    /*
      * Returns the current maximum allowed image scale
      *
      * @return
@@ -615,7 +615,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         return mMaxZoom;
     }
 
-    /**
+    /*
      * Returns the current minimum allowed image scale
      *
      * @return
@@ -636,7 +636,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         return mMinZoom;
     }
 
-    /**
+    /*
      * Returns the current view matrix
      *
      * @return
@@ -666,14 +666,14 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         }
     }
 
-    /**
+    /*
      * Called just after a new Matrix has been assigned.
      *
      * @see {@link #setImageMatrix(Matrix)}
      */
     protected void onImageMatrixChanged() {}
 
-    /**
+    /*
      * Returns the current image display matrix.<br />
      * This matrix can be used in the next call to the {@link #setImageDrawable(Drawable, Matrix, float, float)} to restore the same
      * view state of the previous {@link Bitmap}.<br />
@@ -741,7 +741,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         return 0;
     }
 
-    /**
+    /*
      * Returns the current image scale
      *
      * @return
@@ -837,7 +837,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
         zoomTo(scale, center.x, center.y);
     }
 
-    /**
+    /*
      * Scale to the target scale
      *
      * @param scale      the target zoom
@@ -866,7 +866,7 @@ public abstract class ImageViewTouchBase extends ImageView implements IDisposabl
     @SuppressWarnings("unused")
     protected void onZoomAnimationCompleted(float scale) {}
 
-    /**
+    /*
      * Scrolls the view by the x and y amount
      *
      * @param x

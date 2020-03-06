@@ -2,7 +2,7 @@ package com.boka2.gesblue.datamanager.database.helpers;
 
 import com.boka2.gesblue.datamanager.database.model.Model_TipusAnulacio;
 
-/**
+/*
  * Created by Boka2.
  */
 

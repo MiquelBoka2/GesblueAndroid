@@ -2,7 +2,7 @@ package com.boka2.spushnotifications.classes;
 
 import android.text.TextUtils;
 
-/**
+/*
  * Created by jaumebech on 22/10/15.
  */
 public class SNameValuePair {

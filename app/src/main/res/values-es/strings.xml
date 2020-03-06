@@ -15,7 +15,7 @@
 	<string name="dadesTiquetUsuari">Datos tíquet usuario</string>
 
 	<string name="usuari">USUARIO</string>
-	<string name="password">PASSWORD</string>
+	<string name="password">CONTRASEÑA</string>
 	<string name="concessio">CONCESIÓN</string>
 	<string name="accepta">ACEPTAR</string>
 	<string name="editTextUsuariHint">Nombre de usuario</string>
@@ -26,11 +26,11 @@
 	<string name="atencio">Atención</string>
 
 	<string name="estacionament_incorrecte">ESTAC. INCORRECTO</string>
-	<string name="estacionament_incorrecte2">MINUTOS PASADOS</string>
-	<string name="estacionament_incorrecte3">HORAS PASADAS</string>
+
 	<string name="estacionament_sense_internet">SIN INTERNET. MATRICULA NO COMPROBADA</string>
 	<string name="estacionament_correcte">ESTAC. CORRECTO</string>
-	<string name="estacionament_correcte2">MINUTOS RESTANTES</string>
+
+
 	<string name="vehicle_ja_denunciat">VEHICULO YA DENUNCIADO HOY</string>
 	<string name="noDenunciar">NO DENUNCIAR</string>
 	<string name="denunciar">DENUNCIAR</string>
@@ -175,8 +175,7 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="enviantDenuncia">Enviando denuncia&#8230;</string>
 	<string name="butlletaEnviadaOk">Boletín enviado correctamente. ¿Quieres imprimir una copia?</string>
 	<string name="butlletaImpresaOk">Boletín impreso correctamente. ¿Quieres imprimir otra copia?</string>
-	<string name="butlletaImpresaOk_imprimir">Si</string>
-	<string name="butlletaImpresaOk_enviar">No</string>
+
 	<string name="firma">Firma</string>
 
 	<!-- /13-10-2016 -->
@@ -210,7 +209,7 @@ El/la secretario/a del Ayuntamiento.</string>
 
 	<string name="dacord">Entiendo</string>
 	<string name="enrere">Atrás</string>
-	<string name="deslog">Estás a punto de desloguearte. ¿Estás de acuerdo?</string>
+	<string name="deslog">Estás a punto de desconectarte. Estás de acuerdo?</string>
 
 	<string name="logout">Desconectate</string>
 
@@ -221,7 +220,7 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="idiomes">Idiomas</string>
 	<string name="opcions">Opciones</string>
     <string name="MistageAvis">Alerta</string>
-	<string name="MistageReinici">Reiniciar la aplicación para aplicar los cambios en el idioma?</string>
+	<string name="MistageReinici">" Reiniciar la aplicación para aplicar los cambios en el idioma?"</string>
 	<string name="SI">SI</string>
     <string name="NO">NO</string>
     <string name="Admin">Admin</string>
@@ -238,6 +237,51 @@ El/la secretario/a del Ayuntamiento.</string>
 		<item>Francès</item>
 		<item>Aleman</item>
 	</string-array>
+	<string name="Administrador">Administrador</string>
+	<string name="Dies">Días</string>
+	<string name="Enviada">Enviada</string>
+	<string name="acces_admin">" ACCESO ADMINISTRADOR"</string>
+	<string name="accio_eliminar_tot">ELIMINARÁ TODOS LOS DATOS\n HISTÓRICOS DE LA APLICACIÓN</string>
+	<string name="accio_esborrar_concessions">ELIMINARÁ TODOS LOS DATOS\n DE CONCESIONES ANTIGUAS</string>
+	<string name="anula">ANULA</string>
+	<string name="aquesta_accio">Esta acción</string>
+	<string name="btn_guardar">GUARDAR</string>
+	<string name="canviar_concessio">Cambiar concesión</string>
+	<string name="confirmar_denuncia">Confirmas que la denuncia se ha imprimido correctamente?</string>
+	<string name="credencials_incorrectes">Credenciales incorrectas</string>
+	<string name="denuncia_impresa">DENUNCIA IMPRESA</string>
+	<string name="denuncies_pendents">Denuncias pendientes</string>
+	<string name="desconectar">Desconéctate</string>
+	<string name="envia_denuncies_pendents">ENVÍA DENUNCIAS PENDIENTES</string>
+	<string name="esborra_tot">BORRAR TODO</string>
+	<string name="esborra_tot_confimacio">Estás seguro que quieres borrar todo?</string>
+	<string name="extra0">Inglés</string>
+	<string name="extra1">Francés</string>
+	<string name="extra2">Alemán</string>
+	<string name="hi_ha_denuncies_pendents">Hay denuncias pendientes de enviar</string>
+	<string name="idioma_aplicació">Idioma aplicación</string>
+	<string name="imprimir_una_copia">IMPRIMIR UNA COPIA</string>
+	<string name="neccesita_permisos">y necesita permisos\n de administrador</string>
+	<string name="pas0ZonaActivity_label">Sanció - ZONA</string>
+	<string name="no_concessio">SIN CONCESIÓN</string>
+	<string name="no_denuncies_a_enviar">No hay denuncias que enviar</string>
+	<string name="no_mes_fotos">Has llegado al límite máximo de fotos</string>
+	<string name="nova_denuncia">NUEVA DENUNCIA</string>
+	<string name="password_admin">Contraseña administrador</string>
+	<string name="pendent_Enviar">Pendient Enviar</string>
+	<string name="pendent_Imprimir">Pendiente Imprimir</string>
+	<string name="preferencies">Preferencias</string>
+	<string name="recarrega_dadesMayus">BORRAR DATOS</string>
+	<string name="recarregar_dades">Recargar datos</string>
+	<string name="reimpressió">Reimpresión</string>
+	<string name="seleciona_zona_primer">Selecciona una zona primero</string>
+	<string name="sense_conexio">No se ha detectado conexión a internet, compruebe la conexión y vuelva a probar</string>
+	<string name="sense_tiquet">Sin Ticket</string>
+	<string name="temps_Excedit">Tiempo Excedido</string>
+	<string name="temps_Restant">Tiempo Restante</string>
+	<string name="tornar_a_provar">VUELVE A PROBAR</string>
+	<string name="user_admin">usuario administrador</string>
+	<string name="admin_off">Modo administrador apagado</string>
 
 
 </resources>

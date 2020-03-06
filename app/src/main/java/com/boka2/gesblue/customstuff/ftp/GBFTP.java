@@ -4,7 +4,7 @@ import org.apache.commons.net.ftp.FTPClient;
 
 import java.util.List;
 
-/**
+/*
  * Created by Boka2.
  */
 public class GBFTP {
@@ -19,7 +19,7 @@ public class GBFTP {
 	private static String gbf5;
 	private static String gbf6;
 
-	/**
+	/*
 	 * Inicialitza el client FTP (connecta i fa login si cal).
 	 *
 	 * Si la inicialització acaba estant connectat, es comença la pujada de arxius automàticament.

@@ -9,7 +9,7 @@ import java.io.FileOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-/**
+/*
  * Created by Boka2.
  */
 public class Compress {

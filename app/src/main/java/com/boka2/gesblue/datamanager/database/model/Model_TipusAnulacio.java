@@ -9,7 +9,7 @@ import com.boka2.gesblue.datamanager.database.Taules;
 
 import java.util.Date;
 
-/**
+/*
  * Created by Boka2.
  */
 @DatabaseTable(tableName = Taules.TAULA_TIPUSANULACIO)

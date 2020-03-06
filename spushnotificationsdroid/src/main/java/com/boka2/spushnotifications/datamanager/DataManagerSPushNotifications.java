@@ -34,7 +34,7 @@ public class DataManagerSPushNotifications extends SDataManager {
 		URL_BASE = PreferencesSPush.getWSBaseUrl(_context);
 	}
 
-	/**
+	/*
 	 * Mètode per obtenir el número de versió que utilitzarem per enviar als ws
 	 * @return el número de versió actual
 	 */

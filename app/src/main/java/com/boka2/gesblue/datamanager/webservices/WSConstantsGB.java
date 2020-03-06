@@ -2,7 +2,7 @@ package com.boka2.gesblue.datamanager.webservices;
 
 import com.boka2.sdatamanager.datamanager.WSConstants;
 
-/**
+/*
  * Created by Boka2.
  */
 

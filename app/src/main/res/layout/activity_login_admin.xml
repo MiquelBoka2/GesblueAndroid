@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorFons"
+    android:background="@color/colorToolBar"
     tools:context=".activities.Login_Admin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -485,6 +485,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto"
                     android:lineSpacingExtra="8sp"
+                    android:text="@string/aquesta_accio"
                     android:textAlignment="center"
                     android:textColor="@color/color_text_toolbar"
                     android:textSize="16sp"
@@ -519,6 +520,7 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/roboto"
                     android:lineSpacingExtra="8sp"
+                    android:text="@string/neccesita_permisos"
                     android:textAlignment="center"
                     android:textColor="@color/color_text_toolbar"
                     android:textSize="16sp"

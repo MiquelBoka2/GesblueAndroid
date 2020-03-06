@@ -4,7 +4,7 @@ import android.content.Context;
 import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 
-/**
+/*
  * Created by Boka2.
  */
 

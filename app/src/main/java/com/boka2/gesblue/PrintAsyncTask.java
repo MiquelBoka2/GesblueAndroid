@@ -21,7 +21,7 @@ import java.util.Date;
 import static com.boka2.gesblue.activities.FormulariActivity.createCalendar;
 import static com.boka2.gesblue.global.PreferencesGesblue.getEmisora;
 
-/**
+/*
  * Created by Boka2.
  */
 public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
@@ -69,7 +69,7 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 					.setData(createCalendar(0))
 					.setMatricula(sancio.getMatricula());
 
-			/**if (PreferencesGesblue.getConcessio(mContext) == 4) {//Banyoles
+			/*if (PreferencesGesblue.getConcessio(mContext) == 4) {//Banyoles
 				ticketConfiguration.setImatgePeu(Picasso.with(mContext).load(PreferencesGesblue.getImatgePeu(mContext)).get());
 			}**/
 			try {

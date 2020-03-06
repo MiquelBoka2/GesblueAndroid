@@ -40,7 +40,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 
-/**
+/*
  * <p>ImageChooserAsync enables proper and easy use of the UI thread. This class allows to
  * perform background operations and publish results on the UI thread without
  * having to manipulate threads and/or handlers.</p>
@@ -201,14 +201,14 @@ public abstract class MediaAsync<Params, Progress, Result> {
 	private static final BlockingQueue<Runnable> sPoolWorkQueue =
 			new LinkedBlockingQueue<Runnable>(10);
 
-	/**
+	/*
 	 * An {@link Executor} that can be used to execute tasks in parallel.
 	 */
 	public static final Executor THREAD_POOL_EXECUTOR
 	= new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE,
 			TimeUnit.SECONDS, sPoolWorkQueue, sThreadFactory);
 
-	/**
+	/*
 	 * An {@link Executor} that executes tasks one at a time in serial
 	 * order.  This serialization is global to a particular process.
 	 */
@@ -254,36 +254,36 @@ public abstract class MediaAsync<Params, Progress, Result> {
 		}
 	}
 
-	/**
+	/*
 	 * Indicates the current status of the task. Each status will be set only once
 	 * during the lifetime of a task.
 	 */
 	 public enum Status {
-		/**
+		/*
 		 * Indicates that the task has not been executed yet.
 		 */
 		 PENDING,
-		 /**
+		 /*
 		  * Indicates that the task is running.
 		  */
 		 RUNNING,
-		 /**
+		 /*
 		  * Indicates that {@link ImageChooserAsync#onPostExecute} has finished.
 		  */
 		 FINISHED,
 	 }
 
-	 /** @hide Used to force static handler to be created. */
+	 /* @hide Used to force static handler to be created. */
 	 public static void init() {
 		 sHandler.getLooper();
 	 }
 
-	 /** @hide */
+	 /* @hide */
 	 public static void setDefaultExecutor(Executor exec) {
 		 sDefaultExecutor = exec;
 	 }
 
-	 /**
+	 /*
 	  * Creates a new asynchronous task. This constructor must be invoked on the UI thread.
 	  */
 	 public MediaAsync() {
@@ -330,7 +330,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 		 return result;
 	 }
 
-	 /**
+	 /*
 	  * Returns the current status of this task.
 	  *
 	  * @return The current status.
@@ -339,7 +339,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 		 return mStatus;
 	 }
 
-	 /**
+	 /*
 	  * Override this method to perform a computation on a background thread. The
 	  * specified parameters are the parameters passed to {@link #execute}
 	  * by the caller of this task.
@@ -357,7 +357,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 	  */
 	 protected abstract Result doInBackground(Params... params);
 
-	 /**
+	 /*
 	  * Runs on the UI thread before {@link #doInBackground}.
 	  *
 	  * @see #onPostExecute
@@ -366,7 +366,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 	 protected void onPreExecute() {
 	 }
 
-	 /**
+	 /*
 	  * <p>Runs on the UI thread after {@link #doInBackground}. The
 	  * specified result is the value returned by {@link #doInBackground}.</p>
 	  *
@@ -381,7 +381,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 	 protected void onPostExecute(Result result) {
 	 }
 
-	 /**
+	 /*
 	  * Runs on the UI thread after {@link #publishProgress} is invoked.
 	  * The specified values are the values passed to {@link #publishProgress}.
 	  *
@@ -393,7 +393,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 	 protected void onProgressUpdate(Progress... values) {
 	 }
 
-	 /**
+	 /*
 	  * <p>Runs on the UI thread after {@link #cancel(boolean)} is invoked and
 	  * {@link #doInBackground(Object[])} has finished.</p>
 	  *
@@ -411,7 +411,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 		 onCancelled();
 	 }
 
-	 /**
+	 /*
 	  * <p>Applications should preferably override {@link #onCancelled(Object)}.
 	  * This method is invoked by the default implementation of
 	  * {@link #onCancelled(Object)}.</p>
@@ -426,7 +426,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 	 protected void onCancelled() {
 	 }
 
-	 /**
+	 /*
 	  * Returns <tt>true</tt> if this task was cancelled before it completed
 	  * normally. If you are calling {@link #cancel(boolean)} on the task,
 	  * the value returned by this method should be checked periodically from
@@ -440,7 +440,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 		 return mCancelled.get();
 	 }
 
-	 /**
+	 /*
 	  * <p>Attempts to cancel execution of this task.  This attempt will
 	  * fail if the task has already completed, already been cancelled,
 	  * or could not be cancelled for some other reason. If successful,
@@ -474,7 +474,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 		 return mFuture.cancel(mayInterruptIfRunning);
 	 }
 
-	 /**
+	 /*
 	  * Waits if necessary for the computation to complete, and then
 	  * retrieves its result.
 	  *
@@ -489,7 +489,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 		 return mFuture.get();
 	 }
 
-	 /**
+	 /*
 	  * Waits if necessary for at most the given time for the computation
 	  * to complete, and then retrieves its result.
 	  *
@@ -509,7 +509,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 		 return mFuture.get(timeout, unit);
 	 }
 
-	 /**
+	 /*
 	  * Executes the task with the specified parameters. The task returns
 	  * itself (this) so that the caller can keep a reference to it.
 	  *
@@ -541,7 +541,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 		 return executeOnExecutor(sDefaultExecutor, params);
 	 }
 
-	 /**
+	 /*
 	  * Executes the task with the specified parameters. The task returns
 	  * itself (this) so that the caller can keep a reference to it.
 	  *
@@ -599,7 +599,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 		 return this;
 	 }
 
-	 /**
+	 /*
 	  * Convenience version of {@link #execute(Object...)} for use with
 	  * a simple Runnable object. See {@link #execute(Object[])} for more
 	  * information on the order of execution.
@@ -611,7 +611,7 @@ public abstract class MediaAsync<Params, Progress, Result> {
 		 sDefaultExecutor.execute(runnable);
 	 }
 
-	 /**
+	 /*
 	  * This method can be invoked from {@link #doInBackground} to
 	  * publish updates on the UI thread while the background computation is
 	  * still running. Each call to this method will trigger the execution of

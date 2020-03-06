@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.boka2.sdatamanager.datamanager.results.BasicWSResult;
 
-/**
+/*
  * Created by Boka2.
  */
 public class BasicDBResult {
@@ -82,7 +82,7 @@ public class BasicDBResult {
         this.resultObject = _resultObject;
     }
 
-    /**
+    /*
      * Concatena dos resultats. Si un dels dos es KO el KO preval.
      * @param _result
      * @return

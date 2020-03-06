@@ -7,7 +7,7 @@ import com.boka2.sbaseobjects.views.SButton;
 
 import com.boka2.gesblue.R;
 
-/**
+/*
  * Created by Boka2.
  */
 

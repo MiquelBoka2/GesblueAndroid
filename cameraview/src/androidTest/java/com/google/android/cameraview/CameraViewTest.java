@@ -275,7 +275,7 @@ public class CameraViewTest {
         };
     }
 
-    /**
+    /*
      * Wait for a camera to open.
      */
     private static class CameraViewIdlingResource implements IdlingResource, Closeable {

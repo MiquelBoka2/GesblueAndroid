@@ -10,7 +10,7 @@ import java.util.Objects;
 import pt.joaocruz04.lib.annotations.JSoapAttribute;
 import pt.joaocruz04.lib.annotations.JSoapResField;
 
-/**
+/*
  * Created by Boka2.
  */
 public class SoapDeserializer {

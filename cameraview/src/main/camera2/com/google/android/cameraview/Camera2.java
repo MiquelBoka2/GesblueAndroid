@@ -364,7 +364,7 @@ class Camera2 extends CameraViewImpl {
         configureTransform();
     }
 
-    /**
+    /*
      * Chooses a camera ID by the specified camera facing ({@link #mFacing}).
      *
      * <p>This rewrites {@link #mCameraId}, {@link #mCameraCharacteristics}, and optionally
@@ -407,7 +407,7 @@ class Camera2 extends CameraViewImpl {
         }
     }
 
-    /**
+    /*
      * Collects some information from {@link #mCameraCharacteristics}.
      *
      * <p>This rewrites {@link #mPreviewSizes}, {@link #mPictureSizes}, and optionally,
@@ -452,7 +452,7 @@ class Camera2 extends CameraViewImpl {
         mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, null);
     }
 
-    /**
+    /*
      * Starts opening a camera device.
      *
      * <p>The result will be processed in {@link #mCameraDeviceCallback}.</p>
@@ -465,7 +465,7 @@ class Camera2 extends CameraViewImpl {
         }
     }
 
-    /**
+    /*
      * Starts a capture session for camera preview.
      *
      * <p>This rewrites {@link #mPreviewRequestBuilder}.</p>
@@ -489,7 +489,7 @@ class Camera2 extends CameraViewImpl {
         }
     }
 
-    /**
+    /*
      * Chooses the optimal preview size based on {@link #mPreviewSizes} and {@link #mSurfaceInfo}.
      *
      * @return The picked size for camera preview.
@@ -514,7 +514,7 @@ class Camera2 extends CameraViewImpl {
         return candidates.last();
     }
 
-    /**
+    /*
      * Configures the transform matrix for TextureView based on {@link #mDisplayOrientation} and
      * {@link #mSurfaceInfo}.
      */
@@ -550,7 +550,7 @@ class Camera2 extends CameraViewImpl {
         mCallback.onTransformUpdated(matrix);
     }
 
-    /**
+    /*
      * Updates the internal state of auto-focus to {@link #mAutoFocus}.
      */
     private void updateAutoFocus() {
@@ -573,7 +573,7 @@ class Camera2 extends CameraViewImpl {
         }
     }
 
-    /**
+    /*
      * Updates the internal state of flash to {@link #mFlash}.
      */
     private void updateFlash() {
@@ -611,7 +611,7 @@ class Camera2 extends CameraViewImpl {
         }
     }
 
-    /**
+    /*
      * Locks the focus as the first step for a still image capture.
      */
     private void lockFocus() {
@@ -630,7 +630,7 @@ class Camera2 extends CameraViewImpl {
         }
     }
 
-    /**
+    /*
      * Captures a still picture.
      */
     private void captureStillPicture() {
@@ -690,7 +690,7 @@ class Camera2 extends CameraViewImpl {
         }
     }
 
-    /**
+    /*
      * Unlocks the auto-focus and restart camera preview. This is supposed to be called after
      * capturing a still picture.
      */
@@ -711,7 +711,7 @@ class Camera2 extends CameraViewImpl {
         }
     }
 
-    /**
+    /*
      * A {@link CameraCaptureSession.CaptureCallback} for capturing a still picture.
      */
     private static abstract class PictureCaptureCallback
@@ -783,12 +783,12 @@ class Camera2 extends CameraViewImpl {
             }
         }
 
-        /**
+        /*
          * Called when it is ready to take a still picture.
          */
         public abstract void onReady();
 
-        /**
+        /*
          * Called when it is necessary to run the precapture sequence.
          */
         public abstract void onPrecaptureRequired();

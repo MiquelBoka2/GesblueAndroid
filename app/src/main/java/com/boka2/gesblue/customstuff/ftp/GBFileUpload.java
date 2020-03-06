@@ -3,7 +3,7 @@ package com.boka2.gesblue.customstuff.ftp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
+/*
  * Created by Boka2.
  */
 public class GBFileUpload implements Parcelable {

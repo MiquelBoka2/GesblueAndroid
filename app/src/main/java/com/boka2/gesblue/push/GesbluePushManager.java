@@ -8,7 +8,7 @@ import com.boka2.spushnotifications.base.GCMIntentServiceBase;
 import com.boka2.spushnotifications.base.SModPushNotificationsBaseManager;
 import com.boka2.spushnotifications.classes.PreferencesSPush;
 
-/**
+/*
  * Created by Boka2.
  */
 
@@ -26,7 +26,7 @@ public class GesbluePushManager extends SModPushNotificationsBaseManager {
 		return new GCMGesblue();
 	}
 
-	/**
+	/*
 	 * Fa el registre amb les dades correctes de XML
 	 *  - UsernameAuto: Sempre fals
 	 *  - Username: res si no està conectat, el nom de usuari si ho està

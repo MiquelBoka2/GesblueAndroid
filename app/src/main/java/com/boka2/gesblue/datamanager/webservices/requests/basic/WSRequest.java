@@ -1,6 +1,6 @@
 package com.boka2.gesblue.datamanager.webservices.requests.basic;
 
-/**
+/*
  * Created by Boka2.
  */
 

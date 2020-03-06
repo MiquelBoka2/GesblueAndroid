@@ -1,6 +1,6 @@
 package com.boka2.gesblue.datamanager.database;
 
-/**
+/*
  * Created by Boka2.
  */
 public class Taules {

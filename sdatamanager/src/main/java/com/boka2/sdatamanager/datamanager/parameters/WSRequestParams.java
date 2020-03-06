@@ -16,7 +16,7 @@ public class WSRequestParams {
     private Gson gson;                          //Permet crear un Gson custom, per poder, per exemple, formatar els objectes Date d'una crida concreta.
     private String BasicWSClassName;            //Nom de la classe en la que es preveu mapejar la resposta
 
-    /**
+    /*
      * @param _params Array list de paràmetres que volem enviar amb la petició
      * @param _urlBase  URL base a on es farà la petició
      * @param _urlWS URL que es concatenarà a la _urlBase que identifica el webservice concret on volem fer la petició

@@ -23,14 +23,14 @@ import android.view.OrientationEventListener;
 import android.view.Surface;
 
 
-/**
+/*
  * Monitors the value returned from {@link Display#getRotation()}.
  */
 abstract class DisplayOrientationDetector {
 
     private final OrientationEventListener mOrientationEventListener;
 
-    /** Mapping from Surface.Rotation_n to degrees. */
+    /* Mapping from Surface.Rotation_n to degrees. */
     private static final SparseIntArray DISPLAY_ORIENTATIONS = new SparseIntArray();
 
     static {
@@ -47,7 +47,7 @@ abstract class DisplayOrientationDetector {
     public DisplayOrientationDetector(Context context) {
         mOrientationEventListener = new OrientationEventListener(context) {
 
-            /** This is either Surface.Rotation_0, _90, _180, _270, or -1 (invalid). */
+            /* This is either Surface.Rotation_0, _90, _180, _270, or -1 (invalid). */
             private int mLastKnownRotation = -1;
 
             @Override
@@ -86,7 +86,7 @@ abstract class DisplayOrientationDetector {
         onDisplayOrientationChanged(displayOrientation);
     }
 
-    /**
+    /*
      * Called when display orientation is changed.
      *
      * @param displayOrientation One of 0, 90, 180, and 270.

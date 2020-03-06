@@ -1,4 +1,4 @@
-/**
+/*
    Copyright Mob&Me 2013 (@MobAndMe)
 
    Licensed under the GPL General Public License, Version 3.0 (the "License"),  
@@ -22,7 +22,7 @@ package com.boka2.spushnotifications.db;
 public class DataBase {
 	public static DataContext Context;
 	
-	/**
+	/*
 	 * This method initialize the singleton instance of Application ObjectContext.
 	 * @param pContext
 	 */

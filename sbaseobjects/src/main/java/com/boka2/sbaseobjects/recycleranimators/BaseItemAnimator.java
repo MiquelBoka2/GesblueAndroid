@@ -530,7 +530,7 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
         !mChangesList.isEmpty());
   }
 
-  /**
+  /*
    * Check the state of currently pending and running animations. If there are none
    * pending/running, call #dispatchAnimationsFinished() to notify any
    * listeners.

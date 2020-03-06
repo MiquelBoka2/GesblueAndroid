@@ -65,7 +65,7 @@ public class SWebViewFragment extends SFragment {
 		public boolean showMenu = true;
 		public String title;
 
-		/**
+		/*
 		 * Cal cridar un dels setters després del constructor!
 		 *
 		 * @param txtCol Color del texte
@@ -76,7 +76,7 @@ public class SWebViewFragment extends SFragment {
 			this.pbCol = pbCol;
 		}
 
-		/**
+		/*
 		 * Inicialitza tot lo necessari amb els colors de la app
 		 * @param c
 		 */

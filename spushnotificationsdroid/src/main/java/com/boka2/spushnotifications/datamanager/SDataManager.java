@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
+/*
  * Classe base per implementar Data Managers. * Crear una subclasse d'aquesta amb els m�todes especifics per cada App.
  * 
  * El constructor de la subclasse ha de fixar el parametre URL_BASE Tambe pot modificar els noms dels parametres OK, KO i tipus d'acci�.
@@ -92,7 +92,7 @@ public class SDataManager {
 		// commonParams.add(new BasicNameValuePair("lang", "ca"));
 	}
 	
-	/**
+	/*
 	 * Configure the future request to user the basic http authentification
 	 * @param user
 	 * @param password
@@ -134,7 +134,7 @@ public class SDataManager {
 	    return result.toString();
 	}
 
-	/**
+	/*
 	 * @param _params
 	 *            Parametres per la petici� POST
 	 * @param _urlPath
@@ -391,7 +391,7 @@ public class SDataManager {
 	}
 	
 
-		/**
+		/*
 	 * @param params
 	 *            Parametres per la petici� POST
 	 * @param method
@@ -402,7 +402,7 @@ public class SDataManager {
 		return getJSON(params,URL_BASE,null,method);
 	}
 
-	/**
+	/*
 	 * @param params
 	 *            Parametres per la petici� POST
 	 * @param method
@@ -413,7 +413,7 @@ public class SDataManager {
 		return getJSON(params, _urlBase, urlPath, method, true);
 	}
 
-	/**
+	/*
 	 * @param params
 	 *            Parametres per la petici�
 	 * @param urlPath
@@ -516,7 +516,7 @@ public class SDataManager {
 		return timestamp;
 	}
 	
-	/**
+	/*
 	 * 
 	 * @param params
 	 * @param urlPath
@@ -537,7 +537,7 @@ public class SDataManager {
 		return res;
 	}
 
-	/**
+	/*
 	 * Guarda a la cache. Actualment es guarda un fitxer a la memoria externa del dispositiu.
 	 * 
 	 * @param key

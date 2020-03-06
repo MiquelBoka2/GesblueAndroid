@@ -12,7 +12,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-/**
+/*
  * Commonly used methods related to Files.
  * 
  * @author jaumebech
@@ -20,7 +20,7 @@ import android.provider.MediaStore;
  */
 public class SFileUtils {
 
-	/**
+	/*
 	 * 
 	 * @param _strPathLocalFile
 	 * @return
@@ -32,7 +32,7 @@ public class SFileUtils {
 		return result;
 	}
 
-	/**
+	/*
 	 * Gets the path of a file using an uri
 	 * @param _context The context the method is being called. 
 	 * @param _uri The uri of the file.
@@ -47,7 +47,7 @@ public class SFileUtils {
 		return cursor.getString(column_index);
 	}
 
-	/**
+	/*
 	 * Gets the file name of a file specified by a Uri
 	 * @param _context The context the method is being called. 
 	 * @param _uri The uri of the file.
@@ -72,7 +72,7 @@ public class SFileUtils {
 		return fileName;
 	}
 
-	/**
+	/*
 	 * Translates a number of bytes to a human readable format
 	 * @param bytes Number of bytes to be translated
 	 * @return Formatted string
@@ -92,7 +92,7 @@ public class SFileUtils {
 		return df.format(bytes) + " B";
 	}
 
-	/**
+	/*
 	 * Reduce the size of a specified image
 	 * @param _context The context the method is being called. 
 	 * @param _strFilePath Path of the image to be compressed

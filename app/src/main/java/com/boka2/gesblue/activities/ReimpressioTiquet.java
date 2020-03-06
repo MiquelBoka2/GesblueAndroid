@@ -282,14 +282,14 @@ public class ReimpressioTiquet extends AppCompatActivity {
             sancio.setModelCarrer(carrer);
         }
 
-        /**MATRICULA**/
+        /*MATRICULA**/
         if(!isEmpty(sancio.getMatricula())) {
             txt_Matricula.setText(sancio.getMatricula());
         } else {
             finish();
         }
 
-        /**TIPUS**/
+        /*TIPUS**/
         if(sancio.getModelTipusVehicle() != null) {
 
             aux = txt_Tipus.getText().toString();
@@ -314,7 +314,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
         }
 
 
-        /**MARCA**/
+        /*MARCA**/
 
         if(txt_Marca.isEnabled()) {
             if(sancio.getModelMarca() != null) {
@@ -342,7 +342,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
 
 
-        /**MODEL**/
+        /*MODEL**/
         if(txt_Model.isEnabled()) {
             if(sancio.getModelModel() != null) {
 
@@ -359,28 +359,28 @@ public class ReimpressioTiquet extends AppCompatActivity {
             }
         }
 
-        /**COLOR**/
+        /*COLOR**/
         if(sancio.getModelColor() != null) {
            txt_Color.setText(Utils.languageMultiplexer(sancio.getModelColor().getNomcolores(), sancio.getModelColor().getNomcolorcat()));
             view_Color.setBackgroundColor(Color.parseColor("#" + sancio.getModelColor().getHexcolor()));
         }
 
 
-        /**SANCIO**/
+        /*SANCIO**/
         if(txt_Sancio.isEnabled()) {
             if(sancio.getModelInfraccio() != null) {
                 txt_Sancio.setText(sancio.getModelInfraccio().getNom());
             }
         }
 
-        /**CARRER**/
+        /*CARRER**/
         if(txt_Carrer.isEnabled()) {
             if (sancio.getModelCarrer() != null) {
                 txt_Carrer.setText(sancio.getModelCarrer().getNomcarrer());
             }
         }
 
-       /**NUM**/
+       /*NUM**/
         if(txt_Num.isEnabled()) {
             if(!isEmpty(sancio.getNumero())) {
                 txt_Num.setText(sancio.getNumero());
@@ -389,7 +389,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
 
 
-        /** IMG***/
+        /* IMG***/
 
         File f = new File("storage/emulated/0/Boka2/upload/done");
         if (f.exists() && f.isDirectory()){

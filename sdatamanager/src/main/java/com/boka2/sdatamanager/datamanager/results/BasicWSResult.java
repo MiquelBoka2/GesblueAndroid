@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.google.gson.annotations.SerializedName;
 import com.boka2.sdatamanager.datamanager.DataManager;
 
-/**
+/*
  * Created by Boka2.
  */
 public class BasicWSResult {
@@ -62,7 +62,7 @@ public class BasicWSResult {
         return !TextUtils.isEmpty(strResult) && strResult.equalsIgnoreCase(DataManager.OK);
     }
 
-    /**
+    /*
      * @return True if the message is from remote. False if is a local error (for example no connection).
      */
     public boolean isWSMsg() {

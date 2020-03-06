@@ -8,7 +8,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.util.Log;
 
-/**
+/*
  * Methods used to know the network state. 
  * Requires permission "android.permission.ACCESS_NETWORK_STATE" to be specified in the Manifest.
  * 
@@ -21,7 +21,7 @@ public class SNetworkUtils {
 	public static String MOBILE = "Mobile 3G";
 	public static String NO_NETWORK = "No Network";
 
-	/**
+	/*
 	 * Checks if there is a connection is available
 	 * @param _context The context the method is being called. 
 	 * @return true if it's connected to internet. False otherwise.
@@ -56,7 +56,7 @@ public class SNetworkUtils {
 	
 	}
 
-	/**
+	/*
 	 * Get the type of the connection available actually
 	 * @param _context The context the method is being called. 
 	 * @return the type of the connection available
@@ -79,7 +79,7 @@ public class SNetworkUtils {
 		}
 	}
 
-	/**
+	/*
 	 * Check if the GPS is enabled
 	 * @param _context The context the method is being called.
 	 * @return true if the GPS is enabled. False otherwise.
@@ -94,7 +94,7 @@ public class SNetworkUtils {
 		return true;
 	}
 
-	/**
+	/*
 	 * Check if the GPS is enabled and shows an alert to turn on if it's disabled
 	 * @param _context The context the method is being called. 
 	 * @param _strAlertTitle Alert's title
@@ -112,7 +112,7 @@ public class SNetworkUtils {
 
 	}
 
-	/**
+	/*
 	 * 
 	 * @param _context The context the method is being called. 
 	 * @param _strTitle Alert's title

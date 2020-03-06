@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 
 import com.boka2.sbaseobjects.R;
 
-/**
+/*
  * Created by Boka2.
  */
 

@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.SeekBar;
 
-/**
+/*
  * Custom implementation of SeekBar to show the bar in vertical.
  * Implementation example: iCatFM
  * 

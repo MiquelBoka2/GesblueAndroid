@@ -1,6 +1,6 @@
 package pt.joaocruz04.lib.misc;
 
-/**
+/*
  * Created by Boka2.
  */
 public abstract class JSoapCallback {

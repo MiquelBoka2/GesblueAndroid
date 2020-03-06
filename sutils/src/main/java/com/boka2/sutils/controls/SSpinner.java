@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-/**
+/*
  * A modified Spinner that doesn't automatically select the first entry in the list.
  *
  * Shows the prompt if nothing is selected.
@@ -64,7 +64,7 @@ public class SSpinner extends Spinner {
 
 
 
-    /**
+    /*
      * Intercepts getView() to display the prompt if position < 0
      */
     protected class SpinnerAdapterProxy implements InvocationHandler {

@@ -6,7 +6,7 @@ import android.view.animation.Interpolator;
 
 import com.boka2.sbaseobjects.recycleranimators.BaseItemAnimator;
 
-/**
+/*
  * Created by Boka2.
  */
 

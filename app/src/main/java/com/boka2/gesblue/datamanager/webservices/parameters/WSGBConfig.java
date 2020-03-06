@@ -6,7 +6,7 @@ import com.boka2.sdatamanager.datamanager.parameters.WSRequestParams;
 
 import java.util.ArrayList;
 
-/**
+/*
  * Created by Boka2.
  */
 

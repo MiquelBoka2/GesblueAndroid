@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 import static com.boka2.spushnotifications.db.DataContext.mContext;
 
-/**
+/*
  * Imprimir tiquet
  *
  * Característiques DPP-350C / DPP-350 (Model més bàsic)
@@ -66,7 +66,7 @@ public class TicketPrinter {
         this.printer = printer;
     }
 
-    /**
+    /*
      * Print all ticket.
      *
      * @throws IOException
@@ -443,7 +443,7 @@ public class TicketPrinter {
         return (String.format("%.02f", f) + "€");
     }
 
-    /**
+    /*
      * Obté la data en format DD/MM/YYYY
      *
      * @param calendar
@@ -456,7 +456,7 @@ public class TicketPrinter {
         } else return s.toString();
     }
 
-    /**
+    /*
      * Obté la data en format DD/MM/YYYY
      *
      * @param calendar
@@ -466,7 +466,7 @@ public class TicketPrinter {
         return calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) +  "/" + String.valueOf(calendar.get(Calendar.YEAR)).substring(2, 4);
     }
 
-    /**
+    /*
      * Obté l'hora en format HH:MM
      *
      * @param calendar
@@ -485,7 +485,7 @@ public class TicketPrinter {
         }
     }
 
-    /**
+    /*
      * Imprimeix una filera de cel·les alineades horitzontalment. Estil de cel·les blances.
      * No es respectarà la propietat "y" de la cel·la.
      * -------------
@@ -515,7 +515,7 @@ public class TicketPrinter {
 
     }
 
-    /**
+    /*
      * Imprimeix una filera de cel·les alineades horitzontalment. Estil de cel·les negres.
      * No es respectarà la propietat "y" de la cel·la.
      * -----------------
@@ -567,7 +567,7 @@ public class TicketPrinter {
 
     }
 
-    /**
+    /*
      * Imprimeix la cel·la amb estil. Text del títol sagnat amb fons blanc.
      * -------
      * |title|
@@ -626,7 +626,7 @@ public class TicketPrinter {
         printer.drawPageFrame(x, y, width, height, Printer.FILL_BLACK, 1);
     }
 
-    /**
+    /*
      * Imprimeix la ce·la amb estil. Text del títol sagnat amb fons blang
      * ---------
      * |*title*|
@@ -702,7 +702,7 @@ public class TicketPrinter {
 
         printer.drawPageRectangle(x, y, width, LINE_HEIGHT, Printer.FILL_INVERTED);
     }
-    /**
+    /*
      * Imprimeix cel·la amb estil. Títol amb sagnat. Cel·la gran.
      * ---------
      * |*title*|
@@ -758,7 +758,7 @@ public class TicketPrinter {
 
     }
 
-    /**
+    /*
      * Trnasforma milimetres a píxels. Els milimetres són del tiquet d'exemple, no del tiquet que s'imprimeix.
      *
      * @param milimeters milimetres del tiquet d'exemple
@@ -771,7 +771,7 @@ public class TicketPrinter {
         return decimalFormat.format(_import) + "€";
     }
 
-    /**
+    /*
      * Cel·la. Deifinició de les seves propietats.
      */
     private class Cela {
@@ -781,7 +781,7 @@ public class TicketPrinter {
         private Integer width;
         private Integer height;
 
-        /**
+        /*
          * Defineix la cel·la amb l'altura per defecte. L'amplada serà tan gran com pugui.
          * @param title text superior
          * @param body text inferior
@@ -793,7 +793,7 @@ public class TicketPrinter {
             this.height = LINE_HEIGHT;
         }
 
-        /**
+        /*
          * Dexinfeix la cel·la amb l'altura per defecte.
          *
          * @param title text superior
@@ -807,7 +807,7 @@ public class TicketPrinter {
             this.height = LINE_HEIGHT;
         }
 
-        /**
+        /*
          * Defineix la cel·la amb totes les seves propietats.
          *
          * @param title text superior

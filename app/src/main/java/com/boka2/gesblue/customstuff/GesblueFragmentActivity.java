@@ -19,7 +19,7 @@ import java.util.Locale;
 import static android.view.View.GONE;
 
 
-/**
+/*
  * Created by Boka2.
  */
 public class GesblueFragmentActivity extends SFragmentActivity {

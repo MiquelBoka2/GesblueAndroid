@@ -1,6 +1,6 @@
 package com.boka2.sdatamanager.common;
 
-/**
+/*
  * Created by Boka2.
  */
 public class Constants {

@@ -19,7 +19,7 @@ package com.google.android.cameraview;
 import android.graphics.SurfaceTexture;
 
 
-/**
+/*
  * Stores information about the {@link SurfaceTexture} showing camera preview.
  */
 class SurfaceInfo {

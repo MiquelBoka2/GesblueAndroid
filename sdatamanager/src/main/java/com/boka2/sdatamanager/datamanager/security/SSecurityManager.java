@@ -32,14 +32,14 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-/**
+/*
  * Created by Boka2.
  */
 public class SSecurityManager {
 
 	public static final String LOG_TAG = "SSecurityManager";
 
-	/**
+	/*
 	 * @param _algorithm Una de les constants de TrustManagerFactory
 	 * @param _keystore El keystore que es vol fer servir per inicialitzar el manager
 	 * @return retorna el trustfactory creat i inicialitzat, o null
@@ -61,7 +61,7 @@ public class SSecurityManager {
 		return tmf;
 	}
 
-	/**
+	/*
 	 * @param _tmf TrustManagerFactory per inicialitzar el SSContext
 	 * @param _protocol Protocol (Exemple: "TLS"...)
 	 * @return retorna el SSLContext inicialitzat o null.
@@ -82,7 +82,7 @@ public class SSecurityManager {
 		return context;
 	}
 
-	/**
+	/*
 	 * @param _alias Alias del certificat
 	 * @param _cert Certificat
 	 * @return retorna el keyStore inicialitzat o null.
@@ -159,7 +159,7 @@ public class SSecurityManager {
 		return connection;
 	}
 
-	/**
+	/*
 	 * @param _context Es fa servir per poder accedir als assets i obtenir el certificat
 	 * @param _certificate  nom del certificat
 	 * @param _certificateType  Tipus del certificat (exemple: "X.509")
@@ -251,7 +251,7 @@ public class SSecurityManager {
 		return connection;
 	}
 
-	/**
+	/*
 	 * @param _strUrl Url a la que s'ha de connectar.
 	 * @return retorna una connexió HttpURLConnection inicialitzada o null.
 	 * @throws IOException
@@ -279,7 +279,7 @@ public class SSecurityManager {
 		return in;
 	}
 
-	/**
+	/*
 	 * Trust every server - dont check for any certificate
 	 */
 	public static TrustManager[] getTrustAllCertsManager() {

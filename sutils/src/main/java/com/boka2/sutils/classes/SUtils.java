@@ -14,7 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.TypedValue;
 
-/**
+/*
  * Commonly used methods
  * 
  * @author jaumebech
@@ -23,7 +23,7 @@ import android.util.TypedValue;
 
 public class SUtils {
 
-	/**
+	/*
 	 * Dials a phone number
 	 * @param _context The context the method is being called.
 	 * @param _strTelefon Phone number to dial
@@ -41,7 +41,7 @@ public class SUtils {
 	}
 
 
-	/**
+	/*
 	 * Opens a url on the phone's browser 
 	 * @param _context The context the method is being called.
 	 * @param _strUrl Url to be opened
@@ -61,7 +61,7 @@ public class SUtils {
 		}
 	}
 
-	/**
+	/*
 	 * Opens Google Maps app and shows a direction
 	 * @param _context The context the method is being called.
 	 * @param _strDireccio Adress to show in Google Maps
@@ -79,7 +79,7 @@ public class SUtils {
 
 	}
 
-	/**
+	/*
 	 * Shows a selector of apps installed on the phone who can send an email, an passes the content of the mail to the selected app 
 	 * @param _context The context the method is being called.
 	 * @param _strArrayDestinataris Array of recipients of the mail
@@ -133,7 +133,7 @@ public class SUtils {
 
 	}
 
-	/**
+	/*
 	 * Opens Media player to show video
 	 * @param _context The context the method is being called.
 	 * @param _strVideoUrl Url of the video to play
@@ -146,7 +146,7 @@ public class SUtils {
 		}
 	}
 
-	/**
+	/*
 	 * Converts pixels to dps
 	 * @param _context The context the method is being called.
 	 * @param _numPixels Number of pixels
@@ -156,7 +156,7 @@ public class SUtils {
 		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, _numPixels, _context.getResources().getDisplayMetrics());
 	}
 
-	/**
+	/*
 	 * Converts dps to pixels
 	 * @param _context The context the method is being called.
 	 * @param _numDps Number of dps
@@ -166,7 +166,7 @@ public class SUtils {
 		return (int) ((_numDps * _context.getResources().getDisplayMetrics().density) + 0.5);
 	}
 
-	/**
+	/*
 	 * Shows an alertdialog configured accordingly to the parameters passed. 
 	 * @param _context The context the method is being called.
 	 * @param _strTitle The title of the dialog. Can be ""
@@ -207,7 +207,7 @@ public class SUtils {
 		alertDialog.show();
 	}
 
-	/**
+	/*
 	 * Shows an alertdialog configured accordingly to the parameters passed. 
 	 * @param _context The context the method is being called.
 	 * @param _strTitle The title of the dialog. Can be ""
@@ -252,7 +252,7 @@ public class SUtils {
 		alertDialog.show();
 	}
 
-	/**
+	/*
 	 * Returns the original string formatted in lowercase except the first character
 	 * @param _strValue String to be formatted
 	 * @return String in lower case except the first character
@@ -269,7 +269,7 @@ public class SUtils {
 		return strResultat;
 	}
 
-	/**
+	/*
 	 * Get the MD5 value of a string
 	 * @param _strValue 
 	 * @return MD5 value
@@ -294,7 +294,7 @@ public class SUtils {
 		return _strValue;
 	}
 
-	/**
+	/*
 	 * Encrypts the string using SHA1
 	 * @param _strToHash String to be encrypted 
 	 * @return SHA1 value
@@ -319,7 +319,7 @@ public class SUtils {
 		return hash;
 	}
 
-	/**
+	/*
 	 * Function to get Progress percentage
 	 * 
 	 * @param _current
@@ -340,7 +340,7 @@ public class SUtils {
 		return percentage.intValue();
 	}
 
-	/**
+	/*
 	 * Function to change progress to timer
 	 * 
 	 * @param progress
@@ -356,7 +356,7 @@ public class SUtils {
 		return currentDuration * 1000;
 	}
 
-	/**
+	/*
 	 * Function to get a color using a colorCode
 	 * @param _strColorCode Color code in HEX format
 	 * @return
@@ -379,7 +379,7 @@ public class SUtils {
 		return intColorResultat;
 	}
 
-	/**
+	/*
 	 * Function to get a color using a colorCode, and a default color
 	 * 
 	 * @param _strColorCode Color code in HEX format

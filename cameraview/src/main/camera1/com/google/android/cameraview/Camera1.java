@@ -258,7 +258,7 @@ class Camera1 extends CameraViewImpl {
         }
     }
 
-    /**
+    /*
      * This rewrites {@link #mCameraId} and {@link #mCameraInfo}.
      */
     private void chooseCamera() {
@@ -374,7 +374,7 @@ class Camera1 extends CameraViewImpl {
         }
     }
 
-    /**
+    /*
      * @return {@code true} if {@link #mCameraParameters} was modified.
      */
     private boolean setAutoFocusInternal(boolean autoFocus) {
@@ -396,7 +396,7 @@ class Camera1 extends CameraViewImpl {
         }
     }
 
-    /**
+    /*
      * @return {@code true} if {@link #mCameraParameters} was modified.
      */
     private boolean setFlashInternal(int flash) {

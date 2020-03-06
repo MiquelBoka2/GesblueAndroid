@@ -372,7 +372,7 @@ public class DataManagerSPushNotifications extends SDataManager {
 	}
 	
 	
-	/**
+	/*
 	 * @param params
 	 *            Parametres per la petici�
 	 * @param baseUrl

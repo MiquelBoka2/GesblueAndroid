@@ -11,7 +11,7 @@ import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
-/**
+/*
  * Commonly used methods related to System information.
  * 
  * @author jaumebech
@@ -27,7 +27,7 @@ public class SSystemUtils {
 	public static String DENSITAT_XXXHDPI = "xxxhdpi";
 	public static String DENSITAT_TV = "tv";
 
-	/**
+	/*
 	 * Checks if the app is in debug mode or in release.
 	 * 
 	 * @param _context
@@ -49,7 +49,7 @@ public class SSystemUtils {
 		return debuggable;
 	}
 
-	/**
+	/*
 	 * Gets the Version Code of the app
 	 * 
 	 * @param _context
@@ -71,7 +71,7 @@ public class SSystemUtils {
 		return strResultat;
 	}
 
-	/**
+	/*
 	 * Gets the Version Name of the app
 	 * 
 	 * @param _context
@@ -93,7 +93,7 @@ public class SSystemUtils {
 		return strResultat;
 	}
 
-	/**
+	/*
 	 * Gets the Version Code of the app
 	 * 
 	 * @param _context
@@ -124,7 +124,7 @@ public class SSystemUtils {
 		return strResultat;
 	}
 
-	/**
+	/*
 	 * Gets the screen's density of the device **DEPRECATED** Use
 	 * getDeviceDensityDisplay(Context _context) instead.
 	 * 
@@ -136,7 +136,7 @@ public class SSystemUtils {
 		return getDeviceDensityDisplay((Context) _activity);
 	}
 
-	/**
+	/*
 	 * Gets the screen's density of the device
 	 * 
 	 * @param _context
@@ -168,7 +168,7 @@ public class SSystemUtils {
 		return strResultat;
 	}
 
-	/**
+	/*
 	 * Gets the screen's density of the device **DEPRECATED** Use
 	 * getDeviceDensityDisplay(Context _context) instead.
 	 * 
@@ -180,7 +180,7 @@ public class SSystemUtils {
 		return getDeviceDensityDisplay((Context) _activity);
 	}
 
-	/**
+	/*
 	 * Gets the screen's density of the device
 	 * 
 	 * @param _context
@@ -191,7 +191,7 @@ public class SSystemUtils {
 		return getDeviceDensityDisplay(_context);
 	}
 
-	/**
+	/*
 	 * Gets the screen's density identifier
 	 * 
 	 * @param _activity
@@ -209,7 +209,7 @@ public class SSystemUtils {
 		return metrics.densityDpi;
 	}
 
-	/**
+	/*
 	 * Checks if the current device is a tablet.
 	 * 
 	 * @param _context

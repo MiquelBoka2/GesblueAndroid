@@ -24,7 +24,7 @@ import android.view.Display;
 import android.view.View;
 
 
-/**
+/*
  * Some more addition to {@link androidx.core.view.ViewCompat}.
  */
 class ViewCompat2 {
@@ -32,7 +32,7 @@ class ViewCompat2 {
     private ViewCompat2() {
     }
 
-    /**
+    /*
      * Gets the logical display to which the view's window has been attached.
      *
      * @param view The view.

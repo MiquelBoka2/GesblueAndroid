@@ -3,7 +3,7 @@ package com.boka2.sbaseobjects.recycleranimators.base;
 import androidx.core.view.ViewCompat;
 import android.view.View;
 
-/**
+/*
  * Created by Boka2.
  */
 

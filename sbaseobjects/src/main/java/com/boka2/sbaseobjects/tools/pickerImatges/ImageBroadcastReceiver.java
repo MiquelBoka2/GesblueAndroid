@@ -11,7 +11,7 @@ import com.boka2.sbaseobjects.tools.ImageTools;
 import java.io.File;
 import java.util.ArrayList;
 
-/**
+/*
  * Created by Boka2.
  */
 

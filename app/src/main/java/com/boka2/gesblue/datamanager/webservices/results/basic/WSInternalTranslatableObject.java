@@ -2,7 +2,7 @@ package com.boka2.gesblue.datamanager.webservices.results.basic;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
+/*
  * Created by Boka2.
  */
 

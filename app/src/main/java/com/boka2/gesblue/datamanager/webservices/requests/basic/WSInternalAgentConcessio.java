@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.boka2.gesblue.global.PreferencesGesblue;
 
-/**
+/*
  * Created by Boka2.
  */
 

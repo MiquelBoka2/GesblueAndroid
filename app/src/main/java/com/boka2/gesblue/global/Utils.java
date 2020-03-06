@@ -47,7 +47,7 @@ import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiInstitucio;
 import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiTipusButlleta;
 import static com.boka2.sbaseobjects.tools.ImageTools.getFileAfterResize;
 
-/**
+/*
  * Created by Boka2.
  */
 
@@ -566,7 +566,7 @@ public class Utils {
             return file.toString();
 
 
-            /**try {
+            /*try {
                 os = new FileOutputStream(file);
                 os.write(data);
                 os.close();

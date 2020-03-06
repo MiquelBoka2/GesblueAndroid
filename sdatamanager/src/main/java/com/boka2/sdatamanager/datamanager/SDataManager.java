@@ -68,7 +68,7 @@ public class SDataManager {
 		commonParams = new ArrayList<SNameValuePair>();
 	}
 
-	/**
+	/*
 	 * @param params Llista de SNameValuePair que es volen concatenar
 	 * @return retorna un string en UTF-8 amb la llista de SNameValuePair que s'hagi passat.
 	 * @throws UnsupportedEncodingException
@@ -113,7 +113,7 @@ public class SDataManager {
 		return null;
 	}
 
-	/**
+	/*
 	 * @param _params
 	 *		Parametres per la petici� POST
 	 * @param _urlPath
@@ -374,7 +374,7 @@ public class SDataManager {
 		return arrayToReturn;
 	}
 
-	/**
+	/*
 	 * @param params
 	 * 		Parametres per la petici� POST
 	 * @param method
@@ -385,7 +385,7 @@ public class SDataManager {
 		return getJSON(params, null, method);
 	}
 
-	/**
+	/*
 	 * @param params
 	 * 		Parametres per la petici� POST
 	 * @param method
@@ -396,7 +396,7 @@ public class SDataManager {
 		return getJSON(params, urlPath, method);
 	}
 
-	/**
+	/*
 	 * @param params
 	 * 		Parametres per la petici�
 	 * @param urlPath

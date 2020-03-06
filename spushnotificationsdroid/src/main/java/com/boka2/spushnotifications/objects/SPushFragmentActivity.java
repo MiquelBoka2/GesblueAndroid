@@ -23,7 +23,7 @@ public class SPushFragmentActivity extends SFragmentActivity {
 
 	protected static final String TAG = "spush";
 
-	/** Called when the activity is first created. */
+	/* Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

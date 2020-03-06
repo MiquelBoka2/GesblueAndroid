@@ -137,7 +137,7 @@ public abstract class GCMIntentServiceBase extends GCMBaseIntentService {
 		//Log.d("onUnregistered", _regId);
 	}
 
-	/**
+	/*
 	 * Gets the sender ids.
 	 *
 	 *
@@ -314,7 +314,7 @@ public abstract class GCMIntentServiceBase extends GCMBaseIntentService {
 
 	}
 
-	/**
+	/*
 	 * Cridat quan es rep un SDID.
 	 *
 	 * @param c
@@ -375,7 +375,7 @@ public abstract class GCMIntentServiceBase extends GCMBaseIntentService {
 		return PreferencesSPush.getSDID(_context);
 	}
 
-	/**
+	/*
 	 * S'ha de cridar des de l'activitat que registra les push notifications al server.
 	 *
 	 * @param _context
@@ -404,7 +404,7 @@ public abstract class GCMIntentServiceBase extends GCMBaseIntentService {
 		registerAppForPushNotifications(_context, _strAppTokenId, _strSenderId, _strUrlPushRegister, _receiverClass, _username_auto, "", null);
 	}
 
-	/**
+	/*
 	 * S'ha de cridar des de l'activitat que registra les push notifications al server.
 	 *
 	 * @param _context

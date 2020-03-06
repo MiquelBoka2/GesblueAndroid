@@ -5,7 +5,7 @@ import com.boka2.sdatamanager.datamanager.results.BasicWSResult;
 
 import java.util.List;
 
-/**
+/*
  * Created by Boka2.
  */
 

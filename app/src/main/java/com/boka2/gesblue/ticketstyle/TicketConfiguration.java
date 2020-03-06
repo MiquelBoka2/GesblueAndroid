@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
+/*
  *
  *
  * Created by Boka2.

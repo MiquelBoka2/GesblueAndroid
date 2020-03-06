@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 
 import com.boka2.sbaseobjects.views.STextView;
 
-/**
+/*
  * Created by Boka2.
  */
 public class SGBTextView extends STextView {

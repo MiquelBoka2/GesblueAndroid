@@ -6,7 +6,7 @@ import com.boka2.sbaseobjects.tools.Preferences;
 
 import java.text.ParseException;
 
-/**
+/*
  * Created by Boka2.
  */
 public class PreferencesGesblue extends Preferences {

@@ -18,7 +18,7 @@ import android.view.animation.Animation;
 import com.transitionseverywhere.Transition;
 import com.transitionseverywhere.TransitionManager;
 
-/**
+/*
  * Created by Boka2.
  */
 public class SFragment extends Fragment {
@@ -118,7 +118,7 @@ public class SFragment extends Fragment {
         }
     }
 
-    /**
+    /*
      * Indica que si mostrarà o no la propera animació de entrada o sortida.
      * Per defecte sempre serà true.
      *
@@ -174,14 +174,14 @@ public class SFragment extends Fragment {
         return pixelsToSp(getResources().getDimension(dimen));
     }
 
-    /**
+    /*
      * Inicia una transició automàtica amb una duració de 100ms
      */
     protected void anima() {
         anima(getView());
     }
 
-    /**
+    /*
      * Inicia una transició automàtica amb la duració indicada
      * @param duration Duració de la animació
      */

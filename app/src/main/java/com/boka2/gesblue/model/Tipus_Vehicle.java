@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import pt.joaocruz04.lib.annotations.JSoapResField;
 
-/**
+/*
  * Created by Boka2.
  */
 

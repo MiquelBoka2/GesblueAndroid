@@ -30,12 +30,22 @@ public class Idiomes extends AppCompatActivity {
     boolean click=false;
     Context iContext=this;
     String locale,localeAntic;
+    Boolean adm;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_idiomes);
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+
+            adm=extras.getBoolean("adm");
+
+
+        }
 
         lay_Cat=(ConstraintLayout) findViewById(R.id.lay_idioma_Cat);
         lay_Esp=(ConstraintLayout) findViewById(R.id.lay_idioma_Esp);
@@ -235,7 +245,9 @@ public class Idiomes extends AppCompatActivity {
     public void Reiniciar() {
 
         Intent refresh = new Intent(this, LoginActivity.class);
-        finish();
+        refresh.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        refresh.putExtra("adm",adm);
+        finishActivity(1);
         startActivity(refresh);
     }
 

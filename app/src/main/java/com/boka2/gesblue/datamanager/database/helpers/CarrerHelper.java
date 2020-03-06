@@ -8,7 +8,7 @@ import com.boka2.gesblue.datamanager.database.model.Model_Carrer;
 import com.boka2.gesblue.datamanager.database.results.BasicDBResult;
 import com.boka2.gesblue.global.PreferencesGesblue;
 
-/**
+/*
  * Created by Boka2.
  */
 

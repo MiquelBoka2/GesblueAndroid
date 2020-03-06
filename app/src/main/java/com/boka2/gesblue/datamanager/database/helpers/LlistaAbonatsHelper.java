@@ -6,7 +6,7 @@ import com.boka2.gesblue.datamanager.database.executors.OperationExecutorHelper;
 import com.boka2.gesblue.datamanager.database.model.Model_LlistaAbonats;
 import com.boka2.gesblue.datamanager.database.results.BasicDBResult;
 
-/**
+/*
  * Created by Boka2.
  */
 

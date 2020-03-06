@@ -57,7 +57,7 @@ public abstract class SModPushNotificationsListBaseFragment extends Fragment {
 	BaseAdapter adapterLlistat;
 	public ArrayList<SModPushNotification> arrayNotificacions;
 
-	/**
+	/*
 	 * Torna la ID del layout del fragment
 	 *
 	 * Ha de tenir com a minim:
@@ -89,7 +89,7 @@ public abstract class SModPushNotificationsListBaseFragment extends Fragment {
 		return (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
 	}
 
-	/**
+	/*
 	 * Es crida quan s'estan descarregant les dades.
 	 * Cal amagar les vistes que toquin i mostrar el pbLoading i viewLoading.
 	 *
@@ -100,7 +100,7 @@ public abstract class SModPushNotificationsListBaseFragment extends Fragment {
 		return false;
 	}
 
-	/**
+	/*
 	 * Es crida quan s'han descarregat les dades.
 	 * Cal mostrar les vistes que toquin i amagar el pbLoading i viewLoading.
 	 *
@@ -111,7 +111,7 @@ public abstract class SModPushNotificationsListBaseFragment extends Fragment {
 		return false;
 	}
 
-	/**
+	/*
 	 * Es crida quan s'han descarregat les dades i no hi ha resultats.
 	 * Cal mostrar les vistes que toquin i amagar el pbLoading i viewLoading.
 	 *
@@ -122,7 +122,7 @@ public abstract class SModPushNotificationsListBaseFragment extends Fragment {
 		return false;
 	}
 
-	/**
+	/*
 	 * Crea i torna un adapter amb les notificacions.
 	 *
 	 * @param _arrayNotificacions L'array amb les notificacions
@@ -132,7 +132,7 @@ public abstract class SModPushNotificationsListBaseFragment extends Fragment {
 		return getDefaultAdapter(_arrayNotificacions);
 	}
 
-	/**
+	/*
 	 * Tracta (o no) l'event del on click a una notificació.
 	 *
 	 * @param notif La notificació que s'ha clickat.
@@ -140,7 +140,7 @@ public abstract class SModPushNotificationsListBaseFragment extends Fragment {
 	 */
 	protected abstract boolean clickNotificacio(SModPushNotification notif);
 
-	/**
+	/*
 	 * Agafa els colors del loading del SwipeRefresh.
 	 * Es pot tornar defaultSwipeColors per el comportament per defecte
 	 *
@@ -185,7 +185,7 @@ public abstract class SModPushNotificationsListBaseFragment extends Fragment {
 		return view;
 	}
 
-	/**
+	/*
 	 * Inicialitza i configura els controls.
 	 * Si es fa override, sempre cridar primer a super() per tenir tots els objectes carregats
 	 */

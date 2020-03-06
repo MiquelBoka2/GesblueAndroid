@@ -75,9 +75,10 @@ public class Opcions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         DenunciaEnCurs=false;
+        EnviamentDisponible=true;
         setContentView(R.layout.activity_opcions);
 
-        /**DECLAREM LES PARTS**/{
+        /*DECLAREM LES PARTS**/{
 
             Base = (ConstraintLayout) findViewById(R.id.lay_Base);
 
@@ -109,7 +110,7 @@ public class Opcions extends AppCompatActivity {
             Admin.setVisibility(View.GONE);
         }
 
-        /**TEXT DE LA VERSIO*/{
+        /*TEXT DE LA VERSIO*/{
             String menuTitle = "";
             try {
                 PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -121,7 +122,7 @@ public class Opcions extends AppCompatActivity {
         }
 
 
-        /**RECUPAREM DADES D'ON PROVENIM**/{
+        /*RECUPAREM DADES D'ON PROVENIM**/{
             Bundle extras = getIntent().getExtras();
 
             if (extras != null) {
@@ -145,7 +146,7 @@ public class Opcions extends AppCompatActivity {
 
 
 
-        /**ESTATS DE PROCEDENCIA**/{
+        /*ESTATS DE PROCEDENCIA**/{
             if(estat.equals("main")){
 
                 Canviar_Concessio.setVisibility(View.GONE);
@@ -211,7 +212,7 @@ public class Opcions extends AppCompatActivity {
         }
 
 
-        /**LISTENERS**/{
+        /*LISTENERS**/{
             Desconectat.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -309,7 +310,7 @@ public class Opcions extends AppCompatActivity {
 
                                 } else {
                                     //aguanta el main fins que s'ha enviat la anterior
-                                    while (EnviamentDisponible == false) {
+                                    while (!EnviamentDisponible) {
 
 
                                     }
@@ -402,7 +403,7 @@ public class Opcions extends AppCompatActivity {
 
 
     }
-    /** Actualitza el UI en funcio de ADMIN**/
+    /* Actualitza el UI en funcio de ADMIN**/
     private void checkAdmin(Boolean adm) {
 
         if (adm){
@@ -420,13 +421,15 @@ public class Opcions extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         checkAdmin(adm);
-        ContadorDenuncies(true);
+
+
+
 
 
 
 
     }
-    /**EL RETORN**/
+    /*EL RETORN**/
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -450,12 +453,16 @@ public class Opcions extends AppCompatActivity {
                 }
             }
         }
-        ContadorDenuncies(true);
+
+        checkAdmin(adm);
+
+
+
     }
 
 
 
-    /**FUNCIONAMENT DEL LA FUNCIO ENVIAR DENUNCIES PENDENTS**/
+    /*FUNCIONAMENT DEL LA FUNCIO ENVIAR DENUNCIES PENDENTS**/
 
         private void enviaDenunciaConcreta ( final Model_Denuncia denuncia){
 
@@ -643,7 +650,7 @@ public class Opcions extends AppCompatActivity {
 
 
 
-    /**RECUPERA LES DENUNCIES PENDENTS**/
+    /*RECUPERA LES DENUNCIES PENDENTS**/
     private void ContadorDenuncies(boolean recarregardades) {
 
         //Consegueix les denuncies i adpta l'interfaz a les dades

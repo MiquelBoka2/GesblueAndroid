@@ -1,6 +1,6 @@
 package com.boka2.sbaseobjects.tools;
 
-/**
+/*
  * Created by Boka2.
  */
 
@@ -13,18 +13,18 @@ import android.text.Spannable;
 import android.text.TextPaint;
 import android.text.style.MetricAffectingSpan;
 
-/**
+/*
  * Style a {@link Spannable} with a custom {@link Typeface}.
  *
  * @author Tristan Waddington
  */
 public class TypefaceSpan extends MetricAffectingSpan {
-	/** An <code>LruCache</code> for previously loaded typefaces. */
+	/* An <code>LruCache</code> for previously loaded typefaces. */
 	private static LruCache<String, Typeface> sTypefaceCache = new LruCache<>(12);
 
 	private Typeface mTypeface;
 
-	/**
+	/*
 	 * Load the {@link Typeface} and apply to a {@link Spannable}.
 	 */
 	public TypefaceSpan(Context context, String typefaceName) {

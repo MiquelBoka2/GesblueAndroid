@@ -38,7 +38,7 @@ import pt.joaocruz04.lib.misc.JSoapCallback;
 import pt.joaocruz04.lib.misc.JsoapError;
 import pt.joaocruz04.lib.misc.SoapDeserializer;
 
-/**
+/*
  * Created by Boka2.
  */
 public class SOAPManager {

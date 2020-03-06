@@ -11,7 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-/**
+/*
  * Created by Boka2.
  */
 public abstract class DataUtils {
@@ -130,7 +130,7 @@ public abstract class DataUtils {
 		fromDate();
 	}
 
-	/**
+	/*
 	 * Assigna una data amb dia, mes i any
 	 * @param day      El dia
 	 * @param month    El mes, 0-11
@@ -146,7 +146,7 @@ public abstract class DataUtils {
 		return calendar.get(Calendar.DAY_OF_MONTH);
 	}
 
-	/**
+	/*
 	 * El mes es 0 index! 0-11
 	 * @return
 	 */

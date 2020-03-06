@@ -4,7 +4,7 @@ import androidx.core.view.ViewPropertyAnimatorListener;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
-/**
+/*
  * Created by Boka2.
  */
 

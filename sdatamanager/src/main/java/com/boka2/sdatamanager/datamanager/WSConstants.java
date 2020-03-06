@@ -1,6 +1,6 @@
 package com.boka2.sdatamanager.datamanager;
 
-/**
+/*
  * Created by Boka2.
  */
 public class WSConstants {
