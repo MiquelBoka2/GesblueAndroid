@@ -112,10 +112,7 @@ public class Login_Admin extends AppCompatActivity {
                     finish();
                 }
                 else{
-
                     tbox_DadesIncorrectes.setVisibility(View.VISIBLE);
-
-
 
 
                 }

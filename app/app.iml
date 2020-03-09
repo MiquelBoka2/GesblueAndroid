@@ -215,11 +215,5 @@
     <orderEntry type="module" module-name="sutils" />
     <orderEntry type="module" module-name="Jsoapp" />
     <orderEntry type="module" module-name="cameraview" />
-    <orderEntry type="module" module-name="sdatamanager" />
-    <orderEntry type="module" module-name="sbaseobjects" />
-    <orderEntry type="module" module-name="spushnotificationsdroid" />
-    <orderEntry type="module" module-name="sutils" />
-    <orderEntry type="module" module-name="Jsoapp" />
-    <orderEntry type="module" module-name="cameraview" />
   </component>
 </module>
