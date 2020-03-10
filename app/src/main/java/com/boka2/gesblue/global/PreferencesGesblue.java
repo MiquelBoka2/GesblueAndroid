@@ -1,10 +1,15 @@
 package com.boka2.gesblue.global;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 
 import com.boka2.sbaseobjects.tools.Preferences;
 
+import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /*
  * Created by Boka2.
@@ -97,7 +102,13 @@ public class PreferencesGesblue extends Preferences {
 	private static final String ESTAT_COMPROVACIO = "estatComprovacio";
 
 
+
+
+
+
 	public static void saveEstatComprovacio(Context _context, int i) {
+
+
 		put(_context, ESTAT_COMPROVACIO, i);
 	}
 

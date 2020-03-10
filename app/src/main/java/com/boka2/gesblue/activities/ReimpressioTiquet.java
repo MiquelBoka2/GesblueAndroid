@@ -202,25 +202,6 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     private void loadAll() {
@@ -390,88 +371,173 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
 
         /* IMG***/
+        if(denuncia.getTipusanulacio()==0.0 || denuncia.getTipusanulacio()==-1.0){
+            File f = new File("storage/emulated/0/Boka2/upload");
+            if (f.exists() && f.isDirectory()) {
+                final Pattern p = Pattern.compile(".*-" + numDenuncia + "1.jpg"); // I know I really have a stupid mistake on the regex;
 
-        File f = new File("storage/emulated/0/Boka2/upload/done");
-        if (f.exists() && f.isDirectory()){
-            final Pattern p = Pattern.compile(".*-"+numDenuncia+"1.jpg"); // I know I really have a stupid mistake on the regex;
+                File[] flists = f.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        Log.e("Matched?:", "-" + file);
+                        return p.matcher(file.getName()).matches();
+                    }
+                });
+                if (flists.length > 0) {
+                    File f1 = flists[0];
 
-            File[] flists = f.listFiles(new FileFilter(){
-                @Override
-                public boolean accept(File file) {
-                    Log.e("Matched?:","-"+file);
-                     return p.matcher(file.getName()).matches();
+                    Log.e("Ruta foto1:", f1.getName());
+
+                    pinta("storage/emulated/0/Boka2/upload/" + f1.getName(), img_Foto1);
+                    img1IsActive = true;
+                    foto1 = "storage/emulated/0/Boka2/upload/" + f1.getName();
                 }
-            });
-            if(flists.length>0){
-                File f1 = flists[0];
 
-                Log.e("Ruta foto1:",f1.getName());
+                final Pattern p2 = Pattern.compile(".*-" + numDenuncia + "2.jpg"); // I know I really have a stupid mistake on the regex;
 
-                pinta("storage/emulated/0/Boka2/upload/done/"+f1.getName(),img_Foto1);
-                img1IsActive = true;
-                foto1 = "storage/emulated/0/Boka2/upload/done/"+f1.getName();
-            }
+                File[] flists2 = f.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return p2.matcher(file.getName()).matches();
+                    }
+                });
+                if (flists2.length > 0) {
+                    File f2 = flists2[0];
 
-            final Pattern p2 = Pattern.compile(".*-"+numDenuncia+"2.jpg"); // I know I really have a stupid mistake on the regex;
+                    Log.e("Ruta foto2:", f2.getName());
 
-            File[] flists2 = f.listFiles(new FileFilter(){
-                @Override
-                public boolean accept(File file) {
-                    return p2.matcher(file.getName()).matches();
+
+                    pinta("storage/emulated/0/Boka2/upload/" + f2.getName(), img_Foto2);
+                    img2IsActive = true;
+                    foto2 = "storage/emulated/0/Boka2/upload/" + f2.getName();
                 }
-            });
-            if(flists2.length>0){
-                File f2 = flists2[0];
-
-                Log.e("Ruta foto2:",f2.getName());
 
 
-                pinta("storage/emulated/0/Boka2/upload/done/"+f2.getName(), img_Foto2);
-                img2IsActive = true;
-                foto2 = "storage/emulated/0/Boka2/upload/done/"+f2.getName();
-            }
+                final Pattern p3 = Pattern.compile(".*-" + numDenuncia + "3.jpg"); // I know I really have a stupid mistake on the regex;
+
+                File[] flists3 = f.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return p3.matcher(file.getName()).matches();
+                    }
+                });
+                if (flists3.length > 0) {
+                    File f3 = flists3[0];
 
 
-            final Pattern p3 = Pattern.compile(".*-"+numDenuncia+"3.jpg"); // I know I really have a stupid mistake on the regex;
+                    Log.e("Ruta foto3:", f3.getName());
 
-            File[] flists3 = f.listFiles(new FileFilter(){
-                @Override
-                public boolean accept(File file) {
-                    return p3.matcher(file.getName()).matches();
+
+                    pinta("storage/emulated/0/Boka2/upload/" + f3.getName(), img_Foto3);
+                    img3IsActive = true;
+                    foto3 = "storage/emulated/0/Boka2/upload/" + f3.getName();
                 }
-            });
-            if(flists3.length>0){
-                File f3 = flists3[0];
+
+                final Pattern p4 = Pattern.compile(".*-" + numDenuncia + "4.jpg"); // I know I really have a stupid mistake on the regex;
+
+                File[] flists4 = f.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return p4.matcher(file.getName()).matches();
+                    }
+                });
+                if (flists4.length > 0) {
+                    File f4 = flists3[0];
 
 
-                Log.e("Ruta foto3:",f3.getName());
+                    Log.e("Ruta foto4:", f4.getName());
 
 
-                pinta("storage/emulated/0/Boka2/upload/done/"+f3.getName(), img_Foto3);
-                img3IsActive = true;
-                foto3 = "storage/emulated/0/Boka2/upload/done/"+f3.getName();
-            }
-
-            final Pattern p4 = Pattern.compile(".*-"+numDenuncia+"4.jpg"); // I know I really have a stupid mistake on the regex;
-
-            File[] flists4 = f.listFiles(new FileFilter(){
-                @Override
-                public boolean accept(File file) {
-                    return p4.matcher(file.getName()).matches();
+                    pinta("storage/emulated/0/Boka2/upload/" + f4.getName(), img_Foto4);
+                    img4IsActive = true;
+                    foto4 = "storage/emulated/0/Boka2/upload/" + f4.getName();
                 }
-            });
-            if(flists4.length>0){
-                File f4 = flists3[0];
 
-
-                Log.e("Ruta foto4:",f4.getName());
-
-
-                pinta("storage/emulated/0/Boka2/upload/done/"+f4.getName(), img_Foto4);
-                img4IsActive = true;
-                foto4 = "storage/emulated/0/Boka2/upload/done/"+f4.getName();
             }
+        }
+        if(denuncia.getTipusanulacio()==1.0 || (denuncia.getTipusanulacio()==0.0&foto1.isEmpty())) {
+            File f = new File("storage/emulated/0/Boka2/upload/done");
+            if (f.exists() && f.isDirectory()) {
+                final Pattern p = Pattern.compile(".*-" + numDenuncia + "1.jpg"); // I know I really have a stupid mistake on the regex;
 
+                File[] flists = f.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        Log.e("Matched?:", "-" + file);
+                        return p.matcher(file.getName()).matches();
+                    }
+                });
+                if (flists.length > 0) {
+                    File f1 = flists[0];
+
+                    Log.e("Ruta foto1:", f1.getName());
+
+                    pinta("storage/emulated/0/Boka2/upload/done/" + f1.getName(), img_Foto1);
+                    img1IsActive = true;
+                    foto1 = "storage/emulated/0/Boka2/upload/done/" + f1.getName();
+                }
+
+                final Pattern p2 = Pattern.compile(".*-" + numDenuncia + "2.jpg"); // I know I really have a stupid mistake on the regex;
+
+                File[] flists2 = f.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return p2.matcher(file.getName()).matches();
+                    }
+                });
+                if (flists2.length > 0) {
+                    File f2 = flists2[0];
+
+                    Log.e("Ruta foto2:", f2.getName());
+
+
+                    pinta("storage/emulated/0/Boka2/upload/done/" + f2.getName(), img_Foto2);
+                    img2IsActive = true;
+                    foto2 = "storage/emulated/0/Boka2/upload/done/" + f2.getName();
+                }
+
+
+                final Pattern p3 = Pattern.compile(".*-" + numDenuncia + "3.jpg"); // I know I really have a stupid mistake on the regex;
+
+                File[] flists3 = f.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return p3.matcher(file.getName()).matches();
+                    }
+                });
+                if (flists3.length > 0) {
+                    File f3 = flists3[0];
+
+
+                    Log.e("Ruta foto3:", f3.getName());
+
+
+                    pinta("storage/emulated/0/Boka2/upload/done/" + f3.getName(), img_Foto3);
+                    img3IsActive = true;
+                    foto3 = "storage/emulated/0/Boka2/upload/done/" + f3.getName();
+                }
+
+                final Pattern p4 = Pattern.compile(".*-" + numDenuncia + "4.jpg"); // I know I really have a stupid mistake on the regex;
+
+                File[] flists4 = f.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return p4.matcher(file.getName()).matches();
+                    }
+                });
+                if (flists4.length > 0) {
+                    File f4 = flists3[0];
+
+
+                    Log.e("Ruta foto4:", f4.getName());
+
+
+                    pinta("storage/emulated/0/Boka2/upload/done/" + f4.getName(), img_Foto4);
+                    img4IsActive = true;
+                    foto4 = "storage/emulated/0/Boka2/upload/done/" + f4.getName();
+                }
+
+            }
         }
 
 

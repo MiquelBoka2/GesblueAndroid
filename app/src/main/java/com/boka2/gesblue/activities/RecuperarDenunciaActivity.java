@@ -18,6 +18,7 @@ import com.boka2.gesblue.Sancio;
 import com.boka2.gesblue.adapters.DenunciaAdapter;
 import com.boka2.gesblue.datamanager.DatabaseAPI;
 import com.boka2.gesblue.datamanager.database.listeners.CustomButtonListener;
+import com.boka2.gesblue.datamanager.database.model.Model_Agent;
 import com.boka2.gesblue.datamanager.database.model.Model_Carrer;
 import com.boka2.gesblue.datamanager.database.model.Model_Color;
 import com.boka2.gesblue.datamanager.database.model.Model_Denuncia;
@@ -93,34 +94,35 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         denuncies_Personals = DatabaseAPI.getDenuncies(mContext);
         denuncies_Personals.clear();
 
-        if(!adm){
+        if(!adm){/*NORMAL: TOTES LES SEVES DE LA CONCESSIO*/
             for(int i=0;i<denunciesTemp.size();i++){
                 String Agentid= PreferencesGesblue.getAgentId(mContext);
                 Long IDAgent= PreferencesGesblue.getIdAgent(mContext);
                 Long CodiAgent= PreferencesGesblue.getCodiAgent(mContext);
                 double agent_Denuncia=denunciesTemp.get(i).getAgent();
-                if(denunciesTemp.get(i).getAgent()== PreferencesGesblue.getIdAgent(mContext)){
+                if(denunciesTemp.get(i).getAgent()== PreferencesGesblue.getIdAgent(mContext) && denunciesTemp.get(i).getConcessio()==PreferencesGesblue.getConcessio(mContext)){
+                    denuncies_Personals.add(denunciesTemp.get(i));
+                }
+            }
+        }
+        else{/*ADMIN: TOTES LA DE LA CONCESSIO*/
+            for(int i=0;i<denunciesTemp.size();i++){
+                String Agentid= PreferencesGesblue.getAgentId(mContext);
+                Long IDAgent= PreferencesGesblue.getIdAgent(mContext);
+                Long CodiAgent= PreferencesGesblue.getCodiAgent(mContext);
+                double agent_Denuncia=denunciesTemp.get(i).getAgent();
+                if(denunciesTemp.get(i).getConcessio()==PreferencesGesblue.getConcessio(mContext)){
                     denuncies_Personals.add(denunciesTemp.get(i));
                 }
             }
         }
 
-        if (!adm) {
+        Collections.reverse(denuncies_Personals);
 
-            Collections.reverse(denuncies_Personals);
-
-            denuncies = denuncies_Personals.subList(0,Math.min(denuncies_Personals.size(),50));
+        denuncies = denuncies_Personals.subList(0,Math.min(denuncies_Personals.size(),50));
 
 
-        }
-        else{
 
-            Collections.reverse(denunciesTemp);
-
-            denuncies = denunciesTemp.subList(0,Math.min(denunciesTemp.size(),50));
-
-
-        }
 
         //Comprovem si tenim denuncies i en cas negatiu, mostrem un missatge informatiu.
         if ( denuncies.isEmpty() || denuncies.size()<=0){

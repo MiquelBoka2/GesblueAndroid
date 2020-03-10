@@ -12,6 +12,8 @@ import android.content.Intent;
 
 import androidx.databinding.DataBindingUtil;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -84,11 +86,15 @@ import com.boka2.gesblue.global.PreferencesGesblue;
 import com.boka2.gesblue.global.Utils;
 import com.boka2.gesblue.model.Models;
 import com.boka2.gesblue.model.Tipus_Vehicle;
+import com.squareup.picasso.Picasso;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.net.util.Base64;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -146,6 +152,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 	private boolean antirepetidor=true;
+	private boolean antirepetidorDADES=true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -294,6 +301,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 						Utils.showFaltenDadesError(mContext);
 					} else {
 						enableEditTexts(false);
+						antirepetidorDADES=true;
 
 						if (isNoLoginConcessio) {
 							cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
@@ -576,7 +584,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 						(long) denuncia.getInfraccio(),                   //-- MATRICULA
 						(long) denuncia.getEstatcomprovacio(),             //-- HORA ACTUAL
 						"",                //-- IMPORT
-						PreferencesGesblue.getConcessio(mContext),              //-- CONCESSIO
+						(long)denuncia.getConcessio(),              //-- CONCESSIO
 						Long.parseLong(PreferencesGesblue.getTerminal(mContext)),//-- TERMINAL ID
 						Utils.getAndroidVersion(),                              //-- SO VERSION
 						Utils.getAppVersion(mContext));                         //-- APP VERSION
@@ -949,6 +957,10 @@ public class LoginActivity extends GesblueFragmentActivity {
 		PreferencesGesblue.savePrefCodiExportadora(mContext, nt.hasCodiExportadora());
 		PreferencesGesblue.savePrefCodiTipusButlleta(mContext, nt.hasCodiTipusButlleta());
 		PreferencesGesblue.savPrefCodiInstitucio(mContext, nt.hasCodiInstitucio());
+
+
+
+
 	}
 	private void cridaLogin(final String username, final String password, final long concessio, @Nullable final String _data) {
 		//Log.e("Login -0",concessio+"------");
@@ -1119,29 +1131,35 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 	}
 	private void sincronitzarTot(LoginResponse loginResponse, long concessio, String _data) {
-		DatabaseAPI.deleteAllAgents(mContext);
-		DatabaseAPI.deleteAllMarques(mContext);
-		DatabaseAPI.deleteAllModels(mContext);
-		DatabaseAPI.deleteAllTipusVehicles(mContext);
-		DatabaseAPI.deleteAllTipusAnulacions(mContext);
-		DatabaseAPI.deleteAllCarrers(mContext);
-		DatabaseAPI.deleteAllInfraccions(mContext);
-		DatabaseAPI.deleteAllZones(mContext);
-		DatabaseAPI.deleteAllLlistaBlanca(mContext);
-		sincronitzarAgents(loginResponse, concessio, _data);
+		if(antirepetidorDADES) {
+			antirepetidorDADES=false;
+			DatabaseAPI.deleteAllAgents(mContext);
+			DatabaseAPI.deleteAllMarques(mContext);
+			DatabaseAPI.deleteAllModels(mContext);
+			DatabaseAPI.deleteAllTipusVehicles(mContext);
+			DatabaseAPI.deleteAllTipusAnulacions(mContext);
+			DatabaseAPI.deleteAllCarrers(mContext);
+			DatabaseAPI.deleteAllInfraccions(mContext);
+			DatabaseAPI.deleteAllZones(mContext);
+			DatabaseAPI.deleteAllLlistaBlanca(mContext);
 
-		if(isRunning()) {
+			sincronitzarAgents(loginResponse, concessio, _data);
 
-			try {
-				progress.show();
+			if(isRunning()) {
 
-			} catch (Exception bte) {
+				try {
+					progress.show();
 
-				ELog(bte);
-				//Tenir un progress d'aquesta manera és molt mala idea i només dona problemes
-				//TODO: Tenir *UN* progress per a cada funció, si és que el progress de veritat cal
+				} catch (Exception bte) {
+
+					ELog(bte);
+					//Tenir un progress d'aquesta manera és molt mala idea i només dona problemes
+					//TODO: Tenir *UN* progress per a cada funció, si és que el progress de veritat cal
+				}
 			}
 		}
+
+
 	}
 	private void sincronitzarAgents(final LoginResponse loginResponse, final long concessio, final String _data)
 	{

@@ -78,6 +78,7 @@
             android:id="@+id/txt_Localitzacio_Estat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:background="@color/barra_estat"
             android:fontFamily="@font/roboto"
             android:textAlignment="center"
@@ -91,18 +92,19 @@
 
         <ImageView
             android:id="@+id/img_unlock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="28dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:foregroundGravity="center"
+            android:maxHeight="28dp"
             android:textAlignment="center"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/ic_opciones"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/ic_opciones"
             app:layout_constraintTop_toBottomOf="@+id/toolbarContainer"
-            app:srcCompat="@drawable/ic_unlock"
-            tools:visibility="gone" />
+            app:srcCompat="@drawable/ic_unlock" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -83,7 +83,10 @@ public class Model_Denuncia implements Parcelable {
 	@DatabaseField(columnName = "estatcomprovacio", columnDefinition = "BIGINT")
 	private double estatcomprovacio;
 
-	public Model_Denuncia(long codidenunciaauto, String codidenuncia, Date fechacreacio, double agent, double adrecacarrer, double adrecanum, String posicio, String matricula, double tipusvehicle, long marca, double model, double color, double infraccio, double terminal, String foto1, String foto2, String foto3, String foto4, Date fechaanulacio, double agentanulacio, double tipusanulacio, double zona,double estatcomprovacio) {
+	@DatabaseField(columnName = "concessio", columnDefinition = "BIGINT")
+	private double concessio;
+
+	public Model_Denuncia(long codidenunciaauto, String codidenuncia, Date fechacreacio, double agent, double adrecacarrer, double adrecanum, String posicio, String matricula, double tipusvehicle, long marca, double model, double color, double infraccio, double terminal, String foto1, String foto2, String foto3, String foto4, Date fechaanulacio, double agentanulacio, double tipusanulacio, double zona,double estatcomprovacio,double concessio) {
 		this.codidenunciaauto = codidenunciaauto;
 		this.codidenuncia = codidenuncia;
 		this.fechacreacio = fechacreacio;
@@ -107,6 +110,7 @@ public class Model_Denuncia implements Parcelable {
 		this.tipusanulacio = tipusanulacio;
 		this.zona = zona;
 		this.estatcomprovacio = estatcomprovacio;
+		this.concessio=concessio;
 	}
 
 
@@ -134,6 +138,7 @@ public class Model_Denuncia implements Parcelable {
 		this.tipusanulacio = -1;
 		this.zona = -1;
 		this.estatcomprovacio = 0;
+		this.concessio=0;
 	}
 
 	public long getCodidenunciaauto() {
@@ -322,6 +327,14 @@ public class Model_Denuncia implements Parcelable {
 		this.zona = zona;
 	}
 
+	public double getConcessio(){
+		return concessio;
+	}
+
+	public void setConcessio(double concessio){
+		this.concessio=concessio;
+	}
+
 
 	@Override
 	public int describeContents() {
@@ -353,6 +366,7 @@ public class Model_Denuncia implements Parcelable {
 		dest.writeDouble(this.tipusanulacio);
 		dest.writeDouble(this.zona);
 		dest.writeDouble(this.estatcomprovacio);
+		dest.writeDouble(this.concessio);
 	}
 
 	protected Model_Denuncia(Parcel in) {
@@ -381,6 +395,7 @@ public class Model_Denuncia implements Parcelable {
 		this.tipusanulacio = in.readDouble();
 		this.zona = in.readDouble();
 		this.estatcomprovacio = in.readDouble();
+		this.concessio=in.readDouble();
 	}
 
 	public static final Creator<Model_Denuncia> CREATOR = new Creator<Model_Denuncia>() {

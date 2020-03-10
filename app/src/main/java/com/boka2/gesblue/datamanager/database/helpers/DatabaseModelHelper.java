@@ -84,10 +84,10 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
 			    if(dir == null) {
 				    dir = context.getFilesDir();
 			    }
-			    String databasePath = dir.getAbsolutePath() + File.separator + "Sixtemia" + File.separator
+			    String databasePath = dir.getAbsolutePath() + File.separator + "Boka2" + File.separator
 					    + DATABASE_FOLDER
 					    + File.separator + DATABASE_NAME;
-			    String folderPath = dir.getAbsolutePath() + File.separator + "Sixtemia" + File.separator
+			    String folderPath = dir.getAbsolutePath() + File.separator + "Boka2" + File.separator
 					    + DATABASE_FOLDER;
 			    File dbFolder = new File(folderPath);
 			    if (!dbFolder.exists()) {
@@ -150,7 +150,7 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
             }
         }
 		if(oldVersion<6) {
-			db.execSQL("ALTER TABLE denuncia ADD COLUMN estatcomprovacio LONG DEFAULT 0");
+			db.execSQL("ALTER TABLE denuncia ADD COLUMN estatcomprovacio LONG DEFAULT -1");
 		}
     }
 

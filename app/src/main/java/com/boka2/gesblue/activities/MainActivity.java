@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -44,7 +45,9 @@ import com.boka2.gesblue.datamanager.webservices.results.operativa.ComprovaMatri
 import com.boka2.gesblue.global.Constants;
 import com.boka2.gesblue.global.PreferencesGesblue;
 import com.boka2.gesblue.global.Utils;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -106,6 +109,8 @@ public class MainActivity extends GesblueFragmentActivity {
 		checkAdmin(adm);
 		localitzacio=mBinding.toolbar.txtLocalitzacioEstat;
 		opciones=mBinding.toolbar.icOpciones;
+
+
 
 		opciones.setOnClickListener(new View.OnClickListener() {
 
@@ -439,6 +444,7 @@ public class MainActivity extends GesblueFragmentActivity {
 			checkAdmin(adm);
 
 		}
+
 	}
 
 	private void comprovarMatricula(String matricula) {

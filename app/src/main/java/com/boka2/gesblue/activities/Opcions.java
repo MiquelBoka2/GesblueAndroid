@@ -312,7 +312,7 @@ public class Opcions extends AppCompatActivity {
                                     //aguanta el main fins que s'ha enviat la anterior
                                     while (!EnviamentDisponible) {
 
-
+                                        Log.d("ESPERANT","disponibilitat");
                                     }
                                     //Tornem a mirar les dades
                                     ContadorDenuncies(true);
@@ -328,12 +328,8 @@ public class Opcions extends AppCompatActivity {
                                 }
 
                                 //Mante el Main activity viu mentres s'envies les denuncies
-                                while (escapador) {
 
-
-                                }
                                 liniar_progress.dismiss();
-                                EnviamentDisponible = true;
                                 Enviaments_Pendents.setVisibility(View.GONE);
                             }
 
@@ -487,7 +483,7 @@ public class Opcions extends AppCompatActivity {
                         (long) denuncia.getInfraccio(),                   //-- MATRICULA
                         (long) denuncia.getEstatcomprovacio(),             //-- HORA ACTUAL
                         "",                //-- IMPORT
-                        PreferencesGesblue.getConcessio(oContext),              //-- CONCESSIO
+                        (long)denuncia.getConcessio(),              //-- CONCESSIO
                         Long.parseLong(PreferencesGesblue.getTerminal(oContext)),//-- TERMINAL ID
                         Utils.getAndroidVersion(),                              //-- SO VERSION
                         Utils.getAppVersion(oContext));                         //-- APP VERSION
@@ -639,7 +635,7 @@ public class Opcions extends AppCompatActivity {
                         liniar_progress.setProgress(i);
                     }
                     denunciesPendents = null;
-                    escapador = false;
+                    EnviamentDisponible = true;
 
 
                 }

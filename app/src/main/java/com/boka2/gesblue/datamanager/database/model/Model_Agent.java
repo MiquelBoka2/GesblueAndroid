@@ -13,9 +13,12 @@ import com.boka2.gesblue.datamanager.database.Taules;
 @DatabaseTable(tableName = Taules.TAULA_AGENT)
 public class Model_Agent implements Parcelable {
 
-	public static final String ID = "codiagent";
+	public static final String ID = "id_agent";
 
-	@DatabaseField(generatedId = true, columnName = "codiagent")
+	@DatabaseField(generatedId = true, columnName = "idagent_automatic")
+	private long idagent_automatic;
+
+	@DatabaseField(columnName = "codiagent", columnDefinition = "INTEGER")
 	private long codiagent;
 
 	@DatabaseField(columnName = "nomagent", columnDefinition = "VARCHAR(100)")

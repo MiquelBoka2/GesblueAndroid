@@ -1,3 +1,3 @@
 rm -rf test
 mkdir test
-adb pull /sdcard/Android/data/com.sixtemia.gesblue test
+adb pull /sdcard/Android/data/com.boka2.gesblue test

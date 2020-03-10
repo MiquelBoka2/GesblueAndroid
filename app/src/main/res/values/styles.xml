@@ -26,10 +26,12 @@
 	</style>
 
 	<style name="Button" parent="Base.Widget.AppCompat.Button.Colored">
-		<item name="android:background">@color/btn_activat</item>
+
+		<item name="android:background">@drawable/button_selector</item>
 		<item name="android:textColor">@color/colorFons</item>
 		<item name="android:minHeight">60dp</item>
 		<item name="android:textSize">18sp</item>
+
 	</style>
 	<style name="ButtonDesactivat" parent="Base.Widget.AppCompat.Button.Colored">
 		<item name="android:background">@color/btn_desectivat</item>
@@ -46,7 +48,7 @@
 	</style>
 
 	<style name="StepButton" parent="Base.Widget.AppCompat.Button">
-		<item name="android:background">@color/taronja</item>
+		<item name="android:background">@drawable/button_selector</item>
 		<item name="android:textColor">@color/color_text_toolbar</item>
 		<item name="android:textSize">14sp</item>
 		<item name="android:layout_width">0dp</item>
@@ -55,7 +57,7 @@
 	</style>
 
 	<style name="StepButtonConfirmar" parent="Base.Widget.AppCompat.Button">
-		<item name="android:background">@drawable/background_boto_confirmar</item>
+		<item name="android:background">@drawable/button_selector</item>
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textSize">14sp</item>
 		<item name="android:layout_width">0dp</item>

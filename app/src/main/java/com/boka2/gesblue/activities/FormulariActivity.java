@@ -713,7 +713,6 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 				if (checkCamps()) {
 					if (isFirstEnvia) {
-						isFirstEnvia = false;
 						send();
 						DatabaseAPI.updateADenunciaImpresa(mContext, denunciaStatica.getCodidenuncia());
 						goToMain();
@@ -1001,6 +1000,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		if (img4IsActive) {
 			denuncia.setFoto4(foto4);
 		}
+
+		denuncia.setConcessio(PreferencesGesblue.getConcessio(mContext));
 
 		final ArrayList<Model_Denuncia> arrayDenuncies = new ArrayList<Model_Denuncia>();
 

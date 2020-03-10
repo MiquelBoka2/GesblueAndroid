@@ -164,7 +164,7 @@ public class GesblueApplication extends MultiDexApplication {
 					(long) denuncia.getInfraccio(),                   //-- MATRICULA
 					(long) denuncia.getEstatcomprovacio(),             //-- HORA ACTUAL
 					"",                //-- IMPORT
-					PreferencesGesblue.getConcessio(aContext),              //-- CONCESSIO
+					(long)denuncia.getConcessio(),              //-- CONCESSIO
 					Long.parseLong(PreferencesGesblue.getTerminal(aContext)),//-- TERMINAL ID
 					Utils.getAndroidVersion(),                              //-- SO VERSION
 					Utils.getAppVersion(aContext));                         //-- APP VERSION
