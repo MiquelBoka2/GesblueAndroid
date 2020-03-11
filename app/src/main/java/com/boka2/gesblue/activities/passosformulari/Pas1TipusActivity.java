@@ -47,6 +47,7 @@ public class Pas1TipusActivity extends GesblueFragmentActivity {
 		mBinding.toolbar.icOpciones.setVisibility(View.GONE);
 		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
 		mBinding.toolbar.txtAny.setVisibility(View.GONE);
+		mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
 
 		PreferencesGesblue.clearFormulari(mContext);
 

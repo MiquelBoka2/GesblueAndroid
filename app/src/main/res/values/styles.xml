@@ -95,6 +95,11 @@
 		<item name="android:background">@color/button_inferior_separador</item>
 	</style>
 
+	<style name="btn_ClickEffect">
+		<item name="android:background">@drawable/button_click_effect</item>
+
+	</style>
+
 
 
 </resources>

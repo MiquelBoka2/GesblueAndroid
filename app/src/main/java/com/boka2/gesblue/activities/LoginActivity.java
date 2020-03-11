@@ -1165,6 +1165,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	{
 		if(loginResponse == null || loginResponse.showAgents()) {
 			progress.setMessage(getString(R.string.actualitzantAgents));
+			Log.i("Actualitzant","AGENTS");
 			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_Agents(new AgentsRequest(concessio, data), new JSoapCallback() {
@@ -1205,6 +1206,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarMarques(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showMarques()) {
 			progress.setMessage(getString(R.string.actualitzantMarques));
+
+			Log.i("Actualitzant","Marques");
 			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_Marques(new MarquesRequest(data), new JSoapCallback() {
@@ -1249,6 +1252,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarModels(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showColors()) {
 			progress.setMessage(getString(R.string.actualitzantModels));
+
+			Log.i("Actualitzant","Models");
 			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_Models(new ModelsRequest(data), new JSoapCallback() {
@@ -1290,6 +1295,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarColors(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showModels()) {
 			progress.setMessage(getString(R.string.actualitzantColors));
+
+			Log.i("Actualitzant","Colors");
 			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_Colors(new ColorsRequest(Long.parseLong(data)), new JSoapCallback() {
@@ -1330,6 +1337,9 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarTipusVehicles(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showTipusVehicles()) {
 			progress.setMessage(getString(R.string.actualitzantTipusVehicles));
+
+			Log.i("Actualitzant","Tipus Vehicles");
+
 			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_TipusVehicles(new TipusVehiclesRequest(data), new JSoapCallback() {
@@ -1371,6 +1381,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarZones(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showZones()) {
 			progress.setMessage(getString(R.string.actualitzantZones));
+
+			Log.i("Actualitzant","Zones");
 			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_Zones(new ZonesRequest(concessio, Long.parseLong(data)), new JSoapCallback() {
@@ -1415,6 +1427,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarCarrers(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showCarrers()) {
 			progress.setMessage(getString(R.string.actualitzantCarrers));
+
+			Log.i("Actualitzant","Carrers");
 			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_Carrers(new CarrersRequest(concessio, Long.parseLong(data)), new JSoapCallback() {
@@ -1459,6 +1473,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarInfraccions(final LoginResponse loginResponse, final long concessio, final String _data) {
 		if(loginResponse == null || loginResponse.showInfraccions()) {
 			progress.setMessage(getString(R.string.actualitzantInfraccions));
+
+			Log.i("Actualitzant","Infraccions");
 			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_Infraccions(new InfraccionsRequest(concessio, data), new JSoapCallback() {
@@ -1501,6 +1517,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarLlistaBlanca(final LoginResponse loginResponse, final long concessio, final String _data) {
 
 			progress.setMessage(getString(R.string.actualitzantLlista));
+
+			Log.i("Actualitzant","Llista Blanca");
 			String data = PreferencesGesblue.getDataSync(mContext);
 			if(!TextUtils.isEmpty(_data)) data = _data;
 			DatamanagerAPI.crida_LlistaBlanca(new LlistaBlancaRequest(concessio, data), new JSoapCallback() {
@@ -1539,6 +1557,8 @@ public class LoginActivity extends GesblueFragmentActivity {
     private void sincronitzarLlistaAbonats(final LoginResponse loginResponse, final long concessio, final String _data) {
 
         progress.setMessage(getString(R.string.actualitzantLlista));
+
+		Log.i("Actualitzant","Abonats");
         String data = PreferencesGesblue.getDataSync(mContext);
         if(!TextUtils.isEmpty(_data)) data = _data;
         DatamanagerAPI.crida_LlistaAbonats(new LlistaAbonatsRequest(concessio, data), new JSoapCallback() {
@@ -1576,6 +1596,7 @@ public class LoginActivity extends GesblueFragmentActivity {
     }
 	private void sincronitzarComptadorDenuncia() {
 		progress.setMessage(getString(R.string.actualitzant));
+
 			Log.d("ppp",""+concessio+ "- "+PreferencesGesblue.getTerminal(mContext)+" - "+PreferencesGesblue.getAgentId(mContext));
 			DatamanagerAPI.crida_RecuperaComptadorDenuncia(new RecuperaComptadorDenunciaRequest(concessio, PreferencesGesblue.getTerminal(mContext), PreferencesGesblue.getAgentId(mContext)), new JSoapCallback() {
 				@Override

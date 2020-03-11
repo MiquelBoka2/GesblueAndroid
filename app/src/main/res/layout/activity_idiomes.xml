@@ -18,7 +18,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        >
 
         <TextView
             android:id="@+id/txt_capçalera"
@@ -66,14 +67,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@drawable/divider_drawable"
-            android:dividerPadding="40dp"
             android:orientation="vertical"
             android:showDividers="middle">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lay_idioma_Cat"
+                style="@style/btn_ClickEffect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <RadioButton
                     android:id="@+id/rb_Cat"
@@ -105,8 +109,12 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lay_idioma_Esp"
+                style="@style/btn_ClickEffect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <RadioButton
                     android:id="@+id/rb_Esp"
@@ -138,8 +146,12 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lay_idioma_Eng"
+                style="@style/btn_ClickEffect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <RadioButton
                     android:id="@+id/rb_Extra0"
@@ -171,8 +183,12 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lay_idioma_Fre"
+                style="@style/btn_ClickEffect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <RadioButton
                     android:id="@+id/rb_Extra1"
@@ -205,8 +221,12 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lay_idioma_Deu"
+                style="@style/btn_ClickEffect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <RadioButton
                     android:id="@+id/rb_Extra2"

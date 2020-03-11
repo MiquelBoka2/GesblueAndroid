@@ -12,6 +12,7 @@
 	<color name="taronjaDesactivat">#e0e0e0</color>
 	<color name="verdOK">#13ba3a</color>
 	<color name="vermellKO">#ff0000</color>
+	<color name="grocFosc">#B88A00</color>
 	<color name="whiteButtonBackgroundPressed">#e9e9e9</color>
 	<color name="whiteButtonBackgroundDisabled">#e0e0e0</color>
 	<color name="whiteButtonBackground">#fbfbfb</color>
@@ -72,6 +73,9 @@
 	<color name="blau" >#24856B</color>
 
 	<color name="ja_denunciat">#E68050</color>
+
+
+	<color name="color_pressed">#3B000000</color>
 
     <!--Colors Nous-->
 <!--

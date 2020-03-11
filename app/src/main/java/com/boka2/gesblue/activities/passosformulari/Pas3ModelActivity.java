@@ -52,6 +52,8 @@ public class Pas3ModelActivity extends GesblueFragmentActivity {
 		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
 		mBinding.toolbar.txtAny.setVisibility(View.GONE);
 
+		mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
+
 		if(getIntent().getExtras() != null) {
 			adm=getIntent().getExtras().getBoolean("adm");
 			mSancio = getIntent().getExtras().getParcelable(FormulariActivity.INTENT_SANCIO);

@@ -88,6 +88,8 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	private long dataCaducitat_milisegons=0;
 
+	private Date dataComprovacio;
+
 	private Activity mActivity=this;
 
 
@@ -235,6 +237,7 @@ public class MainActivity extends GesblueFragmentActivity {
 				intent.putExtra(FormulariActivity.INTENT_SANCIO, sancio);
 				intent.putExtra(FormulariActivity.KEY_VINC_DE_MATRICULA, true);
                 intent.putExtra("adm",adm);
+                intent.putExtra("dataComprovacio",dataComprovacio);
 				GesblueApplication.DenunciaEnCurs =true;
 				startActivity(intent);
 			}
@@ -457,6 +460,9 @@ public class MainActivity extends GesblueFragmentActivity {
 		Log.d("params",PreferencesGesblue.getConcessio(mContext)+" - "+Utils.getDeviceId(mContext)+" - "+matricula+" - "+ Utils.getCurrentTimeLong(mContext)+" - "+PreferencesGesblue.getCodiCarrer(mContext)+" - "+PreferencesGesblue.getCodiZona(mContext)+" - "+PreferencesGesblue.getCodiAgent(mContext));
 
 
+		//GUARDEM DE FORMA TEMPORAL LA ACTUAL DATA(per sobre escriure la vella)
+		dataComprovacio= new Date();
+
 
 		DatamanagerAPI.crida_ComprovaMatricula(new ComprovaMatriculaRequest(PreferencesGesblue.getConcessio(mContext), Utils.getDeviceId(mContext), matricula, Utils.getCurrentTimeLong(mContext),PreferencesGesblue.getCodiCarrer(mContext),PreferencesGesblue.getCodiZona(mContext)), new JSoapCallback() {
 			@Override
@@ -471,9 +477,14 @@ public class MainActivity extends GesblueFragmentActivity {
 					return;
 				}
 
+				//GUADEM LA DATA EN CAS DE CONEXXIO
+				dataComprovacio= new Date();
+
+
 				Long data =Utils.getCurrentTimeLong(mContext);
 
 				Long temps = response.getTemps();
+
 
 				dataCaducitat_milisegons=(System.currentTimeMillis())+temps*1000;
 
@@ -534,6 +545,8 @@ public class MainActivity extends GesblueFragmentActivity {
 					default:
 						Utils.showDatamanagerError(mContext, JsoapError.OTHER_ERROR);
 						mBinding.editTextMatricula.setEnabled(true);
+						mBinding.tvZona.setEnabled(true);
+						mBinding.tvCarrer.setEnabled(true);
                         estatComprovacio = 7;
 
 						break;
@@ -547,8 +560,13 @@ public class MainActivity extends GesblueFragmentActivity {
 			public void onError(final int error) {
                 int estatComprovacio = 0;
 
+				//GUADEM LA DATA EN CAS DE NO CONEXXIO
+				dataComprovacio= new Date();
+
 				mBinding.viewSwitcherComprovaAnim.showNext();
 				mBinding.editTextMatricula.setEnabled(true);
+				mBinding.tvZona.setEnabled(true);
+				mBinding.tvCarrer.setEnabled(true);
 
 				//Utils.showDatamanagerError(mContext, error);
 
@@ -651,6 +669,8 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.textViewMatricula.setEnabled(false);
 		mBinding.editTextMatricula.setEnabled(false);
+		mBinding.tvZona.setEnabled(false);
+		mBinding.tvCarrer.setEnabled(false);
 		mBinding.buttonComprovar.setEnabled(false);
 		mBinding.buttonComprovar.setVisibility(View.GONE);
 	}
@@ -681,6 +701,8 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.textViewMatricula.setEnabled(false);
 		mBinding.editTextMatricula.setEnabled(false);
+		mBinding.tvZona.setEnabled(false);
+		mBinding.tvCarrer.setEnabled(false);
 		mBinding.buttonComprovar.setEnabled(false);
 
 		mBinding.buttonComprovar.setVisibility(View.GONE);
@@ -717,6 +739,8 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.textViewMatricula.setEnabled(false);
 		mBinding.editTextMatricula.setEnabled(false);
+		mBinding.tvZona.setEnabled(false);
+		mBinding.tvCarrer.setEnabled(false);
 		mBinding.buttonComprovar.setEnabled(false);
 
 		mBinding.buttonComprovar.setVisibility(View.GONE);
@@ -750,6 +774,8 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.textViewMatricula.setEnabled(true);
 		mBinding.editTextMatricula.setEnabled(true);
+		mBinding.tvZona.setEnabled(true);
+		mBinding.tvCarrer.setEnabled(true);
 		mBinding.buttonComprovar.setEnabled(true);
 		mBinding.buttonComprovar.setVisibility(View.VISIBLE);
 

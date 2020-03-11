@@ -62,7 +62,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import static android.text.TextUtils.isEmpty;
@@ -135,6 +134,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private boolean recuperada = false;
 	private String numDenuncia = "";
 	private Date dataCreacio;
+	private Date dataComprovacio;
 
 	private ProgressDialog mDialog;
 
@@ -245,6 +245,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		mBinding.toolbar.icOpciones.setVisibility(View.GONE);
 		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
 		mBinding.toolbar.txtAny.setVisibility(View.GONE);
+		mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
 
 
 		if (!getFoto1(mContext).equals("")) {
@@ -324,6 +325,10 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				btn_Enviar.setVisibility(VISIBLE);
 			}
 		}
+		if(isEmpty(intent.getExtras().getString("dataComprovacio"))) {
+			dataComprovacio =(Date)intent.getSerializableExtra("dataComprovacio");
+		}
+
 
 		if (intent.getBooleanExtra(KEY_VINC_DE_MATRICULA, false)) {
 			intent = new Intent(mContext, Pas1TipusActivity.class);
@@ -332,6 +337,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			intent.putExtra("adm", adm);
 			startActivity(intent);
 		}
+
 
 	}
 
@@ -959,17 +965,16 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		Model_Denuncia denuncia = new Model_Denuncia();
 		Date date;
 		if (recuperada == false) {
-			date = new Date();
+
 			denuncia.setCodidenuncia(generateCodiButlleta(mContext));
 
 		} else {
-			date = dataCreacio;
 			denuncia.setCodidenuncia(numDenuncia);
 
 		}
 
 
-		denuncia.setFechacreacio(date);
+		denuncia.setFechacreacio(dataComprovacio);
 		long NUM = PreferencesGesblue.getIdAgent(mContext);
 		denuncia.setAgent(PreferencesGesblue.getIdAgent(mContext));
 		denuncia.setAdrecacarrer(sancio.getModelCarrer().getCodicarrer());

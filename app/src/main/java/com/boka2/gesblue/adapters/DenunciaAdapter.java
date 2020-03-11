@@ -15,6 +15,7 @@ import com.boka2.gesblue.datamanager.database.listeners.CustomButtonListener;
 import com.boka2.gesblue.datamanager.database.model.Model_Denuncia;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -62,7 +63,7 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
         //binding the data with the viewholder views
 
         SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
+        Date data=denuncia.getFechacreacio();
         holder.textViewFecha.setText(simpleDate.format(denuncia.getFechacreacio()));
         holder.textViewMatricula.setText(denuncia.getMatricula());
         holder.textViewNumDenuncia.setText(String.valueOf(denuncia.getCodidenuncia()));
@@ -71,17 +72,17 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
 
         if (String.valueOf(denuncia.getTipusanulacio()).equals("-1.0")){
             text=mCtx.getResources().getString(R.string.pendent_Imprimir);
-            holder.textViewEstat.setTextColor(Color.RED);
+            holder.textViewEstat.setTextColor(mCtx.getResources().getColor(R.color.vermellKO));
         }
         else if(String.valueOf(denuncia.getTipusanulacio()).equals("0.0")){
             text=mCtx.getResources().getString(R.string.pendent_Enviar);
-            holder.textViewEstat.setTextColor(Color.YELLOW);
+            holder.textViewEstat.setTextColor(mCtx.getResources().getColor(R.color.grocFosc));
 
         }
         else if(String.valueOf(denuncia.getTipusanulacio()).equals("1.0")){
             text=mCtx.getResources().getString(R.string.Enviada);
 
-            holder.textViewEstat.setTextColor(Color.GREEN);
+            holder.textViewEstat.setTextColor(mCtx.getResources().getColor(R.color.verdOK));
         }
             holder.textViewEstat.setText(text);
 

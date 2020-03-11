@@ -455,7 +455,11 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
             }
         }
-        if(denuncia.getTipusanulacio()==1.0 || (denuncia.getTipusanulacio()==0.0&foto1.isEmpty())) {
+        if(denuncia.getTipusanulacio()==1.0 || (denuncia.getTipusanulacio()==0.0&(
+                (foto1==null||foto1.isEmpty())&
+                (foto2==null||foto2.isEmpty())&
+                (foto3==null||foto3.isEmpty())&
+                (foto4==null||foto4.isEmpty())))) {
             File f = new File("storage/emulated/0/Boka2/upload/done");
             if (f.exists() && f.isDirectory()) {
                 final Pattern p = Pattern.compile(".*-" + numDenuncia + "1.jpg"); // I know I really have a stupid mistake on the regex;

@@ -35,6 +35,7 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 		mBinding.toolbar.icOpciones.setVisibility(View.GONE);
 		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
 		mBinding.toolbar.txtAny.setVisibility(View.GONE);
+		mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
 
 		mBinding.etNum.requestFocus();
 		InputMethodManager imm = (InputMethodManager) getSystemService(mContext.INPUT_METHOD_SERVICE);

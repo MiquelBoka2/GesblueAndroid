@@ -53,6 +53,7 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 		mBinding.toolbar.icOpciones.setVisibility(View.GONE);
 		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
 		mBinding.toolbar.txtAny.setVisibility(View.GONE);
+		mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
 
 
 		if(getIntent().getExtras() != null) {

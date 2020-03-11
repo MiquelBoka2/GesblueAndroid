@@ -49,6 +49,7 @@ public class Pas5InfraccioActivity extends GesblueFragmentActivity {
 		mBinding.toolbar.icOpciones.setVisibility(View.GONE);
 		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
 		mBinding.toolbar.txtAny.setVisibility(View.GONE);
+		mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
 
 		if(getIntent().getExtras() != null) {
 			adm=getIntent().getExtras().getBoolean("adm");

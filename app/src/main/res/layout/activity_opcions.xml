@@ -64,14 +64,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@drawable/divider_drawable"
-            android:dividerPadding="40dp"
             android:orientation="vertical"
             android:showDividers="middle">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lay_canviarConcessio"
+                style="@style/btn_ClickEffect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/txt_CanviarConcessio"
@@ -100,8 +103,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lay_Desconectat"
+                style="@style/btn_ClickEffect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/txt_Desconectat"
@@ -131,8 +139,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lay_RecarregarDades"
+                style="@style/btn_ClickEffect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/txt_RecarregarDades"
@@ -158,25 +171,17 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_recarregar" />
 
-                <ProgressBar
-                    android:id="@+id/progressBar3"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="240dp"
-                    android:layout_height="8dp"
-                    android:layout_marginTop="8dp"
-                    android:progressDrawable="@drawable/progressbar_custom"
-                    android:progressTint="#FF7043"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/txt_RecarregarDades"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_RecarregarDades" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lay_Reimpressio"
+                style="@style/btn_ClickEffect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/txt_Reimpressio"
@@ -205,8 +210,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lay_Idioma"
+                style="@style/btn_ClickEffect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/txt_Idioma"
@@ -235,8 +245,14 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lay_EnviamentsPendents"
+                style="@style/btn_ClickEffect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+
+
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/txt_EnviamentsPendents"
@@ -290,8 +306,14 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lay_Admin"
+                style="@style/btn_ClickEffect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+
+
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/txt_Admin"
