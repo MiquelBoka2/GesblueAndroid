@@ -248,11 +248,11 @@ secretari/a de l\'Ajuntament.</string>
     <string name="Administrador">Administrador</string>
     <string name="Dies">Dies</string>
     <string name="Enviada">Enviada</string>
-    <string name="acces_admin">" ACCESO ADMINISTRADOR"</string>
+    <string name="acces_admin">ACCÉS ADMINISTRADOR</string>
     <string name="accio_eliminar_tot">ELIMINARÀ TOTES LES DADES\n  HISTÒRIQUES DE L’APLICACIÓ</string>
     <string name="accio_esborrar_concessions">ELIMINARÀ TOTES LES DADES\n DE CONCESSIONS ANTIGUES</string>
     <string name="anula">ANUL·LA</string>
-    <string name="aquesta_accio">Esta acción</string>
+    <string name="aquesta_accio">Aquesta acció</string>
     <string name="btn_guardar">GUARDAR</string>
     <string name="canviar_concessio">Canviar concessió</string>
     <string name="confirmar_denuncia">Confirmes que la denúncia s’ha imprés correctament?</string>
@@ -286,7 +286,7 @@ secretari/a de l\'Ajuntament.</string>
     <string name="temps_Restant">Temps Restant</string>
     <string name="tornar_a_provar">TORNA A PROVAR</string>
     <string name="user_admin">usuari administrador</string>
-    <string name="admin_off">Modo administrador apagado</string>
+    <string name="admin_off">Mode administrador apagat</string>
 
 
 </resources>

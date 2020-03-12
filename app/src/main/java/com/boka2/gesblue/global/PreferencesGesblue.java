@@ -102,26 +102,6 @@ public class PreferencesGesblue extends Preferences {
 
 
 	private static final String ESTAT_COMPROVACIO = "estatComprovacio";
-	private static final String DATA_COMPROVACIO="dataComprovacio";
-
-	public static void saveDataComprovacio(Context _context, java.util.Date data){
-		String date= data.toString();
-		put(_context, DATA_COMPROVACIO, date);
-
-	}
-	public static java.util.Date getDataComprovacio(Context _context){
-		String data= getString(_context, DATA_COMPROVACIO,"");
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy MMdd HH:mm:ss.SSS");
-		Date date = null;
-		try {
-			date = sdf1.parse(data);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		return date;
-
-	}
 
 
 

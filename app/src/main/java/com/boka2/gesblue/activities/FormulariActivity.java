@@ -134,7 +134,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private boolean recuperada = false;
 	private String numDenuncia = "";
 	private Date dataCreacio;
-	private Date dataComprovacio;
+	public static Date dataComprovacio;
+	private static boolean data=true;
 
 	private ProgressDialog mDialog;
 
@@ -194,6 +195,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		savedInstanceState.putString("foto2", foto2);
 		savedInstanceState.putString("foto3", foto3);
 		savedInstanceState.putString("foto4", foto4);
+
 
 		// etc.
 
@@ -325,9 +327,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				btn_Enviar.setVisibility(VISIBLE);
 			}
 		}
-		if(isEmpty(intent.getExtras().getString("dataComprovacio"))) {
-			dataComprovacio =(Date)intent.getSerializableExtra("dataComprovacio");
-		}
+
 
 
 		if (intent.getBooleanExtra(KEY_VINC_DE_MATRICULA, false)) {
@@ -975,6 +975,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 
 		denuncia.setFechacreacio(dataComprovacio);
+
+		//MES QUE RES PER NO DEIXAR LA DATE PER DEFECTE
+		denuncia.setFechaanulacio(dataComprovacio);
+
+
 		long NUM = PreferencesGesblue.getIdAgent(mContext);
 		denuncia.setAgent(PreferencesGesblue.getIdAgent(mContext));
 		denuncia.setAdrecacarrer(sancio.getModelCarrer().getCodicarrer());
@@ -1103,10 +1108,12 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			Date fecha;
 			if (recuperada) {
 				codibutlleta = numDenuncia;
-				fecha = dataCreacio;
+				fecha=dataComprovacio;
+				//fecha = dataCreacio;
 			} else {
 				codibutlleta = generateCodiButlleta(mContext);
-				fecha = new Date();
+				fecha=dataComprovacio;
+				//fecha = new Date();
 			}
 			PrintAsyncTask p = new PrintAsyncTask(mPrinter, mContext, sancio, codibutlleta, fecha, isFirstTime, new PrintAsyncTask.PrintListener() {
 				@Override

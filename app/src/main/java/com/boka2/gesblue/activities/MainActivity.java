@@ -237,6 +237,7 @@ public class MainActivity extends GesblueFragmentActivity {
 				intent.putExtra(FormulariActivity.INTENT_SANCIO, sancio);
 				intent.putExtra(FormulariActivity.KEY_VINC_DE_MATRICULA, true);
                 intent.putExtra("adm",adm);
+                FormulariActivity.dataComprovacio=dataComprovacio;
                 intent.putExtra("dataComprovacio",dataComprovacio);
 				GesblueApplication.DenunciaEnCurs =true;
 				startActivity(intent);
@@ -433,16 +434,19 @@ public class MainActivity extends GesblueFragmentActivity {
 					mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
 
 				}
+				case 3:{
+
+				}
 
 
 
 			}
 			/* CHECK ADMIN**/
-			Boolean result = data.getExtras().getBoolean("adm");
+			Boolean result = extras.getBoolean("adm");
 			if (result != null) {
-				if (result) {
-					adm = result;
-				}
+				adm = result;
+
+
 			}
 			checkAdmin(adm);
 

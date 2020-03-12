@@ -12,6 +12,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -353,7 +354,9 @@ public class Opcions extends AppCompatActivity {
                 public void onClick(View v) {
                     if (adm){
                         adm=false;
-                        Intent intent = new Intent(oContext, LoginActivity.class);
+                        if (estat.equals("main"))
+                        {
+                        Intent intent = new Intent(oContext, MainActivity.class);
                         intent.putExtra("result", "");
                         intent.putExtra("adm", adm);
                         setResult(RESULT_OK, intent);
@@ -363,6 +366,21 @@ public class Opcions extends AppCompatActivity {
 
                         adminOff.show();
                         finish();
+                        }
+                        else if (estat.equals("login_concessio") || estat.equals("no_login_concessio")) {
+                            Intent intent = new Intent(oContext, LoginActivity.class);
+                            intent.putExtra("result", "");
+                            intent.putExtra("adm", adm);
+                            setResult(RESULT_OK, intent);
+                            Toast adminOff =
+                                    Toast.makeText(getApplicationContext(),
+                                            getResources().getString(R.string.admin_off), Toast.LENGTH_SHORT);
+
+                            adminOff.show();
+                            finish();
+
+                        }
+
                     }
                     else{
                         Intent intent = new Intent(oContext, Login_Admin.class);
@@ -620,7 +638,7 @@ public class Opcions extends AppCompatActivity {
 
 
             //Crea un nou fil
-            new Thread(new Runnable() {
+            Runnable runnable=new Thread(new Runnable() {
                 @Override
                 public void run() {
                     for (int i = 0; i < denunciesPendents.size(); i++) {
@@ -639,7 +657,9 @@ public class Opcions extends AppCompatActivity {
 
 
                 }
-            }).start();
+            });
+            AsyncTask.execute(runnable);
+
 
 
         }
