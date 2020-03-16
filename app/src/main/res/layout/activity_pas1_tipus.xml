@@ -39,6 +39,32 @@
 					android:orientation="horizontal">
 
 					<Button
+						android:id="@+id/btn_Pos7"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_weight="1"
+						android:background="@drawable/ic_formulari_no_current"
+						android:text="7"
+						android:textColor="@color/color_text_gris"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toEndOf="@+id/btn_Pos6"
+						app:layout_constraintTop_toTopOf="parent" />
+
+					<Button
+						android:id="@+id/btn_Pos6"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_weight="1"
+						android:background="@drawable/ic_cercle_no_current"
+						android:text="6"
+						android:textColor="@color/color_text_gris"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@+id/btn_Pos7"
+						app:layout_constraintStart_toEndOf="@+id/btn_Pos5"
+						app:layout_constraintTop_toTopOf="parent" />
+
+					<Button
 						android:id="@+id/btn_Pos1"
 						android:layout_width="40dp"
 						android:layout_height="40dp"
@@ -102,45 +128,6 @@
 						app:layout_constraintBottom_toBottomOf="parent"
 						app:layout_constraintEnd_toStartOf="@+id/btn_Pos6"
 						app:layout_constraintStart_toEndOf="@+id/btn_Pos4"
-						app:layout_constraintTop_toTopOf="parent" />
-
-					<Button
-						android:id="@+id/btn_Pos6"
-						android:layout_width="40dp"
-						android:layout_height="40dp"
-						android:layout_weight="1"
-						android:background="@drawable/ic_cercle_no_current"
-						android:text="6"
-						android:textColor="@color/color_text_gris"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toStartOf="@+id/btn_Pos7"
-						app:layout_constraintStart_toEndOf="@+id/btn_Pos5"
-						app:layout_constraintTop_toTopOf="parent" />
-
-					<Button
-						android:id="@+id/btn_Pos7"
-						android:layout_width="40dp"
-						android:layout_height="40dp"
-						android:layout_weight="1"
-						android:background="@drawable/ic_cercle_no_current"
-						android:text="7"
-						android:textColor="@color/color_text_gris"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toStartOf="@+id/btn_Pos8"
-						app:layout_constraintStart_toEndOf="@+id/btn_Pos6"
-						app:layout_constraintTop_toTopOf="parent" />
-
-					<Button
-						android:id="@+id/btn_Pos8"
-						android:layout_width="40dp"
-						android:layout_height="40dp"
-						android:layout_weight="1"
-						android:background="@drawable/ic_formulari_no_current"
-						android:text="8"
-						android:textColor="@color/color_text_gris"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintStart_toEndOf="@+id/btn_Pos7"
 						app:layout_constraintTop_toTopOf="parent" />
 
 				</androidx.constraintlayout.widget.ConstraintLayout>

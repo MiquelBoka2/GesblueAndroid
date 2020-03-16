@@ -1107,11 +1107,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			final String codibutlleta;
 			Date fecha;
 			if (recuperada) {
-				codibutlleta = numDenuncia;
+				codibutlleta = denunciaStatica.getCodidenuncia();
 				fecha=dataComprovacio;
 				//fecha = dataCreacio;
 			} else {
-				codibutlleta = generateCodiButlleta(mContext);
+				codibutlleta = denunciaStatica.getCodidenuncia();
 				fecha=dataComprovacio;
 				//fecha = new Date();
 			}
