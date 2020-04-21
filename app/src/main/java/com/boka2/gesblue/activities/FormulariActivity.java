@@ -789,40 +789,63 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				case Utils.REQUEST_IMAGE_CAPTURE_1:
 
 					imageBitmap = (Bitmap) extras.get("data");
-					foto1 = Utils.savePicture(imageBitmap, mContext, "1");
-					pinta(foto1, mBinding.imageViewA);
-					img1IsActive = true;
-					checkBotoCamera();
+					if(imageBitmap!=null){
+						foto1 = Utils.savePicture(imageBitmap, mContext, "1");
+						pinta(foto1, mBinding.imageViewA);
+						img1IsActive = true;
+						checkBotoCamera();
+					}
+					else{
+						Utils.showCustomDialog(mContext, R.string.otherError, R.string.error_imatge);
+					}
+
+
 					break;
 
 
 				case Utils.REQUEST_IMAGE_CAPTURE_2:
 
 					imageBitmap = (Bitmap) extras.get("data");
-					foto2 = Utils.savePicture(imageBitmap, mContext, "2");
-					pinta(foto2, mBinding.imageViewB);
-					img2IsActive = true;
-					checkBotoCamera();
+					if(imageBitmap!=null) {
+						foto2 = Utils.savePicture(imageBitmap, mContext, "2");
+						pinta(foto2, mBinding.imageViewB);
+						img2IsActive = true;
+						checkBotoCamera();
+					}
+					else{
+						Utils.showCustomDialog(mContext, R.string.otherError, R.string.error_imatge);
+					}
 					break;
 
 
 				case Utils.REQUEST_IMAGE_CAPTURE_3:
 
 					imageBitmap = (Bitmap) extras.get("data");
-					foto3 = Utils.savePicture(imageBitmap, mContext, "3");
-					pinta(foto3, mBinding.imageViewC);
-					img3IsActive = true;
-					checkBotoCamera();
+					if(imageBitmap!=null) {
+						foto3 = Utils.savePicture(imageBitmap, mContext, "3");
+						pinta(foto3, mBinding.imageViewC);
+						img3IsActive = true;
+						checkBotoCamera();
+					}
+					else{
+						Utils.showCustomDialog(mContext, R.string.otherError, R.string.error_imatge);
+
+					}
 					break;
 
 
 				case Utils.REQUEST_IMAGE_CAPTURE_4:
 
 					imageBitmap = (Bitmap) extras.get("data");
-					foto4 = Utils.savePicture(imageBitmap, mContext, "4");
-					pinta(foto4, mBinding.imageViewD);
-					img4IsActive = true;
-					checkBotoCamera();
+					if(imageBitmap!=null) {
+						foto4 = Utils.savePicture(imageBitmap, mContext, "4");
+						pinta(foto4, mBinding.imageViewD);
+						img4IsActive = true;
+						checkBotoCamera();
+					}
+					else{
+						Utils.showCustomDialog(mContext, R.string.otherError, R.string.error_imatge);
+					}
 					break;
 
 				case RESULT_ESTANDARD:

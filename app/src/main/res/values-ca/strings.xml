@@ -287,6 +287,7 @@ secretari/a de l\'Ajuntament.</string>
     <string name="tornar_a_provar">TORNA A PROVAR</string>
     <string name="user_admin">usuari administrador</string>
     <string name="admin_off">Mode administrador apagat</string>
+    <string name="error_imatge">Error en la fotografia</string>
 
 
 </resources>
