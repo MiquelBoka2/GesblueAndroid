@@ -30,7 +30,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.boka2.gesblue.GesblueApplication;
 import com.boka2.gesblue.datamanager.database.model.Model_Denuncia;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -77,7 +76,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
     private boolean img3IsActive = false;
     private boolean img4IsActive = false;
     private String aux;
-    private TextView txt_Matricula,txt_Tipus,txt_Marca,txt_Model,txt_Color,txt_Sancio,txt_Carrer,txt_Num;
+    private TextView txt_Matricula,txt_Tipus,txt_Marca,txt_Model,txt_Color,txt_Sancio,txt_Carrer,txt_Num,txt_img_1,txt_img_2,txt_img_3,txt_img_4;
     private Button btn_Imprimir;
     private ImageView img_Marca,img_Foto1,img_Foto2,img_Foto3,img_Foto4;
     private Spinner spn_Idioma;
@@ -217,10 +216,16 @@ public class ReimpressioTiquet extends AppCompatActivity {
         btn_Imprimir=this.findViewById(R.id.btn_Imprimir);
 
         img_Marca=this.findViewById(R.id.img_Marca);
-        img_Foto1=this.findViewById(R.id.img_Foto1);
-        img_Foto2=this.findViewById(R.id.img_Foto2);
-        img_Foto3=this.findViewById(R.id.img_Foto3);
-        img_Foto4=this.findViewById(R.id.img_Foto4);
+        img_Foto1=this.findViewById(R.id.img_Foto_1);
+        img_Foto2=this.findViewById(R.id.img_Foto_2);
+        img_Foto3=this.findViewById(R.id.img_Foto_3);
+        img_Foto4=this.findViewById(R.id.img_Foto_4);
+
+        txt_img_1=this.findViewById(R.id.txt_img_1);
+        txt_img_2=this.findViewById(R.id.txt_img_2);
+        txt_img_3=this.findViewById(R.id.txt_img_3);
+        txt_img_4=this.findViewById(R.id.txt_img_4);
+
 
         spn_Idioma=this.findViewById(R.id.spn_idioma);
 
@@ -371,8 +376,109 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
 
         /* IMG***/
-        if(denuncia.getTipusanulacio()==0.0 || denuncia.getTipusanulacio()==-1.0){
-            File f = new File("storage/emulated/0/Boka2/upload");
+
+        if(denuncia.getFoto1().contains("error")){
+            txt_img_1.setVisibility(VISIBLE);
+        }
+        if(denuncia.getFoto2().contains("error")){
+            txt_img_2.setVisibility(VISIBLE);
+        }
+        if(denuncia.getFoto3().contains("error")){
+            txt_img_3.setVisibility(VISIBLE);
+        }
+        if(denuncia.getFoto4().contains("error")){
+            txt_img_4.setVisibility(VISIBLE);
+        }
+
+        if(denuncia.getTipusanulacio()==-1.0){
+            File f = new File("storage/emulated/0/Boka2/upload/temp");
+            if (f.exists() && f.isDirectory()) {
+                final Pattern p = Pattern.compile(".*-" + numDenuncia + "1.jpg"); // I know I really have a stupid mistake on the regex;
+
+                File[] flists = f.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        Log.e("Matched?:", "-" + file);
+                        return p.matcher(file.getName()).matches();
+                    }
+                });
+                if (flists.length > 0) {
+                    File f1 = flists[0];
+
+                    Log.e("Ruta foto1:", f1.getName());
+
+                    pinta("storage/emulated/0/Boka2/upload/temp/" + f1.getName(), img_Foto1);
+                    img1IsActive = true;
+                    foto1 = "storage/emulated/0/Boka2/upload/temp/" + f1.getName();
+                }
+
+                final Pattern p2 = Pattern.compile(".*-" + numDenuncia + "2.jpg"); // I know I really have a stupid mistake on the regex;
+
+                File[] flists2 = f.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return p2.matcher(file.getName()).matches();
+                    }
+                });
+                if (flists2.length > 0) {
+                    File f2 = flists2[0];
+
+                    Log.e("Ruta foto2:", f2.getName());
+
+
+                    pinta("storage/emulated/0/Boka2/upload/temp/" + f2.getName(), img_Foto2);
+                    img2IsActive = true;
+                    foto2 = "storage/emulated/0/Boka2/upload/temp/" + f2.getName();
+                }
+
+
+                final Pattern p3 = Pattern.compile(".*-" + numDenuncia + "3.jpg"); // I know I really have a stupid mistake on the regex;
+
+                File[] flists3 = f.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return p3.matcher(file.getName()).matches();
+                    }
+                });
+                if (flists3.length > 0) {
+                    File f3 = flists3[0];
+
+
+                    Log.e("Ruta foto3:", f3.getName());
+
+
+                    pinta("storage/emulated/0/Boka2/upload/temp/" + f3.getName(), img_Foto3);
+                    img3IsActive = true;
+                    foto3 = "storage/emulated/0/Boka2/upload/temp/" + f3.getName();
+                }
+
+                final Pattern p4 = Pattern.compile(".*-" + numDenuncia + "4.jpg"); // I know I really have a stupid mistake on the regex;
+
+                File[] flists4 = f.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return p4.matcher(file.getName()).matches();
+                    }
+                });
+                if (flists4.length > 0) {
+                    File f4 = flists3[0];
+
+
+                    Log.e("Ruta foto4:", f4.getName());
+
+
+                    pinta("storage/emulated/0/Boka2/upload/temp/" + f4.getName(), img_Foto4);
+                    img4IsActive = true;
+                    foto4 = "storage/emulated/0/Boka2/upload/temp/" + f4.getName();
+                }
+
+            }
+
+        }
+
+
+        if(denuncia.getTipusanulacio()==0.0){
+            File f = new File("storage/emulated/0/Boka2/upload/");
             if (f.exists() && f.isDirectory()) {
                 final Pattern p = Pattern.compile(".*-" + numDenuncia + "1.jpg"); // I know I really have a stupid mistake on the regex;
 
@@ -455,6 +561,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
             }
         }
+
         if(denuncia.getTipusanulacio()==1.0 || (denuncia.getTipusanulacio()==0.0&(
                 (foto1==null||foto1.isEmpty())&
                 (foto2==null||foto2.isEmpty())&
@@ -543,6 +650,10 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
             }
         }
+
+
+
+
 
 
 

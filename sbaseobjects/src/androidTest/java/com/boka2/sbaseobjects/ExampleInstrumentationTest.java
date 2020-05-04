@@ -24,6 +24,6 @@ public class ExampleInstrumentationTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.sixtemia.sbaseobjects.test", appContext.getPackageName());
+        assertEquals("com.boka2.sbaseobjects.test", appContext.getPackageName());
     }
 }

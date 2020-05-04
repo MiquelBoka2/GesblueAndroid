@@ -109,6 +109,9 @@
             android:name="com.boka2.gesblue.activities.Idiomes"
             android:label="@string/Idiomes"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.boka2.gesblue.activities.CameraActivity"
+            android:screenOrientation="landscape"></activity>
 
 
         <meta-data

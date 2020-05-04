@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -99,14 +100,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private Boolean adm = false;
 	private Button btn_Enviar;
 
-	public static final int RESULT_FOTO_1 = 1741;
-	public static final int RESULT_FOTO_2 = 1742;
-	public static final int RESULT_FOTO_3 = 1743;
-	public static final int RESULT_FOTO_4 = 1744;
+
 	public static final int RESULT_ESTANDARD = 1730;
 	private static final int REQUEST_GET_DEVICE = 1734;
 	private static final int REQUEST_MORE_OPTIONS = 1735;
-	public static final String KEY_RETURN_PATH = "path";
+
 	public static final String KEY_VINC_DE_MATRICULA = "vincDeMatricula";
 	public static final String KEY_FORMULARI_PRIMER_COP = "formPrimerCop";
 	public static final String KEY_FORMULARI_CONFIRMAR = "confirmar";
@@ -543,41 +541,73 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				break;
 			case R.id.btnCamera:
 				if (!recuperada) {
-					Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					String model=Build.MANUFACTURER
+							+ " " + Build.MODEL;
+					if(model.equals("bq Aquaris U")){
 
-					if (isEmpty(foto1)) {
-						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+						intent = new Intent(mContext, CameraActivity.class);
+
+						if (isEmpty(foto1)) {
+							intent.putExtra("position", "1");
+							startActivityForResult(intent, Utils.RESULT_FOTO_1);
+						} else if (isEmpty(foto2)) {
+							intent.putExtra("position", "2");
+							startActivityForResult(intent, Utils.RESULT_FOTO_2);
+						} else if (isEmpty(foto3)) {
+							intent.putExtra("position", "3");
+							startActivityForResult(intent, Utils.RESULT_FOTO_3);
+
+						} else if (isEmpty(foto4)) {
+						intent.putExtra("position", "4");
+						startActivityForResult(intent, Utils.RESULT_FOTO_4);
+
+						}
+						else {
+								intent.putExtra("position", "1");
+								startActivityForResult(intent, Utils.RESULT_FOTO_1);
+							}
+
+						}
+					else{
+
+						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+						if (isEmpty(foto1)) {
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+							} else {
+							}
+
+
+						} else if (isEmpty(foto2)) {
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
+							} else {
+							}
+
+
+						} else if (isEmpty(foto3)) {
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
+							} else {
+							}
+
+
+						} else if (isEmpty(foto4)) {
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
+							} else {
+							}
+
+
 						} else {
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+							} else {
+							}
 						}
 
 
-					} else if (isEmpty(foto2)) {
-						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
-						} else {
-						}
-
-
-					} else if (isEmpty(foto3)) {
-						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
-						} else {
-						}
-
-
-					} else if (isEmpty(foto4)) {
-						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
-						} else {
-						}
-
-
-					} else {
-						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
-						} else {
-						}
 					}
 				}
 				break;
@@ -623,11 +653,26 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				} else {
 
 					if (!recuperada) {
-						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
-						} else {
+						String model=Build.MANUFACTURER
+								+ " " + Build.MODEL;
+
+
+						if(model.equals("bq Aquaris U")) {
+
+							intent = new Intent(mContext, CameraActivity.class);
+
+							if (isEmpty(foto1)) {
+								intent.putExtra("position", "1");
+								startActivityForResult(intent, Utils.RESULT_FOTO_1);
+							}
 						}
+						else{
+								Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+								if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+									startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+								}
+							}
+
 					}
 				}
 
@@ -646,11 +691,26 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					});
 				} else {
 					if (!recuperada) {
-						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
-						} else {
+						String model=Build.MANUFACTURER
+								+ " " + Build.MODEL;
+
+
+						if(model.equals("bq Aquaris U")) {
+
+							intent = new Intent(mContext, CameraActivity.class);
+
+							if (isEmpty(foto2)) {
+								intent.putExtra("position", "2");
+								startActivityForResult(intent, Utils.RESULT_FOTO_2);
+							}
 						}
+						else{
+							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
+							}
+						}
+
 					}
 				}
 
@@ -668,11 +728,26 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					});
 				} else {
 					if (!recuperada) {
-						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
-						} else {
+						String model=Build.MANUFACTURER
+								+ " " + Build.MODEL;
+
+
+						if(model.equals("bq Aquaris U")) {
+
+							intent = new Intent(mContext, CameraActivity.class);
+
+							if (isEmpty(foto3)) {
+								intent.putExtra("position", "3");
+								startActivityForResult(intent, Utils.RESULT_FOTO_3);
+							}
 						}
+						else{
+							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
+							}
+						}
+
 					}
 				}
 
@@ -691,11 +766,26 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					});
 				} else {
 					if (!recuperada) {
-						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
-						} else {
+						String model=Build.MANUFACTURER
+								+ " " + Build.MODEL;
+
+
+						if(model.equals("bq Aquaris U")) {
+
+							intent = new Intent(mContext, CameraActivity.class);
+
+							if (isEmpty(foto4)) {
+								intent.putExtra("position", "4");
+								startActivityForResult(intent, Utils.RESULT_FOTO_4);
+							}
 						}
+						else{
+							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
+							}
+						}
+
 					}
 				}
 
@@ -785,68 +875,74 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 			switch (requestCode) {
 
-				/*ESPEREM EL RESULTAT DE LES FOTOS**/
+				/*ESPEREM EL RESULTAT DE LES FOTOS GENERAL**/
 				case Utils.REQUEST_IMAGE_CAPTURE_1:
 
 					imageBitmap = (Bitmap) extras.get("data");
-					if(imageBitmap!=null){
-						foto1 = Utils.savePicture(imageBitmap, mContext, "1");
-						pinta(foto1, mBinding.imageViewA);
-						img1IsActive = true;
-						checkBotoCamera();
-					}
-					else{
-						Utils.showCustomDialog(mContext, R.string.otherError, R.string.error_imatge);
-					}
-
-
+					foto1 = Utils.savePicture(imageBitmap, mContext, "1");
+					pinta(foto1, mBinding.imageViewA);
+					img1IsActive = true;
+					checkBotoCamera();
 					break;
 
 
 				case Utils.REQUEST_IMAGE_CAPTURE_2:
 
 					imageBitmap = (Bitmap) extras.get("data");
-					if(imageBitmap!=null) {
-						foto2 = Utils.savePicture(imageBitmap, mContext, "2");
-						pinta(foto2, mBinding.imageViewB);
-						img2IsActive = true;
-						checkBotoCamera();
-					}
-					else{
-						Utils.showCustomDialog(mContext, R.string.otherError, R.string.error_imatge);
-					}
+					foto2 = Utils.savePicture(imageBitmap, mContext, "2");
+					pinta(foto2, mBinding.imageViewB);
+					img2IsActive = true;
+					checkBotoCamera();
 					break;
 
 
 				case Utils.REQUEST_IMAGE_CAPTURE_3:
 
 					imageBitmap = (Bitmap) extras.get("data");
-					if(imageBitmap!=null) {
-						foto3 = Utils.savePicture(imageBitmap, mContext, "3");
-						pinta(foto3, mBinding.imageViewC);
-						img3IsActive = true;
-						checkBotoCamera();
-					}
-					else{
-						Utils.showCustomDialog(mContext, R.string.otherError, R.string.error_imatge);
-
-					}
+					foto3 = Utils.savePicture(imageBitmap, mContext, "3");
+					pinta(foto3, mBinding.imageViewC);
+					img3IsActive = true;
+					checkBotoCamera();
 					break;
 
 
 				case Utils.REQUEST_IMAGE_CAPTURE_4:
 
 					imageBitmap = (Bitmap) extras.get("data");
-					if(imageBitmap!=null) {
-						foto4 = Utils.savePicture(imageBitmap, mContext, "4");
-						pinta(foto4, mBinding.imageViewD);
-						img4IsActive = true;
-						checkBotoCamera();
-					}
-					else{
-						Utils.showCustomDialog(mContext, R.string.otherError, R.string.error_imatge);
-					}
+					foto4 = Utils.savePicture(imageBitmap, mContext, "4");
+					pinta(foto4, mBinding.imageViewD);
+					img4IsActive = true;
+					checkBotoCamera();
 					break;
+
+
+				/*ESPEREM EL RESULTAT DE LES FOTOS BQ Aquaris U**/
+				case Utils.RESULT_FOTO_1:
+					foto1 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pinta(foto1, mBinding.imageViewA);
+					img1IsActive = true;
+					checkBotoCamera();
+					break;
+				case Utils.RESULT_FOTO_2:
+					foto2 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pinta(foto2, mBinding.imageViewB);
+					img2IsActive = true;
+					checkBotoCamera();
+					break;
+				case Utils.RESULT_FOTO_3:
+					foto3 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pinta(foto3, mBinding.imageViewC);
+					img3IsActive = true;
+					checkBotoCamera();
+					break;
+				case Utils.RESULT_FOTO_4:
+					foto4 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pinta(foto4, mBinding.imageViewD);
+					img4IsActive = true;
+					checkBotoCamera();
+					break;
+
+
 
 				case RESULT_ESTANDARD:
 					Boolean semafor = (Boolean) data.getExtras().get("noSancio");
@@ -857,6 +953,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					disableViews();
 					fillAll();
 					break;
+
+
 
 				case REQUEST_MORE_OPTIONS:
 					sancio = (Sancio) data.getExtras().get(INTENT_SANCIO);

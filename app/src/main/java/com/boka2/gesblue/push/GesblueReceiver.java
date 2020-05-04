@@ -11,6 +11,6 @@ import com.google.android.gcm.GCMBroadcastReceiver;
 public class GesblueReceiver extends GCMBroadcastReceiver {
 	@Override
 	protected String getGCMIntentServiceClassName(Context context) {
-		return "com.sixtemia.gesblue.push.GCMGesblue";
+		return "com.boka2.gesblue.push.GCMGesblue";
 	}
 }

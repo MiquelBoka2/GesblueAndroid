@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputFilter;
@@ -262,43 +263,67 @@ public class MainActivity extends GesblueFragmentActivity {
 			@Override
 			public void onClick(View v) {
 
-				if (isEmpty(foto1)) {
+				String model= Build.MANUFACTURER
+						+ " " + Build.MODEL;
 
-					Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-						startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+
+				if (isEmpty(foto1)) {
+					if(model.equals("bq Aquaris U")){
+
+						Intent intent = new Intent(mContext, CameraActivity.class);
+						intent.putExtra("position", "1");
+						startActivityForResult(intent, Utils.RESULT_FOTO_1);
 
 					}
 					else{
-
+						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+						}
 					}
+
 
 				} else if (isEmpty(foto2)) {
-					Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-						startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
+					if(model.equals("bq Aquaris U")){
+
+						Intent intent = new Intent(mContext, CameraActivity.class);
+						intent.putExtra("position", "2");
+						startActivityForResult(intent, Utils.RESULT_FOTO_2);
 
 					}
 					else{
-
+						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
+						}
 					}
 				} else if (isEmpty(foto3)) {
-					Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-						startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
+					if(model.equals("bq Aquaris U")){
+
+						Intent intent = new Intent(mContext, CameraActivity.class);
+						intent.putExtra("position", "3");
+						startActivityForResult(intent, Utils.RESULT_FOTO_3);
 
 					}
 					else{
-
+						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
+						}
 					}
 				} else if (isEmpty(foto4)) {
-					Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-						startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
+					if(model.equals("bq Aquaris U")){
+
+						Intent intent = new Intent(mContext, CameraActivity.class);
+						intent.putExtra("position", "4");
+						startActivityForResult(intent, Utils.RESULT_FOTO_4);
 
 					}
 					else{
-
+						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
+						}
 					}
 				} else {
 					AlertDialog.Builder builder= new AlertDialog.Builder(mContext)
@@ -422,6 +447,32 @@ public class MainActivity extends GesblueFragmentActivity {
 					checkBotoCamera();
 					break;
 
+
+				/*ESPEREM EL RESULTAT DE LES FOTOS BQ Aquaris U**/
+				case Utils.RESULT_FOTO_1:
+					foto1 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pinta(foto1, mBinding.imageViewA);
+					imgAIsActive = true;
+					checkBotoCamera();
+					break;
+				case Utils.RESULT_FOTO_2:
+					foto2 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pinta(foto2, mBinding.imageViewB);
+					imgBIsActive = true;
+					checkBotoCamera();
+					break;
+				case Utils.RESULT_FOTO_3:
+					foto3 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pinta(foto3, mBinding.imageViewC);
+					imgCIsActive = true;
+					checkBotoCamera();
+					break;
+				case Utils.RESULT_FOTO_4:
+					foto4 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pinta(foto4, mBinding.imageViewC);
+					imgDIsActive = true;
+					checkBotoCamera();
+					break;
 
 
 				/*ESPEREM EL RESULTAT DE LA ZONA i EL CARRER**/

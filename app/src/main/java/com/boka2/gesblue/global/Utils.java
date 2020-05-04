@@ -61,7 +61,11 @@ public class Utils {
     static public final int REQUEST_IMAGE_CAPTURE_2= 20;
     static public final int REQUEST_IMAGE_CAPTURE_3= 30;
     static public final int REQUEST_IMAGE_CAPTURE_4= 40;
-
+    public static final int RESULT_FOTO_1 = 1741;
+    public static final int RESULT_FOTO_2 = 1742;
+    public static final int RESULT_FOTO_3 = 1743;
+    public static final int RESULT_FOTO_4 = 1744;
+    public static final String KEY_RETURN_PATH = "path";
 
     public static Activity current_Activity;
     private static String cp = "sup3rS3xy";

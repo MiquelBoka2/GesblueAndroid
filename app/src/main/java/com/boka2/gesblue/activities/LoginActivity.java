@@ -271,6 +271,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 
+
 		//Obtenir si hi ha denuncies Pendents
 		ContadorDenuncies(true);
 

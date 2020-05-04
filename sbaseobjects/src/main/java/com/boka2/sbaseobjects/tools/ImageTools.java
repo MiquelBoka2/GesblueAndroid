@@ -41,7 +41,7 @@ public class ImageTools {
     private static final int REQUEST_OPEN_CAMERA = 2;
 
     private static String mCurrentPhotoPath;
-    private static final String TEMP_FILE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Sixtemia" + File.separator + "upload" + File.separator;
+    private static final String TEMP_FILE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Boka2" + File.separator + "upload" + File.separator;
 
     public static abstract class ZipListener {
         public abstract void onZipComplete(String path);
