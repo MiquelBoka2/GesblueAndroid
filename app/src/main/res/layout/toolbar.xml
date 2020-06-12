@@ -81,6 +81,7 @@
             android:layout_marginStart="16dp"
             android:background="@color/barra_estat"
             android:fontFamily="@font/roboto"
+            android:maxLines="1"
             android:textAlignment="center"
             android:textColor="@color/color_text_toolbar"
             android:textSize="24sp"

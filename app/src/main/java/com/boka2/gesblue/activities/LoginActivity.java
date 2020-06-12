@@ -934,6 +934,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void guardarDadesAlPreferences(NouTerminalResponse nt, String username) {
 		PreferencesGesblue.setTerminal(mContext, Long.toString(nt.getTerminal()));
 		PreferencesGesblue.saveLogo(mContext, nt.getLogo());
+		Asinc_Logo(mContext);
 		PreferencesGesblue.saveImatgePeu(mContext, nt.getImatgepeu());
 		PreferencesGesblue.saveTextCap(mContext, nt.getTextcap());
 		PreferencesGesblue.setAgentId(mContext, username);
@@ -1906,6 +1907,24 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 			fileOrDirectory.delete();
 		}
+
+	private static void Asinc_Logo(final Context mContext){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Bitmap mapa=Picasso.with(mContext).load(PreferencesGesblue.getLogo(mContext)).get();
+					PreferencesGesblue.saveLogoBitmap_String(mContext, Utils.BitMapToString(mapa));
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+
+			}
+		}).start();
+
+	}
 
 
 }

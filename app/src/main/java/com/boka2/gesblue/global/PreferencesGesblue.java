@@ -102,8 +102,13 @@ public class PreferencesGesblue extends Preferences {
 
 
 	private static final String ESTAT_COMPROVACIO = "estatComprovacio";
+	private static final String PREF_LOGO_BITMAP_STRING = "bitmap_Logo";
 
-
+	private static final String PREF_LAST_CODI_CARRER = "last_codiCarrer";
+	private static final String PREF_LAST_NOM_CARRER = "last_nomCarrer";
+	private static final String PREF_LAST_CODI_ZONA = "last_codiZona";
+	private static final String PREF_LAST_NOM_ZONA = "last_nomZona";
+	private static final String PREF_LAST_CONCESSIO = "last_concessio";
 
 
 	public static void saveEstatComprovacio(Context _context, int i) {
@@ -727,4 +732,61 @@ public class PreferencesGesblue extends Preferences {
 
 
 	}
+
+
+	public static void saveLogoBitmap_String(Context _context, String b) {
+		put(_context, PREF_LOGO_BITMAP_STRING, b);
+	}
+
+	public static String getLogoBitmap_String(Context _context) {
+		return getString(_context, PREF_LOGO_BITMAP_STRING, BUIT);
+	}
+
+
+
+
+
+
+	public static void setPrefLastCodiCarrer(Context _context, long codiCarrer) {
+		put(_context, PREF_LAST_CODI_CARRER, codiCarrer);
+	}
+	public static long getPrefLastCodiCarrer(Context _context) {
+		return getLong(_context, PREF_LAST_CODI_CARRER, ZERO);
+	}
+
+	public static void setPrefLastCodiZona(Context _context, long codiZona) {
+		put(_context, PREF_LAST_CODI_ZONA, codiZona);
+	}
+	public static long getPrefLastCodiZona(Context _context) {
+		return getLong(_context, PREF_LAST_CODI_ZONA, ZERO);
+	}
+
+
+
+
+	public static void setPrefLastNomCarrer(Context _context, String nomCarrer) {
+		put(_context, PREF_LAST_NOM_CARRER, nomCarrer);
+	}
+	public static String getPrefLastNomCarrer(Context _context) {
+		return getString(_context, PREF_LAST_NOM_CARRER, BUIT);
+	}
+	public static void setPrefLastNomZona(Context _context, String nomZona) {
+		put(_context, PREF_LAST_NOM_ZONA, nomZona);
+	}
+	public static String getPrefLastNomZona(Context _context) {
+		return getString(_context, PREF_LAST_NOM_ZONA, null);
+	}
+
+
+
+
+
+	public static void setPrefLastConcessio(Context _context, String concessio) {
+		put(_context, PREF_LAST_CONCESSIO, concessio);
+	}
+	public static String getPrefLastConcessio(Context _context) {
+		return getString(_context, PREF_LAST_CONCESSIO, BUIT);
+	}
+
+
 }

@@ -198,6 +198,15 @@ public class Pas0ZonaActivity extends GesblueFragmentActivity {
 						PreferencesGesblue.setNomZona(mContext, mSelected.getNomzona());
 						PreferencesGesblue.setCodiCarrer(mContext, 0);
 						PreferencesGesblue.setNomCarrer(mContext, null);
+
+
+						PreferencesGesblue.setPrefLastCodiZona(mContext, mSelected.getCodizona());
+						PreferencesGesblue.setPrefLastNomZona(mContext, mSelected.getNomzona());
+						PreferencesGesblue.setPrefLastCodiCarrer(mContext, 0);
+						PreferencesGesblue.setPrefLastNomCarrer(mContext, null);
+
+
+
 						getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSelected.getCodizona());
 						setResult(RESULT_OK, getIntent());
 						finish();

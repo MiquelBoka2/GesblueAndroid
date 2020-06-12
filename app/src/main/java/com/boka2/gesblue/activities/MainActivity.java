@@ -356,12 +356,27 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 		/*ESTAT PER DEFECTE DE LES DADES*/{
-			PreferencesGesblue.setCodiCarrer(mContext, 0);
-			PreferencesGesblue.setNomCarrer(mContext, null);
-			PreferencesGesblue.setCodiZona(mContext, 0);
-			PreferencesGesblue.setNomZona(mContext, null);
-			mBinding.tvZona.setText(PreferencesGesblue.getZonaDefaultValue(mContext));
-			mBinding.tvCarrer.setText(PreferencesGesblue.getCarrerDefaultValue(mContext));
+			if(PreferencesGesblue.getPrefLastConcessio(mContext).equals(concessio)){
+				PreferencesGesblue.setCodiCarrer(mContext, PreferencesGesblue.getPrefLastCodiCarrer(mContext));
+				PreferencesGesblue.setNomCarrer(mContext, PreferencesGesblue.getPrefLastNomCarrer(mContext));
+				PreferencesGesblue.setCodiZona(mContext, PreferencesGesblue.getPrefLastCodiZona(mContext));
+				PreferencesGesblue.setNomZona(mContext, PreferencesGesblue.getPrefLastNomZona(mContext));
+
+
+				mBinding.tvZona.setText(PreferencesGesblue.getPrefLastNomZona(mContext));
+				mBinding.tvCarrer.setText(PreferencesGesblue.getPrefLastNomCarrer(mContext));
+
+
+			}
+			else{
+				PreferencesGesblue.setPrefLastConcessio(mContext,concessio);
+				PreferencesGesblue.setCodiCarrer(mContext, 0);
+				PreferencesGesblue.setNomCarrer(mContext, null);
+				PreferencesGesblue.setCodiZona(mContext, 0);
+				PreferencesGesblue.setNomZona(mContext, null);
+				mBinding.tvZona.setText(PreferencesGesblue.getZonaDefaultValue(mContext));
+				mBinding.tvCarrer.setText(PreferencesGesblue.getCarrerDefaultValue(mContext));
+			}
 		}
 	}
 

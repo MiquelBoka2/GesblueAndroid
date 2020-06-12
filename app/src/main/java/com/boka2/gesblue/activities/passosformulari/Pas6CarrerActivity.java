@@ -197,6 +197,8 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 					if(checked){
 						PreferencesGesblue.setCodiCarrer(mContext,mSelected.getCodicarrer());
 						PreferencesGesblue.setNomCarrer(mContext,mSelected.getNomcarrer());
+						PreferencesGesblue.setPrefLastCodiCarrer(mContext,mSelected.getCodicarrer());
+						PreferencesGesblue.setPrefLastNomCarrer(mContext,mSelected.getNomcarrer());
 						//Per evitar el penjament degut al parsejament de les dades a sancio, desem als extres un boleà per dir al programa que ho porcessi de forma diferent.
 						getIntent().putExtra("noSancio", true);
 						getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSelected.getCodicarrer());

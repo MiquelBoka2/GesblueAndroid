@@ -1,10 +1,13 @@
 package com.boka2.gesblue;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.boka2.sbaseobjects.tools.Preferences;
+import com.bumptech.glide.util.Util;
 import com.datecs.api.printer.Printer;
 import com.boka2.gesblue.global.PreferencesGesblue;
 import com.boka2.gesblue.global.Utils;
@@ -62,12 +65,22 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 			TicketPrinter ticketPrinter = new TicketPrinter(mPrinter, mContext);
 
 			TicketConfiguration ticketConfiguration = new TicketConfiguration();
+			Bitmap logo=Utils.StringToBitMap(PreferencesGesblue.getLogoBitmap_String(mContext));
+			if(logo!=null){
+				ticketConfiguration.setLogo(logo)
+						.setButlleta(numeroButlleta)
+						.setTextCap(PreferencesGesblue.getTextCap(mContext))
+						.setData(createCalendar(0))
+						.setMatricula(sancio.getMatricula());
+			}
+			else{
+				ticketConfiguration.setLogo(Picasso.with(mContext).load(PreferencesGesblue.getLogo(mContext)).get())
+						.setButlleta(numeroButlleta)
+						.setTextCap(PreferencesGesblue.getTextCap(mContext))
+						.setData(createCalendar(0))
+						.setMatricula(sancio.getMatricula());
+			}
 
-			ticketConfiguration.setLogo(Picasso.with(mContext).load(PreferencesGesblue.getLogo(mContext)).get())
-					.setButlleta(numeroButlleta)
-					.setTextCap(PreferencesGesblue.getTextCap(mContext))
-					.setData(createCalendar(0))
-					.setMatricula(sancio.getMatricula());
 
 			/*if (PreferencesGesblue.getConcessio(mContext) == 4) {//Banyoles
 				ticketConfiguration.setImatgePeu(Picasso.with(mContext).load(PreferencesGesblue.getImatgePeu(mContext)).get());
