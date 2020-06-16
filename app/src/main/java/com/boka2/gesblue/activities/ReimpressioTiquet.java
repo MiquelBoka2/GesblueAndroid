@@ -369,7 +369,10 @@ public class ReimpressioTiquet extends AppCompatActivity {
        /*NUM**/
         if(txt_Num.isEnabled()) {
             if(!isEmpty(sancio.getNumero())) {
-                txt_Num.setText(sancio.getNumero());
+                if(sancio.getNumero()=="0"){
+                    txt_Num.setText(sancio.getNumero());
+                }
+
             }
         }
 

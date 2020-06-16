@@ -80,22 +80,31 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 						.setData(createCalendar(0))
 						.setMatricula(sancio.getMatricula());
 			}
-
-
-			/*if (PreferencesGesblue.getConcessio(mContext) == 4) {//Banyoles
-				ticketConfiguration.setImatgePeu(Picasso.with(mContext).load(PreferencesGesblue.getImatgePeu(mContext)).get());
-			}**/
-			try {
-				if (sancio.getModelMarca() != null && !TextUtils.isEmpty(sancio.getModelMarca().getImatgemarca()))
-					ticketConfiguration = ticketConfiguration.setLogoCotxe(Picasso.with(mContext).load(sancio.getModelMarca().getImatgemarca()).get());
-			} catch (IOException e) {
-				e.printStackTrace();
-				e.printStackTrace();
-			}
+			/*
+            if (PreferencesGesblue.getConcessio(mContext) == 4) {//Banyoles
+                ticketConfiguration.setImatgePeu(Picasso.with(mContext).load(PreferencesGesblue.getImatgePeu(mContext)).get());
+            }
+			*/
+            try {
+                if (sancio.getModelMarca() != null && !TextUtils.isEmpty(sancio.getModelMarca().getImatgemarca()))
+                    ticketConfiguration = ticketConfiguration.setLogoCotxe(Picasso.with(mContext).load(sancio.getModelMarca().getImatgemarca()).get());
+            } catch (IOException e) {
+                e.printStackTrace();
+                e.printStackTrace();
+            }
+            String numero = sancio.getNumero();
+            if(numero.equals("0"))
+            {
+                numero="";
+            }
+            else if(numero.equals("S/N"))
+            {
+                numero="";
+            }
 			ticketConfiguration = ticketConfiguration.setVehicle(Utils.languageMultiplexer(sancio.getModelTipusVehicle().getNomtipusvehiclees(), sancio.getModelTipusVehicle().getNomtipusvehiclecat()))
 					.setMarcaModel(sancio.getModelMarca().getImatgemarca(), sancio.getModelMarca().getNommarca() + " " + sancio.getModelModel().getNommodel())
 					.setColor(Utils.languageMultiplexer(sancio.getModelColor().getNomcolores(), sancio.getModelColor().getNomcolorcat()))
-					.setLlocInfraccio(sancio.getModelCarrer().getNomcarrer() + " " + sancio.getNumero())
+					.setLlocInfraccio(sancio.getModelCarrer().getNomcarrer() + " " +numero)
 					.setPrecepteInfringit(sancio.getModelInfraccio().getPrecepte())
 					.setFetDenunciat(sancio.getModelInfraccio().getNom())
 					.setImport(Float.parseFloat(sancio.getModelInfraccio().getImporte()))

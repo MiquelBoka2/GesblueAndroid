@@ -474,7 +474,25 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	private void fillNum() {
 		if (mBinding.tvNum.isEnabled()) {
 			if (!isEmpty(sancio.getNumero())) {
-				mBinding.tvNum.setText(sancio.getNumero());
+				if(sancio.getNumero()==""){
+					mBinding.tvNum.setText("S/N");
+				}
+				else{
+					mBinding.tvNum.setText(sancio.getNumero());
+				}
+
+			}
+
+		}
+		else{
+			if(!isEmpty(sancio.getNumero())) {
+				if(sancio.getNumero()==""){
+					mBinding.tvNum.setText("S/N");
+				}
+				else{
+					mBinding.tvNum.setText(sancio.getNumero());
+				}
+
 			}
 		}
 	}
@@ -827,7 +845,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				sancio != null &&
 						sancio.getModelCarrer() != null &&
 						sancio.getModelCarrer().getCodicarrer() != 0 &&
-						!isEmpty(sancio.getNumero()) &&
+						/*!isEmpty(sancio.getNumero()) &&*/
 						!isEmpty(sancio.getMatricula()) &&
 						sancio.getModelTipusVehicle() != null &&
 						sancio.getModelMarca() != null &&
@@ -1104,10 +1122,10 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		long NUM = PreferencesGesblue.getIdAgent(mContext);
 		denuncia.setAgent(PreferencesGesblue.getIdAgent(mContext));
 		denuncia.setAdrecacarrer(sancio.getModelCarrer().getCodicarrer());
-		if (sancio.getNumero().equals("S/N")) {
+		if (sancio.getNumero().equals("S/N") || sancio.getNumero().equals("")) {
 			denuncia.setAdrecanum(0);
 		} else {
-			denuncia.setAdrecanum(Double.parseDouble(sancio.getNumero()));
+			denuncia.setAdrecanum(Integer.parseInt(sancio.getNumero()));
 		}
 
 		denuncia.setPosicio("");

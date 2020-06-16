@@ -66,7 +66,13 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 					PreferencesGesblue.clearFormulari(mContext);
 					Intent intent = new Intent(mContext, FormulariActivity.class);
 
-					mSelected = (TextUtils.isEmpty(mBinding.etNum.getText().toString()) ? "S/N" : mBinding.etNum.getText().toString());
+					if(mBinding.etNum.getText().toString()=="")
+					{
+						mSelected = "0";
+					}
+					else{
+						mSelected = (TextUtils.isEmpty(mBinding.etNum.getText().toString()) ? "" : mBinding.etNum.getText().toString());
+					}
 					mSancio.setNumero(mSelected);
 					intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
 					intent.putExtra("adm",adm);

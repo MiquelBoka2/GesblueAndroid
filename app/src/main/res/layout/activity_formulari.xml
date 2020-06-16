@@ -32,13 +32,14 @@
 				android:orientation="vertical">
 
 				<com.boka2.gesblue.customstuff.views.SGBTextView
+					android:id="@+id/tvMatricula"
+					style="@style/Base.Widget.AppCompat.EditText"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:id="@+id/tvMatricula"
-					android:textSize="30sp"
+					android:clickable="false"
+					android:fontFamily="@font/roboto_mono"
 					android:textColor="@color/textview_formulari"
-                    style="@style/Base.Widget.AppCompat.EditText"
-                    android:clickable="false"/>
+					android:textSize="30sp" />
 
 				<LinearLayout
 					android:layout_width="match_parent"

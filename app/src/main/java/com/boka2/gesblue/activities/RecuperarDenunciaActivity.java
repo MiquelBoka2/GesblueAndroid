@@ -172,8 +172,14 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
         Model_Infraccio infraccio = DatabaseAPI.getInfraccio(mContext,String.valueOf((int)denuncia.getInfraccio()));
         Model_Carrer carrer = DatabaseAPI.getCarrer(mContext,String.valueOf((int)denuncia.getAdrecacarrer()));
         Model_Zona zona = DatabaseAPI.getZona(mContext,String.valueOf((int)denuncia.getZona()));
-        Sancio mSancio = new Sancio(denuncia.getMatricula(),String.valueOf(denuncia.getAdrecanum()),tipusVehicle,marca,model,color,infraccio,carrer,zona);
-
+        Sancio mSancio =new Sancio();
+        if(denuncia.getAdrecanum()==0)
+        {
+            mSancio = new Sancio(denuncia.getMatricula(),"",tipusVehicle,marca,model,color,infraccio,carrer,zona);
+        }
+        else{
+            mSancio = new Sancio(denuncia.getMatricula(),String.valueOf(denuncia.getAdrecanum()),tipusVehicle,marca,model,color,infraccio,carrer,zona);
+        }
         intent.putExtra(ReimpressioTiquet.INTENT_SANCIO, mSancio);
         intent.putExtra(ReimpressioTiquet.INTENT_NUM_DENUNCIA,denuncia.getCodidenuncia());
         intent.putExtra(ReimpressioTiquet.INTENT_DATA_CREACIO,denuncia.getFechacreacio());
