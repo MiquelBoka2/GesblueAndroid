@@ -26,11 +26,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.boka2.gesblue.customstuff.views.imageZoom.ImageViewTouch;
 import com.boka2.gesblue.datamanager.database.model.Model_Denuncia;
+import com.boka2.sbaseobjects.views.SButton;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.datecs.api.emsr.EMSR;
@@ -60,6 +63,8 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 import static android.text.TextUtils.isEmpty;
+import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 public class ReimpressioTiquet extends AppCompatActivity {
@@ -87,6 +92,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
     private String numeroTiquet = "";
     private String idiomaImpressio="";
     private String idiomaAntic=Locale.getDefault().getLanguage();
+
 
     public static Boolean errorDialog=false;
 
@@ -201,7 +207,10 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
             }
         });
+
     }
+
+
 
     private void loadAll() {
         txt_Matricula=this.findViewById(R.id.txt_Matricula);
@@ -231,11 +240,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
         view_Color=this.findViewById(R.id.view_Color);
 
-
-
-
-
-
+        
 
 
 

@@ -134,9 +134,15 @@ public class GesblueApplication extends MultiDexApplication {
 					}
 
 				}
+				if(!DenunciaEnCurs){
+					EnviamentDisponible=true;
+				}
 			}
+
+			Log.e("Estat EnviamentDispon",EnviamentDisponible+"");
+			Log.e("Estat DenunciaEnCurs:",DenunciaEnCurs+"");
       /* and here comes the "trick" */
-			handler.postDelayed(this, 120000);
+			handler.postDelayed(this, 20000);
 		}
 	};
 
@@ -205,7 +211,10 @@ public class GesblueApplication extends MultiDexApplication {
 										intentsEnviaDenuncia=0;
 										return;
 									}
+
 							}
+
+
 
 						}
 
