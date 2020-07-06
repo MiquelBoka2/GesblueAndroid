@@ -708,9 +708,16 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.buttonNoDenunciar.setTextColor(getResources().getColor(R.color.text_recomenat));
 
 
+		mBinding.textViewMatricula.setEnabled(false);
+		mBinding.editTextMatricula.setEnabled(false);
+		mBinding.tvZona.setEnabled(false);
+		mBinding.tvCarrer.setEnabled(false);
+		mBinding.buttonComprovar.setEnabled(false);
+
 		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
 
-		mBinding.viewBtnComprobar.setVisibility(View.GONE);
+
+		mBinding.buttonComprovar.setVisibility(View.GONE);
 
 	}
 

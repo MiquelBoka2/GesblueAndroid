@@ -18,9 +18,12 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -66,6 +69,7 @@ import static android.text.TextUtils.isEmpty;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.boka2.sbaseobjects.objects.SFragmentActivity.anima;
 
 public class ReimpressioTiquet extends AppCompatActivity {
 
@@ -92,6 +96,13 @@ public class ReimpressioTiquet extends AppCompatActivity {
     private String numeroTiquet = "";
     private String idiomaImpressio="";
     private String idiomaAntic=Locale.getDefault().getLanguage();
+
+
+    private ImageViewTouch preview;
+    private LinearLayout linearPreview;
+    private SButton confirmar;
+
+
 
 
     public static Boolean errorDialog=false;
@@ -177,10 +188,13 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reimpressio_denuncia);
+        mContext=this;
         loadAll();
         getIntentAndFill();
         configSpiner();
@@ -202,11 +216,66 @@ public class ReimpressioTiquet extends AppCompatActivity {
                     }
                 }, false);
 
-
-
-
             }
         });
+
+
+        confirmar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                linearPreview.setVisibility(GONE);
+            }
+        });
+
+        img_Foto1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(img1IsActive){
+                    Glide.with(mContext).load(foto1).asBitmap().into(preview);
+                    linearPreview.setVisibility(VISIBLE);
+
+                }
+            }
+        });
+
+
+        img_Foto2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(img2IsActive){
+                    Glide.with(mContext).load(foto2).asBitmap().into(preview);
+                    linearPreview.setVisibility(VISIBLE);
+
+                }
+            }
+        });
+
+        img_Foto3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(img3IsActive){
+                    Glide.with(mContext).load(foto3).asBitmap().into(preview);
+                    linearPreview.setVisibility(VISIBLE);
+
+                }
+            }
+        });
+
+        img_Foto4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(img4IsActive){
+                    Glide.with(mContext).load(foto4).asBitmap().into(preview);
+                    linearPreview.setVisibility(VISIBLE);
+
+                }
+            }
+        });
+
+
+
+
 
     }
 
@@ -240,11 +309,11 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
         view_Color=this.findViewById(R.id.view_Color);
 
-        
+        preview=this.findViewById(R.id.preview);
 
+        linearPreview=this.findViewById(R.id.linearPreview_reimpressio);
 
-
-
+        confirmar=this.findViewById(R.id.confirmar);
 
     }
 

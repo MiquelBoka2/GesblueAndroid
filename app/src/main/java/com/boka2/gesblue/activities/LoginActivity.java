@@ -86,6 +86,7 @@ import com.boka2.gesblue.global.PreferencesGesblue;
 import com.boka2.gesblue.global.Utils;
 import com.boka2.gesblue.model.Models;
 import com.boka2.gesblue.model.Tipus_Vehicle;
+import com.boka2.sbaseobjects.tools.Preferences;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.io.FileUtils;
@@ -1782,9 +1783,15 @@ public class LoginActivity extends GesblueFragmentActivity {
 					else if(result.equals("unlog")){
 
 
+
 						PreferencesGesblue.setConcessioString(mContext,"");
 						PreferencesGesblue.setConcessio(mContext,0);
 						PreferencesGesblue.saveDataSync(mContext,"0");
+						PreferencesGesblue.setPrefLastNomCarrer(mContext,"");
+						PreferencesGesblue.setPrefLastNomZona(mContext,"");
+						PreferencesGesblue.setPrefLastCodiCarrer(mContext,-1);
+						PreferencesGesblue.setPrefLastCodiZona(mContext,-1);
+
 
 						mBinding.textViewConcessio.setVisibility(View.VISIBLE);
 						mBinding.editTextConcessio.setVisibility(View.VISIBLE);
