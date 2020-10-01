@@ -17,10 +17,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.boka2.gesblue.Boka2ols.BK_Utils;
 import com.boka2.gesblue.R;
 import com.boka2.gesblue.databinding.ActivityLoginBinding;
 import com.boka2.gesblue.datamanager.DatabaseAPI;
@@ -53,13 +55,14 @@ public class Opcions extends AppCompatActivity {
     private boolean refreshDades;
     LoginResponse responseManual;
     
-    private ConstraintLayout Canviar_Concessio,Desconectat, Recarregar_Dades, Reimpressio, Idioma, Enviaments_Pendents,Admin,Extres,Base;
+    private ConstraintLayout Canviar_Concessio,Desconectat, Recarregar_Dades, Reimpressio, Idioma, Enviaments_Pendents,Admin,E_UUID,Extres,Base;
     private TextView txt_Versio,txt_NumDenuncies;
     private Button btn_Confirmar;
     private Context oContext=this;
     private String estat="";
     private Boolean adm=false;
-    private ImageView  img_Lock,img_Unlock;
+    private ImageView  img_Lock,img_Unlock,save_uuid;
+    private EditText edt_uuid;
 
     private int RequestCode=0002;
 
@@ -92,7 +95,12 @@ public class Opcions extends AppCompatActivity {
             Reimpressio = (ConstraintLayout) findViewById(R.id.lay_Reimpressio);
             Idioma = (ConstraintLayout) findViewById(R.id.lay_Idioma);
             Enviaments_Pendents = (ConstraintLayout) findViewById(R.id.lay_EnviamentsPendents);
+            E_UUID = (ConstraintLayout) findViewById(R.id.lay_edit_uuid);
             Admin = (ConstraintLayout) findViewById(R.id.lay_Admin);
+
+
+            save_uuid=(ImageView) findViewById(R.id.img_save_uuid);
+            edt_uuid=(EditText) findViewById(R.id.edt_uuid);
 
 
             img_Lock = (ImageView) findViewById(R.id.img_Admin_close);
@@ -108,6 +116,7 @@ public class Opcions extends AppCompatActivity {
             Reimpressio.setVisibility(View.GONE);
             Idioma.setVisibility(View.GONE);
             Enviaments_Pendents.setVisibility(View.GONE);
+            E_UUID.setVisibility(View.GONE);
             Admin.setVisibility(View.GONE);
         }
 
@@ -152,6 +161,7 @@ public class Opcions extends AppCompatActivity {
 
                 Canviar_Concessio.setVisibility(View.GONE);
                 Recarregar_Dades.setVisibility(View.GONE);
+                E_UUID.setVisibility(View.GONE);
 
                 Desconectat.setVisibility(View.VISIBLE);
                 Reimpressio.setVisibility(View.VISIBLE);
@@ -203,6 +213,7 @@ public class Opcions extends AppCompatActivity {
                 Desconectat.setVisibility(View.GONE);
                 Reimpressio.setVisibility(View.GONE);
                 Enviaments_Pendents.setVisibility(View.GONE);
+                E_UUID.setVisibility(View.GONE);
 
 
 
@@ -413,6 +424,29 @@ public class Opcions extends AppCompatActivity {
 
                 }
             });
+
+
+            save_uuid.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                        String uuid=edt_uuid.getText().toString();
+                        if(!uuid.equals("null") && !uuid.equals("")){
+                            if(!uuid.contains("=")&&!uuid.contains("?")&&!uuid.contains("/")&&!uuid.contains("$")){
+                                BK_Utils.SetUUIDToFile(oContext,uuid);
+                                PreferencesGesblue.savePrefEternUUID(oContext,uuid);
+                                Toast.makeText(oContext,R.string.uuid_canviat,Toast.LENGTH_LONG).show();
+                            }
+                            else{
+                                Toast.makeText(oContext,R.string.uuid_no_caracter_espacials,Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        else{
+                            Toast.makeText(oContext,R.string.uuid_no_caracter_espacials,Toast.LENGTH_LONG).show();
+                        }
+
+                }
+            });
         }
 
 
@@ -423,10 +457,12 @@ public class Opcions extends AppCompatActivity {
         if (adm){
             img_Lock.setVisibility(View.GONE);
             img_Unlock.setVisibility(View.VISIBLE);
+            E_UUID.setVisibility(View.VISIBLE);
         }
         else{
             img_Lock.setVisibility(View.VISIBLE);
             img_Unlock.setVisibility(View.GONE);
+            E_UUID.setVisibility(View.GONE);
         }
     }
 

@@ -14,8 +14,8 @@ import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.Toast;
 
+import com.boka2.gesblue.Boka2ols.BK_Utils;
 import com.boka2.gesblue.R;
 import com.boka2.gesblue.datamanager.webservices.DatamanagerAPI;
 import com.boka2.gesblue.datamanager.webservices.requests.dadesbasiques.RecuperaDataRequest;
@@ -25,7 +25,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.Normalizer;
 import java.text.ParseException;
@@ -33,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -47,7 +47,6 @@ import static com.boka2.gesblue.global.PreferencesGesblue.getControl;
 import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiExportadora;
 import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiInstitucio;
 import static com.boka2.gesblue.global.PreferencesGesblue.getPrefCodiTipusButlleta;
-import static com.boka2.sbaseobjects.tools.ImageTools.getFileAfterResize;
 
 /*
  * Created by Boka2.
@@ -169,8 +168,40 @@ public class Utils {
 
     public static String getDeviceId(Context context) {
         TelephonyManager tManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String result=tManager.getDeviceId();
 
-        return tManager.getDeviceId();
+        if(result==null){//NO TENIM UUID CONVENCIONAL
+
+            result=PreferencesGesblue.getPrefEternUUID(context);
+
+            if(result==null||result==""){//NO TENIM UUID EMAGATZEMAT
+
+                result=BK_Utils.GetUUIDFormFile(context);
+
+                if(result==null||result==""){//NO TENIM UUID EN ARXIU
+
+                    //GENEREM UN NOU UUID i el GUARDEM
+                    result= UUID.randomUUID().toString();
+                    BK_Utils.SetUUIDToFile(context,result);
+                    PreferencesGesblue.savePrefEternUUID(context,result);
+                }
+                else{
+                    //GUARDEM UUID EN LES PREFERENCIES
+                    PreferencesGesblue.savePrefEternUUID(context,result);
+                }
+            }
+            else{
+                //GUARDEM UUID EN EL ARXIU
+                BK_Utils.SetUUIDToFile(context,result);
+            }
+        }
+        else{
+            //GUARDEM UUID A TOT ARREU
+            PreferencesGesblue.savePrefEternUUID(context,result);
+            BK_Utils.SetUUIDToFile(context,result);
+        }
+
+        return result;
     }
 
     public static void showCustomDatamanagerError(Context context, String error) {

@@ -111,6 +111,21 @@ public class PreferencesGesblue extends Preferences {
 	private static final String PREF_LAST_CONCESSIO = "last_concessio";
 
 
+	private static final String PREF_ETERN_UUID = "etern_uuid";
+
+	public static void savePrefEternUUID(Context _context, String s) {
+		put(_context, PREF_ETERN_UUID, s);
+	}
+
+	public static String getPrefEternUUID(Context _context) {
+
+		return getString(_context, PREF_ETERN_UUID, BUIT);
+	}
+
+
+
+
+
 	public static void saveEstatComprovacio(Context _context, int i) {
 
 

@@ -604,6 +604,7 @@ public class MainActivity extends GesblueFragmentActivity {
 						}else{
 							changeViewMultable();
 							mBinding.txtInfo.setText(getResources().getString(R.string.sense_tiquet));
+							mBinding.txtTemps.setText("");
                             estatComprovacio = 5;
 						}
 						break;

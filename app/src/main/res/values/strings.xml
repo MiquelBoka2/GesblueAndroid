@@ -323,4 +323,9 @@ secretari/a de l\'Ajuntament.</string>
     <string name="error_img">Error al enviar l\'imatge</string>
 
 
+    <string name="uuid_no_caracter_espacials">UUID no pot contenir caràcters especials</string>
+    <string name="uuid_no_especificat">UUID no especificat</string>
+    <string name="uuid_error">Error en modificar el UUID</string>
+    <string name="uuid_canviat">El UUID ha sigut modificat</string>
+
 </resources>
