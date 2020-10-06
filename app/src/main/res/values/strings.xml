@@ -328,4 +328,7 @@ secretari/a de l\'Ajuntament.</string>
     <string name="uuid_error">Error en modificar el UUID</string>
     <string name="uuid_canviat">El UUID ha sigut modificat</string>
 
+    <string name="timeout_canviat">El Temps de Espera ha sigut modificat</string>
+    <string name="timeout_error">Error en modificar el Temps de Espera</string>
+
 </resources>

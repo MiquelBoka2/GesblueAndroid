@@ -55,14 +55,14 @@ public class Opcions extends AppCompatActivity {
     private boolean refreshDades;
     LoginResponse responseManual;
     
-    private ConstraintLayout Canviar_Concessio,Desconectat, Recarregar_Dades, Reimpressio, Idioma, Enviaments_Pendents,Admin,E_UUID,Extres,Base;
+    private ConstraintLayout Canviar_Concessio,Desconectat, Recarregar_Dades, Reimpressio, Idioma, Enviaments_Pendents,Admin,E_UUID,E_TimeOut,Extres,Base;
     private TextView txt_Versio,txt_NumDenuncies;
     private Button btn_Confirmar;
     private Context oContext=this;
     private String estat="";
     private Boolean adm=false;
-    private ImageView  img_Lock,img_Unlock,save_uuid;
-    private EditText edt_uuid;
+    private ImageView  img_Lock,img_Unlock,save_uuid,save_timeout;
+    private EditText edt_uuid,edit_timeout;
 
     private int RequestCode=0002;
 
@@ -96,12 +96,15 @@ public class Opcions extends AppCompatActivity {
             Idioma = (ConstraintLayout) findViewById(R.id.lay_Idioma);
             Enviaments_Pendents = (ConstraintLayout) findViewById(R.id.lay_EnviamentsPendents);
             E_UUID = (ConstraintLayout) findViewById(R.id.lay_edit_uuid);
+            E_TimeOut = (ConstraintLayout) findViewById(R.id.lay_edit_timeout);
             Admin = (ConstraintLayout) findViewById(R.id.lay_Admin);
 
 
             save_uuid=(ImageView) findViewById(R.id.img_save_uuid);
             edt_uuid=(EditText) findViewById(R.id.edt_uuid);
 
+            save_timeout=(ImageView) findViewById(R.id.img_save_timeout);
+            edit_timeout=(EditText) findViewById(R.id.edt_timeout);
 
             img_Lock = (ImageView) findViewById(R.id.img_Admin_close);
             img_Unlock = (ImageView) findViewById(R.id.img_Admin_open);
@@ -117,6 +120,7 @@ public class Opcions extends AppCompatActivity {
             Idioma.setVisibility(View.GONE);
             Enviaments_Pendents.setVisibility(View.GONE);
             E_UUID.setVisibility(View.GONE);
+            E_TimeOut.setVisibility(View.GONE);
             Admin.setVisibility(View.GONE);
         }
 
@@ -162,6 +166,7 @@ public class Opcions extends AppCompatActivity {
                 Canviar_Concessio.setVisibility(View.GONE);
                 Recarregar_Dades.setVisibility(View.GONE);
                 E_UUID.setVisibility(View.GONE);
+                E_TimeOut.setVisibility(View.GONE);
 
                 Desconectat.setVisibility(View.VISIBLE);
                 Reimpressio.setVisibility(View.VISIBLE);
@@ -214,6 +219,7 @@ public class Opcions extends AppCompatActivity {
                 Reimpressio.setVisibility(View.GONE);
                 Enviaments_Pendents.setVisibility(View.GONE);
                 E_UUID.setVisibility(View.GONE);
+                E_TimeOut.setVisibility(View.GONE);
 
 
 
@@ -447,6 +453,31 @@ public class Opcions extends AppCompatActivity {
 
                 }
             });
+
+
+
+
+
+
+
+            save_timeout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String text=edit_timeout.getText().toString();
+                    Integer timeout=Integer.parseInt(text);
+                    if(!timeout.equals(0)&&timeout>0){
+                        PreferencesGesblue.saveTimeOut(oContext,timeout);
+                        Toast.makeText(oContext,R.string.timeout_canviat,Toast.LENGTH_LONG).show();
+
+
+                    }
+                    else{
+                        Toast.makeText(oContext,R.string.timeout_error,Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            });
         }
 
 
@@ -458,11 +489,13 @@ public class Opcions extends AppCompatActivity {
             img_Lock.setVisibility(View.GONE);
             img_Unlock.setVisibility(View.VISIBLE);
             E_UUID.setVisibility(View.VISIBLE);
+            E_TimeOut.setVisibility(View.VISIBLE);
         }
         else{
             img_Lock.setVisibility(View.VISIBLE);
             img_Unlock.setVisibility(View.GONE);
             E_UUID.setVisibility(View.GONE);
+            E_TimeOut.setVisibility(View.GONE);
         }
     }
 

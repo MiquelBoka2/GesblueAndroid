@@ -534,7 +534,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		dataComprovacio= new Date();
 
 
-		DatamanagerAPI.crida_ComprovaMatricula(new ComprovaMatriculaRequest(PreferencesGesblue.getConcessio(mContext), Utils.getDeviceId(mContext), matricula, Utils.getCurrentTimeLong(mContext),PreferencesGesblue.getCodiCarrer(mContext),PreferencesGesblue.getCodiZona(mContext)), new JSoapCallback() {
+		DatamanagerAPI.crida_ComprovaMatricula(new ComprovaMatriculaRequest(PreferencesGesblue.getConcessio(mContext), Utils.getDeviceId(mContext), matricula, Utils.getCurrentTimeLong(mContext),PreferencesGesblue.getCodiCarrer(mContext),PreferencesGesblue.getCodiZona(mContext)),PreferencesGesblue.getTimeOut(mContext), new JSoapCallback() {
 			@Override
 			public void onSuccess(String result) {
 				final ComprovaMatriculaResponse response;
@@ -544,6 +544,7 @@ public class MainActivity extends GesblueFragmentActivity {
 				} catch (Exception ex) {
 					ELog(ex);
 					onError(PARSE_ERROR);
+					Log.e("ERROR COMPROVACIO:","");
 					return;
 				}
 

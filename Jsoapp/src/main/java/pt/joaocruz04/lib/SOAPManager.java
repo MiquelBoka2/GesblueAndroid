@@ -45,7 +45,7 @@ public class SOAPManager {
 
     private static final String TAG = "SOAPManager";
 
-    public static AsyncTask get(final String namespace, final String url, final String methodName, final String soap_action, final Object obj, final Class outputClass, final JSoapCallback callback) {
+    public static AsyncTask get(final String namespace, final String url, final String methodName, final String soap_action, final Object obj, final Class outputClass, final JSoapCallback callback,final Integer SegonsTimeout) {
 
         final ArrayList<ComparableProperty> parameters = extractProperties(obj);
         Collections.sort(parameters, new ComparablePropertyComparator());
@@ -65,7 +65,7 @@ public class SOAPManager {
                     envelope.implicitTypes = true;
                     envelope.dotNet = false;
                     envelope.setOutputSoapObject(request);
-                    SixtemiaTransport androidHttpTransport = new SixtemiaTransport(url, 30000);
+                    SixtemiaTransport androidHttpTransport = new SixtemiaTransport(url, SegonsTimeout*1000);
                     androidHttpTransport.debug = true;
                     androidHttpTransport.call(soap_action, envelope);
 

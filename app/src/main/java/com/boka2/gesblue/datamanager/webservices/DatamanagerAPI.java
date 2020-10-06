@@ -55,73 +55,75 @@ import pt.joaocruz04.lib.misc.JSoapCallback;
 
 public class DatamanagerAPI {
 
+	static Integer TimeOut_Standar=30;
+
 	//-- Dades basiques
 	public static AsyncTask crida_NouTerminal(NouTerminalRequest _nouTerminalRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_NOUTERMINAL_METHOD, Constants.DADESBA_NOUTERMINAL_SOAPACTION, _nouTerminalRequest, NouTerminalResponse.class, _listener);
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_NOUTERMINAL_METHOD, Constants.DADESBA_NOUTERMINAL_SOAPACTION, _nouTerminalRequest, NouTerminalResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_Login(LoginRequest _loginRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_LOGIN_METHOD, Constants.DADESBA_LOGIN_SOAPACTION, _loginRequest, LoginResponse.class, _listener);
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_LOGIN_METHOD, Constants.DADESBA_LOGIN_SOAPACTION, _loginRequest, LoginResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_TipusVehicles(TipusVehiclesRequest _tipusVehiclesRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_TIPUSVEHICLE_METHOD, Constants.DADESBA_TIPUSVEHICLES_SOAPACTION, _tipusVehiclesRequest, TipusVehiclesResponse.class, _listener);
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_TIPUSVEHICLE_METHOD, Constants.DADESBA_TIPUSVEHICLES_SOAPACTION, _tipusVehiclesRequest, TipusVehiclesResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_Agents(AgentsRequest _agentsRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_AGENTS_METHOD, Constants.DADESBA_AGENTS_SOAPACTION, _agentsRequest, AgentsResponse.class, _listener);
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_AGENTS_METHOD, Constants.DADESBA_AGENTS_SOAPACTION, _agentsRequest, AgentsResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_Marques(MarquesRequest _marquesRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_MARQUES_METHOD, Constants.DADESBA_MARQUES_SOAPACTION, _marquesRequest, MarquesResponse.class, _listener);
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_MARQUES_METHOD, Constants.DADESBA_MARQUES_SOAPACTION, _marquesRequest, MarquesResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_Models(ModelsRequest _modelsRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_MODELS_METHOD, Constants.DADESBA_MODELS_SOAPACTION, _modelsRequest, ModelsResponse.class, _listener);
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_MODELS_METHOD, Constants.DADESBA_MODELS_SOAPACTION, _modelsRequest, ModelsResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_Colors(ColorsRequest _colorsRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_COLORS_METHOD, Constants.DADESBA_COLORS_SOAPACTION, _colorsRequest, ColorsResponse.class, _listener);
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_COLORS_METHOD, Constants.DADESBA_COLORS_SOAPACTION, _colorsRequest, ColorsResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_Zones(ZonesRequest _zonesRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_ZONES_METHOD, Constants.DADESBA_ZONES_SOAPACTION, _zonesRequest, ZonesResponse.class, _listener);
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_ZONES_METHOD, Constants.DADESBA_ZONES_SOAPACTION, _zonesRequest, ZonesResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_Carrers(CarrersRequest _carrersRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_CARRERS_METHOD, Constants.DADESBA_CARRERS_SOAPACTION, _carrersRequest, CarrersResponse.class, _listener);
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_CARRERS_METHOD, Constants.DADESBA_CARRERS_SOAPACTION, _carrersRequest, CarrersResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_Infraccions(InfraccionsRequest _infraccionsRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_INFRACCIONS_METHOD, Constants.DADESBA_INFRACCIONS_SOAPACTION, _infraccionsRequest, InfraccionsResponse.class, _listener);
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_INFRACCIONS_METHOD, Constants.DADESBA_INFRACCIONS_SOAPACTION, _infraccionsRequest, InfraccionsResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_LlistaBlanca(LlistaBlancaRequest _llistablancaRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_LLISTABLANCA_METHOD, Constants.DADESBA_LLISTABLANCA_SOAPACTION, _llistablancaRequest, LlistaBlancaResponse.class, _listener);
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_LLISTABLANCA_METHOD, Constants.DADESBA_LLISTABLANCA_SOAPACTION, _llistablancaRequest, LlistaBlancaResponse.class, _listener,TimeOut_Standar);
 	}
     public static AsyncTask crida_LlistaAbonats(LlistaAbonatsRequest _llistaabonatsRequest, JSoapCallback _listener) {
-        return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_LLISTAABONATS_METHOD, Constants.DADESBA_LLISTAABONATS_SOAPACTION, _llistaabonatsRequest, LlistaAbonatsResponse.class, _listener);
+        return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_LLISTAABONATS_METHOD, Constants.DADESBA_LLISTAABONATS_SOAPACTION, _llistaabonatsRequest, LlistaAbonatsResponse.class, _listener,TimeOut_Standar);
     }
 	public static AsyncTask crida_RecuperaData(RecuperaDataRequest _recuperaDataRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_RECUPERADATA_METHOD, Constants.DADESBA_RECUPERADATA_SOAPACTION, _recuperaDataRequest, String.class, _listener);
+		return SOAPManager.get(Constants.DADESBA_NAMESPACE, Constants.DADESBA_URL, Constants.DADESBA_RECUPERADATA_METHOD, Constants.DADESBA_RECUPERADATA_SOAPACTION, _recuperaDataRequest, String.class, _listener,30);
 	}
 
 	//-- Operativa
-	public static AsyncTask crida_ComprovaMatricula(ComprovaMatriculaRequest _comprovaMatriculaRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_COMPROVAMATRICULA_METHOD, Constants.OPERATIVA_COMPROVAMATRICULA_SOAPACTION, _comprovaMatriculaRequest, ComprovaMatriculaResponse.class, _listener);
+	public static AsyncTask crida_ComprovaMatricula(ComprovaMatriculaRequest _comprovaMatriculaRequest,Integer Segons_TimeOut, JSoapCallback _listener) {
+		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_COMPROVAMATRICULA_METHOD, Constants.OPERATIVA_COMPROVAMATRICULA_SOAPACTION, _comprovaMatriculaRequest, ComprovaMatriculaResponse.class, _listener,Segons_TimeOut);
 	}
 	public static AsyncTask crida_NovaDenuncia(NovaDenunciaRequest _novaDenunciaRequest, JSoapCallback _listener) {
-		AsyncTask resposta=SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_NOVADENUNCIA_METHOD, Constants.OPERATIVA_NOVADENUNCIA_SOAPACTION, _novaDenunciaRequest, NovaDenunciaResponse.class, _listener);
+		AsyncTask resposta=SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_NOVADENUNCIA_METHOD, Constants.OPERATIVA_NOVADENUNCIA_SOAPACTION, _novaDenunciaRequest, NovaDenunciaResponse.class, _listener,TimeOut_Standar);
 		return resposta;
 	}
 	public static AsyncTask crida_NouLog(NouLogRequest _nouLogRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_NOULOG_METHOD, Constants.OPERATIVA_NOULOG_SOAPACTION, _nouLogRequest, NouLogResponse.class, _listener);
+		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_NOULOG_METHOD, Constants.OPERATIVA_NOULOG_SOAPACTION, _nouLogRequest, NouLogResponse.class, _listener,TimeOut_Standar);
 	}
 
 	public static AsyncTask crida_PujaFoto(PujaFotoRequest _pujaFotoRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_PUJAFOTO_METHOD, Constants.OPERATIVA_PUJAFOTO_SOAPACTION, _pujaFotoRequest, PujaFotoResponse.class, _listener);
+		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_PUJAFOTO_METHOD, Constants.OPERATIVA_PUJAFOTO_SOAPACTION, _pujaFotoRequest, PujaFotoResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_Posicio(PosicioRequest _posicioRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_POSICIO_METHOD, Constants.OPERATIVA_POSICIO_SOAPACTION, _posicioRequest, PosicioResponse.class, _listener);
+		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_POSICIO_METHOD, Constants.OPERATIVA_POSICIO_SOAPACTION, _posicioRequest, PosicioResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_RecuperaDenuncia(RecuperaDenunciaRequest _recuperaDenunciaRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_RECUPERADENUNCIA_METHOD, Constants.OPERATIVA_RECUPERADENUNCIA_SOAPACTION, _recuperaDenunciaRequest, RecuperaDenunciaResponse.class, _listener);
+		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_RECUPERADENUNCIA_METHOD, Constants.OPERATIVA_RECUPERADENUNCIA_SOAPACTION, _recuperaDenunciaRequest, RecuperaDenunciaResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_EstablirComptadorDenuncia(EstablirComptadorDenunciaRequest _establirComptadorDenunciaRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_ESTABLIRCOMPTADORDENUNCIA_METHOD, Constants.OPERATIVA_ESTABLIRCOMPTADORDENUNCIA_SOAPACTION, _establirComptadorDenunciaRequest, EstablirComptadorDenunciaResponse.class, _listener);
+		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_ESTABLIRCOMPTADORDENUNCIA_METHOD, Constants.OPERATIVA_ESTABLIRCOMPTADORDENUNCIA_SOAPACTION, _establirComptadorDenunciaRequest, EstablirComptadorDenunciaResponse.class, _listener,TimeOut_Standar);
 	}
 	public static AsyncTask crida_RecuperaComptadorDenuncia(RecuperaComptadorDenunciaRequest _recuperaComptadorDenunciaRequest, JSoapCallback _listener) {
-		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_RECUPERACOMPTADORDENUNCIA_METHOD, Constants.OPERATIVA_RECUPERACOMPTADORDENUNCIA_SOAPACTION, _recuperaComptadorDenunciaRequest, RecuperaComptadorDenunciaResponse.class, _listener);
+		return SOAPManager.get(Constants.OPERATIVA_NAMESPACE, Constants.OPERATIVA_URL, Constants.OPERATIVA_RECUPERACOMPTADORDENUNCIA_METHOD, Constants.OPERATIVA_RECUPERACOMPTADORDENUNCIA_SOAPACTION, _recuperaComptadorDenunciaRequest, RecuperaComptadorDenunciaResponse.class, _listener,TimeOut_Standar);
 	}
 
 	/*Descomenta els Log.e Per verure els resultats del datamanager*/
