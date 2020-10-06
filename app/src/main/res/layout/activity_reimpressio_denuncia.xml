@@ -10,7 +10,6 @@
         android:id="@+id/linearPreview_reimpressio"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_below="@+id/toolbar"
         android:background="#9000"
         android:elevation="8dp"
         android:orientation="vertical"
@@ -21,7 +20,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Capçalera"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"

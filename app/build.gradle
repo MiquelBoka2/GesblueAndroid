@@ -28,8 +28,8 @@ android {
         applicationId "com.boka2.gesblue"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 43
-        versionName "1.5.8"
+        versionCode 42
+        versionName "1.5.7"
         multiDexEnabled true
 
         archivesBaseName = "$appName-$versionName.$buildNumber($versionCode)"
@@ -69,10 +69,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('GesblueAndroid\\gesbluekey.jks')
-            storePassword "gesblue"
-            keyAlias "sixtemiaGesblue"
-            keyPassword "Sjos0o6n"
+            storeFile file('C:\\Users\\Feina\\Desktop\\PROJECTES_ANDROID\\GesblueAndroid\\gesbluekey.jks')
+            storePassword "mifas2020"
+            keyAlias "gesblue2020"
+            keyPassword "mifas2020"
         }
 
     }
