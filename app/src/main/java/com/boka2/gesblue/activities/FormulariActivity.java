@@ -11,12 +11,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -27,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.boka2.gesblue.GesblueApplication;
+import com.boka2.sbaseobjects.tools.ImageTools;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.datecs.api.emsr.EMSR;
@@ -84,6 +88,11 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 
 
+	private File root = new File("storage/emulated/0/Boka2/upload/temp/created");
+	private File loc_foto1;
+	private File loc_foto2;
+	private File loc_foto3;
+	private File loc_foto4;
 
 	private ActivityFormulariBinding mBinding;
 	private Sancio sancio;
@@ -246,6 +255,30 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		mBinding.toolbar.txtGesBlue.setVisibility(View.GONE);
 		mBinding.toolbar.txtAny.setVisibility(View.GONE);
 		mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
+
+
+		if (root.isDirectory())
+		{
+			String[] children = root.list();
+			for (int i = 0; i < children.length; i++)
+			{
+				new File(root, children[i]).delete();
+			}
+		}
+
+		root.mkdirs();
+		try {
+			loc_foto1=root.createTempFile("foto_temp_1_",
+					".jpg",root);
+			loc_foto2=root.createTempFile("foto_temp_2_",
+					".jpg",root);
+			loc_foto3=root.createTempFile("foto_temp_3_",
+					".jpg",root);
+			loc_foto4=root.createTempFile("foto_temp_4_",
+					".jpg",root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 
 		if (!getFoto1(mContext).equals("")) {
@@ -592,6 +625,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 						if (isEmpty(foto1)) {
 							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
 							} else {
 							}
@@ -599,6 +634,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 						} else if (isEmpty(foto2)) {
 							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto2);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
 							} else {
 							}
@@ -606,6 +643,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 						} else if (isEmpty(foto3)) {
 							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto3);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
 							} else {
 							}
@@ -613,6 +652,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 						} else if (isEmpty(foto4)) {
 							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto4);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
 							} else {
 							}
@@ -620,6 +661,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 						} else {
 							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
 							} else {
 							}
@@ -687,6 +730,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						else{
 								Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 								if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+									Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+									takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 									startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
 								}
 							}
@@ -725,6 +770,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						else{
 							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto2);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
 							}
 						}
@@ -762,6 +809,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						else{
 							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto3);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
 							}
 						}
@@ -800,6 +849,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						else{
 							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto4);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
 							}
 						}
@@ -889,14 +940,23 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
-			Bundle extras = data.getExtras();
+			Bundle extras=null;
+			if(data!=null&&data.getExtras()!=null) {
+				extras = data.getExtras();
+			}
+			imageBitmap=null;
 
 			switch (requestCode) {
 
 				/*ESPEREM EL RESULTAT DE LES FOTOS GENERAL**/
 				case Utils.REQUEST_IMAGE_CAPTURE_1:
 
-					imageBitmap = (Bitmap) extras.get("data");
+					if(imageBitmap==null && data!=null&& data.getExtras()!=null ){
+						imageBitmap = (Bitmap) extras.get("data");
+					}
+					else{
+						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto1);
+					}
 					foto1 = Utils.savePicture(imageBitmap, mContext, "1");
 					pinta(foto1, mBinding.imageViewA);
 					img1IsActive = true;
@@ -906,7 +966,13 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 				case Utils.REQUEST_IMAGE_CAPTURE_2:
 
-					imageBitmap = (Bitmap) extras.get("data");
+					if(imageBitmap==null && data!=null&& data.getExtras()!=null ){
+						imageBitmap = (Bitmap) extras.get("data");
+					}
+					else{
+
+						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto2);
+					}
 					foto2 = Utils.savePicture(imageBitmap, mContext, "2");
 					pinta(foto2, mBinding.imageViewB);
 					img2IsActive = true;
@@ -916,7 +982,12 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 				case Utils.REQUEST_IMAGE_CAPTURE_3:
 
-					imageBitmap = (Bitmap) extras.get("data");
+					if(imageBitmap==null && data!=null&& data.getExtras()!=null ){
+						imageBitmap = (Bitmap) extras.get("data");
+					}
+					else{
+						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto3);
+					}
 					foto3 = Utils.savePicture(imageBitmap, mContext, "3");
 					pinta(foto3, mBinding.imageViewC);
 					img3IsActive = true;
@@ -926,7 +997,12 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 				case Utils.REQUEST_IMAGE_CAPTURE_4:
 
-					imageBitmap = (Bitmap) extras.get("data");
+					if(imageBitmap==null && data!=null&& data.getExtras()!=null ){
+						imageBitmap = (Bitmap) extras.get("data");
+					}
+					else{
+						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto4);
+					}
 					foto4 = Utils.savePicture(imageBitmap, mContext, "4");
 					pinta(foto4, mBinding.imageViewD);
 					img4IsActive = true;

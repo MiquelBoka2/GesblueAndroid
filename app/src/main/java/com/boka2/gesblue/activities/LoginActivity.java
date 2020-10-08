@@ -1692,7 +1692,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 						cridaLogin(PreferencesGesblue.getUserName(mContext), PreferencesGesblue.getPassword(mContext), Long.parseLong(concessio), initialDate);
 					} else {
-						if(response.getResultat()==0) {
+						if(response!=null&&response.getResultat()==0) {
 
 							if (antirepetidor) {
 								antirepetidor = false;

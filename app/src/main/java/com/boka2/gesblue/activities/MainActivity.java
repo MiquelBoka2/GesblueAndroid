@@ -9,14 +9,17 @@ import android.content.Intent;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.util.Log;
@@ -28,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boka2.gesblue.GesblueApplication;
+import com.boka2.sbaseobjects.tools.ImageTools;
 import com.boka2.sbaseobjects.tools.Preferences;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -48,6 +52,7 @@ import com.boka2.gesblue.global.PreferencesGesblue;
 import com.boka2.gesblue.global.Utils;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -93,7 +98,11 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	private Activity mActivity=this;
 
-
+	private File root = new File("storage/emulated/0/Boka2/upload/temp/created");
+	private File loc_foto1;
+	private File loc_foto2;
+	private File loc_foto3;
+	private File loc_foto4;
 
 
 	@Override
@@ -104,6 +113,29 @@ public class MainActivity extends GesblueFragmentActivity {
 		GesblueApplication.DenunciaEnCurs =false;
 		Bundle extras = getIntent().getExtras();
 
+
+		if (root.isDirectory())
+		{
+			String[] children = root.list();
+			for (int i = 0; i < children.length; i++)
+			{
+				new File(root, children[i]).delete();
+			}
+		}
+
+		root.mkdirs();
+		try {
+			loc_foto1=root.createTempFile("foto_temp_1_",
+					".jpg",root);
+			loc_foto2=root.createTempFile("foto_temp_2_",
+					".jpg",root);
+			loc_foto3=root.createTempFile("foto_temp_3_",
+					".jpg",root);
+			loc_foto4=root.createTempFile("foto_temp_4_",
+					".jpg",root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		if (extras != null) {
 			adm = extras.getBoolean("adm");
 
@@ -251,6 +283,28 @@ public class MainActivity extends GesblueFragmentActivity {
 				if(PreferencesGesblue.getEstatComprovacio(mContext)==1 || PreferencesGesblue.getEstatComprovacio(mContext)==3|| PreferencesGesblue.getEstatComprovacio(mContext)==4){
 					contador.cancel();
 				}
+				foto1=null;
+				foto2=null;
+				foto3=null;
+				foto4=null;
+				imgAIsActive=false;
+				imgBIsActive=false;
+				imgCIsActive=false;
+				imgDIsActive=false;
+				mBinding.imageViewA.setImageDrawable(null);
+				mBinding.imageViewB.setImageDrawable(null);
+				mBinding.imageViewC.setImageDrawable(null);
+				mBinding.imageViewD.setImageDrawable(null);
+
+				if (root.isDirectory())
+				{
+					String[] children = root.list();
+					for (int i = 0; i < children.length; i++)
+					{
+						new File(root, children[i]).delete();
+					}
+				}
+
 				changeViewComprovarMatricula();
 			}
 		});
@@ -278,6 +332,8 @@ public class MainActivity extends GesblueFragmentActivity {
 					else{
 						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+							takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
 						}
 					}
@@ -294,6 +350,8 @@ public class MainActivity extends GesblueFragmentActivity {
 					else{
 						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto2);
+							takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
 						}
 					}
@@ -308,6 +366,8 @@ public class MainActivity extends GesblueFragmentActivity {
 					else{
 						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto3);
+							takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
 						}
 					}
@@ -322,6 +382,8 @@ public class MainActivity extends GesblueFragmentActivity {
 					else{
 						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto4);
+							takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
 						}
 					}
@@ -415,15 +477,25 @@ public class MainActivity extends GesblueFragmentActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
-			Bundle extras = data.getExtras();
-
-
+			Bundle extras=null;
+			Boolean result=null;
+			if(data!=null&&data.getExtras()!=null) {
+				extras = data.getExtras();
+				result = extras.getBoolean("adm");
+			}
+			imageBitmap=null;
 			switch (requestCode) {
 
 				/*ESPEREM EL RESULTAT DE LES FOTOS**/
 				case Utils.REQUEST_IMAGE_CAPTURE_1:
 
-					imageBitmap = (Bitmap) extras.get("data");
+
+					if(imageBitmap==null && data!=null&& data.getExtras()!=null ){
+						imageBitmap = (Bitmap) extras.get("data");
+					}
+					else{
+						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto1);
+					}
 					foto1=Utils.savePicture(imageBitmap,mContext,"1");
 					pinta(foto1, mBinding.imageViewA);
 					imgAIsActive = true;
@@ -434,7 +506,13 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				case Utils.REQUEST_IMAGE_CAPTURE_2:
 
-					imageBitmap = (Bitmap) extras.get("data");
+					if(imageBitmap==null && data!=null&& data.getExtras()!=null ){
+						imageBitmap = (Bitmap) extras.get("data");
+					}
+					else{
+
+						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto2);
+					}
 					foto2=Utils.savePicture(imageBitmap,mContext,"2");
 					pinta(foto2, mBinding.imageViewB);
 					imgBIsActive = true;
@@ -445,7 +523,12 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				case Utils.REQUEST_IMAGE_CAPTURE_3:
 
-					imageBitmap = (Bitmap) extras.get("data");
+					if(imageBitmap==null && data!=null&& data.getExtras()!=null ){
+						imageBitmap = (Bitmap) extras.get("data");
+					}
+					else{
+						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto3);
+					}
 					foto3=Utils.savePicture(imageBitmap,mContext,"3");
 					pinta(foto3, mBinding.imageViewC);
 					imgCIsActive = true;
@@ -455,7 +538,12 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				case Utils.REQUEST_IMAGE_CAPTURE_4:
 
-					imageBitmap = (Bitmap) extras.get("data");
+					if(imageBitmap==null && data!=null&& data.getExtras()!=null ){
+						imageBitmap = (Bitmap) extras.get("data");
+					}
+					else{
+						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto4);
+					}
 					foto4=Utils.savePicture(imageBitmap,mContext,"4");
 					pinta(foto4, mBinding.imageViewD);
 					imgDIsActive = true;
@@ -508,7 +596,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 			}
 			/* CHECK ADMIN**/
-			Boolean result = extras.getBoolean("adm");
+
 			if (result != null) {
 				adm = result;
 

@@ -41,7 +41,7 @@ public class ImageTools {
     private static final int REQUEST_OPEN_CAMERA = 2;
 
     private static String mCurrentPhotoPath;
-    private static final String TEMP_FILE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Boka2" + File.separator + "upload" + File.separator;
+    private static final String TEMP_FILE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Boka2" + File.separator + "upload" + File.separator +"temp";
 
     public static abstract class ZipListener {
         public abstract void onZipComplete(String path);
@@ -153,6 +153,55 @@ public class ImageTools {
         } catch (IOException e) {
             Log.d(TAG, e.getMessage(), e);
             return file;
+        }
+    }
+
+
+
+    public static Bitmap getBitmapAfterResize(File file) {
+        try {
+            Log.i(TAG, "Resizing: " + file);
+            String _strPath = file.getAbsolutePath();
+            int inWidth;
+            int inHeight;
+            InputStream in = new FileInputStream(_strPath);
+            String filename = _strPath.substring(_strPath.lastIndexOf("/") + 1);
+
+            // decode image size (decode metadata only, not the whole image)
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(in, null, options);
+            in.close();
+
+            // save width and height
+            inWidth = options.outWidth;
+            inHeight = options.outHeight;
+
+            // decode full image pre-resized
+            in=null;
+            in = new FileInputStream(_strPath);
+            options=null;
+            options = new BitmapFactory.Options();
+            // calc rought re-size (this is no exact resize)
+            options.inSampleSize = Math.max(inWidth / PHOTO_MAX_MEASURE, inHeight / PHOTO_MAX_MEASURE);
+            // decode full image
+
+            Bitmap roughBitmap = BitmapFactory.decodeStream(in, null, options);
+
+            // calc exact destination size
+            Matrix m = new Matrix();
+            RectF inRect = new RectF(0, 0, roughBitmap.getWidth(), roughBitmap.getHeight());
+            RectF outRect = new RectF(0, 0, PHOTO_MAX_MEASURE, PHOTO_MAX_MEASURE);
+            m.setRectToRect(inRect, outRect, Matrix.ScaleToFit.CENTER);
+            float[] values = new float[9];
+            m.getValues(values);
+
+            // resize bitmap
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(roughBitmap, (int) (roughBitmap.getWidth() * values[0]), (int) (roughBitmap.getHeight() * values[4]), true);
+            return  resizedBitmap;
+        } catch (IOException e) {
+            Log.d(TAG, e.getMessage(), e);
+            return null;
         }
     }
 
