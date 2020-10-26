@@ -595,7 +595,7 @@ public class Utils {
             //String error = getString(R.string.foto_error_guardar_desconocido);
 
             try (FileOutputStream out = new FileOutputStream(file)) {
-                FotoBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                FotoBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
 
             } catch (IOException e) {
                 e.printStackTrace();
