@@ -35,12 +35,9 @@ import java.util.Date;
 
 public class PujarFotos_Adapter extends RecyclerView.Adapter<PujarFotos_Adapter.PujaFotoViewHolder>  {
 
-    //this context we will use to inflate the layout
     private Context mCtx;
-    //we are storing all the denuncias in a list
     private File[] Files;
 
-    //getting the context and denuncia list with constructor
     public PujarFotos_Adapter(Context mCtx, File[] Files) {
         this.mCtx = mCtx;
         this.Files = Files;
@@ -56,7 +53,6 @@ public class PujarFotos_Adapter extends RecyclerView.Adapter<PujarFotos_Adapter.
 
     @Override
     public void onBindViewHolder(PujaFotoViewHolder holder, final int position) {
-        //getting the denuncia of the specified position
         final File foto = Files[position];
 
 
@@ -78,9 +74,11 @@ public class PujarFotos_Adapter extends RecyclerView.Adapter<PujarFotos_Adapter.
                 holder.text_data.setText(valors[0]);
             }
 
-            //binding the data with the viewholder views
+
+            /**
             Bitmap bitmap = BitmapFactory.decodeFile(foto.getPath());
             holder.img_preview.setImageBitmap(bitmap);
+             **/
 
 
             holder.lay_base.setOnClickListener(new View.OnClickListener() {
@@ -113,21 +111,17 @@ public class PujarFotos_Adapter extends RecyclerView.Adapter<PujarFotos_Adapter.
     class PujaFotoViewHolder extends RecyclerView.ViewHolder {
 
         TextView text_nom,text_data,text_numfoto;
-        ImageView img_preview;
+        //ImageView img_preview;
         ConstraintLayout lay_base;
         public PujaFotoViewHolder(View itemView) {
             super(itemView);
             text_nom = (TextView) itemView.findViewById(R.id.txt_numdenucnia);
             text_data=(TextView) itemView.findViewById(R.id.txt_data);
             text_numfoto=(TextView) itemView.findViewById(R.id.txt_numfoto);
-            img_preview = (ImageView) itemView.findViewById(R.id.img_preview);
+            //img_preview = (ImageView) itemView.findViewById(R.id.img_preview);
             lay_base=(ConstraintLayout) itemView.findViewById(R.id.lay_base);
-            //itemView.setOnClickListener(this);
+
         }
-        /*@Override
-        public void onClick(View view) {
-            Log.d("Miquel", "onClick " + getPosition());
-        }*/
     }
 
 
