@@ -55,7 +55,7 @@ public class Opcions extends AppCompatActivity {
     private boolean refreshDades;
     LoginResponse responseManual;
     
-    private ConstraintLayout Canviar_Concessio,Desconectat, Recarregar_Dades, Reimpressio, Idioma, Enviaments_Pendents,Admin,E_UUID,E_TimeOut,Extres,Base;
+    private ConstraintLayout Canviar_Concessio,Desconectat, Recarregar_Dades, Reimpressio, Idioma, Enviaments_Pendents,Pujar_Fotos,Admin,E_UUID,E_TimeOut,Extres,Base;
     private TextView txt_Versio,txt_NumDenuncies;
     private Button btn_Confirmar;
     private Context oContext=this;
@@ -97,6 +97,7 @@ public class Opcions extends AppCompatActivity {
             Enviaments_Pendents = (ConstraintLayout) findViewById(R.id.lay_EnviamentsPendents);
             E_UUID = (ConstraintLayout) findViewById(R.id.lay_edit_uuid);
             E_TimeOut = (ConstraintLayout) findViewById(R.id.lay_edit_timeout);
+            Pujar_Fotos=(ConstraintLayout) findViewById(R.id.lay_PujarFotos);
             Admin = (ConstraintLayout) findViewById(R.id.lay_Admin);
 
 
@@ -121,6 +122,7 @@ public class Opcions extends AppCompatActivity {
             Enviaments_Pendents.setVisibility(View.GONE);
             E_UUID.setVisibility(View.GONE);
             E_TimeOut.setVisibility(View.GONE);
+            Pujar_Fotos.setVisibility(View.GONE);
             Admin.setVisibility(View.GONE);
         }
 
@@ -165,6 +167,7 @@ public class Opcions extends AppCompatActivity {
 
                 Canviar_Concessio.setVisibility(View.GONE);
                 Recarregar_Dades.setVisibility(View.GONE);
+                Pujar_Fotos.setVisibility(View.GONE);
                 E_UUID.setVisibility(View.GONE);
                 E_TimeOut.setVisibility(View.GONE);
 
@@ -218,6 +221,7 @@ public class Opcions extends AppCompatActivity {
                 Desconectat.setVisibility(View.GONE);
                 Reimpressio.setVisibility(View.GONE);
                 Enviaments_Pendents.setVisibility(View.GONE);
+                Pujar_Fotos.setVisibility(View.GONE);
                 E_UUID.setVisibility(View.GONE);
                 E_TimeOut.setVisibility(View.GONE);
 
@@ -292,6 +296,17 @@ public class Opcions extends AppCompatActivity {
                 public void onClick(View v) {
 
                     Intent intent = new Intent(oContext, RecuperarDenunciaActivity.class);
+                    intent.putExtra("adm", adm);
+                    startActivity(intent);
+                }
+            });
+
+            Pujar_Fotos.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(oContext, PujarImatges.class);
                     intent.putExtra("adm", adm);
                     startActivity(intent);
                 }
@@ -488,12 +503,14 @@ public class Opcions extends AppCompatActivity {
         if (adm){
             img_Lock.setVisibility(View.GONE);
             img_Unlock.setVisibility(View.VISIBLE);
+            Pujar_Fotos.setVisibility(View.VISIBLE);
             E_UUID.setVisibility(View.VISIBLE);
             E_TimeOut.setVisibility(View.VISIBLE);
         }
         else{
             img_Lock.setVisibility(View.VISIBLE);
             img_Unlock.setVisibility(View.GONE);
+            Pujar_Fotos.setVisibility(View.GONE);
             E_UUID.setVisibility(View.GONE);
             E_TimeOut.setVisibility(View.GONE);
         }

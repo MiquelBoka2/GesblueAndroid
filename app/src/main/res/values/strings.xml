@@ -191,8 +191,6 @@ secretari/a de l\'Ajuntament.</string>
     <string name="tornar_a_provar">TORNA A PROVAR</string>
 
 
-
-
     <string name="firma">Firma</string>
 
     <string name="LOG_TAG" translatable="false">Gesblue</string>
@@ -256,17 +254,16 @@ secretari/a de l\'Ajuntament.</string>
     <string name="idioma">Idioma</string>
     <string name="opcions">Opcions</string>
 
-        <string-array name="Idiomes">
-            <item>Català</item>
-            <item>Espanyol</item>
-            <item>Anglés</item>
-            <item>Francès</item>
-            <item>Alemany</item>
-        </string-array>
+    <string-array name="Idiomes">
+        <item>Català</item>
+        <item>Espanyol</item>
+        <item>Anglés</item>
+        <item>Francès</item>
+        <item>Alemany</item>
+    </string-array>
 
     <string name="alerta">Alerta</string>
     <string name="confirmacio">Segur que vols imprimir en:</string>
-
 
 
     <string name="MistageAvis">Alerta</string>
@@ -278,7 +275,6 @@ secretari/a de l\'Ajuntament.</string>
     <string name="esborra_tot">ESBORRAR TOT</string>
 
 
-
     <string name="preferencies">Preferències</string>
     <string name="canviar_concessio">Canviar concessió</string>
     <string name="desconectar">Desconnecta\'t</string>
@@ -287,6 +283,8 @@ secretari/a de l\'Ajuntament.</string>
     <string name="idioma_aplicació">Idioma aplicació</string>
     <string name="denuncies_pendents">Denúncies pendents</string>
     <string name="Administrador">Administrador</string>
+    <string name="PujarImatges">Pujar Imatges</string>
+
     <string name="btn_guardar">GUARDAR</string>
     <string name="no_concessio">SENSE CONCESSIÓ</string>
 

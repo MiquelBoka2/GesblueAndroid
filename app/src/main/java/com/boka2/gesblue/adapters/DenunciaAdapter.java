@@ -23,7 +23,7 @@ import java.util.List;
  */
 ;
 
-public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.DenunciaViewHolder>  {
+public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.DenunciaViewHolder>{
 
     //this context we will use to inflate the layout
     private Context mCtx;
