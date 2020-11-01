@@ -329,4 +329,6 @@ secretari/a de l\'Ajuntament.</string>
     <string name="timeout_canviat">El Temps de Espera ha sigut modificat</string>
     <string name="timeout_error">Error en modificar el Temps de Espera</string>
 
+    <string name="sendFoto_failed_title">S\'ha produït un error al enviar la foto. Sisplau, torna a enviar-la.</string>
+    <string name="sendFoto_succesfull_title">S\'ha enviar la foto.</string>
 </resources>
