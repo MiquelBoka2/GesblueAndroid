@@ -7,7 +7,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import androidx.appcompat.app.AlertDialog;
 import android.telephony.TelephonyManager;
@@ -594,6 +596,27 @@ public class Utils {
             //OutputStream os = null;
             //String error = getString(R.string.foto_error_guardar_desconocido);
 
+
+
+
+
+
+            Canvas canvas = new Canvas(FotoBitmap);
+            canvas.drawBitmap(FotoBitmap, 0, 0, null);
+            Paint paint = new Paint();
+            paint.setColor(Color.RED);
+            paint.setTextSize(22);
+            DateFormat dateFormatter1 = new SimpleDateFormat("dd-MM-yyyy");
+            DateFormat dateFormatter2 = new SimpleDateFormat("HH:mm:ss");
+            dateFormatter1.setLenient(false);
+            dateFormatter2.setLenient(false);
+            java.util.Date today = new java.util.Date();
+            // java.util.Timer;
+            String d = dateFormatter1.format(today);
+            String t = dateFormatter2.format(today);
+
+            canvas.drawText("" + d + " " + t, 20f ,    FotoBitmap.getHeight() - 24, paint);
+            canvas.save();
             try (FileOutputStream out = new FileOutputStream(file)) {
                 FotoBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
 
