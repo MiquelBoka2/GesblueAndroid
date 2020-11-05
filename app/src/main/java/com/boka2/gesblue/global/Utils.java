@@ -604,8 +604,8 @@ public class Utils {
             Canvas canvas = new Canvas(FotoBitmap);
             canvas.drawBitmap(FotoBitmap, 0, 0, null);
             Paint paint = new Paint();
-            paint.setColor(Color.RED);
-            paint.setTextSize(22);
+            paint.setColor(Color.YELLOW);
+            paint.setTextSize(36);
             DateFormat dateFormatter1 = new SimpleDateFormat("dd-MM-yyyy");
             DateFormat dateFormatter2 = new SimpleDateFormat("HH:mm:ss");
             dateFormatter1.setLenient(false);
