@@ -78,6 +78,9 @@ public class MainActivity extends GesblueFragmentActivity {
 	private int RequestCode=0001;
 
 
+	private String pathS;
+	private File path;
+
 	private String foto1;
 	private String foto2;
 	private String foto3;
@@ -553,25 +556,38 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				/*ESPEREM EL RESULTAT DE LES FOTOS BQ Aquaris U**/
 				case Utils.RESULT_FOTO_1:
-					foto1 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+
+					String pathS = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					File path= new File(pathS);
+					imageBitmap= ImageTools.getBitmapAfterResize(path).copy(Bitmap.Config.RGB_565,true);
+					foto1=Utils.savePicture(imageBitmap,mContext,"1");
 					pinta(foto1, mBinding.imageViewA);
 					imgAIsActive = true;
 					checkBotoCamera();
 					break;
 				case Utils.RESULT_FOTO_2:
-					foto2 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pathS = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					path= new File(pathS);
+					imageBitmap= ImageTools.getBitmapAfterResize(path).copy(Bitmap.Config.RGB_565,true);
+					foto2=Utils.savePicture(imageBitmap,mContext,"2");
 					pinta(foto2, mBinding.imageViewB);
 					imgBIsActive = true;
 					checkBotoCamera();
 					break;
 				case Utils.RESULT_FOTO_3:
-					foto3 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pathS = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					path= new File(pathS);
+					imageBitmap= ImageTools.getBitmapAfterResize(path).copy(Bitmap.Config.RGB_565,true);
+					foto3=Utils.savePicture(imageBitmap,mContext,"3");
 					pinta(foto3, mBinding.imageViewC);
 					imgCIsActive = true;
 					checkBotoCamera();
 					break;
 				case Utils.RESULT_FOTO_4:
-					foto4 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pathS = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					path= new File(pathS);
+					imageBitmap= ImageTools.getBitmapAfterResize(path).copy(Bitmap.Config.RGB_565,true);
+					foto4=Utils.savePicture(imageBitmap,mContext,"4");
 					pinta(foto4, mBinding.imageViewC);
 					imgDIsActive = true;
 					checkBotoCamera();

@@ -120,6 +120,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 	public static final String KEY_DATA_INFRACCIO = "dataInfraccio";
 	public static final String KEY_NUMERO_TIQUET = "numeroTiquet";
 
+	private String pathS;
+	private File path;
+
 	private boolean img1IsActive = false;
 	private boolean img2IsActive = false;
 	private boolean img3IsActive = false;
@@ -1012,26 +1015,39 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 				/*ESPEREM EL RESULTAT DE LES FOTOS BQ Aquaris U**/
 				case Utils.RESULT_FOTO_1:
-					foto1 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+
+					String pathS = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					File path= new File(pathS);
+					imageBitmap= ImageTools.getBitmapAfterResize(path).copy(Bitmap.Config.RGB_565,true);
+					foto1=Utils.savePicture(imageBitmap,mContext,"1");
 					pinta(foto1, mBinding.imageViewA);
 					img1IsActive = true;
 					checkBotoCamera();
 					break;
 				case Utils.RESULT_FOTO_2:
-					foto2 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pathS = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					path= new File(pathS);
+					imageBitmap= ImageTools.getBitmapAfterResize(path).copy(Bitmap.Config.RGB_565,true);
+					foto2=Utils.savePicture(imageBitmap,mContext,"2");
 					pinta(foto2, mBinding.imageViewB);
 					img2IsActive = true;
 					checkBotoCamera();
 					break;
 				case Utils.RESULT_FOTO_3:
-					foto3 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					pathS = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					path= new File(pathS);
+					imageBitmap= ImageTools.getBitmapAfterResize(path).copy(Bitmap.Config.RGB_565,true);
+					foto3=Utils.savePicture(imageBitmap,mContext,"3");
 					pinta(foto3, mBinding.imageViewC);
 					img3IsActive = true;
 					checkBotoCamera();
 					break;
 				case Utils.RESULT_FOTO_4:
-					foto4 = data.getExtras().getString(Utils.KEY_RETURN_PATH);
-					pinta(foto4, mBinding.imageViewD);
+					pathS = data.getExtras().getString(Utils.KEY_RETURN_PATH);
+					path= new File(pathS);
+					imageBitmap= ImageTools.getBitmapAfterResize(path).copy(Bitmap.Config.RGB_565,true);
+					foto4=Utils.savePicture(imageBitmap,mContext,"4");
+					pinta(foto4, mBinding.imageViewC);
 					img4IsActive = true;
 					checkBotoCamera();
 					break;
@@ -1121,7 +1137,13 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 			}
 
-			Glide.with(mContext).load(path).asBitmap().into(mBinding.preview);
+
+
+
+			Glide.with(mContext)
+					.load(path)
+					.asBitmap()
+					.into(mBinding.preview);
 			mBinding.repetir.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
