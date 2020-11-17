@@ -10,6 +10,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
@@ -310,6 +311,16 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		fillAll();
 		disableViews();
 		initOnClicks();
+
+
+		mBinding.tvNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View view, boolean b) {
+				if(b){
+					mBinding.tvNum.callOnClick();
+				}
+			}
+		});
 	}
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -518,6 +529,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				}
 
 			}
+			else{
+				mBinding.tvNum.setText(null);
+			}
 
 		}
 		else{
@@ -585,12 +599,40 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				break;
 			case R.id.tvCarrer:
 				if (!recuperada) {
-					startActivityFromIntent(new Intent(mContext, Pas6CarrerActivity.class));
+
+					Utils.showCustomDialog2(mContext, R.string.atencio, R.string.edit_fotos, R.string.modificar,R.string.no_modificar, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							startActivityFromIntent(new Intent(mContext, Pas6CarrerActivity.class));
+							Esborrar_fotos();
+						}
+					}, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+
+						}
+					}, false);
+					
+					
 				}
 				break;
 			case R.id.tvNum:
 				if (!recuperada) {
-					startActivityFromIntent(new Intent(mContext, Pas7NumeroActivity.class));
+
+					Utils.showCustomDialog2(mContext, R.string.atencio, R.string.edit_fotos, R.string.modificar,R.string.no_modificar, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							startActivityFromIntent(new Intent(mContext, Pas7NumeroActivity.class));
+							mBinding.tvNum.clearFocus();
+							Esborrar_fotos();
+						}
+					}, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+
+						}
+					}, false);
+
 				}
 				break;
 			case R.id.btnCamera:
@@ -1748,5 +1790,36 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 		});
 		t.start();
 	}
+	
+	
+	
 
+	private void Esborrar_fotos(){
+		if(img1IsActive){
+			borra(foto1);
+			foto1 = null;
+			img1IsActive = false;
+			mBinding.imageViewA.setImageDrawable(this.getDrawable(R.drawable.ic_add_a_photo_black_24dp));
+		}
+		if(img2IsActive){
+			borra(foto2);
+			foto2 = null;
+			img2IsActive = false;
+			mBinding.imageViewB.setImageDrawable(this.getDrawable(R.drawable.ic_add_a_photo_black_24dp));
+		}
+		if(img3IsActive){
+			borra(foto3);
+			foto3 = null;
+			img3IsActive = false;
+			mBinding.imageViewC.setImageDrawable(this.getDrawable(R.drawable.ic_add_a_photo_black_24dp));
+		}
+		if(img4IsActive){
+			borra(foto4);
+			foto4 = null;
+			img4IsActive = false;
+			mBinding.imageViewD.setImageDrawable(this.getDrawable(R.drawable.ic_add_a_photo_black_24dp));
+		}
+		checkBotoCamera();
+		
+	}
 }

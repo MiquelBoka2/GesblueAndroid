@@ -89,27 +89,81 @@
 						android:textColorHint="@color/textview_formulari"
 						android:textSize="@dimen/editTextTextSize" />
 
-					<com.boka2.gesblue.customstuff.views.SGBTextView
-						android:id="@+id/textViewCarrer"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginLeft="4dp"
-						android:layout_marginTop="10dp"
-						android:text="@string/carrer"
-						android:textColor="@color/textview_selector" />
-
-					<com.boka2.gesblue.customstuff.views.SGBTextView
-						android:id="@+id/tvCarrer"
-						style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+					<LinearLayout
 						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_weight="7"
-						android:ellipsize="end"
-						android:hint="@string/carrer"
-						android:lines="1"
-						android:textColor="@color/textview_formulari"
-						android:textColorHint="@color/textview_formulari"
-						android:textSize="@dimen/editTextTextSize" />
+						android:layout_height="match_parent">
+
+						<androidx.constraintlayout.widget.ConstraintLayout
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:layout_marginRight="4dp"
+							android:layout_weight="7">
+
+							<com.boka2.gesblue.customstuff.views.SGBTextView
+								android:id="@+id/textViewCarrer"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginStart="4dp"
+								android:text="@string/carrer"
+								android:textColor="@color/textview_selector"
+								app:layout_constraintBottom_toTopOf="@+id/tvCarrer"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toTopOf="parent" />
+
+							<com.boka2.gesblue.customstuff.views.SGBTextView
+								android:id="@+id/tvCarrer"
+								style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="7"
+								android:ellipsize="end"
+								android:hint="@string/carrer"
+								android:lines="1"
+								android:textColor="@color/textview_formulari"
+								android:textColorHint="@color/textview_formulari"
+								android:textSize="@dimen/editTextTextSize"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/textViewCarrer" />
+						</androidx.constraintlayout.widget.ConstraintLayout>
+
+						<androidx.constraintlayout.widget.ConstraintLayout
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:layout_weight="17">
+
+							<com.boka2.gesblue.customstuff.views.SGBTextView
+								android:id="@+id/textViewNum"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginStart="4dp"
+								android:text="@string/num"
+								android:textColor="@color/textview_selector"
+								app:layout_constraintBottom_toTopOf="@+id/tvNum"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toTopOf="parent" />
+
+							<com.boka2.gesblue.customstuff.views.SGBTextView
+								android:id="@+id/tvNum"
+								style="@android:style/Widget.EditText"
+								android:layout_width="match_parent"
+								android:layout_height="0dp"
+								android:focusable="true"
+								android:focusableInTouchMode="false"
+								android:hint="@string/num"
+								android:selectAllOnFocus="false"
+								android:textColor="@color/textview_formulari"
+								android:textColorHint="@color/textview_formulari"
+								android:textSize="@dimen/editTextTextSize"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintHorizontal_bias="0.0"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/textViewNum" />
+						</androidx.constraintlayout.widget.ConstraintLayout>
+
+					</LinearLayout>
 
 				</LinearLayout>
 

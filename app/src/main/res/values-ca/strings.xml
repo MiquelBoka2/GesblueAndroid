@@ -280,6 +280,7 @@ secretari/a de l\'Ajuntament.</string>
     <string name="recarregar_dades">Recarregar dades</string>
     <string name="reimpressió">Reimpressió</string>
     <string name="seleciona_zona_primer">Selecciona una zona primer</string>
+    <string name="seleciona_carrer_primer">Selecciona un carrer primer</string>
     <string name="sense_conexio">No s\'ha detectat connexió a internet,  comprovi la connexió i torni a provar</string>
     <string name="sense_tiquet">Sense Tiquet</string>
     <string name="temps_Excedit">Temps Excedit</string>
@@ -287,6 +288,9 @@ secretari/a de l\'Ajuntament.</string>
     <string name="tornar_a_provar">TORNA A PROVAR</string>
     <string name="user_admin">usuari administrador</string>
     <string name="admin_off">Mode administrador apagat</string>
+    <string name="modificar">Modificar</string>
+    <string name="no_modificar">No modificar</string>
+    <string name="edit_fotos">Si modifiqués el carrer o el numero, hauràs de tornar a fer les fotos.\\nSegur que les vols modificar?</string>
 
 
 </resources>

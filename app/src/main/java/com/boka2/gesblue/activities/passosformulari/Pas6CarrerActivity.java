@@ -200,10 +200,22 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 						PreferencesGesblue.setPrefLastCodiCarrer(mContext,mSelected.getCodicarrer());
 						PreferencesGesblue.setPrefLastNomCarrer(mContext,mSelected.getNomcarrer());
 						//Per evitar el penjament degut al parsejament de les dades a sancio, desem als extres un boleà per dir al programa que ho porcessi de forma diferent.
-						getIntent().putExtra("noSancio", true);
-						getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSelected.getCodicarrer());
-						setResult(RESULT_OK, getIntent());
-						finish();
+
+						if(mSancio!=null){
+							PreferencesGesblue.clearFormulari(mContext);
+							mSancio.setNumero(null);
+							mSancio.setModelCarrer(mSelected);
+							getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSancio);
+							setResult(RESULT_OK, getIntent());
+							finish();
+						}
+						else{
+							getIntent().putExtra("noSancio", true);
+							getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSelected.getCodicarrer());
+							setResult(RESULT_OK, getIntent());
+							finish();
+						}
+
 					}else{
 						Utils.showCustomDatamanagerError(mContext, getString(R.string.mancaCarrer));
 					}

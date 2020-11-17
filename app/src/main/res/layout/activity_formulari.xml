@@ -157,16 +157,16 @@
 	                    android:lines="1"
 	                    android:ellipsize="end"/>
 
-                    <com.boka2.gesblue.customstuff.views.SGBTextView
-                        android:id="@+id/tvNum"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="13"
-                        android:textSize="@dimen/editTextTextSize"
-                        android:textColor="@color/textview_formulari"
-                        android:hint="@string/num"
-                        android:textColorHint="@color/textview_formulari"
-                        style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+					<com.boka2.gesblue.customstuff.views.SGBTextView
+						android:id="@+id/tvNum"
+						style="@android:style/Widget.EditText"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="23"
+						android:hint="@string/num"
+						android:textColor="@color/textview_formulari"
+						android:textColorHint="@color/textview_formulari"
+						android:textSize="@dimen/editTextTextSize" />
 
                 </LinearLayout>
 

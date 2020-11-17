@@ -450,7 +450,7 @@ public class Utils {
         }
     }
 
-    public static void showCustomDialog2(Context context, int title, int body, int positive, DialogInterface.OnClickListener _listenerPositive, DialogInterface.OnClickListener _listenerNegative, boolean cancelable) {
+    public static void showCustomDialog2(Context context, int title, int body, int positive,int negative, DialogInterface.OnClickListener _listenerPositive, DialogInterface.OnClickListener _listenerNegative, boolean cancelable) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
 
@@ -458,6 +458,9 @@ public class Utils {
                 .setMessage(context.getString(body))
                 .setPositiveButton(context.getString(positive), _listenerPositive)
                 .setCancelable(cancelable);
+        if(negative!=-1){
+            alertDialogBuilder.setNegativeButton(context.getString(negative), _listenerNegative);
+        }
         AlertDialog alert = alertDialogBuilder.create();
 
 
@@ -614,8 +617,12 @@ public class Utils {
             // java.util.Timer;
             String d = dateFormatter1.format(today);
             String t = dateFormatter2.format(today);
-
-            canvas.drawText("" + d + " " + t, 20f ,    FotoBitmap.getHeight() - 24, paint);
+            String zona=PreferencesGesblue.getPrefLastNomZona(mContext);
+            String carrer=PreferencesGesblue.getPrefLastNomCarrer(mContext);
+            String num=PreferencesGesblue.getFormulariNumero(mContext);
+            canvas.drawText(zona , 20f ,    FotoBitmap.getHeight() - 24 -paint.getFontSpacing()*2, paint);
+            canvas.drawText(carrer+" | "+num, 20f ,    FotoBitmap.getHeight() - 24 -paint.getFontSpacing(), paint);
+            canvas.drawText(d + " " + t, 20f ,    FotoBitmap.getHeight() - 24, paint);
             canvas.save();
             try (FileOutputStream out = new FileOutputStream(file)) {
                 FotoBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);

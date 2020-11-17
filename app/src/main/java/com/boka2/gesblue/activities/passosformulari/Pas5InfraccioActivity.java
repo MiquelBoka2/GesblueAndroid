@@ -146,6 +146,7 @@ public class Pas5InfraccioActivity extends GesblueFragmentActivity {
 					} else {
 						mSancio.setModelInfraccio(mSelected);
 						intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
+						intent.putExtra("formPrimerCop", true);
 						intent.putExtra("adm",adm);
 						startActivity(intent);
 					}

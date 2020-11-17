@@ -74,6 +74,7 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 						mSelected = (TextUtils.isEmpty(mBinding.etNum.getText().toString()) ? "" : mBinding.etNum.getText().toString());
 					}
 					mSancio.setNumero(mSelected);
+					PreferencesGesblue.setFormulariNumero(mContext,mSelected);
 					intent.putExtra(FormulariActivity.INTENT_SANCIO, mSancio);
 					intent.putExtra("adm",adm);
 					startActivity(intent);
@@ -92,11 +93,25 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 			mBinding.linearConfirmar.btnConfirmar.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+
 					mSelected = (TextUtils.isEmpty(mBinding.etNum.getText().toString()) ? "" : mBinding.etNum.getText().toString());
-					mSancio.setNumero(mSelected);
-					getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSancio);
-					setResult(RESULT_OK, getIntent());
-					finish();
+					if(mSancio!=null) {
+						mSancio.setNumero(mSelected);
+
+						PreferencesGesblue.setFormulariNumero(mContext,mSelected);
+
+						getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSancio);
+						setResult(RESULT_OK, getIntent());
+						finish();
+
+					}
+					else{
+						PreferencesGesblue.setFormulariNumero(mContext,mSelected);
+
+						getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSancio);
+						setResult(RESULT_OK, getIntent());
+						finish();
+					}
 				}
 			});
 		}

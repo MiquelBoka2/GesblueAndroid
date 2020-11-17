@@ -275,6 +275,7 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="recarregar_dades">Recargar datos</string>
 	<string name="reimpressió">Reimpresión</string>
 	<string name="seleciona_zona_primer">Selecciona una zona primero</string>
+	<string name="seleciona_carrer_primer">Selecciona una calle primero</string>
 	<string name="sense_conexio">No se ha detectado conexión a internet, compruebe la conexión y vuelva a probar</string>
 	<string name="sense_tiquet">Sin Ticket</string>
 	<string name="temps_Excedit">Tiempo Excedido</string>
@@ -282,6 +283,9 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="tornar_a_provar">VUELVE A PROBAR</string>
 	<string name="user_admin">usuario administrador</string>
 	<string name="admin_off">Modo administrador apagado</string>
+    <string name="modificar">Modificar</string>
+	<string name="no_modificar">No modificar</string>
+	<string name="edit_fotos">" Si modificara la calle o lo numero, tendrás que volver a hacer las fotos.\\nSeguro que las quieres modificar?"</string>
 
 
 </resources>

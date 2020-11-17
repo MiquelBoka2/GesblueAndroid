@@ -315,6 +315,7 @@ secretari/a de l\'Ajuntament.</string>
     <string name="sense_tiquet">Sense Tiquet</string>
 
     <string name="seleciona_zona_primer">Selecciona una zona primer</string>
+    <string name="seleciona_carrer_primer">Selecciona un carrer primer</string>
 
     <string name="Dies">Dies</string>
     <string name="admin_off">Mode administrador apagat</string>
@@ -331,4 +332,7 @@ secretari/a de l\'Ajuntament.</string>
 
     <string name="sendFoto_failed_title">S\'ha produït un error al enviar la foto. Sisplau, torna a enviar-la.</string>
     <string name="sendFoto_succesfull_title">S\'ha enviar la foto.</string>
+    <string name="modificar">Modificar</string>
+    <string name="no_modificar">No modificar</string>
+    <string name="edit_fotos">Si modifiqués el carrer o el numero, hauràs de tornar a fer les fotos.\\nSegur que les vols modificar?</string>
 </resources>

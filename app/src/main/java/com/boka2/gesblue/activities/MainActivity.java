@@ -24,6 +24,7 @@ import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boka2.gesblue.GesblueApplication;
+import com.boka2.gesblue.activities.passosformulari.Pas7NumeroActivity;
 import com.boka2.sbaseobjects.tools.ImageTools;
 import com.boka2.sbaseobjects.tools.Preferences;
 import com.bumptech.glide.Glide;
@@ -177,7 +179,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		Log.e("La conzezió", concessio+"*****");
 
 		if (concessio == null || concessio.equals("")){
-			Utils.showCustomDialog2(mContext, R.string.atencio, R.string.errorConcessio, R.string.dacord, new DialogInterface.OnClickListener() {
+			Utils.showCustomDialog2(mContext, R.string.atencio, R.string.errorConcessio, R.string.dacord,-1, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					PreferencesGesblue.setUserName(mContext,"");
@@ -230,6 +232,34 @@ public class MainActivity extends GesblueFragmentActivity {
 
 			}
 		});
+		mBinding.tvNum.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				if(mBinding.tvCarrer.getText().toString()!=getResources().getString(R.string.carrer) & mBinding.tvCarrer.getText().toString()!="" & mBinding.tvCarrer.getText().toString()!=null){
+					Intent intent = new Intent(mContext, Pas7NumeroActivity.class);
+					intent.putExtra("formPrimerCop", false);
+					intent.putExtra("adm",adm);
+					startActivityForResult(intent,3);
+					mBinding.tvNum.clearFocus();
+				}
+				else{
+					Toast.makeText(mContext,getResources().getString(R.string.seleciona_carrer_primer), Toast.LENGTH_LONG).show();
+					mBinding.tvNum.clearFocus();
+				}
+			}
+		});
+		mBinding.tvNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View view, boolean b) {
+				if(b){
+					mBinding.tvNum.callOnClick();
+				}
+			}
+		});
+
+
+
 
 
 		//mBinding.tv.setOnClickListener(this);
@@ -238,8 +268,7 @@ public class MainActivity extends GesblueFragmentActivity {
 			public void onClick(View view) {
 				String matricula = mBinding.editTextMatricula.getText().toString();
 
-				if(matricula.equals("") || PreferencesGesblue.getCodiZona(mContext)==0 ||
-						PreferencesGesblue.getCodiCarrer(mContext)==0) {
+				if(matricula.equals("") || PreferencesGesblue.getCodiZona(mContext)==0 ||PreferencesGesblue.getCodiCarrer(mContext)==0) {
 					Utils.showFaltenDadesError(mContext);
 				} else {
 					comprovarMatricula(matricula);
@@ -264,6 +293,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				Sancio sancio = new Sancio();
 				sancio.setMatricula(mBinding.editTextMatricula.getText().toString());
+				sancio.setNumero(mBinding.tvNum.getText().toString());
 
 				Intent intent = new Intent(mContext, FormulariActivity.class);
 				PreferencesGesblue.setFoto1(mContext, foto1);
@@ -467,6 +497,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		GesblueApplication.DenunciaEnCurs =false;
 		mBinding.tvZona.setText(PreferencesGesblue.getNomZona(mContext));
 		mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
+		mBinding.tvNum.setText(PreferencesGesblue.getFormulariNumero(mContext));
 		checkAdmin(adm);
 
 
@@ -605,7 +636,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				}
 				case 3:{
-
+					mBinding.tvNum.setText(PreferencesGesblue.getFormulariNumero(mContext));
 				}
 
 
@@ -723,6 +754,7 @@ public class MainActivity extends GesblueFragmentActivity {
 						mBinding.editTextMatricula.setEnabled(true);
 						mBinding.tvZona.setEnabled(true);
 						mBinding.tvCarrer.setEnabled(true);
+						mBinding.tvNum.setEnabled(true);
                         estatComprovacio = 7;
 
 						break;
@@ -743,6 +775,7 @@ public class MainActivity extends GesblueFragmentActivity {
 				mBinding.editTextMatricula.setEnabled(true);
 				mBinding.tvZona.setEnabled(true);
 				mBinding.tvCarrer.setEnabled(true);
+				mBinding.tvNum.setEnabled(true);
 
 				//Utils.showDatamanagerError(mContext, error);
 
@@ -818,6 +851,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.editTextMatricula.setEnabled(false);
 		mBinding.tvZona.setEnabled(false);
 		mBinding.tvCarrer.setEnabled(false);
+		mBinding.tvNum.setEnabled(false);
 		mBinding.buttonComprovar.setEnabled(false);
 
 		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
@@ -854,6 +888,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.editTextMatricula.setEnabled(false);
 		mBinding.tvZona.setEnabled(false);
 		mBinding.tvCarrer.setEnabled(false);
+		mBinding.tvNum.setEnabled(false);
 		mBinding.buttonComprovar.setEnabled(false);
 		mBinding.buttonComprovar.setVisibility(View.GONE);
 	}
@@ -886,6 +921,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.editTextMatricula.setEnabled(false);
 		mBinding.tvZona.setEnabled(false);
 		mBinding.tvCarrer.setEnabled(false);
+		mBinding.tvNum.setEnabled(false);
 		mBinding.buttonComprovar.setEnabled(false);
 
 		mBinding.buttonComprovar.setVisibility(View.GONE);
@@ -924,6 +960,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.editTextMatricula.setEnabled(false);
 		mBinding.tvZona.setEnabled(false);
 		mBinding.tvCarrer.setEnabled(false);
+		mBinding.tvNum.setEnabled(false);
 		mBinding.buttonComprovar.setEnabled(false);
 
 		mBinding.buttonComprovar.setVisibility(View.GONE);
@@ -959,6 +996,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.editTextMatricula.setEnabled(true);
 		mBinding.tvZona.setEnabled(true);
 		mBinding.tvCarrer.setEnabled(true);
+		mBinding.tvNum.setEnabled(true);
 		mBinding.buttonComprovar.setEnabled(true);
 		mBinding.buttonComprovar.setVisibility(View.VISIBLE);
 
