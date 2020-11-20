@@ -334,5 +334,5 @@ secretari/a de l\'Ajuntament.</string>
     <string name="sendFoto_succesfull_title">S\'ha enviar la foto.</string>
     <string name="modificar">Modificar</string>
     <string name="no_modificar">No modificar</string>
-    <string name="edit_fotos">Si modifiqués el carrer o el numero, hauràs de tornar a fer les fotos.\\nSegur que les vols modificar?</string>
+    <string name="edit_fotos">Si modifiqués el carrer o el numero, hauràs de tornar a fer les fotos.\nSegur que les vols modificar?</string>
 </resources>

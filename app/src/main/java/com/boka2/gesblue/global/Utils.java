@@ -620,8 +620,11 @@ public class Utils {
             String zona=PreferencesGesblue.getPrefLastNomZona(mContext);
             String carrer=PreferencesGesblue.getPrefLastNomCarrer(mContext);
             String num=PreferencesGesblue.getFormulariNumero(mContext);
+            Long agent=PreferencesGesblue.getCodiAgent(mContext);
+
+            canvas.drawText(mContext.getString(R.string.cela_agent)+": "+agent , 20f ,    FotoBitmap.getHeight() - 24 -paint.getFontSpacing()*3, paint);
             canvas.drawText(zona , 20f ,    FotoBitmap.getHeight() - 24 -paint.getFontSpacing()*2, paint);
-            canvas.drawText(carrer+" | "+num, 20f ,    FotoBitmap.getHeight() - 24 -paint.getFontSpacing(), paint);
+            canvas.drawText(carrer+", "+num, 20f ,    FotoBitmap.getHeight() - 24 -paint.getFontSpacing(), paint);
             canvas.drawText(d + " " + t, 20f ,    FotoBitmap.getHeight() - 24, paint);
             canvas.save();
             try (FileOutputStream out = new FileOutputStream(file)) {

@@ -285,7 +285,7 @@ El/la secretario/a del Ayuntamiento.</string>
 	<string name="admin_off">Modo administrador apagado</string>
     <string name="modificar">Modificar</string>
 	<string name="no_modificar">No modificar</string>
-	<string name="edit_fotos">" Si modificara la calle o lo numero, tendrás que volver a hacer las fotos.\\nSeguro que las quieres modificar?"</string>
+	<string name="edit_fotos">Si modificas la calle o el número, deberás de volver a hacer las fotos.\n¿Seguro que las quieres modificar?</string>
 
 
 </resources>

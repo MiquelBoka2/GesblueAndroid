@@ -418,6 +418,68 @@
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
+			<LinearLayout
+				android:id="@+id/linearPreview"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_below="@+id/toolbar"
+				android:background="#9000"
+				android:elevation="8dp"
+				android:orientation="vertical"
+				android:visibility="gone"
+				app:elevation="8dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_margin="24dp"
+					android:background="#fff"
+					android:elevation="20dp"
+					android:orientation="vertical"
+					app:elevation="20dp">
+
+					<com.boka2.gesblue.customstuff.views.imageZoom.ImageViewTouch
+						android:id="@+id/preview"
+						android:layout_width="match_parent"
+						android:layout_height="0dp"
+						android:layout_margin="4dp"
+						android:layout_weight="1" />
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+
+						<com.boka2.sbaseobjects.views.SButton
+							android:id="@+id/repetir"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:background="@drawable/button_camera_preview"
+							android:text="@string/foto_eliminar"
+							android:textColor="@color/text_btn_camera_confirm_selector"
+							app:customFont="@string/font_regular" />
+
+						<com.boka2.sbaseobjects.views.SButton
+							android:id="@+id/confirmar"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:background="@drawable/button_camera_preview"
+							android:text="@string/foto_confirmar"
+							android:textColor="@color/text_btn_camera_confirm_selector"
+							app:customFont="@string/font_regular" />
+
+					</LinearLayout>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
 		</androidx.constraintlayout.widget.ConstraintLayout>
 
 	</RelativeLayout>

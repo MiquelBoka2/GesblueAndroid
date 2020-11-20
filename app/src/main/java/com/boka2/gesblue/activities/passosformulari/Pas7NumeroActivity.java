@@ -37,9 +37,7 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 		mBinding.toolbar.txtAny.setVisibility(View.GONE);
 		mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
 
-		mBinding.etNum.requestFocus();
-		InputMethodManager imm = (InputMethodManager) getSystemService(mContext.INPUT_METHOD_SERVICE);
-		imm.showSoftInput(mBinding.etNum, InputMethodManager.SHOW_IMPLICIT);
+
 
 		if(getIntent().getExtras() != null) {
 			adm=getIntent().getExtras().getBoolean("adm");
@@ -87,7 +85,8 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 					finish();
 				}
 			});
-		} else {
+		}
+		else {
 			mBinding.linearConfirmar.layoutConfirmar.setVisibility(View.VISIBLE);
 			mBinding.linearInferior.layoutButtons.setVisibility(View.GONE);
 			mBinding.linearConfirmar.btnConfirmar.setOnClickListener(new View.OnClickListener() {
@@ -115,5 +114,10 @@ public class Pas7NumeroActivity extends GesblueFragmentActivity {
 				}
 			});
 		}
+
+		mBinding.etNum.requestFocus();
+		InputMethodManager imm = (InputMethodManager) getSystemService(mContext.INPUT_METHOD_SERVICE);
+		imm.showSoftInput(mBinding.etNum, InputMethodManager.SHOW_FORCED);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 	}
 }

@@ -67,6 +67,8 @@ import pt.joaocruz04.lib.misc.JSoapCallback;
 import pt.joaocruz04.lib.misc.JsoapError;
 
 import static android.text.TextUtils.isEmpty;
+import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
@@ -440,6 +442,80 @@ public class MainActivity extends GesblueFragmentActivity {
 		});
 
 
+
+		mBinding.imageViewA.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(imgAIsActive){
+					confirmPicture(mBinding.imageViewA, foto1, new Runnable() {
+						@Override
+						public void run() {
+
+							borra(foto1);
+							foto1 = null;
+							imgAIsActive = false;
+							checkBotoCamera();
+						}
+					});
+				}
+			}
+		});
+
+		mBinding.imageViewB.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(imgBIsActive){
+					confirmPicture(mBinding.imageViewB, foto2, new Runnable() {
+						@Override
+						public void run() {
+
+							borra(foto2);
+							foto2 = null;
+							imgBIsActive = false;
+							checkBotoCamera();
+						}
+					});
+				}
+			}
+		});
+
+		mBinding.imageViewC.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(imgCIsActive){
+					confirmPicture(mBinding.imageViewC, foto3, new Runnable() {
+						@Override
+						public void run() {
+
+							borra(foto3);
+							foto3 = null;
+							imgCIsActive = false;
+							checkBotoCamera();
+						}
+					});
+				}
+			}
+		});
+
+		mBinding.imageViewD.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(imgDIsActive){
+					confirmPicture(mBinding.imageViewD, foto4, new Runnable() {
+						@Override
+						public void run() {
+
+							borra(foto4);
+							foto4 = null;
+							imgDIsActive = false;
+							checkBotoCamera();
+						}
+					});
+				}
+			}
+		});
+
+
 /*		final ArrayList<Model_LlistaBlanca> listLogs = DatabaseAPI.getLlistaBlanca(mContext);
 
 		Log.d("Num llistaBlanca local",""+listLogs.size());
@@ -712,9 +788,12 @@ public class MainActivity extends GesblueFragmentActivity {
 							mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps/60));
 							CridarThreadContador();
 							mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
+
 							changeViewNoMultable();
 						}else{
 							mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
+
+							changeViewNoMultable();
 							estatComprovacio = 2;
 						}
 
@@ -837,6 +916,8 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.verdOK));
 		mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
+		mBinding.txtInfo.setText("");
+		mBinding.txtTemps.setText("");
 		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
 
 		//Recomana NO Denunciar
@@ -872,6 +953,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.txtInfo.setText(R.string.vehicle_ja_denunciat);
 
+		mBinding.layImatges.setVisibility(View.VISIBLE);
 
 		mBinding.llBtnDenuncies.setVisibility(View.VISIBLE);
 
@@ -1148,5 +1230,57 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		}
 	};
+
+
+
+	private void confirmPicture(final ImageView iv, String path, final Runnable onDelete) {
+		try {
+
+
+
+
+
+			Glide.with(mContext)
+					.load(path)
+					.asBitmap()
+					.into(mBinding.preview);
+			mBinding.repetir.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					anima(mBinding.getRoot());
+					iv.setImageDrawable(null);
+					mBinding.linearPreview.setVisibility(GONE);
+					mBinding.preview.setImageResource(R.mipmap.ic_launcher); //Ens assegurem de lliberar memòria
+					onDelete.run();
+				}
+			});
+			mBinding.confirmar.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					anima(mBinding.getRoot());
+					mBinding.linearPreview.setVisibility(GONE);
+					mBinding.preview.setImageResource(R.mipmap.ic_launcher); //Ens assegurem de lliberar memòria
+				}
+			});
+
+			anima(mBinding.getRoot());
+			mBinding.linearPreview.setVisibility(VISIBLE);
+		} catch (OutOfMemoryError e) {
+			Log.e(getTag(), "Out of memory: " + e.getLocalizedMessage(), e);
+			Toast.makeText(mContext, "Out of memory", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	private boolean borra(String path) {
+		try {
+			File f = new File(path);
+			if (f.exists()) {
+				return f.delete();
+			}
+		} catch (Exception ex) {
+			ELog(ex);
+		}
+		return false;
+	}
 
 }
