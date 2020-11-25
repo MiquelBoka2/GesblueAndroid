@@ -608,7 +608,7 @@ public class Utils {
             canvas.drawBitmap(FotoBitmap, 0, 0, null);
             Paint paint = new Paint();
             paint.setColor(Color.YELLOW);
-            paint.setTextSize(36);
+            paint.setTextSize(24);
             DateFormat dateFormatter1 = new SimpleDateFormat("dd-MM-yyyy");
             DateFormat dateFormatter2 = new SimpleDateFormat("HH:mm:ss");
             dateFormatter1.setLenient(false);
@@ -621,7 +621,10 @@ public class Utils {
             String carrer=PreferencesGesblue.getPrefLastNomCarrer(mContext);
             String num=PreferencesGesblue.getFormulariNumero(mContext);
             Long agent=PreferencesGesblue.getCodiAgent(mContext);
+            String codi_denun= numDenuncia;
 
+
+            canvas.drawText(codi_denun, 20f ,    FotoBitmap.getHeight() - 24 -paint.getFontSpacing()*4, paint);
             canvas.drawText(mContext.getString(R.string.cela_agent)+": "+agent , 20f ,    FotoBitmap.getHeight() - 24 -paint.getFontSpacing()*3, paint);
             canvas.drawText(zona , 20f ,    FotoBitmap.getHeight() - 24 -paint.getFontSpacing()*2, paint);
             canvas.drawText(carrer+", "+num, 20f ,    FotoBitmap.getHeight() - 24 -paint.getFontSpacing(), paint);

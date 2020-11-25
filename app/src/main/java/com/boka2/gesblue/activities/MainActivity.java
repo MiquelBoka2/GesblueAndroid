@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.boka2.gesblue.GesblueApplication;
 import com.boka2.gesblue.activities.passosformulari.Pas7NumeroActivity;
+import com.boka2.gesblue.datamanager.database.model.Model_Zona;
 import com.boka2.sbaseobjects.tools.ImageTools;
 import com.boka2.sbaseobjects.tools.Preferences;
 import com.bumptech.glide.Glide;
@@ -296,6 +297,10 @@ public class MainActivity extends GesblueFragmentActivity {
 				Sancio sancio = new Sancio();
 				sancio.setMatricula(mBinding.editTextMatricula.getText().toString());
 				sancio.setNumero(mBinding.tvNum.getText().toString());
+				Model_Zona zona=new Model_Zona();
+				zona.setCodizona(PreferencesGesblue.getCodiZona(mContext));
+				zona.setNomzona(PreferencesGesblue.getNomZona(mContext));
+				sancio.setModelZona(zona);
 
 				Intent intent = new Intent(mContext, FormulariActivity.class);
 				PreferencesGesblue.setFoto1(mContext, foto1);

@@ -178,7 +178,7 @@ public class RecuperarDenunciaActivity extends AppCompatActivity implements Cust
             mSancio = new Sancio(denuncia.getMatricula(),"",tipusVehicle,marca,model,color,infraccio,carrer,zona);
         }
         else{
-            mSancio = new Sancio(denuncia.getMatricula(),String.valueOf(denuncia.getAdrecanum()),tipusVehicle,marca,model,color,infraccio,carrer,zona);
+            mSancio = new Sancio(denuncia.getMatricula(),String.valueOf(((int)denuncia.getAdrecanum())),tipusVehicle,marca,model,color,infraccio,carrer,zona);
         }
         intent.putExtra(ReimpressioTiquet.INTENT_SANCIO, mSancio);
         intent.putExtra(ReimpressioTiquet.INTENT_NUM_DENUNCIA,denuncia.getCodidenuncia());

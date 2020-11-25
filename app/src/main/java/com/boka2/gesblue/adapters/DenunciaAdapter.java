@@ -64,7 +64,11 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
 
         SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date data=denuncia.getFechacreacio();
-        holder.textViewFecha.setText(simpleDate.format(denuncia.getFechacreacio()));
+        if(data!=null) {
+            holder.textViewFecha.setText(simpleDate.format(denuncia.getFechacreacio()));
+        }else{
+            holder.textViewFecha.setText("#ERROR DATA");
+        }
         holder.textViewMatricula.setText(denuncia.getMatricula());
         holder.textViewNumDenuncia.setText(String.valueOf(denuncia.getCodidenuncia()));
         String text=String.valueOf(denuncia.getTipusanulacio());

@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.boka2.gesblue.GesblueApplication;
 import com.boka2.sbaseobjects.tools.ImageTools;
+import com.boka2.sbaseobjects.tools.Preferences;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.datecs.api.emsr.EMSR;
@@ -1260,6 +1261,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 
 		long NUM = PreferencesGesblue.getIdAgent(mContext);
+		denuncia.setZona(PreferencesGesblue.getCodiZona(mContext));
 		denuncia.setAgent(PreferencesGesblue.getIdAgent(mContext));
 		denuncia.setAdrecacarrer(sancio.getModelCarrer().getCodicarrer());
 		if (sancio.getNumero().equals("S/N") || sancio.getNumero().equals("")) {

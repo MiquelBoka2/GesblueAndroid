@@ -2,6 +2,8 @@ package com.boka2.gesblue.ticketstyle;
 
 import android.graphics.Bitmap;
 
+import com.boka2.gesblue.Sancio;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -61,6 +63,16 @@ public class TicketConfiguration {
     private String qr;
 
     private Date dataCreacio;
+
+    public Sancio getSancio() {
+        return sancio;
+    }
+
+    public void setSancio(Sancio sancio) {
+        this.sancio = sancio;
+    }
+
+    private Sancio sancio;
 
     public TicketConfiguration() {
     }

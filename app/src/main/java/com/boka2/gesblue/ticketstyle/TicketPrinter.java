@@ -113,7 +113,11 @@ public class TicketPrinter {
                 printer.printTaggedText("{reset}{center}" + printConfiguration.getTextCap() + "{br}", CHARSET_ENCODING);
                 y = newLine(y, 2);
             }
-            printer.printTaggedText("{reset}{center}" + PreferencesGesblue.getNomZona(_context) + "{br}", CHARSET_ENCODING);
+            if(printConfiguration.getSancio().getModelZona()!=null) {
+                printer.printTaggedText("{reset}{center}" + printConfiguration.getSancio().getModelZona().getNomzona() + "{br}", CHARSET_ENCODING);
+            }else{
+                printer.printTaggedText("{reset}{center}" +  PreferencesGesblue.getNomZona(_context) + "{br}", CHARSET_ENCODING); //Retrocompatibilitat amb Versions anteriors a la 1.5.15 on no portaba model Sancio
+            }
             y = newLine(y, 2);
 
             //------------------

@@ -65,6 +65,7 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 			TicketPrinter ticketPrinter = new TicketPrinter(mPrinter, mContext);
 
 			TicketConfiguration ticketConfiguration = new TicketConfiguration();
+			ticketConfiguration.setSancio(sancio);
 			Bitmap logo=Utils.StringToBitMap(PreferencesGesblue.getLogoBitmap_String(mContext));
 			if(logo!=null){
 				ticketConfiguration.setLogo(logo)
