@@ -443,7 +443,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
        /*NUM**/
         if(txt_Num.isEnabled()) {
             if(!isEmpty(sancio.getNumero())) {
-                if(sancio.getNumero()=="0"){
+                if(sancio.getNumero()!="0"){
                     txt_Num.setText(sancio.getNumero());
                 }
 

@@ -251,10 +251,10 @@ public class CameraActivity extends GesblueFragmentActivity {
 				Log.d ("Camera",numDenuncia);
 				DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 				String currentDateString = dateFormat.format(new Date());
-                File direct = new File("storage/emulated/0/Boka2/upload/temp");
+                File direct = new File("storage/emulated/0/Boka2/upload/original");
 
                 if (!direct.exists()) {
-                    File wallpaperDirectory = new File("storage/emulated/0/Boka2/upload/temp");
+                    File wallpaperDirectory = new File("storage/emulated/0/Boka2/upload/original");
                     wallpaperDirectory.mkdirs();
                 }
 				File file = new File(direct, currentDateString  + "-" + concessio + "-" + numDenuncia + position + ".jpg");

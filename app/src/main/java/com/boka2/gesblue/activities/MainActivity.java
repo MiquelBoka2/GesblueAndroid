@@ -132,6 +132,31 @@ public class MainActivity extends GesblueFragmentActivity {
 		}
 
 		root.mkdirs();
+
+
+		File low_res=new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Boka2" + File.separator + "upload" + File.separator +"low_res" + File.separator);
+		if (low_res.isDirectory())
+		{
+			String[] children = low_res.list();
+			for (int i = 0; i < children.length; i++)
+			{
+				new File(low_res, children[i]).delete();
+			}
+		}
+
+
+		File original=new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Boka2" + File.separator + "upload" + File.separator +"original" + File.separator);
+		if (original.isDirectory())
+		{
+			String[] children = original.list();
+			for (int i = 0; i < children.length; i++)
+			{
+				new File(original, children[i]).delete();
+			}
+		}
+
+
+
 		try {
 			loc_foto1=root.createTempFile("foto_temp_1_",
 					".jpg",root);
@@ -700,7 +725,7 @@ public class MainActivity extends GesblueFragmentActivity {
 					path= new File(pathS);
 					imageBitmap= ImageTools.getBitmapAfterResize(path).copy(Bitmap.Config.RGB_565,true);
 					foto4=Utils.savePicture(imageBitmap,mContext,"4");
-					pinta(foto4, mBinding.imageViewC);
+					pinta(foto4, mBinding.imageViewD);
 					imgDIsActive = true;
 					checkBotoCamera();
 					break;
