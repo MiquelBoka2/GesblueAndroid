@@ -1482,6 +1482,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 			yes.setOnClickListener(this);
 			noR.setOnClickListener(this);
 			yesR.setOnClickListener(this);
+			this.setCancelable(false);
 			this.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
 		}
