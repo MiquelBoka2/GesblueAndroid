@@ -1,18 +1,23 @@
 package com.boka2.gesblue.adapters;
 
 import android.content.Context;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.boka2.gesblue.R;
 import com.boka2.gesblue.datamanager.database.listeners.CustomButtonListener;
 import com.boka2.gesblue.datamanager.database.model.Model_Denuncia;
+import com.boka2.gesblue.global.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,7 +68,7 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
         //binding the data with the viewholder views
 
         SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Date data=denuncia.getFechacreacio();
+        final Date data=denuncia.getFechacreacio();
         if(data!=null) {
             holder.textViewFecha.setText(simpleDate.format(denuncia.getFechacreacio()));
         }else{
@@ -95,7 +100,12 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
             public void onClick(View view) {
                 if(customButtonListener!=null)
                 {
-                    customButtonListener.onButtonClickListener(position);
+                    if(data!=null) {
+                        customButtonListener.onButtonClickListener(position);
+                    }
+                    else{
+
+                    }
                 }
             }
         });

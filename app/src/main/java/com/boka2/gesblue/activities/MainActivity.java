@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
@@ -315,30 +316,38 @@ public class MainActivity extends GesblueFragmentActivity {
 			@Override
 			public void onClick(View view) {
 
+
 				if(PreferencesGesblue.getEstatComprovacio(mContext)==1 || PreferencesGesblue.getEstatComprovacio(mContext)==3|| PreferencesGesblue.getEstatComprovacio(mContext)==4){
 						contador.cancel();
 				}
 
-				Sancio sancio = new Sancio();
-				sancio.setMatricula(mBinding.editTextMatricula.getText().toString());
-				sancio.setNumero(mBinding.tvNum.getText().toString());
-				Model_Zona zona=new Model_Zona();
-				zona.setCodizona(PreferencesGesblue.getCodiZona(mContext));
-				zona.setNomzona(PreferencesGesblue.getNomZona(mContext));
-				sancio.setModelZona(zona);
+				if(Check_Null_Data(dataComprovacio,mContext)) {//DATA NO NULL
+					//DATA NO NULL
+					Sancio sancio = new Sancio();
+					sancio.setMatricula(mBinding.editTextMatricula.getText().toString());
+					sancio.setNumero(mBinding.tvNum.getText().toString());
+					Model_Zona zona = new Model_Zona();
+					zona.setCodizona(PreferencesGesblue.getCodiZona(mContext));
+					zona.setNomzona(PreferencesGesblue.getNomZona(mContext));
+					sancio.setModelZona(zona);
 
-				Intent intent = new Intent(mContext, FormulariActivity.class);
-				PreferencesGesblue.setFoto1(mContext, foto1);
-				PreferencesGesblue.setFoto2(mContext, foto2);
-				PreferencesGesblue.setFoto3(mContext, foto3);
-				PreferencesGesblue.setFoto4(mContext, foto4);
-				intent.putExtra(FormulariActivity.INTENT_SANCIO, sancio);
-				intent.putExtra(FormulariActivity.KEY_VINC_DE_MATRICULA, true);
-                intent.putExtra("adm",adm);
-                FormulariActivity.dataComprovacio=dataComprovacio;
-                intent.putExtra("dataComprovacio",dataComprovacio);
-				GesblueApplication.DenunciaEnCurs =true;
-				startActivity(intent);
+					Intent intent = new Intent(mContext, FormulariActivity.class);
+					PreferencesGesblue.setFoto1(mContext, foto1);
+					PreferencesGesblue.setFoto2(mContext, foto2);
+					PreferencesGesblue.setFoto3(mContext, foto3);
+					PreferencesGesblue.setFoto4(mContext, foto4);
+					intent.putExtra(FormulariActivity.INTENT_SANCIO, sancio);
+					intent.putExtra(FormulariActivity.KEY_VINC_DE_MATRICULA, true);
+					intent.putExtra("adm", adm);
+					FormulariActivity.dataComprovacio = dataComprovacio;
+					intent.putExtra("dataComprovacio", dataComprovacio);
+					GesblueApplication.DenunciaEnCurs = true;
+					startActivity(intent);
+				}
+				else{
+					//DATA NULL
+				}
+
 			}
 		});
 
@@ -603,7 +612,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		GesblueApplication.DenunciaEnCurs =false;
 		mBinding.tvZona.setText(PreferencesGesblue.getNomZona(mContext));
 		mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
-		mBinding.tvNum.setText(PreferencesGesblue.getFormulariNumero(mContext));
+		//mBinding.tvNum.setText(PreferencesGesblue.getFormulariNumero(mContext));
 		checkAdmin(adm);
 
 
@@ -773,7 +782,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		//GUARDEM DE FORMA TEMPORAL LA ACTUAL DATA(per sobre escriure la vella)
 		dataComprovacio= new Date();
-
+		Check_Null_Data(dataComprovacio, mContext);//DATA NO NULL
 
 		DatamanagerAPI.crida_ComprovaMatricula(new ComprovaMatriculaRequest(PreferencesGesblue.getConcessio(mContext), Utils.getDeviceId(mContext), matricula, Utils.getCurrentTimeLong(mContext),PreferencesGesblue.getCodiCarrer(mContext),PreferencesGesblue.getCodiZona(mContext)),PreferencesGesblue.getTimeOut(mContext), new JSoapCallback() {
 			@Override
@@ -791,6 +800,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				//GUADEM LA DATA EN CAS DE CONEXXIO
 				dataComprovacio= new Date();
+				Check_Null_Data(dataComprovacio, mContext);//DATA NO NULL
 
 
 				Long data =Utils.getCurrentTimeLong(mContext);
@@ -879,6 +889,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 				//GUADEM LA DATA EN CAS DE NO CONEXXIO
 				dataComprovacio= new Date();
+				Check_Null_Data(dataComprovacio, mContext);//DATA NO NULL
 
 				mBinding.viewSwitcherComprovaAnim.showNext();
 				mBinding.editTextMatricula.setEnabled(true);
@@ -1119,8 +1130,6 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 
-
-
 	private void pinta(String path, ImageView imgView) {
 		if(!isEmpty(path)) {
 			Glide.with(mContext)
@@ -1312,5 +1321,30 @@ public class MainActivity extends GesblueFragmentActivity {
 		}
 		return false;
 	}
+
+
+	private boolean Check_Null_Data(Date data, Context mContext){
+
+		if(data==null) {
+			androidx.appcompat.app.AlertDialog.Builder alertDialogBuilder = new androidx.appcompat.app.AlertDialog.Builder(mContext);
+			alertDialogBuilder.setTitle(mContext.getString(R.string.atencio))
+					.setMessage(mContext.getString(R.string.reiniciar_terminal))
+					.setCancelable(false);
+
+			androidx.appcompat.app.AlertDialog alert = alertDialogBuilder.create();
+			alert.show();
+
+			return false;
+		}
+		else {
+			return true;
+		}
+
+
+	}
+
+
+
+
 
 }

@@ -286,6 +286,8 @@ El/la secretario/a del Ayuntamiento.</string>
     <string name="modificar">Modificar</string>
 	<string name="no_modificar">No modificar</string>
 	<string name="edit_fotos">Si modificas la calle o el número, deberás de volver a hacer las fotos.\n¿Seguro que las quieres modificar?</string>
+    <string name="denuncia_no_accesible">La denuncia no es accesible</string>
+    <string name="reiniciar_terminal">" Reinicia el terminal para completar la actualización"</string>
 
 
 </resources>
