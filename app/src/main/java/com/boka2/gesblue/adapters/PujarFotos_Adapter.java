@@ -81,6 +81,7 @@ public class PujarFotos_Adapter extends RecyclerView.Adapter<PujarFotos_Adapter.
              **/
 
 
+
             holder.lay_base.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

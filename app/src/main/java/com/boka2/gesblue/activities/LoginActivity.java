@@ -13,7 +13,6 @@ import android.content.Intent;
 import androidx.databinding.DataBindingUtil;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,7 +20,6 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 
-import android.text.BoringLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -32,11 +30,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.boka2.gesblue.GesblueApplication;
 import com.boka2.gesblue.R;
 import com.boka2.gesblue.customstuff.GesblueFragmentActivity;
 import com.boka2.gesblue.databinding.ActivityLoginBinding;
 import com.boka2.gesblue.datamanager.DatabaseAPI;
+import com.boka2.gesblue.datamanager.database.helpers.DatabaseModelHelper;
 import com.boka2.gesblue.datamanager.database.model.Model_Agent;
 import com.boka2.gesblue.datamanager.database.model.Model_Carrer;
 import com.boka2.gesblue.datamanager.database.model.Model_Color;
@@ -86,7 +84,8 @@ import com.boka2.gesblue.global.PreferencesGesblue;
 import com.boka2.gesblue.global.Utils;
 import com.boka2.gesblue.model.Models;
 import com.boka2.gesblue.model.Tipus_Vehicle;
-import com.boka2.sbaseobjects.tools.Preferences;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.io.FileUtils;
@@ -94,8 +93,6 @@ import org.apache.commons.net.util.Base64;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -103,7 +100,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import pt.joaocruz04.lib.misc.JSoapCallback;
@@ -117,7 +113,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private ActivityLoginBinding mBinding;
 
 
-	private boolean isNoLoginConcessio = true;
+	private boolean LoginConcessio = false;
 	private boolean everythingIsOk = true;
 	private Boolean adm=false;
 	private String concessio = "",concessio_txt;
@@ -158,11 +154,13 @@ public class LoginActivity extends GesblueFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(R.style.AppTheme);
-
+		new DatabaseModelHelper(this);
 
 
 
 		super.onCreate(savedInstanceState);
+		FirebaseApp.initializeApp(this);
+		FirebaseCrashlytics.getInstance().setCustomKey("UUID", PreferencesGesblue.getPrefEternUUID(mContext));
 
 		askForPermissions(new String[]{
 				Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -198,7 +196,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 					Intent intent = new Intent(mContext, Opcions.class);
 					intent.putExtra("estat", estat);
 					intent.putExtra("adm", adm);
-					intent.putExtra("concessio", isNoLoginConcessio);
+					intent.putExtra("concessio", LoginConcessio);
 					startActivityForResult(intent, RequestCode);
 				}
 			});
@@ -209,11 +207,11 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 			if (extras != null) {
-				isNoLoginConcessio = extras.getBoolean("isNoLoginConcessio", true);
+				LoginConcessio = extras.getBoolean("LoginConcessio", false);
 				adm = extras.getBoolean("adm");
 
 			}
-			checkAdmin(adm);
+			checkEstat(adm,PreferencesGesblue.getOffline(mContext));
 		}
 
 
@@ -238,16 +236,16 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 		/* DEFINIM LA CONCESSIO SI EN HI HA*/{
 			final String concessioString = PreferencesGesblue.getConcessioString(this);
-			isNoLoginConcessio = TextUtils.isEmpty(concessioString);
+			LoginConcessio = !TextUtils.isEmpty(concessioString);
 
 			concessio = Long.toString(PreferencesGesblue.getConcessio(mContext));
 
 			localitzacio = mBinding.toolbar.txtLocalitzacioEstat;
-			//Log.e("Er login de la conzezió", isNoLoginConcessio + "-----");
+			//Log.e("Er login de la conzezió", LoginConcessio + "-----");
 		}
 
 		/* MODIFIQUEM EL LAYOUT EN FUNCIO DE SI HI HA CONCCESIO O NO*/{
-			if(!isNoLoginConcessio) {
+			if(LoginConcessio) {
 				estat="login_concessio";
 				mBinding.textViewConcessio.setVisibility(View.GONE);
 				mBinding.editTextConcessio.setVisibility(View.GONE);
@@ -297,20 +295,19 @@ public class LoginActivity extends GesblueFragmentActivity {
 					PreferencesGesblue.setConcessio(mContext, Long.parseLong(concessio));
 
 					//Log.e("Concesio despues", concessio);
-					//Log.e("isNoLoginConcessio", "" + isNoLoginConcessio);
+					//Log.e("LoginConcessio", "" + LoginConcessio);
 
-					if (username.equals("") || password.equals("") || (concessio.equals("") && isNoLoginConcessio)) {
+					if (username.equals("") || password.equals("") || (concessio.equals("") && !LoginConcessio)) {
 						Utils.showFaltenDadesError(mContext);
 					} else {
 						enableEditTexts(false);
 						antirepetidorDADES=true;
 
-						if (isNoLoginConcessio) {
+						if (!LoginConcessio) {
 							cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
 
 							//Log.d("Login -1", "Vivo en una piña");
 						} else {
-							cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
 
 							//Log.d("Login -2", "Fallo Aquí");
 							cridaLogin(mBinding.editTextUsuari.getText().toString(), mBinding.editTextPassword.getText().toString(), TextUtils.isEmpty(concessio) ? 0 : Long.parseLong(concessio), PreferencesGesblue.getDataSync(mContext));
@@ -434,7 +431,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 							cdd.show();
 						} else {
 							Intent intent = new Intent(mContext, Login_Admin.class);
-							intent.putExtra("concessio", isNoLoginConcessio);
+							intent.putExtra("concessio", LoginConcessio);
 							intent.putExtra("accio", "Esborra_APP");
 							startActivityForResult(intent, RequestCode);
 						}
@@ -508,7 +505,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 							PreferencesGesblue.setConcessio(mContext,0);
 							PreferencesGesblue.saveDataSync(mContext,"0");
 
-							isNoLoginConcessio = true;
+							LoginConcessio = false;
 
 							mBinding.textViewConcessio.setVisibility(View.VISIBLE);
 							mBinding.editTextConcessio.setVisibility(View.VISIBLE);
@@ -522,7 +519,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 						}
 						else{
 							Intent intent = new Intent(mContext, Login_Admin.class);
-							intent.putExtra("concessio", isNoLoginConcessio);
+							intent.putExtra("concessio", LoginConcessio);
 							intent.putExtra("accio", "");
 							startActivityForResult(intent, RequestCode);
 
@@ -815,7 +812,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 	/* Actualitza el UI en funcio de ADMIN**/
-	private void checkAdmin(Boolean adm) {
+	private void checkEstat(Boolean adm,Boolean offline) {
 
 		if (adm){
 			mBinding.toolbar.imgUnlock.setVisibility(View.VISIBLE);
@@ -827,6 +824,11 @@ public class LoginActivity extends GesblueFragmentActivity {
 			mBinding.toolbar.toolbarBackground.setBackgroundColor(getResources().getColor(R.color.barra_estat));
 			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.barra_estat));
 		}
+
+		if(offline){
+			mBinding.toolbar.toolbarBackground.setBackgroundColor(getResources().getColor(R.color.vermellKO));
+			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.vermellKO));
+		}
 	}
 
 
@@ -834,7 +836,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 	protected void onResume() {
 
 		super.onResume();
-		checkAdmin(adm);
+		checkEstat(adm,PreferencesGesblue.getOffline(mContext));
 
 
 	}
@@ -975,34 +977,36 @@ public class LoginActivity extends GesblueFragmentActivity {
 		//Log.e("Login 0",concessio+"------"+data);
 		boolean connected = false;
 		ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(mContext.CONNECTIVITY_SERVICE);
-		if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-				connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-			//we are connected to a network
-					//Log.e("Login 1","xXx");
+		if(!PreferencesGesblue.getOffline(mContext)) {//CHECK MODO OFFLINE
+
+			if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+					connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+				//we are connected to a network
+				//Log.e("Login 1","xXx");
 
 
-			DatamanagerAPI.crida_Login(new LoginRequest(username, password, concessio, Utils.getDeviceId(mContext), Utils.getAndroidVersion(), Utils.getAppVersion(mContext), data), new JSoapCallback() {
-				@Override
-				public void onSuccess(String result) {
+				DatamanagerAPI.crida_Login(new LoginRequest(username, password, concessio, Utils.getDeviceId(mContext), Utils.getAndroidVersion(), Utils.getAppVersion(mContext), data), new JSoapCallback() {
+					@Override
+					public void onSuccess(String result) {
 
-					try {
-						response = DatamanagerAPI.parseJson(result, LoginResponse.class);
+						try {
+							response = DatamanagerAPI.parseJson(result, LoginResponse.class);
 
-					} catch (Exception ex) {
-						ELog(ex);
-						onError(PARSE_ERROR);
-						return;
-					}
+						} catch (Exception ex) {
+							ELog(ex);
+							onError(PARSE_ERROR);
+							return;
+						}
 
-					//Log.d("Login 2","xxX");
-					showLoadingAnimButton(false);
-					enableEditTexts(true);
+						//Log.d("Login 2","xxX");
+						showLoadingAnimButton(false);
+						enableEditTexts(true);
 
-					switch((int) response.getResultat()) {
-						case 0:
+						switch ((int) response.getResultat()) {
+							case 0:
 
-							PreferencesGesblue.setCodiAgent(mContext, Long.parseLong(response.getCodiagent()));
-							PreferencesGesblue.saveIdAgent(mContext, response.getAgent());
+								PreferencesGesblue.setCodiAgent(mContext, Long.parseLong(response.getCodiagent()));
+								PreferencesGesblue.saveIdAgent(mContext, response.getAgent());
 
 
 							/*Model_Log model_log = new Model_Log();
@@ -1029,64 +1033,104 @@ public class LoginActivity extends GesblueFragmentActivity {
 							Log.d("Num logs locals",""+listLogs.size());*/
 
 
+								if (!LoginConcessio) {
 
-							if(isNoLoginConcessio) {
-
-								//LOG SENSE CONCESSIO PREVIA
-
-
-								Intent intent = new Intent(mContext, MainActivity.class);
-								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-								intent.putExtra("adm",adm);
-								startActivity(intent);
-								finish();
+									//LOG SENSE CONCESSIO PREVIA
 
 
+									Intent intent = new Intent(mContext, MainActivity.class);
+									intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+									intent.putExtra("adm", adm);
+									startActivity(intent);
+									finish();
 
-							}
-							else {
+
+								} else {
 
 
-								String d = PreferencesGesblue.getDataSync(mContext);
-								sincronitzarTot(response, concessio, d);
-							}
+									String d = PreferencesGesblue.getDataSync(mContext);
+									sincronitzarTot(response, concessio, d);
+								}
 
-							break;
-						case -1: //Error de login
-							Utils.showCustomDatamanagerError(mContext, getString(R.string.errorLogin));
-							enableEditTexts(true);
-							if(progress != null && progress.isShowing()) progress.dismiss();
-							break;
-						case -2: //Terminal pendent
-							Utils.showCustomDatamanagerError(mContext, getString(R.string.terminalPendent));
-							enableEditTexts(true);
-							if(progress != null && progress.isShowing()) progress.dismiss();
-							break;
-						case -3: //Terminal denegat
-							Utils.showCustomDatamanagerError(mContext, getString(R.string.terminalDenegat));
-							enableEditTexts(true);
-							if(progress != null && progress.isShowing()) progress.dismiss();
-							break;
-						default:
-							Utils.showCustomDatamanagerError(mContext, getString(R.string.otherError));
-							enableEditTexts(true);
-							if(progress != null && progress.isShowing()) progress.dismiss();
-					}
-				}
-
-				@Override
-				public void onError(final int error) {
-					showLoadingAnimButton(false);
-					enableEditTexts(true);
-					if(isRunning()) {
-						try {
-							Utils.showDatamanagerError(mContext, error);
-						} catch (Exception ex) {
-							ELog(ex);
+								break;
+							case -1: //Error de login
+								Utils.showCustomDatamanagerError(mContext, getString(R.string.errorLogin));
+								enableEditTexts(true);
+								if (progress != null && progress.isShowing()) progress.dismiss();
+								break;
+							case -2: //Terminal pendent
+								Utils.showCustomDatamanagerError(mContext, getString(R.string.terminalPendent));
+								enableEditTexts(true);
+								if (progress != null && progress.isShowing()) progress.dismiss();
+								break;
+							case -3: //Terminal denegat
+								Utils.showCustomDatamanagerError(mContext, getString(R.string.terminalDenegat));
+								enableEditTexts(true);
+								if (progress != null && progress.isShowing()) progress.dismiss();
+								break;
+							default:
+								Utils.showCustomDatamanagerError(mContext, getString(R.string.otherError));
+								enableEditTexts(true);
+								if (progress != null && progress.isShowing()) progress.dismiss();
 						}
 					}
+
+					@Override
+					public void onError(final int error) {
+						showLoadingAnimButton(false);
+						enableEditTexts(true);
+						if (isRunning()) {
+							try {
+								Utils.showDatamanagerError(mContext, error);
+							} catch (Exception ex) {
+								ELog(ex);
+							}
+						}
+					}
+				});
+			}
+			else {
+				//Not Connected
+				Model_Agent agent = DatabaseAPI.findAgent(mContext, username, password);
+				if (agent == null) {
+					Utils.showCustomDatamanagerError(mContext, getString(R.string.errorLogin));
+					enableEditTexts(true);
+					progress.dismiss();
+					showLoadingAnimButton(false);
+				} else {
+					PreferencesGesblue.setCodiAgent(mContext, Long.parseLong(agent.getIdentificador()));
+					PreferencesGesblue.saveIdAgent(mContext, agent.getCodiagent());
+
+
+					Model_Log model_log = new Model_Log();
+					model_log.setFechalog("");
+					model_log.setConcessiolog(String.valueOf(concessio));
+					model_log.setIdagent((int) agent.getCodiagent());
+					model_log.setCodiacciolog(1);//Login
+					model_log.setVersioapp(Utils.getAppVersion(mContext));
+					model_log.setInfo("");
+					model_log.setEnviat(0);
+
+					final ArrayList<Model_Log> arrayLogs = new ArrayList<Model_Log>();
+
+					arrayLogs.add(model_log);
+
+					DatabaseAPI.insertLogs(mContext, arrayLogs);
+
+					DatabaseAPI.insertLogs(mContext, arrayLogs);
+
+					DatabaseAPI.insertLogs(mContext, arrayLogs);
+
+					final ArrayList<Model_Log> listLogs = DatabaseAPI.getLogs(mContext);
+
+					//Log.e("Num logs locals",""+listLogs.size());
+
+					Intent intent = new Intent(mContext, MainActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+					intent.putExtra("adm", adm);
+					startActivity(intent);
 				}
-			});
+			}
 		}
 		else{
 			//Not Connected
@@ -1136,15 +1180,6 @@ public class LoginActivity extends GesblueFragmentActivity {
 	private void sincronitzarTot(LoginResponse loginResponse, long concessio, String _data) {
 		if(antirepetidorDADES) {
 			antirepetidorDADES=false;
-			DatabaseAPI.deleteAllAgents(mContext);
-			DatabaseAPI.deleteAllMarques(mContext);
-			DatabaseAPI.deleteAllModels(mContext);
-			DatabaseAPI.deleteAllTipusVehicles(mContext);
-			DatabaseAPI.deleteAllTipusAnulacions(mContext);
-			DatabaseAPI.deleteAllCarrers(mContext);
-			DatabaseAPI.deleteAllInfraccions(mContext);
-			DatabaseAPI.deleteAllZones(mContext);
-			DatabaseAPI.deleteAllLlistaBlanca(mContext);
 
 			sincronitzarAgents(loginResponse, concessio, _data);
 
@@ -1581,7 +1616,21 @@ public class LoginActivity extends GesblueFragmentActivity {
                     if(llistaabonats.isEliminar()) {
                         DatabaseAPI.deleteLlistaAbonats(mContext, Long.parseLong(llistaabonats.getCodi()));
                     } else {
-                        list.add(new Model_LlistaAbonats(TextUtils.isEmpty(llistaabonats.getCodi()) ? 0 : Long.parseLong(llistaabonats.getCodi()), llistaabonats.getMatricula(),llistaabonats.getDatainici(),llistaabonats.getDatafi()));
+                        list.add(
+                        		new Model_LlistaAbonats(
+									TextUtils.isEmpty(llistaabonats.getCodi()) ? 0 : Long.parseLong(llistaabonats.getCodi()),
+									llistaabonats.getMatricula(),
+									llistaabonats.getDatainici(),
+									llistaabonats.getDatafi(),
+									TextUtils.isEmpty(llistaabonats.getZona1()) ? 0 : Long.parseLong(llistaabonats.getZona1()),
+									TextUtils.isEmpty(llistaabonats.getZona2()) ? 0 : Long.parseLong(llistaabonats.getZona2()),
+									TextUtils.isEmpty(llistaabonats.getZona3()) ? 0 : Long.parseLong(llistaabonats.getZona3()),
+									TextUtils.isEmpty(llistaabonats.getZona4()) ? 0 : Long.parseLong(llistaabonats.getZona4()),
+									TextUtils.isEmpty(llistaabonats.getZona5()) ? 0 : Long.parseLong(llistaabonats.getZona5())
+								)
+						);
+
+
                     }
                 }
                 DatabaseAPI.insertLlistaAbonats(mContext, list);
@@ -1622,7 +1671,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 					DLog("comptadorServer: "+comptadorServer);
 					if(comptadorServer > comptadorLocal) {
 						PreferencesGesblue.saveComptadorDenuncia(mContext, comptadorServer);
-						if(isNoLoginConcessio) {
+						if(!LoginConcessio) {
 							cridaLogin(PreferencesGesblue.getUserName(mContext), PreferencesGesblue.getPassword(mContext), Long.parseLong(concessio), initialDate);
 						} else {
 							if(!refreshDades) {
@@ -1688,7 +1737,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 				if(progress != null && progress.isShowing()) progress.dismiss();
 				if(!refreshDades) {
-					if (isNoLoginConcessio) {
+					if (!LoginConcessio) {
 
 						cridaLogin(PreferencesGesblue.getUserName(mContext), PreferencesGesblue.getPassword(mContext), Long.parseLong(concessio), initialDate);
 					} else {
@@ -1717,7 +1766,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 				DLog("Entro al onError de crida_establirComptadorDenuncia");
 				showLoadingAnimButton(false);
 				enableEditTexts(true);
-				if(isNoLoginConcessio) {
+				if(!LoginConcessio) {
 					cridaLogin(PreferencesGesblue.getUserName(mContext), PreferencesGesblue.getPassword(mContext), Long.parseLong(concessio), initialDate);
 				} else {
 
@@ -1748,7 +1797,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 				if (data.getExtras().getBoolean("adm")) {
 					adm = data.getExtras().getBoolean("adm");
 				}
-				checkAdmin(adm);
+				checkEstat(adm,PreferencesGesblue.getOffline(mContext));
 
 				if (data.getExtras().getString("result") != null) {
 
@@ -1771,6 +1820,7 @@ public class LoginActivity extends GesblueFragmentActivity {
 						DatabaseAPI.deleteAllInfraccions(mContext);
 						DatabaseAPI.deleteAllZones(mContext);
 						DatabaseAPI.deleteAllLlistaBlanca(mContext);
+						DatabaseAPI.deleteAllLlistaAbonats(mContext);
 						LoginResponse responseManual = new LoginResponse(0,1,"1",1,1,1,1,1,1,1,1);
 						sincronitzarTot(responseManual,Long.parseLong(concessio),"0");
 
@@ -1783,6 +1833,16 @@ public class LoginActivity extends GesblueFragmentActivity {
 					else if(result.equals("unlog")){
 
 
+						DatabaseAPI.deleteAllAgents(mContext);
+						DatabaseAPI.deleteAllMarques(mContext);
+						DatabaseAPI.deleteAllModels(mContext);
+						DatabaseAPI.deleteAllTipusVehicles(mContext);
+						DatabaseAPI.deleteAllTipusAnulacions(mContext);
+						DatabaseAPI.deleteAllCarrers(mContext);
+						DatabaseAPI.deleteAllInfraccions(mContext);
+						DatabaseAPI.deleteAllZones(mContext);
+						DatabaseAPI.deleteAllLlistaBlanca(mContext);
+						DatabaseAPI.deleteAllLlistaAbonats(mContext);
 
 						PreferencesGesblue.setConcessioString(mContext,"");
 						PreferencesGesblue.setConcessio(mContext,0);
@@ -1797,17 +1857,9 @@ public class LoginActivity extends GesblueFragmentActivity {
 						mBinding.editTextConcessio.setVisibility(View.VISIBLE);
 						localitzacio.setText(getString(R.string.no_concessio));
 
-						isNoLoginConcessio = true;
+						LoginConcessio = false;
 
-						DatabaseAPI.deleteAllAgents(mContext);
-						DatabaseAPI.deleteAllMarques(mContext);
-						DatabaseAPI.deleteAllModels(mContext);
-						DatabaseAPI.deleteAllTipusVehicles(mContext);
-						DatabaseAPI.deleteAllTipusAnulacions(mContext);
-						DatabaseAPI.deleteAllCarrers(mContext);
-						DatabaseAPI.deleteAllInfraccions(mContext);
-						DatabaseAPI.deleteAllZones(mContext);
-						DatabaseAPI.deleteAllLlistaBlanca(mContext);
+
 					}
 				}
 

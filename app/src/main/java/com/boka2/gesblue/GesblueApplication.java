@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.os.Handler;
 import androidx.multidex.MultiDexApplication;
 import android.util.Log;
-
-import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
 import com.boka2.gesblue.activities.LoginActivity;
 import com.boka2.gesblue.datamanager.DatabaseAPI;
@@ -34,7 +34,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import io.fabric.sdk.android.Fabric;
 import pt.joaocruz04.lib.misc.JSoapCallback;
 
 import static com.boka2.sutils.classes.SSystemUtils.isDebugging;
@@ -60,7 +59,6 @@ public class GesblueApplication extends MultiDexApplication {
 	public void onCreate() {
 		super.onCreate();
 		cont=getApplicationContext();
-		Fabric.with(this, new Crashlytics());
 		aContext = getApplicationContext();
 		getApplicationContext();
 		FlurryAgent.init(this, getString(isDebugging(this) ? R.string.flurryApiKeyDebug : R.string.flurryApiKey));
@@ -116,26 +114,29 @@ public class GesblueApplication extends MultiDexApplication {
 		public void run() {
       /* do what you need to do */
 			ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-			if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-					connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-				//we are connected to a network
 
-				//Condicional de si algu esta enviant
-				if(EnviamentDisponible){
-					EnviamentDisponible=false;
-					enviaDenuncia();
-					//enviaLog();
-					//new FTPUpload().execute();
-					pujaFoto();
+			if(!PreferencesGesblue.getOffline(getApplicationContext())) {
+				if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+						connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+					//we are connected to a network
 
-					//SI HI HA UNA DENUNCIA EN CURS ES DEIXA EN FALSE PER EVITAR ENVIAMENTS
-					if(!DenunciaEnCurs){
-						EnviamentDisponible=true;
+					//Condicional de si algu esta enviant
+					if (EnviamentDisponible) {
+						EnviamentDisponible = false;
+						enviaDenuncia();
+						//enviaLog();
+						//new FTPUpload().execute();
+						pujaFoto();
+
+						//SI HI HA UNA DENUNCIA EN CURS ES DEIXA EN FALSE PER EVITAR ENVIAMENTS
+						if (!DenunciaEnCurs) {
+							EnviamentDisponible = true;
+						}
+
 					}
-
-				}
-				if(!DenunciaEnCurs){
-					EnviamentDisponible=true;
+					if (!DenunciaEnCurs) {
+						EnviamentDisponible = true;
+					}
 				}
 			}
 

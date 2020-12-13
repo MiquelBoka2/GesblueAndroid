@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "421777019836",
-    "firebase_url": "https://gesblue-6bc12.firebaseio.com",
-    "project_id": "gesblue-6bc12",
-    "storage_bucket": "gesblue-6bc12.appspot.com"
+    "project_number": "1028062397519",
+    "firebase_url": "https://gesblue-b1f8b.firebaseio.com",
+    "project_id": "gesblue-b1f8b",
+    "storage_bucket": "gesblue-b1f8b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:421777019836:android:2f7f2130214aef80",
+        "mobilesdk_app_id": "1:1028062397519:android:7421622fc7badf0787163a",
         "android_client_info": {
           "package_name": "com.boka2.gesblue"
         }
       },
       "oauth_client": [
         {
-          "client_id": "421777019836-7pk91cvr2j89h55raro9s4v442g2l7g1.apps.googleusercontent.com",
+          "client_id": "1028062397519-d8lmv3anhmaq7dan0900ldl4adeld9oi.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAAhbCp_MsQDrv1GvKyA3l2cGPLWLFAsPQ"
+          "current_key": "AIzaSyCcIXW_eDZQ9zjCq9VSSndI1bXrohCu85I"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "421777019836-7pk91cvr2j89h55raro9s4v442g2l7g1.apps.googleusercontent.com",
+              "client_id": "1028062397519-d8lmv3anhmaq7dan0900ldl4adeld9oi.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

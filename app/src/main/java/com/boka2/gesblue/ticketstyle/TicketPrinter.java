@@ -161,7 +161,7 @@ public class TicketPrinter {
             //------------------
             // Precepte infringit
             //------------------
-           if(!TextUtils.isEmpty(printConfiguration.getPrecepteInfringit())) {
+            if(!TextUtils.isEmpty(printConfiguration.getPrecepteInfringit())) {
                String precepteInfringit = printConfiguration.getPrecepteInfringit();
                Integer numLines         = calcNumLines(precepteInfringit, MAX_CHAR_LINE);
                Cela[] precepteArray = new Cela[]{

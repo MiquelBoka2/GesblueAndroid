@@ -337,4 +337,5 @@ secretari/a de l\'Ajuntament.</string>
     <string name="edit_fotos">Si modifiqués el carrer o el numero, hauràs de tornar a fer les fotos.\nSegur que les vols modificar?</string>
     <string name="denuncia_no_accesible">La denuncia no és accessible</string>
     <string name="reiniciar_terminal">Reinicia el terminal per completar l\'actualització</string>
+    <string name="Offline_Mode">Mode Offline</string>
 </resources>

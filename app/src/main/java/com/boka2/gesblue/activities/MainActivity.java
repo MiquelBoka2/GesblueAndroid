@@ -1,6 +1,5 @@
 package com.boka2.gesblue.activities;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,14 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -25,7 +21,6 @@ import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -36,7 +31,6 @@ import com.boka2.gesblue.GesblueApplication;
 import com.boka2.gesblue.activities.passosformulari.Pas7NumeroActivity;
 import com.boka2.gesblue.datamanager.database.model.Model_Zona;
 import com.boka2.sbaseobjects.tools.ImageTools;
-import com.boka2.sbaseobjects.tools.Preferences;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.boka2.gesblue.R;
@@ -54,7 +48,7 @@ import com.boka2.gesblue.datamanager.webservices.results.operativa.ComprovaMatri
 import com.boka2.gesblue.global.Constants;
 import com.boka2.gesblue.global.PreferencesGesblue;
 import com.boka2.gesblue.global.Utils;
-import com.squareup.picasso.Picasso;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,8 +56,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import pt.joaocruz04.lib.misc.JSoapCallback;
 import pt.joaocruz04.lib.misc.JsoapError;
@@ -99,8 +91,6 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	private Boolean adm=false;
 
-	private Timer contador;
-
 	private long dataCaducitat_milisegons=0;
 
 	private Date dataComprovacio;
@@ -117,10 +107,17 @@ public class MainActivity extends GesblueFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		FirebaseCrashlytics.getInstance().setUserId(PreferencesGesblue.getConcessio(mContext)+"-"+PreferencesGesblue.getCodiAgent(mContext));
+		FirebaseCrashlytics.getInstance().setCustomKey("concessió", PreferencesGesblue.getConcessio(mContext)+"-"+PreferencesGesblue.getConcessioString(mContext));
+		FirebaseCrashlytics.getInstance().setCustomKey("UUID", PreferencesGesblue.getPrefEternUUID(mContext));
+		FirebaseCrashlytics.getInstance().setCustomKey("codi_agent", PreferencesGesblue.getCodiAgent(mContext));
+
+
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 		setupVisibleToolbar(mBinding.toolbar);
 		GesblueApplication.DenunciaEnCurs =false;
 		Bundle extras = getIntent().getExtras();
+
 
 
 		if (root.isDirectory())
@@ -175,7 +172,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		}
 
-		checkAdmin(adm);
+		checkEstat(adm,PreferencesGesblue.getOffline(mContext));
 		localitzacio=mBinding.toolbar.txtLocalitzacioEstat;
 		opciones=mBinding.toolbar.icOpciones;
 
@@ -318,7 +315,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 				if(PreferencesGesblue.getEstatComprovacio(mContext)==1 || PreferencesGesblue.getEstatComprovacio(mContext)==3|| PreferencesGesblue.getEstatComprovacio(mContext)==4){
-						contador.cancel();
+
 				}
 
 				if(Check_Null_Data(dataComprovacio,mContext)) {//DATA NO NULL
@@ -355,7 +352,7 @@ public class MainActivity extends GesblueFragmentActivity {
 			@Override
 			public void onClick(View view) {
 				if(PreferencesGesblue.getEstatComprovacio(mContext)==1 || PreferencesGesblue.getEstatComprovacio(mContext)==3|| PreferencesGesblue.getEstatComprovacio(mContext)==4){
-					contador.cancel();
+
 				}
 				foto1=null;
 				foto2=null;
@@ -592,7 +589,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 	/* Actualitza el UI en funcio de ADMIN**/
-	private void checkAdmin(Boolean adm) {
+	private void checkEstat(Boolean adm,Boolean offline) {
 
 		if (adm){
 			mBinding.toolbar.imgUnlock.setVisibility(View.VISIBLE);
@@ -601,8 +598,13 @@ public class MainActivity extends GesblueFragmentActivity {
 		}
 		else{
 			mBinding.toolbar.imgUnlock.setVisibility(View.GONE);
-			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.barra_estat));
 			mBinding.toolbar.toolbarBackground.setBackgroundColor(getResources().getColor(R.color.barra_estat));
+			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.barra_estat));
+		}
+
+		if(offline){
+			mBinding.toolbar.toolbarBackground.setBackgroundColor(getResources().getColor(R.color.vermellKO));
+			mBinding.toolbar.txtLocalitzacioEstat.setBackgroundColor(getResources().getColor(R.color.vermellKO));
 		}
 	}
 
@@ -613,7 +615,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.tvZona.setText(PreferencesGesblue.getNomZona(mContext));
 		mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
 		//mBinding.tvNum.setText(PreferencesGesblue.getFormulariNumero(mContext));
-		checkAdmin(adm);
+		checkEstat(adm,PreferencesGesblue.getOffline(mContext));
 
 
 
@@ -764,7 +766,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 			}
-			checkAdmin(adm);
+			checkEstat(adm,PreferencesGesblue.getOffline(mContext));
 
 		}
 
@@ -784,168 +786,259 @@ public class MainActivity extends GesblueFragmentActivity {
 		dataComprovacio= new Date();
 		Check_Null_Data(dataComprovacio, mContext);//DATA NO NULL
 
-		DatamanagerAPI.crida_ComprovaMatricula(new ComprovaMatriculaRequest(PreferencesGesblue.getConcessio(mContext), Utils.getDeviceId(mContext), matricula, Utils.getCurrentTimeLong(mContext),PreferencesGesblue.getCodiCarrer(mContext),PreferencesGesblue.getCodiZona(mContext)),PreferencesGesblue.getTimeOut(mContext), new JSoapCallback() {
-			@Override
-			public void onSuccess(String result) {
-				final ComprovaMatriculaResponse response;
-				try {
-					response = DatamanagerAPI.parseJson(result, ComprovaMatriculaResponse.class);
-					Log.d("Resultat",""+response.getResultat());
-				} catch (Exception ex) {
-					ELog(ex);
-					onError(PARSE_ERROR);
-					Log.e("ERROR COMPROVACIO:","");
-					return;
-				}
-
-				//GUADEM LA DATA EN CAS DE CONEXXIO
-				dataComprovacio= new Date();
-				Check_Null_Data(dataComprovacio, mContext);//DATA NO NULL
+		mBinding.txtEstatEstacionament.setText("");
+		mBinding.txtTemps.setText("");
+		mBinding.txtInfo.setText("");
 
 
-				Long data =Utils.getCurrentTimeLong(mContext);
+		if(!PreferencesGesblue.getOffline(mContext)) {
+			DatamanagerAPI.crida_ComprovaMatricula(new ComprovaMatriculaRequest(PreferencesGesblue.getConcessio(mContext), Utils.getDeviceId(mContext), matricula, Utils.getCurrentTimeLong(mContext), PreferencesGesblue.getCodiCarrer(mContext), PreferencesGesblue.getCodiZona(mContext)), PreferencesGesblue.getTimeOut(mContext), new JSoapCallback() {
+				@Override
+				public void onSuccess(String result) {
+					final ComprovaMatriculaResponse response;
+					try {
+						response = DatamanagerAPI.parseJson(result, ComprovaMatriculaResponse.class);
+						Log.d("Resultat", "" + response.getResultat());
+					} catch (Exception ex) {
+						ELog(ex);
+						onError(PARSE_ERROR);
+						Log.e("ERROR COMPROVACIO:", "");
+						return;
+					}
 
-				Long temps = response.getTemps();
-
-
-				dataCaducitat_milisegons=(System.currentTimeMillis())+temps*1000;
-
-
-
-				Log.d("EstatComprovacio",""+ PreferencesGesblue.getEstatComprovacio(mContext));
-
-				int estatComprovacio = 0;
-
-
-
-
-				switch(response.getResultat()) {
-					case 0: //Matricula correcta(no denunciar)
-						if((temps>0)) {
-
-						    estatComprovacio = 1;
-
-							mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps/60));
-							CridarThreadContador();
-							mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
-
-							changeViewNoMultable();
-						}else{
-							mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
-
-							changeViewNoMultable();
-							estatComprovacio = 2;
-						}
-
-						break;
-					case -1: //Matricula no correcta(possibilitat de denunciar)
-						Log.d("Temps:",""+response.getTemps());
-						if((temps<0)&&(temps>-50400)){
-							if(temps>-3600) {
-
-								mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps / -60));
-								CridarThreadContador();
-								changeViewMultable();
-
-                                estatComprovacio = 3;
-							}
-							else{
-								mBinding.txtTemps.setText(System.getProperty("line.separator") + Math.round(temps / -60 / 60));
-								CridarThreadContador();
-								changeViewMultable();
-
-                                estatComprovacio = 4;
-							}
-						}else{
-							changeViewMultable();
-							mBinding.txtInfo.setText(getResources().getString(R.string.sense_tiquet));
-							mBinding.txtTemps.setText("");
-                            estatComprovacio = 5;
-						}
-						break;
-					case -3: //Vehicle ja denunciat
-						changeViewJaDenunciat();
-                        estatComprovacio = 6;
-						break;
-					case -2: //Error de comprovació
-					default:
-						Utils.showDatamanagerError(mContext, JsoapError.OTHER_ERROR);
-						mBinding.editTextMatricula.setEnabled(true);
-						mBinding.tvZona.setEnabled(true);
-						mBinding.tvCarrer.setEnabled(true);
-						mBinding.tvNum.setEnabled(true);
-                        estatComprovacio = 7;
-
-						break;
-				}
-
-                PreferencesGesblue.saveEstatComprovacio(mContext,estatComprovacio);
-
-			}
-
-			@Override
-			public void onError(final int error) {
-                int estatComprovacio = 0;
-
-				//GUADEM LA DATA EN CAS DE NO CONEXXIO
-				dataComprovacio= new Date();
-				Check_Null_Data(dataComprovacio, mContext);//DATA NO NULL
-
-				mBinding.viewSwitcherComprovaAnim.showNext();
-				mBinding.editTextMatricula.setEnabled(true);
-				mBinding.tvZona.setEnabled(true);
-				mBinding.tvCarrer.setEnabled(true);
-				mBinding.tvNum.setEnabled(true);
-
-				//Utils.showDatamanagerError(mContext, error);
-
-				Model_LlistaBlanca llistaBlanca = DatabaseAPI.findLlistaBlanca(mContext, mat);
-
-				if(llistaBlanca==null) {
+					//GUADEM LA DATA EN CAS DE CONEXXIO
+					dataComprovacio = new Date();
+					Check_Null_Data(dataComprovacio, mContext);//DATA NO NULL
 
 
-                    Model_LlistaAbonats llistaAbonats = DatabaseAPI.findLlistaAbonats(mContext, mat);
+					Long data = Utils.getCurrentTimeLong(mContext);
 
-                    if(llistaAbonats==null) {
+					Long temps = response.getTemps();
 
-                        estatComprovacio = 8;
-                        changeViewNoComprovat();
 
-                    }
-                    else{
-						try {
-							SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-							Date datainici = fmt.parse(llistaAbonats.getDatainici());
-							Date datafi = fmt.parse(llistaAbonats.getDatafi());
-							Date date = new Date();
-							if( date.after(datainici) && date.before(datafi)){
-                                estatComprovacio = 9;
+					dataCaducitat_milisegons = (System.currentTimeMillis()) + temps * 1000;
+
+
+					Log.d("EstatComprovacio", "" + PreferencesGesblue.getEstatComprovacio(mContext));
+
+					int estatComprovacio = 0;
+
+					mBinding.txtTemps.setVisibility(INVISIBLE);
+					mBinding.txtInfo.setVisibility(INVISIBLE);
+
+					switch (response.getResultat()) {
+						case 0: //Matricula correcta(no denunciar)
+							if ((temps > 0)) {
+
+								estatComprovacio = 1;
+
+
+								mBinding.txtInfo.setVisibility(VISIBLE);
+								mBinding.txtTemps.setVisibility(VISIBLE);
+								mBinding.txtTemps.setText(Check_Temps(dataCaducitat_milisegons));
+								mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
+
 								changeViewNoMultable();
+							} else {
+								mBinding.txtInfo.setVisibility(VISIBLE);
+								mBinding.txtTemps.setVisibility(VISIBLE);
+								mBinding.txtInfo.setText("");
+								mBinding.txtTemps.setText("");
+								mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
+
+								changeViewNoMultable();
+								estatComprovacio = 2;
 							}
-							else{
-                                estatComprovacio = 8;
+
+							break;
+						case -1: //Matricula no correcta(possibilitat de denunciar)
+							Log.d("Temps:", "" + response.getTemps());
+							if ((temps < 0) && (temps > -50400)) {
+								if (temps > -3600) {
+
+									mBinding.txtInfo.setVisibility(VISIBLE);
+									mBinding.txtTemps.setVisibility(VISIBLE);
+									mBinding.txtTemps.setText(Check_Temps(dataCaducitat_milisegons));
+									changeViewMultable();
+
+
+									estatComprovacio = 3;
+								} else {
+
+
+									mBinding.txtInfo.setVisibility(VISIBLE);
+									mBinding.txtTemps.setVisibility(VISIBLE);
+									mBinding.txtTemps.setText(Check_Temps(dataCaducitat_milisegons));
+									changeViewMultable();
+
+									estatComprovacio = 4;
+								}
+							} else {
+								mBinding.txtInfo.setVisibility(VISIBLE);
+								mBinding.txtInfo.setText("");
+								mBinding.txtTemps.setText("");
+								mBinding.txtInfo.setText(getResources().getString(R.string.sense_tiquet));
+								changeViewMultable();
+								estatComprovacio = 5;
+							}
+							break;
+						case -3: //Vehicle ja denunciat
+							changeViewJaDenunciat();
+							estatComprovacio = 6;
+							break;
+						case -2: //Error de comprovació
+						default:
+							Utils.showDatamanagerError(mContext, JsoapError.OTHER_ERROR);
+							mBinding.editTextMatricula.setEnabled(true);
+							mBinding.tvZona.setEnabled(true);
+							mBinding.tvCarrer.setEnabled(true);
+							mBinding.tvNum.setEnabled(true);
+							estatComprovacio = 7;
+
+							break;
+					}
+
+					PreferencesGesblue.saveEstatComprovacio(mContext, estatComprovacio);
+
+				}
+
+				@Override
+				public void onError(final int error) {
+					int estatComprovacio = 0;
+
+					//GUADEM LA DATA EN CAS DE NO CONEXXIO
+					dataComprovacio = new Date();
+					Check_Null_Data(dataComprovacio, mContext);//DATA NO NULL
+
+					mBinding.viewSwitcherComprovaAnim.showNext();
+					mBinding.editTextMatricula.setEnabled(true);
+					mBinding.tvZona.setEnabled(true);
+					mBinding.tvCarrer.setEnabled(true);
+					mBinding.tvNum.setEnabled(true);
+
+					//Utils.showDatamanagerError(mContext, error);
+
+					Model_LlistaBlanca llistaBlanca = DatabaseAPI.findLlistaBlanca(mContext, mat);
+
+					if (llistaBlanca == null) {
+
+
+						Model_LlistaAbonats llistaAbonats = DatabaseAPI.findLlistaAbonats(mContext, mat);
+
+						if (llistaAbonats == null) {
+
+							estatComprovacio = 8;
+							changeViewNoComprovat();
+
+						} else {
+							try {
+								SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+								Date datainici = fmt.parse(llistaAbonats.getDatainici());
+								Date datafi = fmt.parse(llistaAbonats.getDatafi());
+								Date date = new Date();
+								Long Zona_selct=PreferencesGesblue.getCodiZona(mContext);
+								Long zona1= llistaAbonats.getZona1();
+								Long zona2= llistaAbonats.getZona2();
+								Long zona3= llistaAbonats.getZona3();
+								Long zona4= llistaAbonats.getZona4();
+								Long zona5= llistaAbonats.getZona5();
+
+								boolean zonna_correcte=Zona_selct.equals(zona1) ||Zona_selct.equals(zona2) ||Zona_selct.equals(zona3) || Zona_selct.equals(zona4) ||Zona_selct.equals(zona5);
+
+								if (date.after(datainici) && date.before(datafi) &&	zonna_correcte){
+									estatComprovacio = 9;
+									changeViewNoMultable();
+								} else {
+									estatComprovacio = 8;
+									changeViewNoComprovat();
+								}
+							} catch (ParseException pex) {
+								estatComprovacio = 8;
 								changeViewNoComprovat();
 							}
-						}catch(ParseException pex){
+
+							Log.d("comprovacio", "abonat");
+
 
 						}
+					} else {
+						Log.d("comprovacio", "blanca");
+						estatComprovacio = 10;
+						changeViewNoMultable();
 
-                        Log.d("comprovacio","abonat");
-                        estatComprovacio = 9;
-                        changeViewNoMultable();
+					}
 
-                    }
+					PreferencesGesblue.saveEstatComprovacio(mContext, estatComprovacio);
 				}
-				else{
-                    Log.d("comprovacio","blanca");
-                    estatComprovacio = 10;
-					changeViewNoMultable();
+			});
+		}
+		else{
+			int estatComprovacio = 0;
+
+			//GUADEM LA DATA EN CAS DE NO CONEXXIO
+			dataComprovacio = new Date();
+			Check_Null_Data(dataComprovacio, mContext);//DATA NO NULL
+
+			mBinding.viewSwitcherComprovaAnim.showNext();
+			mBinding.editTextMatricula.setEnabled(true);
+			mBinding.tvZona.setEnabled(true);
+			mBinding.tvCarrer.setEnabled(true);
+			mBinding.tvNum.setEnabled(true);
+
+			//Utils.showDatamanagerError(mContext, error);
+
+			Model_LlistaBlanca llistaBlanca = DatabaseAPI.findLlistaBlanca(mContext, mat);
+
+			if (llistaBlanca == null) {
+
+
+				Model_LlistaAbonats llistaAbonats = DatabaseAPI.findLlistaAbonats(mContext, mat);
+
+				if (llistaAbonats == null) {
+
+					estatComprovacio = 8;
+					changeViewNoComprovat();
+
+				} else {
+					try {
+						SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+						Date datainici = fmt.parse(llistaAbonats.getDatainici());
+						Date datafi = fmt.parse(llistaAbonats.getDatafi());
+						Date date = new Date();
+						Long Zona_selct=PreferencesGesblue.getCodiZona(mContext);
+						Long zona1= llistaAbonats.getZona1();
+						Long zona2= llistaAbonats.getZona2();
+						Long zona3= llistaAbonats.getZona3();
+						Long zona4= llistaAbonats.getZona4();
+						Long zona5= llistaAbonats.getZona5();
+
+						boolean zonna_correcte=Zona_selct.equals(zona1) ||Zona_selct.equals(zona2) ||Zona_selct.equals(zona3) || Zona_selct.equals(zona4) ||Zona_selct.equals(zona5);
+
+						if (date.after(datainici) && date.before(datafi) &&	zonna_correcte){
+							estatComprovacio = 9;
+							changeViewNoMultable();
+						} else {
+							estatComprovacio = 8;
+							changeViewNoComprovat();
+						}
+					} catch (ParseException pex) {
+						estatComprovacio = 8;
+						changeViewNoComprovat();
+					}
+
+					Log.d("comprovacio", "abonat");
+
 
 				}
+			} else {
+				Log.d("comprovacio", "blanca");
+				estatComprovacio = 10;
+				changeViewNoMultable();
 
-                PreferencesGesblue.saveEstatComprovacio(mContext,estatComprovacio);
 			}
-		});
+
+			PreferencesGesblue.saveEstatComprovacio(mContext, estatComprovacio);
+		}
 	}
 
 	private void changeViewNoMultable() {
@@ -957,8 +1050,6 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.verdOK));
 		mBinding.txtEstatEstacionament.setText(getResources().getString(R.string.estacionament_correcte));
-		mBinding.txtInfo.setText("");
-		mBinding.txtTemps.setText("");
 		mBinding.txtEstatEstacionament.setVisibility(View.VISIBLE);
 
 		//Recomana NO Denunciar
@@ -1061,6 +1152,9 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.layDades.setBackgroundColor(getResources().getColor(R.color.ja_denunciat));
 
+
+		mBinding.txtEstatEstacionament.setText("");
+		mBinding.txtEstatEstacionament.setVisibility(INVISIBLE);
 		mBinding.txtInfo.setText(R.string.estacionament_sense_internet);
 		mBinding.layImatges.setVisibility(View.GONE);
 
@@ -1160,115 +1254,87 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	}
 
-	/*FUNCIONALITAT DEL CONTADOR DE TEMPS**/
-	private void CridarThreadContador(){
 
 
-		mBinding.txtTemps.setVisibility(VISIBLE);
-		mBinding.txtInfo.setVisibility(VISIBLE);
-		contador = new Timer();
-		contador.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				TimerMethod();
+	private String Check_Temps(Long dataCaducitat_milisegons_long){
+		String dateString;
 
-			}
-
-		}, 0, 500);
-	}
-
-	private void TimerMethod()
-	{
-
-		this.runOnUiThread(Timer_Tick);
-	}
+		SimpleDateFormat formatTempsH=new SimpleDateFormat("HH");
+		SimpleDateFormat formatTempsM=new SimpleDateFormat("mm");
+		SimpleDateFormat formatTempsS=new SimpleDateFormat("ss");
 
 
-	private Runnable Timer_Tick = new Runnable() {
-		public void run() {
+		formatTempsH.setTimeZone(TimeZone.getTimeZone("GMT"));
+		formatTempsM.setTimeZone(TimeZone.getTimeZone("GMT"));
+		formatTempsS.setTimeZone(TimeZone.getTimeZone("GMT"));
+		/* TEMPS POSITIU**/
 
-			String dateString;
+		if (dataCaducitat_milisegons_long>System.currentTimeMillis()){
 
-			SimpleDateFormat formatTempsH=new SimpleDateFormat("HH");
-			SimpleDateFormat formatTempsM=new SimpleDateFormat("mm");
-			SimpleDateFormat formatTempsS=new SimpleDateFormat("ss");
+			long TempsResultant=  dataCaducitat_milisegons_long-System.currentTimeMillis();
 
-
-			formatTempsH.setTimeZone(TimeZone.getTimeZone("GMT"));
-			formatTempsM.setTimeZone(TimeZone.getTimeZone("GMT"));
-			formatTempsS.setTimeZone(TimeZone.getTimeZone("GMT"));
-			/* TEMPS POSITIU**/
-			if (dataCaducitat_milisegons>System.currentTimeMillis()){
-
-				long TempsResultant=  dataCaducitat_milisegons-System.currentTimeMillis();
-
-				/* + DE 2 DIES**/
-				if(TempsResultant>=172800000){
+			/* + DE 2 DIES**/
+			if(TempsResultant>=172800000){
 
 
-					dateString = (((((TempsResultant)/1000)/60)/60)/24)+" "+getResources().getString(R.string.Dies);
+				dateString = (((((TempsResultant)/1000)/60)/60)/24)+" "+getResources().getString(R.string.Dies);
 
 
 
 
-				}/* 1 a 2 DIES**/
-				else if(TempsResultant>=86400000){
-
-					dateString =
-							(((((TempsResultant)/1000)/60)/60)/24)+"D : "+
-							formatTempsH.format(TempsResultant)+"H : "+
-							formatTempsM.format(TempsResultant)+"M : "+
-							formatTempsS.format(TempsResultant)+"S";
-
-
-
-
-
-
-				}/* NORMA GENERAL**/
-				else{
-
-
-					dateString =
-							formatTempsH.format(TempsResultant)+"H : "+
-							formatTempsM.format(TempsResultant)+"M : "+
-							formatTempsS.format(TempsResultant)+"S";
-
-
-				}
-				/* GENERAL */
-
-
-				mBinding.txtInfo.setText(getResources().getString(R.string.temps_Restant));
-
-			}
-			/* TEMPS NEGATIU**/
-			else{
-				/* GENERAL */
-				long TempsResultant=  System.currentTimeMillis()-dataCaducitat_milisegons;
+			}/* 1 a 2 DIES**/
+			else if(TempsResultant>=86400000){
 
 				dateString =
-							formatTempsH.format(TempsResultant)+"H : "+
+						(((((TempsResultant)/1000)/60)/60)/24)+"D : "+
+								formatTempsH.format(TempsResultant)+"H : "+
+								formatTempsM.format(TempsResultant)+"M : "+
+								formatTempsS.format(TempsResultant)+"S";
+
+
+
+
+
+
+			}/* NORMA GENERAL**/
+			else{
+
+
+				dateString =
+						formatTempsH.format(TempsResultant)+"H : "+
+								formatTempsM.format(TempsResultant)+"M : "+
+								formatTempsS.format(TempsResultant)+"S";
+
+
+			}
+			/* GENERAL */
+
+
+			mBinding.txtInfo.setText(getResources().getString(R.string.temps_Restant));
+
+		}
+		/* TEMPS NEGATIU**/
+		else{
+			/* GENERAL */
+			long TempsResultant=  System.currentTimeMillis()-dataCaducitat_milisegons;
+
+			dateString =
+					formatTempsH.format(TempsResultant)+"H : "+
 							formatTempsM.format(TempsResultant)+"M : "+
 							formatTempsS.format(TempsResultant)+"S";
 
 
 
 
-				mBinding.txtInfo.setText(getResources().getString(R.string.temps_Excedit));
-
-			}
-
-
-
-
-			mBinding.txtTemps.setText(dateString);
-			//This method runs in the same thread as the UI.
-
-			//Do something to the UI thread here
+			mBinding.txtInfo.setText(getResources().getString(R.string.temps_Excedit));
 
 		}
-	};
+
+
+
+
+		return dateString;
+	}
 
 
 

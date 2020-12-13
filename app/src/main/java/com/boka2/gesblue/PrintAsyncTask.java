@@ -184,10 +184,9 @@ public class PrintAsyncTask extends AsyncTask<String, String, Boolean> {
 						ticketConfiguration.setCodiBarres(numeroButlleta);
 					}
 					ticketConfiguration
-					.setTextAnulacio(mContext.getString(SSystemUtils.isDebugging(mContext) ? R.string.textAnulacioP : R.string.textAnulacio))
+					.setTextAnulacio(mContext.getString(R.string.textAnulacio))
 					.setTextPeu(PreferencesGesblue.getTextPeu(mContext))
 					.setQr(PreferencesGesblue.getAdrecaQr(mContext));
-
 					Boolean b= PreferencesGesblue.getTextPeuVisible(mContext);
 
 

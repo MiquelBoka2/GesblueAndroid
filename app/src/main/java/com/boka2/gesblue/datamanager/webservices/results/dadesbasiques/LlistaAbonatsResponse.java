@@ -30,6 +30,29 @@ public class LlistaAbonatsResponse extends WSResult {
 		@SerializedName("datafi")
 		private String datafi;
 
+		@JSoapResField(name = "zona1")
+		@SerializedName("zona1")
+		private String zona1;
+
+
+		@JSoapResField(name = "zona2")
+		@SerializedName("zona2")
+		private String zona2;
+
+
+		@JSoapResField(name = "zona3")
+		@SerializedName("zona3")
+		private String zona3;
+
+
+		@JSoapResField(name = "zona4")
+		@SerializedName("zona4")
+		private String zona4;
+
+		@JSoapResField(name = "zona5")
+		@SerializedName("zona5")
+		private String zona5;
+
 		@JSoapResField(name = "eliminar")
 		@SerializedName("eliminar")
 		private int eliminar;
@@ -65,6 +88,47 @@ public class LlistaAbonatsResponse extends WSResult {
 			this.datafi = datafi;
 		}
 
+		public String getZona1() {
+			return zona1;
+		}
+
+		public void setZona1(String zona1) {
+			this.zona1 = zona1;
+		}
+
+		public String getZona2() {
+			return zona2;
+		}
+
+		public void setZona2(String zona2) {
+			this.zona2 = zona2;
+		}
+
+		public String getZona3() {
+			return zona3;
+		}
+
+		public void setZona3(String zona3) {
+			this.zona3 = zona3;
+		}
+
+		public String getZona4() {
+			return zona4;
+		}
+
+		public void setZona4(String zona4) {
+			this.zona4 = zona4;
+		}
+
+		public String getZona5() {
+			return zona5;
+		}
+
+		public void setZona5(String zona5) {
+			this.zona5 = zona5;
+		}
+
+
 		public int getEliminar() {
 			return eliminar;
 		}
@@ -74,6 +138,8 @@ public class LlistaAbonatsResponse extends WSResult {
 		public boolean isEliminar() {
 			return isTrue(getEliminar());
 		}
+
+
 
 		public static boolean isTrue(int v) {
 			return v == 1;
@@ -87,6 +153,11 @@ public class LlistaAbonatsResponse extends WSResult {
 					", matricula='" + matricula + '\'' +
 					", datainici='" + datainici + '\'' +
 					", datafi='" + datafi + '\'' +
+					", zona1='" + zona1 + '\'' +
+					", zona2='" + zona2 + '\'' +
+					", zona3='" + zona3 + '\'' +
+					", zona4='" + zona4 + '\'' +
+					", zona5='" + zona5 + '\'' +
 					", eliminar=" + eliminar +
 					'}';
 		}

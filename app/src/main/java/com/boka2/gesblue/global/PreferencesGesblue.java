@@ -114,6 +114,17 @@ public class PreferencesGesblue extends Preferences {
 	private static final String PREF_ETERN_UUID = "etern_uuid";
 	private static final String PREF_TIMEOUT = "out_time_bk";
 
+	private static final String PREF_OFFLINE="offline";
+
+	public static void saveOffline(Context _context, boolean b) {
+		put(_context, PREF_OFFLINE, b);
+	}
+
+	public static boolean getOffline(Context _context) {
+		return getBool(_context, PREF_OFFLINE, false);
+	}
+
+
 	public static void saveTimeOut(Context _context, int i) {
 		put(_context, PREF_TIMEOUT, i);
 	}

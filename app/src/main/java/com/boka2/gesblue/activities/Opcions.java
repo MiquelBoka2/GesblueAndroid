@@ -17,8 +17,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +57,7 @@ public class Opcions extends AppCompatActivity {
     private boolean refreshDades;
     LoginResponse responseManual;
     
-    private ConstraintLayout Canviar_Concessio,Desconectat, Recarregar_Dades, Reimpressio, Idioma, Enviaments_Pendents,Pujar_Fotos,Admin,E_UUID,E_TimeOut,Extres,Base;
+    private ConstraintLayout Canviar_Concessio,Desconectat, Recarregar_Dades, Reimpressio, Idioma, Enviaments_Pendents,Pujar_Fotos,Admin,E_UUID,E_TimeOut,Extres,Base,Mode_Offline,Capçalera;
     private TextView txt_Versio,txt_NumDenuncies;
     private Button btn_Confirmar;
     private Context oContext=this;
@@ -63,6 +65,7 @@ public class Opcions extends AppCompatActivity {
     private Boolean adm=false;
     private ImageView  img_Lock,img_Unlock,save_uuid,save_timeout;
     private EditText edt_uuid,edit_timeout;
+    private Switch Switch_Offline;
 
     private int RequestCode=0002;
 
@@ -88,6 +91,7 @@ public class Opcions extends AppCompatActivity {
 
             txt_Versio = (TextView) findViewById(R.id.txt_Versio);
 
+            Capçalera= (ConstraintLayout) findViewById(R.id.Capçalera);
 
             Canviar_Concessio = (ConstraintLayout) findViewById(R.id.lay_canviarConcessio);
             Desconectat = (ConstraintLayout) findViewById(R.id.lay_Desconectat);
@@ -95,11 +99,14 @@ public class Opcions extends AppCompatActivity {
             Reimpressio = (ConstraintLayout) findViewById(R.id.lay_Reimpressio);
             Idioma = (ConstraintLayout) findViewById(R.id.lay_Idioma);
             Enviaments_Pendents = (ConstraintLayout) findViewById(R.id.lay_EnviamentsPendents);
+            Mode_Offline= (ConstraintLayout) findViewById(R.id.lay_offline);
+
             E_UUID = (ConstraintLayout) findViewById(R.id.lay_edit_uuid);
             E_TimeOut = (ConstraintLayout) findViewById(R.id.lay_edit_timeout);
             Pujar_Fotos=(ConstraintLayout) findViewById(R.id.lay_PujarFotos);
             Admin = (ConstraintLayout) findViewById(R.id.lay_Admin);
 
+            Switch_Offline=(Switch)findViewById(R.id.sw_offline);
 
             save_uuid=(ImageView) findViewById(R.id.img_save_uuid);
             edt_uuid=(EditText) findViewById(R.id.edt_uuid);
@@ -120,6 +127,7 @@ public class Opcions extends AppCompatActivity {
             Reimpressio.setVisibility(View.GONE);
             Idioma.setVisibility(View.GONE);
             Enviaments_Pendents.setVisibility(View.GONE);
+            Mode_Offline.setVisibility(View.GONE);
             E_UUID.setVisibility(View.GONE);
             E_TimeOut.setVisibility(View.GONE);
             Pujar_Fotos.setVisibility(View.GONE);
@@ -136,6 +144,12 @@ public class Opcions extends AppCompatActivity {
             }
             txt_Versio.setText("v."+menuTitle);
         }
+
+        /*EStAT DEL OFFLINE*/{
+            Boolean offline= PreferencesGesblue.getOffline(oContext);
+            Switch_Offline.setChecked(offline);
+        }
+
 
 
         /*RECUPAREM DADES D'ON PROVENIM**/{
@@ -171,6 +185,7 @@ public class Opcions extends AppCompatActivity {
                 E_UUID.setVisibility(View.GONE);
                 E_TimeOut.setVisibility(View.GONE);
 
+                Mode_Offline.setVisibility(View.VISIBLE);
                 Desconectat.setVisibility(View.VISIBLE);
                 Reimpressio.setVisibility(View.VISIBLE);
                 Idioma.setVisibility(View.VISIBLE);
@@ -197,7 +212,7 @@ public class Opcions extends AppCompatActivity {
 
                 Idioma.setVisibility(View.VISIBLE);
                 Admin.setVisibility(View.VISIBLE);
-
+                Mode_Offline.setVisibility(View.VISIBLE);
 
 
                 Canviar_Concessio.setVisibility(View.GONE);
@@ -215,7 +230,7 @@ public class Opcions extends AppCompatActivity {
                 Recarregar_Dades.setVisibility(View.VISIBLE);
                 Admin.setVisibility(View.VISIBLE);
                 Idioma.setVisibility(View.VISIBLE);
-
+                Mode_Offline.setVisibility(View.VISIBLE);
 
 
                 Desconectat.setVisibility(View.GONE);
@@ -447,6 +462,15 @@ public class Opcions extends AppCompatActivity {
             });
 
 
+            Switch_Offline.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    PreferencesGesblue.saveOffline(oContext,b);
+                    checkEstat(adm,PreferencesGesblue.getOffline(oContext));
+                }
+            });
+
+
             save_uuid.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -498,7 +522,7 @@ public class Opcions extends AppCompatActivity {
 
     }
     /* Actualitza el UI en funcio de ADMIN**/
-    private void checkAdmin(Boolean adm) {
+    private void checkEstat(Boolean adm,Boolean offline) {
 
         if (adm){
             img_Lock.setVisibility(View.GONE);
@@ -514,13 +538,20 @@ public class Opcions extends AppCompatActivity {
             E_UUID.setVisibility(View.GONE);
             E_TimeOut.setVisibility(View.GONE);
         }
+
+        if(offline){
+            Capçalera.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.vermellKO));
+        }
+        else{
+            Capçalera.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.barra_superior));
+        }
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        checkAdmin(adm);
+        checkEstat(adm,PreferencesGesblue.getOffline(oContext));
 
 
 
@@ -554,7 +585,7 @@ public class Opcions extends AppCompatActivity {
             }
         }
 
-        checkAdmin(adm);
+        checkEstat(adm,PreferencesGesblue.getOffline(oContext));
 
 
 

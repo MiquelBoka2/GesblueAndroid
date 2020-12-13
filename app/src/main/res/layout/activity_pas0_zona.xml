@@ -49,25 +49,39 @@
 			</RelativeLayout>
 
 			<ListView
-				android:layout_marginLeft="10dp"
-				android:layout_marginRight="10dp"
+				android:id="@+id/lv"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
+				android:layout_above="@id/lay_bottom"
+				android:layout_below="@+id/rlCerca"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
 				android:layout_weight="1"
 				android:divider="@drawable/listview_divider_simple"
-				android:dividerHeight="1dp"
-				android:id="@+id/lv"
-				android:layout_below="@+id/rlCerca"
-				android:layout_above="@+id/linearInferior" />
+				android:dividerHeight="1dp" />
 
-			<include
-				android:id="@+id/linearInferior"
-				layout="@layout/botons_anterior_siguiente" />
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/lay_bottom"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true">
 
-			<include
-				android:id="@+id/linearConfirmar"
-				layout="@layout/linear_confirmar"
-				android:visibility="gone"/>
+				<include
+					android:id="@+id/linearInferior"
+					layout="@layout/botons_anterior_siguiente"
+					android:visibility="visible"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent" />
+
+				<include
+					android:id="@+id/linearConfirmar"
+					layout="@layout/linear_confirmar"
+					android:visibility="gone"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent" />
+			</androidx.constraintlayout.widget.ConstraintLayout>
 
 		</RelativeLayout>
 	</RelativeLayout>
