@@ -80,11 +80,13 @@ import com.boka2.gesblue.datamanager.webservices.results.dadesbasiques.ZonesResp
 import com.boka2.gesblue.datamanager.webservices.results.operativa.EstablirComptadorDenunciaResponse;
 import com.boka2.gesblue.datamanager.webservices.results.operativa.NovaDenunciaResponse;
 import com.boka2.gesblue.datamanager.webservices.results.operativa.RecuperaComptadorDenunciaResponse;
+import com.boka2.gesblue.global.Firebase_Constants;
 import com.boka2.gesblue.global.PreferencesGesblue;
 import com.boka2.gesblue.global.Utils;
 import com.boka2.gesblue.model.Models;
 import com.boka2.gesblue.model.Tipus_Vehicle;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.squareup.picasso.Picasso;
 
@@ -106,6 +108,7 @@ import pt.joaocruz04.lib.misc.JSoapCallback;
 
 
 import static com.boka2.gesblue.GesblueApplication.EnviamentDisponible;
+import static com.boka2.gesblue.global.Firebase_Constants.*;
 import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
 public class LoginActivity extends GesblueFragmentActivity {
@@ -267,6 +270,23 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 
+		if(LoginConcessio) {
+			/* FIREBASE EVENT "OBERTURA AMB CONCESSIO"*/{
+				Bundle bundle = new Bundle();
+				Firebase_Constants.BASIC_INFO(bundle,mContext);
+				bundle.putLong(CONCESSIO, PreferencesGesblue.getConcessio(mContext));
+				bundle.putString(LAST_USARNAME,PreferencesGesblue.getUserName(mContext));
+				FirebaseAnalytics.getInstance(mContext).logEvent(E_OBERTURA_NOU_LOGIN, bundle);
+			}
+		}
+		else{
+			/* FIREBASE EVENT "OBERTURA NOU TERMINAL"*/{
+				Bundle bundle = new Bundle();
+				Firebase_Constants.BASIC_INFO(bundle,mContext);
+				FirebaseAnalytics.getInstance(mContext).logEvent(E_OBERTURA_NOU_TERMINAL, bundle);
+			}
+		}
+
 
 
 
@@ -304,10 +324,24 @@ public class LoginActivity extends GesblueFragmentActivity {
 						antirepetidorDADES=true;
 
 						if (!LoginConcessio) {
+							/* FIREBASE EVENT "REGISTRAR TERMINAL"*/{
+								Bundle bundle = new Bundle();
+								Firebase_Constants.BASIC_INFO(bundle,mContext);
+								bundle.putLong(CONCESSIO, Long.parseLong(concessio));
+								bundle.putString(USERNAME,username);
+								FirebaseAnalytics.getInstance(mContext).logEvent(E_REGISTRE_NOU_TERMINAL, bundle);
+							}
 							cridaNouTerminal(username, password, Long.parseLong(concessio), "0");
 
 							//Log.d("Login -1", "Vivo en una piña");
 						} else {
+							/* FIREBASE EVENT "REGISTRAR NOU LOGIN"*/{
+								Bundle bundle = new Bundle();
+								Firebase_Constants.BASIC_INFO(bundle,mContext);
+								bundle.putLong(CONCESSIO, Long.parseLong(concessio));
+								bundle.putString(USERNAME,mBinding.editTextUsuari.getText().toString());
+								FirebaseAnalytics.getInstance(mContext).logEvent(E_REGISTRE_LOGIN, bundle);
+							}
 
 							//Log.d("Login -2", "Fallo Aquí");
 							cridaLogin(mBinding.editTextUsuari.getText().toString(), mBinding.editTextPassword.getText().toString(), TextUtils.isEmpty(concessio) ? 0 : Long.parseLong(concessio), PreferencesGesblue.getDataSync(mContext));

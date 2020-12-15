@@ -18,7 +18,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -30,6 +32,7 @@ import android.widget.Toast;
 import com.boka2.gesblue.GesblueApplication;
 import com.boka2.gesblue.activities.passosformulari.Pas7NumeroActivity;
 import com.boka2.gesblue.datamanager.database.model.Model_Zona;
+import com.boka2.gesblue.global.Firebase_Constants;
 import com.boka2.sbaseobjects.tools.ImageTools;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -48,6 +51,7 @@ import com.boka2.gesblue.datamanager.webservices.results.operativa.ComprovaMatri
 import com.boka2.gesblue.global.Constants;
 import com.boka2.gesblue.global.PreferencesGesblue;
 import com.boka2.gesblue.global.Utils;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.File;
@@ -64,6 +68,11 @@ import static android.text.TextUtils.isEmpty;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.boka2.gesblue.global.Firebase_Constants.CONCESSIO;
+import static com.boka2.gesblue.global.Firebase_Constants.E_COMPRVACIO;
+import static com.boka2.gesblue.global.Firebase_Constants.E_REGISTRE_NOU_TERMINAL;
+import static com.boka2.gesblue.global.Firebase_Constants.USERNAME;
+import static com.boka2.gesblue.global.Firebase_Constants.USER_ID;
 import static pt.joaocruz04.lib.misc.JsoapError.PARSE_ERROR;
 
 public class MainActivity extends GesblueFragmentActivity {
@@ -258,33 +267,23 @@ public class MainActivity extends GesblueFragmentActivity {
 
 			}
 		});
-		mBinding.tvNum.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
 
-				if(mBinding.tvCarrer.getText().toString()!=getResources().getString(R.string.carrer) & mBinding.tvCarrer.getText().toString()!="" & mBinding.tvCarrer.getText().toString()!=null){
-					Intent intent = new Intent(mContext, Pas7NumeroActivity.class);
-					intent.putExtra("formPrimerCop", false);
-					intent.putExtra("adm",adm);
-					startActivityForResult(intent,3);
-					mBinding.tvNum.clearFocus();
-				}
-				else{
-					Toast.makeText(mContext,getResources().getString(R.string.seleciona_carrer_primer), Toast.LENGTH_LONG).show();
-					mBinding.tvNum.clearFocus();
-				}
+		mBinding.tvNum.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+				PreferencesGesblue.setFormulariNumero(mContext,charSequence.toString());
+			}
+
+			@Override
+			public void afterTextChanged(Editable editable) {
+
 			}
 		});
-		mBinding.tvNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View view, boolean b) {
-				if(b){
-					mBinding.tvNum.callOnClick();
-				}
-			}
-		});
-
-
 
 
 
@@ -752,9 +751,6 @@ public class MainActivity extends GesblueFragmentActivity {
 					mBinding.tvCarrer.setText(PreferencesGesblue.getNomCarrer(mContext));
 
 				}
-				case 3:{
-					mBinding.tvNum.setText(PreferencesGesblue.getFormulariNumero(mContext));
-				}
 
 
 
@@ -789,6 +785,14 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.txtEstatEstacionament.setText("");
 		mBinding.txtTemps.setText("");
 		mBinding.txtInfo.setText("");
+
+		/* FIREBASE EVENT "COMPROBAR"*/{
+			Bundle bundle = new Bundle();
+			Firebase_Constants.BASIC_INFO(bundle,mContext);
+			bundle.putLong(USER_ID, PreferencesGesblue.getCodiAgent(mContext));
+			bundle.putLong(CONCESSIO, PreferencesGesblue.getConcessio(mContext));
+			FirebaseAnalytics.getInstance(mContext).logEvent(E_COMPRVACIO, bundle);
+		}
 
 
 		if(!PreferencesGesblue.getOffline(mContext)) {

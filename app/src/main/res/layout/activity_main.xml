@@ -144,15 +144,13 @@
 								app:layout_constraintStart_toStartOf="parent"
 								app:layout_constraintTop_toTopOf="parent" />
 
-							<com.boka2.gesblue.customstuff.views.SGBTextView
+							<EditText
 								android:id="@+id/tvNum"
 								style="@android:style/Widget.EditText"
 								android:layout_width="match_parent"
 								android:layout_height="0dp"
-								android:focusable="true"
-								android:focusableInTouchMode="false"
 								android:hint="@string/num"
-								android:selectAllOnFocus="false"
+								android:inputType="number"
 								android:textColor="@color/textview_formulari"
 								android:textColorHint="@color/textview_formulari"
 								android:textSize="@dimen/editTextTextSize"
@@ -160,7 +158,8 @@
 								app:layout_constraintEnd_toEndOf="parent"
 								app:layout_constraintHorizontal_bias="0.0"
 								app:layout_constraintStart_toStartOf="parent"
-								app:layout_constraintTop_toBottomOf="@+id/textViewNum" />
+								app:layout_constraintTop_toBottomOf="@+id/textViewNum"
+								android:autofillHints="true" />
 						</androidx.constraintlayout.widget.ConstraintLayout>
 
 					</LinearLayout>
