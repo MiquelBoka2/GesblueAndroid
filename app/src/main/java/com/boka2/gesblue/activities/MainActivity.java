@@ -1198,6 +1198,8 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.layImatges.setVisibility(View.GONE);
 		mBinding.editTextMatricula.setText("");
+		mBinding.tvNum.setText("");
+
 
 		mBinding.llBtnDenuncies.setVisibility(View.INVISIBLE);
 

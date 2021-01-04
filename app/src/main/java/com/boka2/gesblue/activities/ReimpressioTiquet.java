@@ -454,17 +454,26 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
         /* IMG***/
 
-        if(denuncia.getFoto1().contains("error")){
-            txt_img_1.setVisibility(VISIBLE);
+        if(denuncia.getFoto1()!=null) {
+            if (denuncia.getFoto1().contains("error")) {
+                txt_img_1.setVisibility(VISIBLE);
+            }
         }
-        if(denuncia.getFoto2().contains("error")){
-            txt_img_2.setVisibility(VISIBLE);
+        if(denuncia.getFoto2()!=null) {
+            if (denuncia.getFoto2().contains("error")) {
+                txt_img_2.setVisibility(VISIBLE);
+            }
         }
-        if(denuncia.getFoto3().contains("error")){
-            txt_img_3.setVisibility(VISIBLE);
+        if(denuncia.getFoto3()!=null) {
+            if (denuncia.getFoto3().contains("error")) {
+                txt_img_3.setVisibility(VISIBLE);
+            }
         }
-        if(denuncia.getFoto4().contains("error")){
-            txt_img_4.setVisibility(VISIBLE);
+
+        if(denuncia.getFoto4()!=null) {
+            if (denuncia.getFoto4().contains("error")) {
+                txt_img_4.setVisibility(VISIBLE);
+            }
         }
 
         if(denuncia.getTipusanulacio()==-1.0){
@@ -639,11 +648,16 @@ public class ReimpressioTiquet extends AppCompatActivity {
             }
         }
 
-        if(denuncia.getTipusanulacio()==1.0 || (denuncia.getTipusanulacio()==0.0&(
-                (foto1==null||foto1.isEmpty())&
-                (foto2==null||foto2.isEmpty())&
-                (foto3==null||foto3.isEmpty())&
-                (foto4==null||foto4.isEmpty())))) {
+        if(denuncia.getTipusanulacio()==1.0 ||
+           (denuncia.getTipusanulacio()==0.0 &
+                (
+                    (foto1==null||foto1.isEmpty())&
+                    (foto2==null||foto2.isEmpty())&
+                    (foto3==null||foto3.isEmpty())&
+                    (foto4==null||foto4.isEmpty())
+                )
+           )
+        ) {
             File f = new File("storage/emulated/0/Boka2/upload/done");
             if (f.exists() && f.isDirectory()) {
                 final Pattern p = Pattern.compile(".*-" + numDenuncia + "1.jpg"); // I know I really have a stupid mistake on the regex;
