@@ -325,6 +325,18 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 						if (!LoginConcessio) {
 							/* FIREBASE EVENT "REGISTRAR TERMINAL"*/{
+								DatabaseAPI.deleteAllAgents(mContext);
+								DatabaseAPI.deleteAllMarques(mContext);
+								DatabaseAPI.deleteAllModels(mContext);
+								DatabaseAPI.deleteAllTipusVehicles(mContext);
+								DatabaseAPI.deleteAllTipusAnulacions(mContext);
+								DatabaseAPI.deleteAllCarrers(mContext);
+								DatabaseAPI.deleteAllInfraccions(mContext);
+								DatabaseAPI.deleteAllZones(mContext);
+								DatabaseAPI.deleteAllLlistaBlanca(mContext);
+								DatabaseAPI.deleteAllLlistaAbonats(mContext);
+
+
 								Bundle bundle = new Bundle();
 								Firebase_Constants.BASIC_INFO(bundle,mContext);
 								bundle.putLong(CONCESSIO, Long.parseLong(concessio));
