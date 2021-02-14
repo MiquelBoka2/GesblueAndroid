@@ -203,7 +203,7 @@ public class Pas6CarrerActivity extends GesblueFragmentActivity {
 
 						if(mSancio!=null){
 							PreferencesGesblue.clearFormulari(mContext);
-							mSancio.setNumero(null);
+							mSancio.setNumero("");
 							mSancio.setModelCarrer(mSelected);
 							getIntent().putExtra(FormulariActivity.KEY_FORMULARI_CONFIRMAR, mSancio);
 							setResult(RESULT_OK, getIntent());
