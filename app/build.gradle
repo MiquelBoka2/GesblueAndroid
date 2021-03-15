@@ -21,8 +21,8 @@ android {
         applicationId "com.boka2.gesblue"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 60
-        versionName "1.6.0"
+        versionCode 59
+        versionName "1.5.23"
         multiDexEnabled true
 
         archivesBaseName = "$appName-$versionName.$buildNumber($versionCode)"
