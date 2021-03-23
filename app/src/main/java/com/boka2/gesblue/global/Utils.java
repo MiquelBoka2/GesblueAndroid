@@ -169,6 +169,32 @@ public class Utils {
     }
 
     public static String getDeviceId(Context context) {
+        String result="";
+
+        result=PreferencesGesblue.getPrefEternUUID(context);
+
+        if(result==null||result==""){//NO TENIM UUID EMAGATZEMAT
+
+            result=BK_Utils.GetUUIDFormFile(context);
+
+            if(result==null||result==""){//NO TENIM UUID EN ARXIU
+
+                //GENEREM UN NOU UUID i el GUARDEM
+                result= UUID.randomUUID().toString();
+                BK_Utils.SetUUIDToFile(context,result);
+                PreferencesGesblue.savePrefEternUUID(context,result);
+            }
+            else{
+                //GUARDEM UUID EN LES PREFERENCIES
+                PreferencesGesblue.savePrefEternUUID(context,result);
+            }
+        }
+        else{
+            //GUARDEM UUID EN EL ARXIU
+            BK_Utils.SetUUIDToFile(context,result);
+        }
+
+        /**
         TelephonyManager tManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String result=tManager.getDeviceId();
 
@@ -203,6 +229,7 @@ public class Utils {
             BK_Utils.SetUUIDToFile(context,result);
         }
 
+         **/
         return result;
     }
 
