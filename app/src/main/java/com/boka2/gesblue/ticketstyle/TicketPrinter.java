@@ -266,50 +266,52 @@ public class TicketPrinter {
             //------------------
             // Import anul·lació
             //------------------
+
             String butlleta = printConfiguration.getButlleta();
-            if(PreferencesGesblue.getImportAnulacio(mContext)) {
-                String codiAnulacio = "";
-                if(butlleta.length() > 9) {
-                    codiAnulacio = butlleta.substring(butlleta.length()-10, butlleta.length());
-                } else {
-                    codiAnulacio = butlleta.substring(butlleta.length()-(butlleta.length()), butlleta.length());
-                }
+            if(PreferencesGesblue.getConcessio(_context)!=29) {//Import anulació excepte Palau-Sator
+                if (PreferencesGesblue.getImportAnulacio(mContext)) {
+                    String codiAnulacio = "";
+                    if (butlleta.length() > 9) {
+                        codiAnulacio = butlleta.substring(butlleta.length() - 10, butlleta.length());
+                    } else {
+                        codiAnulacio = butlleta.substring(butlleta.length() - (butlleta.length()), butlleta.length());
+                    }
 
-                 printCelaNegreFontGran(0, y, PAGE_WIDTH, mContext.getString(R.string.cela_codi_anulacio), codiAnulacio);
-                /*Cela[] celaArray0 = new Cela[]{
-                        new Cela(mContext.getString(R.string.cela_codi_anulacio), codiAnulacio)
-                };
-                printCellaNegraCenterArray(celaArray0, y);*/
-                y = newLine(y, 4);
+                    printCelaNegreFontGran(0, y, PAGE_WIDTH, mContext.getString(R.string.cela_codi_anulacio), codiAnulacio);
+                    /*Cela[] celaArray0 = new Cela[]{
+                            new Cela(mContext.getString(R.string.cela_codi_anulacio), codiAnulacio)
+                    };
+                    printCellaNegraCenterArray(celaArray0, y);*/
+                    y = newLine(y, 4);
 
-                DataAnulacio[] dataAnulacioArray = printConfiguration.getDataAnulacioArray();
-                if(PreferencesGesblue.getImportAnulacio(_context)) {
-                    for(DataAnulacio dataAnulacio : dataAnulacioArray) {
-                        if(dataAnulacio.getImport() != 0 && dataAnulacio.getData() != null) {
+                    DataAnulacio[] dataAnulacioArray = printConfiguration.getDataAnulacioArray();
+                    if (PreferencesGesblue.getImportAnulacio(_context)) {
+                        for (DataAnulacio dataAnulacio : dataAnulacioArray) {
+                            if (dataAnulacio.getImport() != 0 && dataAnulacio.getData() != null) {
 
-                            Calendar now = Calendar.getInstance();
-                            now.setTime(printConfiguration.getDataCreacio());
-                            Calendar tmp = (Calendar) now.clone();
-                            //tmp.add(Calendar.MINUTE, 1440);
-                            SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yy HH:mm");
-                            Cela[] celaArray = new Cela[]{
-                                    new Cela(mContext.getString(R.string.cela_import), getFormatedImport(dataAnulacio.getImport()), sampleMilimetersToPixels(27)),
-                                    new Cela(mContext.getString(R.string.cela_dataLimit), formatter.format(dataAnulacio.getData().getTime()))
-                            };
-                            printCellaNegraArray(celaArray, y);
-                            y = newLine(y, 2);
+                                Calendar now = Calendar.getInstance();
+                                now.setTime(printConfiguration.getDataCreacio());
+                                Calendar tmp = (Calendar) now.clone();
+                                //tmp.add(Calendar.MINUTE, 1440);
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy HH:mm");
+                                Cela[] celaArray = new Cela[]{
+                                        new Cela(mContext.getString(R.string.cela_import), getFormatedImport(dataAnulacio.getImport()), sampleMilimetersToPixels(27)),
+                                        new Cela(mContext.getString(R.string.cela_dataLimit), formatter.format(dataAnulacio.getData().getTime()))
+                                };
+                                printCellaNegraArray(celaArray, y);
+                                y = newLine(y, 2);
+                            }
                         }
                     }
                 }
+                y = newLine(y, 1);
             }
-            y = newLine(y, 1);
-
 
 
             //------------------
             // Codi barres estàndard
             //------------------
-            if(PreferencesGesblue.getConcessio(_context)!=4){//Codi de barres estàndard excepte Banyoles
+            if((PreferencesGesblue.getConcessio(_context)!=4)||(PreferencesGesblue.getConcessio(_context)!=29)){//Codi de barres estàndard excepte Banyoles i Palau-Sator
 
                 if(PreferencesGesblue.getCodiBarresVisible(_context) && !TextUtils.isEmpty(butlleta)) {
                     int heightCodiBarres = LINE_HEIGHT * BARCODE_NUM_LINES;
@@ -352,6 +354,9 @@ public class TicketPrinter {
                  **/
             }
             else if(PreferencesGesblue.getConcessio(_context)==28){//La Garriga no té codi QR de Giropark
+
+            }
+            else if(PreferencesGesblue.getConcessio(_context)==29){//Palau-Sator no té codi QR de Giropark
 
             }
             else {// Codi QR Giropark.com
