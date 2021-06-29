@@ -3,6 +3,7 @@ package com.boka2.gesblue.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,14 +144,16 @@ public class PujarFotos_Adapter extends RecyclerView.Adapter<PujarFotos_Adapter.
                     new JSoapCallback() {
                         @Override
                         public void onSuccess(String result) {
-                            File direct = new File("storage/emulated/0/Boka2/upload/done");
+
+                            File direct = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done");
 
                             if (!direct.exists()) {
-                                File wallpaperDirectory = new File("storage/emulated/0/Boka2/upload/done");
+                                File wallpaperDirectory =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done");
                                 wallpaperDirectory.mkdirs();
                             }
-                            File from = new File("storage/emulated/0/Boka2/upload/error/" + file.getName());
-                            File to = new File("storage/emulated/0/Boka2/upload/done/" + file.getName());
+
+                            File from =  new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error/" + file.getName());
+                            File to = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/" + file.getName());
                             from.renameTo(to);
 
 

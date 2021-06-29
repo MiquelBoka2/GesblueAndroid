@@ -9,7 +9,7 @@ repositories {
 
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     flavorDimensions "versionCode"
     def appName = System.getenv("JOB_NAME") as String ?: "app"
@@ -19,10 +19,10 @@ android {
 
     defaultConfig {
         applicationId "com.boka2.gesblue"
-        minSdkVersion 16
-        targetSdkVersion 29
-        versionCode 61
-        versionName "1.6.1"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 63
+        versionName "1.6.3"
         multiDexEnabled true
 
         archivesBaseName = "$appName-$versionName.$buildNumber($versionCode)"
@@ -50,18 +50,18 @@ android {
             // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
             // to pre-dex each module and produce an APK that can be tested on
             // Android Lollipop without time consuming dex merging processes.
-            minSdkVersion 16
+            minSdkVersion 24
 
         }
         prod {
             // The actual minSdkVersion for the application.
-            minSdkVersion 16
+            minSdkVersion 24
         }
     }
 
     signingConfigs {
         release {
-            storeFile file('/Users/miquelviladomat/Developer/Android/GesblueAndroid/gesbluekey.jks')
+            storeFile file('C:/Users/Feina/Desktop/PROJECTES_ANDROID/GesblueAndroid/gesbluekey.jks')
             storePassword "mifas2020"
             keyAlias "gesblue2020"
             keyPassword "mifas2020"

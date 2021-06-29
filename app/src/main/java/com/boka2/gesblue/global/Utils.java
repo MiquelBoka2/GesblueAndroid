@@ -12,6 +12,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import androidx.appcompat.app.AlertDialog;
+
+import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.Log;
@@ -177,6 +179,7 @@ public class Utils {
 
             result=BK_Utils.GetUUIDFormFile(context);
 
+
             if(result==null||result==""){//NO TENIM UUID EN ARXIU
 
                 //GENEREM UN NOU UUID i el GUARDEM
@@ -193,6 +196,7 @@ public class Utils {
             //GUARDEM UUID EN EL ARXIU
             BK_Utils.SetUUIDToFile(context,result);
         }
+
 
         /**
         TelephonyManager tManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -616,10 +620,11 @@ public class Utils {
             Log.d ("Camera",numDenuncia);
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
             String currentDateString = dateFormat.format(new Date());
-            File direct = new File("storage/emulated/0/Boka2/upload/temp");
+
+            File direct = new File( mContext.getExternalFilesDir(Environment.DIRECTORY_DCIM),"Boka2/upload/temp");
 
             if (!direct.exists()) {
-                File wallpaperDirectory = new File("storage/emulated/0/Boka2/upload/temp");
+                File wallpaperDirectory =new File( mContext.getExternalFilesDir(Environment.DIRECTORY_DCIM),"Boka2/upload/temp");
                 wallpaperDirectory.mkdirs();
             }
             File file = new File(direct, currentDateString  + "-" + concessio + "-" + numDenuncia + position + ".jpg");
@@ -630,8 +635,8 @@ public class Utils {
 
 
 
-
-            Canvas canvas = new Canvas(FotoBitmap);
+            Bitmap mutableBitmap = FotoBitmap.copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvas = new Canvas(mutableBitmap);
             canvas.drawBitmap(FotoBitmap, 0, 0, null);
             Paint paint = new Paint();
             paint.setColor(Color.YELLOW);
@@ -658,10 +663,11 @@ public class Utils {
             canvas.drawText(d + " " + t, 20f ,    FotoBitmap.getHeight() - 24, paint);
             canvas.save();
             try (FileOutputStream out = new FileOutputStream(file)) {
-                FotoBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
+                mutableBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
 
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.e("IMG","NO DATE");
             }
             return file.toString();
 

@@ -289,6 +289,7 @@ El/la secretario/a del Ayuntamiento.</string>
     <string name="denuncia_no_accesible">La denuncia no es accesible</string>
     <string name="reiniciar_terminal">" Reinicia el terminal para completar la actualización"</string>
     <string name="Offline_Mode">Modo Offline</string>
+    <string name="refrescar_dades">Refrescar Datos</string>
 
 
 </resources>

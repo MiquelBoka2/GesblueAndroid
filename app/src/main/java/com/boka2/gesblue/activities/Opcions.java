@@ -14,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -57,13 +58,13 @@ public class Opcions extends AppCompatActivity {
     private boolean refreshDades;
     LoginResponse responseManual;
     
-    private ConstraintLayout Canviar_Concessio,Desconectat, Recarregar_Dades, Reimpressio, Idioma, Enviaments_Pendents,Pujar_Fotos,Admin,E_UUID,E_TimeOut,Extres,Base,Mode_Offline,Capçalera;
-    private TextView txt_Versio,txt_NumDenuncies;
+    private ConstraintLayout Logout_Refrescar_Dades,Canviar_Concessio,Desconectat, Recarregar_Dades, Reimpressio, Idioma, Enviaments_Pendents,Pujar_Fotos,Admin,E_UUID,E_TimeOut,Extres,Base,Mode_Offline,Capçalera;
+    private TextView txt_Versio,txtNumDenuncies;
     private Button btn_Confirmar;
     private Context oContext=this;
     private String estat="";
     private Boolean adm=false;
-    private ImageView  img_Lock,img_Unlock,save_uuid,save_timeout;
+    private ImageView  img_Lock,img_Unlock,save_uuid,save_timeout,imgCercleContador;
     private EditText edt_uuid,edit_timeout;
     private Switch Switch_Offline;
 
@@ -80,7 +81,7 @@ public class Opcions extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_opcions);
         DenunciaEnCurs=false;
         EnviamentDisponible=true;
         setContentView(R.layout.activity_opcions);
@@ -93,6 +94,9 @@ public class Opcions extends AppCompatActivity {
 
             Capçalera= (ConstraintLayout) findViewById(R.id.Capçalera);
 
+            imgCercleContador= (ImageView) findViewById(R.id.imgCercleContador);
+
+            Logout_Refrescar_Dades = (ConstraintLayout) findViewById(R.id.lay_Logout_Refrescar_Dades);
             Canviar_Concessio = (ConstraintLayout) findViewById(R.id.lay_canviarConcessio);
             Desconectat = (ConstraintLayout) findViewById(R.id.lay_Desconectat);
             Recarregar_Dades = (ConstraintLayout) findViewById(R.id.lay_RecarregarDades);
@@ -118,7 +122,7 @@ public class Opcions extends AppCompatActivity {
             img_Unlock = (ImageView) findViewById(R.id.img_Admin_open);
             btn_Confirmar = (Button) findViewById(R.id.btn_Confirmar_Opcions);
 
-            txt_NumDenuncies = (TextView) findViewById(R.id.txt_NumDenuncies);
+            txtNumDenuncies = (TextView) findViewById(R.id.txt_NumDenuncies);
 
 
             Canviar_Concessio.setVisibility(View.GONE);
@@ -185,6 +189,7 @@ public class Opcions extends AppCompatActivity {
                 E_UUID.setVisibility(View.GONE);
                 E_TimeOut.setVisibility(View.GONE);
 
+                Logout_Refrescar_Dades.setVisibility(View.VISIBLE);
                 Mode_Offline.setVisibility(View.VISIBLE);
                 Desconectat.setVisibility(View.VISIBLE);
                 Reimpressio.setVisibility(View.VISIBLE);
@@ -197,10 +202,10 @@ public class Opcions extends AppCompatActivity {
                 else{
 
                     Enviaments_Pendents.setVisibility(View.VISIBLE);
-                    mBinding.imgCercleContador.setVisibility(View.VISIBLE);
-                    mBinding.txtNumDenuncies.setVisibility(View.VISIBLE);
+                    imgCercleContador.setVisibility(View.VISIBLE);
+                    txtNumDenuncies.setVisibility(View.VISIBLE);
 
-                    mBinding.txtNumDenuncies.setText(denunciesPendents.size()+"");
+                    txtNumDenuncies.setText(denunciesPendents.size()+"");
 
                 }
 
@@ -220,7 +225,7 @@ public class Opcions extends AppCompatActivity {
                 Desconectat.setVisibility(View.GONE);
                 Reimpressio.setVisibility(View.GONE);
                 Enviaments_Pendents.setVisibility(View.GONE);
-
+                Logout_Refrescar_Dades.setVisibility(View.GONE);
 
 
             }
@@ -239,7 +244,7 @@ public class Opcions extends AppCompatActivity {
                 Pujar_Fotos.setVisibility(View.GONE);
                 E_UUID.setVisibility(View.GONE);
                 E_TimeOut.setVisibility(View.GONE);
-
+                Logout_Refrescar_Dades.setVisibility(View.GONE);
 
 
 
@@ -275,6 +280,21 @@ public class Opcions extends AppCompatActivity {
                 }
             });
 
+
+            Logout_Refrescar_Dades.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+
+                    Intent intent = new Intent(oContext, LoginActivity.class);
+                    intent.putExtra("result", "logout_refresh");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    setResult(RESULT_OK, intent);
+                    startActivity(intent);
+                    finish();
+                }
+            });
 
             Canviar_Concessio.setOnClickListener(new View.OnClickListener() {
 
@@ -342,7 +362,7 @@ public class Opcions extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    if (mBinding.btnEnviaPendents.isEnabled()) {
+                    if (Enviaments_Pendents.isEnabled()) {
 
                         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                         if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
@@ -679,7 +699,7 @@ public class Opcions extends AppCompatActivity {
 
         private void pujaFoto () {
 
-            File path = new File("storage/emulated/0/Boka2/upload");
+            File path =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload");
 
             if (path.exists()) {
                 String[] fileNames = path.list();
@@ -705,14 +725,15 @@ public class Opcions extends AppCompatActivity {
                                         new JSoapCallback() {
                                             @Override
                                             public void onSuccess(String result) {
-                                                File direct = new File("storage/emulated/0/Boka2/upload/done");
+                                                File direct = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done");
+
 
                                                 if (!direct.exists()) {
-                                                    File wallpaperDirectory = new File("storage/emulated/0/Boka2/upload/done");
+                                                    File wallpaperDirectory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done");
                                                     wallpaperDirectory.mkdirs();
                                                 }
-                                                File from = new File("storage/emulated/0/Boka2/upload/" + f.getName());
-                                                File to = new File("storage/emulated/0/Boka2/upload/done/" + f.getName());
+                                                File from = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f.getName());
+                                                File to =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/"+ f.getName());
                                                 from.renameTo(to);
 
                                             }
@@ -720,14 +741,14 @@ public class Opcions extends AppCompatActivity {
                                             @Override
                                             public void onError(int error) {
                                                 Log.e("Formulari", "Error PujaFoto: " + error);
-                                                File direct = new File("storage/emulated/0/Boka2/upload/error");
+                                                File direct = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error");
 
                                                 if (!direct.exists()) {
-                                                    File wallpaperDirectory = new File("storage/emulated/0/Boka2/upload/error");
+                                                    File wallpaperDirectory =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error");
                                                     wallpaperDirectory.mkdirs();
                                                 }
-                                                File from = new File("storage/emulated/0/Boka2/upload/" + f.getName());
-                                                File to = new File("storage/emulated/0/Boka2/upload/error/" + f.getName());
+                                                File from = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f.getName());
+                                                File to = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error/"+f.getName());
                                                 from.renameTo(to);
 
                                             }
@@ -793,7 +814,7 @@ public class Opcions extends AppCompatActivity {
 
 
                 denunciesPendents = denunciesPendentsTemp.subList(0, denunciesPendentsTemp.size());
-                txt_NumDenuncies.setText(denunciesPendents.size()+"");
+                txtNumDenuncies.setText(denunciesPendents.size()+"");
             }
             else{
                 denunciesPendents=null;

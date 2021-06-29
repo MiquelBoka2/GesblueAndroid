@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.util.DisplayMetrics;
@@ -477,7 +478,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
         }
 
         if(denuncia.getTipusanulacio()==-1.0){
-            File f = new File("storage/emulated/0/Boka2/upload/temp");
+            File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/temp");
             if (f.exists() && f.isDirectory()) {
                 final Pattern p = Pattern.compile(".*-" + numDenuncia + "1.jpg"); // I know I really have a stupid mistake on the regex;
 
@@ -493,9 +494,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
                     Log.e("Ruta foto1:", f1.getName());
 
-                    pinta("storage/emulated/0/Boka2/upload/temp/" + f1.getName(), img_Foto1);
+                    pinta(String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/temp/"+ f1.getName())), img_Foto1);
                     img1IsActive = true;
-                    foto1 = "storage/emulated/0/Boka2/upload/temp/" + f1.getName();
+                    foto1 = String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/temp/"+ f1.getName()));
                 }
 
                 final Pattern p2 = Pattern.compile(".*-" + numDenuncia + "2.jpg"); // I know I really have a stupid mistake on the regex;
@@ -512,9 +513,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
                     Log.e("Ruta foto2:", f2.getName());
 
 
-                    pinta("storage/emulated/0/Boka2/upload/temp/" + f2.getName(), img_Foto2);
+                    pinta(String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/temp/"+ f2.getName())), img_Foto2);
                     img2IsActive = true;
-                    foto2 = "storage/emulated/0/Boka2/upload/temp/" + f2.getName();
+                    foto2 = String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/temp/"+ f2.getName()));
                 }
 
 
@@ -533,9 +534,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
                     Log.e("Ruta foto3:", f3.getName());
 
 
-                    pinta("storage/emulated/0/Boka2/upload/temp/" + f3.getName(), img_Foto3);
+                    pinta(String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/temp/"+ f3.getName())), img_Foto3);
                     img3IsActive = true;
-                    foto3 = "storage/emulated/0/Boka2/upload/temp/" + f3.getName();
+                    foto3 = String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/temp/"+ f3.getName()));
                 }
 
                 final Pattern p4 = Pattern.compile(".*-" + numDenuncia + "4.jpg"); // I know I really have a stupid mistake on the regex;
@@ -553,9 +554,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
                     Log.e("Ruta foto4:", f4.getName());
 
 
-                    pinta("storage/emulated/0/Boka2/upload/temp/" + f4.getName(), img_Foto4);
+                    pinta(String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/temp/"+ f4.getName())), img_Foto4);
                     img4IsActive = true;
-                    foto4 = "storage/emulated/0/Boka2/upload/temp/" + f4.getName();
+                    foto4 = String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/temp/"+ f4.getName()));
                 }
 
             }
@@ -564,7 +565,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
 
         if(denuncia.getTipusanulacio()==0.0){
-            File f = new File("storage/emulated/0/Boka2/upload/");
+            File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload");
             if (f.exists() && f.isDirectory()) {
                 final Pattern p = Pattern.compile(".*-" + numDenuncia + "1.jpg"); // I know I really have a stupid mistake on the regex;
 
@@ -580,9 +581,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
                     Log.e("Ruta foto1:", f1.getName());
 
-                    pinta("storage/emulated/0/Boka2/upload/" + f1.getName(), img_Foto1);
+                    pinta(String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f1.getName())), img_Foto1);
                     img1IsActive = true;
-                    foto1 = "storage/emulated/0/Boka2/upload/" + f1.getName();
+                    foto1 = String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f1.getName()));
                 }
 
                 final Pattern p2 = Pattern.compile(".*-" + numDenuncia + "2.jpg"); // I know I really have a stupid mistake on the regex;
@@ -599,9 +600,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
                     Log.e("Ruta foto2:", f2.getName());
 
 
-                    pinta("storage/emulated/0/Boka2/upload/" + f2.getName(), img_Foto2);
+                    pinta(String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f2.getName())), img_Foto2);
                     img2IsActive = true;
-                    foto2 = "storage/emulated/0/Boka2/upload/" + f2.getName();
+                    foto2 = String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f2.getName()));
                 }
 
 
@@ -620,9 +621,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
                     Log.e("Ruta foto3:", f3.getName());
 
 
-                    pinta("storage/emulated/0/Boka2/upload/" + f3.getName(), img_Foto3);
+                    pinta(String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f3.getName())), img_Foto3);
                     img3IsActive = true;
-                    foto3 = "storage/emulated/0/Boka2/upload/" + f3.getName();
+                    foto3 = String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f3.getName()));
                 }
 
                 final Pattern p4 = Pattern.compile(".*-" + numDenuncia + "4.jpg"); // I know I really have a stupid mistake on the regex;
@@ -640,9 +641,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
                     Log.e("Ruta foto4:", f4.getName());
 
 
-                    pinta("storage/emulated/0/Boka2/upload/" + f4.getName(), img_Foto4);
+                    pinta(String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f4.getName())), img_Foto4);
                     img4IsActive = true;
-                    foto4 = "storage/emulated/0/Boka2/upload/" + f4.getName();
+                    foto4 = String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f4.getName()));
                 }
 
             }
@@ -658,7 +659,7 @@ public class ReimpressioTiquet extends AppCompatActivity {
                 )
            )
         ) {
-            File f = new File("storage/emulated/0/Boka2/upload/done");
+            File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done");
             if (f.exists() && f.isDirectory()) {
                 final Pattern p = Pattern.compile(".*-" + numDenuncia + "1.jpg"); // I know I really have a stupid mistake on the regex;
 
@@ -674,9 +675,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
 
                     Log.e("Ruta foto1:", f1.getName());
 
-                    pinta("storage/emulated/0/Boka2/upload/done/" + f1.getName(), img_Foto1);
+                    pinta(String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/"+ f1.getName())), img_Foto1);
                     img1IsActive = true;
-                    foto1 = "storage/emulated/0/Boka2/upload/done/" + f1.getName();
+                    foto1 =String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/"+ f1.getName()));
                 }
 
                 final Pattern p2 = Pattern.compile(".*-" + numDenuncia + "2.jpg"); // I know I really have a stupid mistake on the regex;
@@ -693,9 +694,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
                     Log.e("Ruta foto2:", f2.getName());
 
 
-                    pinta("storage/emulated/0/Boka2/upload/done/" + f2.getName(), img_Foto2);
+                    pinta(String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/"+ f2.getName())), img_Foto2);
                     img2IsActive = true;
-                    foto2 = "storage/emulated/0/Boka2/upload/done/" + f2.getName();
+                    foto2 =String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/"+ f2.getName()));
                 }
 
 
@@ -714,9 +715,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
                     Log.e("Ruta foto3:", f3.getName());
 
 
-                    pinta("storage/emulated/0/Boka2/upload/done/" + f3.getName(), img_Foto3);
+                    pinta(String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/"+ f3.getName())), img_Foto3);
                     img3IsActive = true;
-                    foto3 = "storage/emulated/0/Boka2/upload/done/" + f3.getName();
+                    foto3 = String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/"+ f3.getName()));
                 }
 
                 final Pattern p4 = Pattern.compile(".*-" + numDenuncia + "4.jpg"); // I know I really have a stupid mistake on the regex;
@@ -734,9 +735,9 @@ public class ReimpressioTiquet extends AppCompatActivity {
                     Log.e("Ruta foto4:", f4.getName());
 
 
-                    pinta("storage/emulated/0/Boka2/upload/done/" + f4.getName(), img_Foto4);
+                    pinta(String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/"+ f4.getName())), img_Foto4);
                     img4IsActive = true;
-                    foto4 = "storage/emulated/0/Boka2/upload/done/" + f4.getName();
+                    foto4 = String.valueOf(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/"+ f4.getName()));
                 }
 
             }

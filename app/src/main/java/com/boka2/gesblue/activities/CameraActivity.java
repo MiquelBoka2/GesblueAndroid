@@ -2,6 +2,7 @@ package com.boka2.gesblue.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
@@ -251,10 +252,9 @@ public class CameraActivity extends GesblueFragmentActivity {
 				Log.d ("Camera",numDenuncia);
 				DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 				String currentDateString = dateFormat.format(new Date());
-                File direct = new File("storage/emulated/0/Boka2/upload/original");
-
+                File direct =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/original");
                 if (!direct.exists()) {
-                    File wallpaperDirectory = new File("storage/emulated/0/Boka2/upload/original");
+                    File wallpaperDirectory =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/original");
                     wallpaperDirectory.mkdirs();
                 }
 				File file = new File(direct, currentDateString  + "-" + concessio + "-" + numDenuncia + position + ".jpg");

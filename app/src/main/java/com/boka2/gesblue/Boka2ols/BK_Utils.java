@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -20,8 +21,11 @@ public class BK_Utils {
     private static String FileName="UUID.txt";
 
     public static String GetUUIDFormFile(Context mContext){
-        File root = new File("storage/emulated/0/Boka2/");
         String result=null;
+
+
+        File root =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "/Boka2");;
+
         if(root.exists()) {
             String[] fileNames = root.list();
             File[] files = root.listFiles();
@@ -29,19 +33,11 @@ public class BK_Utils {
                 if (file.isDirectory() == false) {
 
                     String fileName = file.getName();
-                    if(fileName==FileName){
+                    if(fileName.equals(FileName)){
                         final File arxiu= new File(root, fileName);
                         if(arxiu.canRead()){
-                            FileInputStream fis = null;
-                            try {
-                                fis = mContext.openFileInput(fileName);
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                            InputStreamReader inputStreamReader =
-                                    new InputStreamReader(fis, StandardCharsets.UTF_8);
                             StringBuilder stringBuilder = new StringBuilder();
-                            try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
+                            try (BufferedReader reader = new BufferedReader(new FileReader(arxiu))) {
                                 String line = reader.readLine();
                                 while (line != null) {
                                     stringBuilder.append(line);
@@ -60,8 +56,60 @@ public class BK_Utils {
 
                         }
                     }
+                    else{
+                      Log.e("ERROR","UUID.txt");
+                    }
 
                 }
+            }
+        }
+
+
+
+        if(result==null){
+            File old_dir = new File("storage/emulated/0/Boka2/");
+
+            if(old_dir.exists()){
+                String[] fileNames = old_dir.list();
+                File[] files = old_dir.listFiles();
+                for (File file : files) {
+                    if (file.isDirectory() == false) {
+
+                        String fileName = file.getName();
+                        if(fileName.equals(FileName)){
+                            final File arxiu= new File(old_dir, fileName);
+                            if(arxiu.canRead()){
+                                StringBuilder stringBuilder = new StringBuilder();
+                                try (BufferedReader reader = new BufferedReader(new FileReader(arxiu))) {
+                                    String line = reader.readLine();
+                                    while (line != null) {
+                                        stringBuilder.append(line);
+                                        line = reader.readLine();
+                                    }
+                                } catch (IOException e) {
+                                    // Error occurred when opening raw file for reading.
+                                } finally {
+                                    String contents = stringBuilder.toString();
+
+                                    if (!contents.equals("") && !contents.equals("null")){
+                                        result=contents;
+                                        Log.e("UUID found in file:",contents);
+                                    }
+                                }
+
+                            }
+                        }
+                        else{
+                            Log.e("ERROR","UUID.txt");
+                        }
+
+                    }
+                }
+            }
+
+
+            if(result!=null){
+                SetUUIDToFile(mContext,result);
             }
         }
         return result;
@@ -70,13 +118,13 @@ public class BK_Utils {
     public static void SetUUIDToFile(Context mContext, String uuid){
 
         try {
-            String rootPath = Environment.getExternalStorageDirectory()
-                    .getAbsolutePath()+"/Boka2/";
-            File root = new File(rootPath);
-            if (!root.exists()) {
-                root.mkdirs();
+
+            //TODO: UPDATE NEW SYSTEM
+            File dir =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "/Boka2");;
+            if (!dir.exists()) {
+                dir.mkdirs();
             }
-            File f = new File(rootPath + FileName);
+            File f = new File(dir ,FileName);
             if (f.exists()) {
                 f.delete();
             }
@@ -85,6 +133,27 @@ public class BK_Utils {
             FileOutputStream out = new FileOutputStream(f);
             out.write(uuid.getBytes(StandardCharsets.UTF_8));
             out.close();
+
+
+            //TODO: OLD SISTEM
+            /**
+            String rootPath = Environment.getExternalStorageDirectory()
+                    .getAbsolutePath()+"/Boka2/";
+            File root = new File(rootPath);
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            File f_old = new File(rootPath + FileName);
+            if (f_old.exists()) {
+                f_old.delete();
+            }
+
+            f_old.createNewFile();
+
+            FileOutputStream out_old = new FileOutputStream(f_old);
+            out_old.write(uuid.getBytes(StandardCharsets.UTF_8));
+            out_old.close();
+             **/
         } catch (FileNotFoundException e) {
         e.printStackTrace();
         } catch (IOException e) {

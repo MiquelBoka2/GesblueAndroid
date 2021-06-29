@@ -12,6 +12,7 @@ import android.content.Intent;
 
 import androidx.databinding.DataBindingUtil;
 
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -20,6 +21,8 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -30,6 +33,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.boka2.gesblue.Boka2ols.BK_Utils;
 import com.boka2.gesblue.R;
 import com.boka2.gesblue.customstuff.GesblueFragmentActivity;
 import com.boka2.gesblue.databinding.ActivityLoginBinding;
@@ -94,6 +98,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.net.util.Base64;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -159,7 +165,13 @@ public class LoginActivity extends GesblueFragmentActivity {
 		setTheme(R.style.AppTheme);
 		new DatabaseModelHelper(this);
 
+		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+		dir.mkdirs();
 
+		File dir2 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+		dir.mkdirs();
+		File img=new File(dir2,"/Boka2");
+		img.mkdirs();
 
 		super.onCreate(savedInstanceState);
 		FirebaseApp.initializeApp(this);
@@ -173,6 +185,18 @@ public class LoginActivity extends GesblueFragmentActivity {
 		}, new PermissionListener() {
 			@Override
 			public void onPermissionsGranted() {
+
+				File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+				dir.mkdirs();
+				if(dir.exists() && dir.isDirectory()) {
+					// do something here
+					Log.e("EXIST",dir.getAbsolutePath());
+				}
+
+				File dir2 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+				dir.mkdirs();
+				File img=new File(dir2,"/Boka2");
+				img.mkdirs();
 			}
 
 			@Override
@@ -187,6 +211,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 		setupVisibleToolbar(mBinding.toolbar);
 		opciones=mBinding.toolbar.icOpciones;
+
+
 
 
 
@@ -602,6 +628,33 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 		}
+
+
+
+		Intent intent = getIntent();
+		if(intent.hasExtra("result")){
+			String result=intent.getStringExtra("result");
+
+			if(result.equals("logout_refresh")) {
+
+				DatabaseAPI.deleteAllAgents(mContext);
+				DatabaseAPI.deleteAllMarques(mContext);
+				DatabaseAPI.deleteAllModels(mContext);
+				DatabaseAPI.deleteAllTipusVehicles(mContext);
+				DatabaseAPI.deleteAllTipusAnulacions(mContext);
+				DatabaseAPI.deleteAllCarrers(mContext);
+				DatabaseAPI.deleteAllInfraccions(mContext);
+				DatabaseAPI.deleteAllZones(mContext);
+				DatabaseAPI.deleteAllLlistaBlanca(mContext);
+				DatabaseAPI.deleteAllLlistaAbonats(mContext);
+
+				PreferencesGesblue.saveDataSync(mContext,"0");
+
+				LoginResponse responseManual = new LoginResponse(0, 1, "1", 1, 1, 1, 1, 1, 1, 1, 1);
+				sincronitzarTot(responseManual, Long.parseLong(concessio), "0");
+
+			}
+		}
 	}
 
 
@@ -690,7 +743,8 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 		private void pujaFoto () {
 
-			File path = new File("storage/emulated/0/Boka2/upload");
+			File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload");
+
 
 			if (path.exists()) {
 				String[] fileNames = path.list();
@@ -716,14 +770,15 @@ public class LoginActivity extends GesblueFragmentActivity {
 										new JSoapCallback() {
 											@Override
 											public void onSuccess(String result) {
-												File direct = new File("storage/emulated/0/Boka2/upload/done");
+												File direct = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done");
+
 
 												if (!direct.exists()) {
-													File wallpaperDirectory = new File("storage/emulated/0/Boka2/upload/done");
+													File wallpaperDirectory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done");
 													wallpaperDirectory.mkdirs();
 												}
-												File from = new File("storage/emulated/0/Boka2/upload/" + f.getName());
-												File to = new File("storage/emulated/0/Boka2/upload/done/" + f.getName());
+												File from = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f.getName());
+												File to =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/"+ f.getName());
 												from.renameTo(to);
 
 											}
@@ -731,14 +786,14 @@ public class LoginActivity extends GesblueFragmentActivity {
 											@Override
 											public void onError(int error) {
 												Log.e("Formulari", "Error PujaFoto: " + error);
-												File direct = new File("storage/emulated/0/Boka2/upload/error");
+												File direct = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error");
 
 												if (!direct.exists()) {
-													File wallpaperDirectory = new File("storage/emulated/0/Boka2/upload/error");
+													File wallpaperDirectory =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error");
 													wallpaperDirectory.mkdirs();
 												}
-												File from = new File("storage/emulated/0/Boka2/upload/" + f.getName());
-												File to = new File("storage/emulated/0/Boka2/upload/error/" + f.getName());
+												File from = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f.getName());
+												File to = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error/"+f.getName());
 												from.renameTo(to);
 
 											}
@@ -1875,6 +1930,21 @@ public class LoginActivity extends GesblueFragmentActivity {
 
 
 
+					}else if(result.equals("logout_refresh")){
+
+						DatabaseAPI.deleteAllAgents(mContext);
+						DatabaseAPI.deleteAllMarques(mContext);
+						DatabaseAPI.deleteAllModels(mContext);
+						DatabaseAPI.deleteAllTipusVehicles(mContext);
+						DatabaseAPI.deleteAllTipusAnulacions(mContext);
+						DatabaseAPI.deleteAllCarrers(mContext);
+						DatabaseAPI.deleteAllInfraccions(mContext);
+						DatabaseAPI.deleteAllZones(mContext);
+						DatabaseAPI.deleteAllLlistaBlanca(mContext);
+						DatabaseAPI.deleteAllLlistaAbonats(mContext);
+
+						LoginResponse responseManual = new LoginResponse(0,1,"1",1,1,1,1,1,1,1,1);
+						sincronitzarTot(responseManual,Long.parseLong(concessio),"0");
 					}
 					else if(result.equals("unlog")){
 
@@ -1990,6 +2060,9 @@ public class LoginActivity extends GesblueFragmentActivity {
 						BorratRecursiu(path);
 						path = new File("storage/emulated/0/Sixtemia");
 						BorratRecursiu(path);
+
+						File dir =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2");;
+						BorratRecursiu(dir);
 						clearAppData();
 						break;
 					case R.id.btn_no:

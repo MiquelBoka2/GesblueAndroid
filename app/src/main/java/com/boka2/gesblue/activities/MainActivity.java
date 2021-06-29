@@ -1,5 +1,6 @@
 package com.boka2.gesblue.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -32,6 +34,7 @@ import android.widget.Toast;
 import com.boka2.gesblue.GesblueApplication;
 import com.boka2.gesblue.activities.passosformulari.Pas7NumeroActivity;
 import com.boka2.gesblue.datamanager.database.model.Model_Zona;
+import com.boka2.gesblue.datamanager.webservices.results.dadesbasiques.LoginResponse;
 import com.boka2.gesblue.global.Firebase_Constants;
 import com.boka2.sbaseobjects.tools.ImageTools;
 import com.bumptech.glide.Glide;
@@ -106,7 +109,7 @@ public class MainActivity extends GesblueFragmentActivity {
 
 	private Activity mActivity=this;
 
-	private File root = new File("storage/emulated/0/Boka2/upload/temp/created");
+	private File root = new File( Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),"Boka2/upload/temp/created");
 	private File loc_foto1;
 	private File loc_foto2;
 	private File loc_foto3;
@@ -128,54 +131,11 @@ public class MainActivity extends GesblueFragmentActivity {
 		Bundle extras = getIntent().getExtras();
 
 
-
-		if (root.isDirectory())
-		{
-			String[] children = root.list();
-			for (int i = 0; i < children.length; i++)
-			{
-				new File(root, children[i]).delete();
-			}
-		}
-
-		root.mkdirs();
-
-
-		File low_res=new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Boka2" + File.separator + "upload" + File.separator +"low_res" + File.separator);
-		if (low_res.isDirectory())
-		{
-			String[] children = low_res.list();
-			for (int i = 0; i < children.length; i++)
-			{
-				new File(low_res, children[i]).delete();
-			}
-		}
-
-
-		File original=new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Boka2" + File.separator + "upload" + File.separator +"original" + File.separator);
-		if (original.isDirectory())
-		{
-			String[] children = original.list();
-			for (int i = 0; i < children.length; i++)
-			{
-				new File(original, children[i]).delete();
-			}
-		}
+		file_check();
 
 
 
-		try {
-			loc_foto1=root.createTempFile("foto_temp_1_",
-					".jpg",root);
-			loc_foto2=root.createTempFile("foto_temp_2_",
-					".jpg",root);
-			loc_foto3=root.createTempFile("foto_temp_3_",
-					".jpg",root);
-			loc_foto4=root.createTempFile("foto_temp_4_",
-					".jpg",root);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 		if (extras != null) {
 			adm = extras.getBoolean("adm");
 
@@ -397,6 +357,16 @@ public class MainActivity extends GesblueFragmentActivity {
 						Intent intent = new Intent(mContext, CameraActivity.class);
 						intent.putExtra("position", "1");
 						startActivityForResult(intent, Utils.RESULT_FOTO_1);
+
+					}
+					else if(model.equals("motorola moto g(9) play")){
+						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						takePictureIntent.putExtra("position", "1");
+						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+							Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+							takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+						}
 
 					}
 					else{
@@ -629,6 +599,24 @@ public class MainActivity extends GesblueFragmentActivity {
 		if (resultCode == RESULT_OK) {
 			Bundle extras=null;
 			Boolean result=null;
+			String info="";
+
+
+
+			if (data!=null && data.getExtras().getString("result") != null) {
+
+
+				info = data.getExtras().getString("result");
+				if(info.equals("logout_refresh")){
+
+					finish();
+
+
+				}
+
+
+			}
+
 			if(data!=null&&data.getExtras()!=null) {
 				extras = data.getExtras();
 				result = extras.getBoolean("adm");
@@ -859,6 +847,8 @@ public class MainActivity extends GesblueFragmentActivity {
 							Log.d("Temps:", "" + response.getTemps());
 							if ((temps < 0) && (temps > -50400)) {
 								if (temps > -3600) {
+
+
 
 									mBinding.txtInfo.setVisibility(VISIBLE);
 									mBinding.txtTemps.setVisibility(VISIBLE);
@@ -1413,6 +1403,63 @@ public class MainActivity extends GesblueFragmentActivity {
 		}
 
 
+	}
+
+	private Boolean file_check(){
+		Boolean result=true;
+		if (root.isDirectory()&&root.exists())
+		{
+			String[] children = root.list();
+			for (int i = 0; i < children.length; i++)
+			{
+				new File(root, children[i]).delete();
+			}
+		}
+
+		if(!root.exists()) {
+			if(root.mkdirs()){
+				Log.e("root", "created");
+			}
+			else{
+				Log.e("root", "Error");
+				result=false;
+			}
+		}
+
+		File low_res=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+  File.separator + "Boka2" + File.separator + "upload" + File.separator +"low_res" + File.separator);
+		if (low_res.isDirectory())
+		{
+			String[] children = low_res.list();
+			for (int i = 0; i < children.length; i++)
+			{
+				new File(low_res, children[i]).delete();
+			}
+		}
+
+
+		File original=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+ File.separator + "Boka2" + File.separator + "upload" + File.separator +"original" + File.separator);
+		if (original.isDirectory())
+		{
+			String[] children = original.list();
+			for (int i = 0; i < children.length; i++)
+			{
+				new File(original, children[i]).delete();
+			}
+		}
+
+
+		try {
+			loc_foto1= File.createTempFile("foto_temp_1_",".jpg",root);
+			loc_foto2=File.createTempFile("foto_temp_2_",".jpg",root);
+			loc_foto3=File.createTempFile("foto_temp_3_",".jpg",root);
+			loc_foto4=File.createTempFile("foto_temp_4_",".jpg",root);
+		} catch (IOException e) {
+			e.printStackTrace();
+			Log.e("ERROR",e.toString());
+			result=false;
+		}
+
+		return result;
 	}
 
 

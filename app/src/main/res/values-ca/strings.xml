@@ -294,6 +294,7 @@ secretari/a de l\'Ajuntament.</string>
     <string name="denuncia_no_accesible">La denuncia no és accessible</string>
     <string name="reiniciar_terminal">Reinicia el terminal per completar l\'actualització</string>
     <string name="Offline_Mode">Mode Offline</string>
+    <string name="refrescar_dades">Refrescar Dades</string>
 
 
 </resources>

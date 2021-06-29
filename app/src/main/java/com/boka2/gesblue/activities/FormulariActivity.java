@@ -90,7 +90,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 
 
-	private File root = new File("storage/emulated/0/Boka2/upload/temp/created");
+	private File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/temp/created");
+
 	private File loc_foto1;
 	private File loc_foto2;
 	private File loc_foto3;
@@ -1316,7 +1317,9 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 			String fileName = photo.getName();
 			String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-			File newFile = new File("storage/emulated/0/Boka2/upload/" + date + "-" + concessio + "-" + numDenuncia + "1.jpg");
+
+
+			File newFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+date + "-" + concessio + "-" + numDenuncia + "1.jpg");
 			photo.renameTo(newFile);
 		}
 		if (img2IsActive) {
@@ -1324,7 +1327,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 			String fileName = photo.getName();
 			String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-			File newFile = new File("storage/emulated/0/Boka2/upload/" + date + "-" + concessio + "-" + numDenuncia + "2.jpg");
+			File newFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+date + "-" + concessio + "-" + numDenuncia + "2.jpg");
 			photo.renameTo(newFile);
 		}
 		if (img3IsActive) {
@@ -1332,8 +1335,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 			String fileName = photo.getName();
 			String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-			File newFile = new File("storage/emulated/0/Boka2/upload/" + date + "-" + concessio + "-" + numDenuncia + "3.jpg");
-			photo.renameTo(newFile);
+			File newFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+date + "-" + concessio + "-" + numDenuncia + "3.jpg");			photo.renameTo(newFile);
 		}
 
 		if (img4IsActive) {
@@ -1341,7 +1343,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 			String fileName = photo.getName();
 			String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-			File newFile = new File("storage/emulated/0/Boka2/upload/" + date + "-" + concessio + "-" + numDenuncia + "4.jpg");
+			File newFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+date + "-" + concessio + "-" + numDenuncia + "4.jpg");
 			photo.renameTo(newFile);
 		}
 	}

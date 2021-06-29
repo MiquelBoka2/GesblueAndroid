@@ -239,7 +239,7 @@ public class GesblueApplication extends MultiDexApplication {
 
 	private void pujaFoto(){
 
-		File path = new File("storage/emulated/0/Boka2/upload");
+		File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload");
 
 		if(path.exists()) {
 			String[] fileNames = path.list();
@@ -265,14 +265,15 @@ public class GesblueApplication extends MultiDexApplication {
 									new JSoapCallback() {
 										@Override
 										public void onSuccess(String result) {
-											File direct = new File("storage/emulated/0/Boka2/upload/done");
+											File direct = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done");
+
 
 											if (!direct.exists()) {
-												File wallpaperDirectory = new File("storage/emulated/0/Boka2/upload/done");
+												File wallpaperDirectory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done");
 												wallpaperDirectory.mkdirs();
 											}
-											File from = new File("storage/emulated/0/Boka2/upload/" + f.getName());
-											File to = new File("storage/emulated/0/Boka2/upload/done/" + f.getName());
+											File from = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f.getName());
+											File to =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/"+ f.getName());
 											from.renameTo(to);
 
 										}
@@ -280,16 +281,15 @@ public class GesblueApplication extends MultiDexApplication {
 										@Override
 										public void onError(int error) {
 											Log.e("Formulari", "Error PujaFoto: " + error);
-											File direct = new File("storage/emulated/0/Boka2/upload/error");
+											File direct = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error");
 
 											if (!direct.exists()) {
-												File wallpaperDirectory = new File("storage/emulated/0/Boka2/upload/error");
+												File wallpaperDirectory =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error");
 												wallpaperDirectory.mkdirs();
 											}
-											File from = new File("storage/emulated/0/Boka2/upload/" + f.getName());
-											File to = new File("storage/emulated/0/Boka2/upload/error/" + f.getName());
+											File from = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/"+ f.getName());
+											File to = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error/"+f.getName());
 											from.renameTo(to);
-
 										}
 									});
 

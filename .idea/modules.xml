@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GesblueAndroid.iml" filepath="$PROJECT_DIR$/GesblueAndroid.iml" group="GesblueAndroid" />
-      <module fileurl="file://$PROJECT_DIR$/Jsoapp/Jsoapp.iml" filepath="$PROJECT_DIR$/Jsoapp/Jsoapp.iml" group="GesblueAndroid/Jsoapp" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="GesblueAndroid/app" />
-      <module fileurl="file://$PROJECT_DIR$/cameraview/cameraview.iml" filepath="$PROJECT_DIR$/cameraview/cameraview.iml" group="GesblueAndroid/cameraview" />
-      <module fileurl="file://$PROJECT_DIR$/dbDebugger/dbDebugger.iml" filepath="$PROJECT_DIR$/dbDebugger/dbDebugger.iml" group="GesblueAndroid/dbDebugger" />
-      <module fileurl="file://$PROJECT_DIR$/sbaseobjects/sbaseobjects.iml" filepath="$PROJECT_DIR$/sbaseobjects/sbaseobjects.iml" group="GesblueAndroid/sbaseobjects" />
-      <module fileurl="file://$PROJECT_DIR$/sdatamanager/sdatamanager.iml" filepath="$PROJECT_DIR$/sdatamanager/sdatamanager.iml" group="GesblueAndroid/sdatamanager" />
-      <module fileurl="file://$PROJECT_DIR$/spushnotificationsdroid/spushnotificationsdroid.iml" filepath="$PROJECT_DIR$/spushnotificationsdroid/spushnotificationsdroid.iml" group="GesblueAndroid/spushnotificationsdroid" />
-      <module fileurl="file://$PROJECT_DIR$/sutils/sutils.iml" filepath="$PROJECT_DIR$/sutils/sutils.iml" group="GesblueAndroid/sutils" />
+      <module fileurl="file://$PROJECT_DIR$/GesblueAndroid.iml" filepath="$PROJECT_DIR$/GesblueAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Jsoapp/GesblueAndroid.Jsoapp.iml" filepath="$PROJECT_DIR$/.idea/modules/Jsoapp/GesblueAndroid.Jsoapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GesblueAndroid.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GesblueAndroid.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cameraview/GesblueAndroid.cameraview.iml" filepath="$PROJECT_DIR$/.idea/modules/cameraview/GesblueAndroid.cameraview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dbDebugger/GesblueAndroid.dbDebugger.iml" filepath="$PROJECT_DIR$/.idea/modules/dbDebugger/GesblueAndroid.dbDebugger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sbaseobjects/GesblueAndroid.sbaseobjects.iml" filepath="$PROJECT_DIR$/.idea/modules/sbaseobjects/GesblueAndroid.sbaseobjects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sdatamanager/GesblueAndroid.sdatamanager.iml" filepath="$PROJECT_DIR$/.idea/modules/sdatamanager/GesblueAndroid.sdatamanager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spushnotificationsdroid/GesblueAndroid.spushnotificationsdroid.iml" filepath="$PROJECT_DIR$/.idea/modules/spushnotificationsdroid/GesblueAndroid.spushnotificationsdroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sutils/GesblueAndroid.sutils.iml" filepath="$PROJECT_DIR$/.idea/modules/sutils/GesblueAndroid.sutils.iml" />
     </modules>
   </component>
 </project>

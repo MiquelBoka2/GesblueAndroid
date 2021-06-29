@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -50,8 +51,8 @@ public class PujarImatges extends AppCompatActivity {
 
             }
         });
-        File path = new File("storage/emulated/0/Boka2/upload/error");
 
+        File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error");;
         if(path.exists()) {
             String[] fileNames = path.list();
             final File[] files = path.listFiles();
@@ -72,9 +73,10 @@ public class PujarImatges extends AppCompatActivity {
     }
 
     public static void Refresh(){
-        File path = new File("storage/emulated/0/Boka2/upload/error");
 
 
+
+        File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error");;
         if(path.exists()) {
             String[] fileNames = path.list();
             final File[] files = path.listFiles();
