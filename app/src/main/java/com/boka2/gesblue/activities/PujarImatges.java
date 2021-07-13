@@ -2,6 +2,7 @@ package com.boka2.gesblue.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,11 +12,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.boka2.gesblue.Boka2ols.BK_Utils;
+import com.boka2.gesblue.Boka2ols.BK_Utils.BooVariable.ChangeListener;
 import com.boka2.gesblue.R;
-import com.boka2.gesblue.adapters.DenunciaAdapter;
 import com.boka2.gesblue.adapters.PujarFotos_Adapter;
 import com.boka2.gesblue.datamanager.webservices.DatamanagerAPI;
 import com.boka2.gesblue.datamanager.webservices.requests.operativa.PujaFotoRequest;
@@ -34,15 +37,72 @@ public class PujarImatges extends AppCompatActivity {
     public static RecyclerView llistat;
     public static ProgressBar loading;
     public static Context mContext;
+    public static ProgressBar progress_all;
+    public static TextView txt_upload,txt_progress,txt_correct_num,txt_error_num;
+    public static Button btn_cancel,btn_send_all;
+    public static ConstraintLayout lay_all;
 
+    public static int count_ok=0;
+    public static int count_error=0;
+    public static int index=0;
+    public static int total=0;
+    public static boolean canceled=false;
+
+    public static BK_Utils.BooVariable result_BOO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pujar_imatges);
+        canceled=false;
+        result_BOO=new BK_Utils.BooVariable();
+        result_BOO.setBoo(false);
+        result_BOO.setContext(this);
+
+        count_ok=0;
+        count_error=0;
+        index=0;
+        total=0;
 
         mContext=this;
         llistat= this.findViewById(R.id.recycler);
+
+
+        //region UPLOAD ALL
+        lay_all=this.findViewById(R.id.lay_all);
+        progress_all=this.findViewById(R.id.progress_all);
+        txt_upload=this.findViewById(R.id.txt_upload);
+        txt_progress=this.findViewById(R.id.txt_progress);
+        txt_correct_num=this.findViewById(R.id.txt_correct_num);
+        txt_error_num=this.findViewById(R.id.txt_error_num);
+        btn_cancel=this.findViewById(R.id.btn_cancel);
+        btn_send_all=this.findViewById(R.id.btn_send_all);
+
+        lay_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                canceled=true;
+                txt_upload.setText(String.format("%s", mContext.getString(R.string.canceled)));
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+        //endregion
+
         loading=this.findViewById(R.id.loading_bar);
         loading.setVisibility(View.GONE);
         loading.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +126,60 @@ public class PujarImatges extends AppCompatActivity {
             // specify an adapter (see also next example)
             PujarFotos_Adapter mAdapter = new PujarFotos_Adapter(this,files);
             llistat.setAdapter(mAdapter);
+
+
+            if(files.length>0){
+                btn_send_all.setVisibility(View.VISIBLE);
+
+                btn_send_all.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        txt_progress.setText(String.format("%s / %d",index, total));
+                        progress_all.setMax(total);
+                        progress_all.setProgress(index);
+                        txt_correct_num.setText(String.format("%s %d", mContext.getString(R.string.correct_upload), count_ok));
+                        txt_error_num.setText(String.format("%s %d", mContext.getString(R.string.upload_error), count_error));
+                        canceled=false;
+                        lay_all.setVisibility(View.VISIBLE);
+                        total=files.length;
+                        index=0;
+                        result_BOO.setBoo(true);
+
+
+                    }
+                });
+
+
+                result_BOO.setListener(new ChangeListener() {
+                    @Override
+                    public void onChange () {
+                        if ( result_BOO.getBoo() ) {
+                            result_BOO.setBoo(false);
+
+                            if(index<total&&!canceled){
+                                txt_progress.setText(String.format("%s / %d",index, total));
+                                progress_all.setProgress(index);
+                                progress_all.setMax(total);
+                                txt_correct_num.setText(String.format("%s %d", mContext.getString(R.string.correct_upload), count_ok));
+                                txt_error_num.setText(String.format("%s %d", mContext.getString(R.string.upload_error), count_error));
+                                PujarFoto(files[index],mContext);
+                            }
+                            else{
+                                lay_all.setVisibility(View.GONE);
+                                count_ok=0;
+                                count_error=0;
+                                index=0;
+                                total=0;
+                                Refresh();
+                            }
+
+                        }
+                    }
+                });
+            }
+            else{
+                btn_send_all.setVisibility(View.GONE);
+            }
         }
 
 
@@ -92,10 +206,65 @@ public class PujarImatges extends AppCompatActivity {
             llistat.setAdapter(mAdapter);
 
             StopLoading();
+
+            if(files.length>0){
+                btn_send_all.setVisibility(View.VISIBLE);
+
+                btn_send_all.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        txt_progress.setText(String.format("%s / %d",index, total));
+                        progress_all.setMax(total);
+                        progress_all.setProgress(index);
+                        txt_correct_num.setText(String.format("%s %d", mContext.getString(R.string.correct_upload), count_ok));
+                        txt_error_num.setText(String.format("%s %d", mContext.getString(R.string.upload_error), count_error));
+                        canceled=false;
+                        lay_all.setVisibility(View.VISIBLE);
+                        total=files.length;
+                        index=0;
+                        result_BOO.setBoo(true);
+
+
+                    }
+                });
+
+
+                result_BOO.setListener(new ChangeListener() {
+                    @Override
+                    public void onChange () {
+                        if ( result_BOO.getBoo() ) {
+                            result_BOO.setBoo(false);
+
+                            if(index<total&&!canceled){
+                                txt_progress.setText(String.format("%s / %d",index, total));
+                                progress_all.setProgress(index);
+                                progress_all.setMax(total);
+                                txt_correct_num.setText(String.format("%s %d", mContext.getString(R.string.correct_upload), count_ok));
+                                txt_error_num.setText(String.format("%s %d", mContext.getString(R.string.upload_error), count_error));
+                                PujarFoto(files[index],mContext);
+                            }
+                            else{
+                                lay_all.setVisibility(View.GONE);
+                                count_ok=0;
+                                count_error=0;
+                                index=0;
+                                total=0;
+                                Refresh();
+                            }
+
+                        }
+                    }
+                });
+            }
+            else{
+                btn_send_all.setVisibility(View.GONE);
+            }
         }
         else{
             StopLoading();
         }
+
     }
 
     public static void StartLoading(){
@@ -138,5 +307,57 @@ public class PujarImatges extends AppCompatActivity {
         }
 
 
+    }
+
+    private static void PujarFoto(final File file, Context aContext){
+         try {
+            byte[] encoded = Base64.encodeBase64(FileUtils.readFileToByteArray(file));
+            String str_encoded = new String(encoded, StandardCharsets.US_ASCII);
+
+
+            PujaFotoRequest pjr = new PujaFotoRequest(
+                    PreferencesGesblue.getConcessio(aContext),
+                    str_encoded,
+                    file.getName()
+            );
+            DatamanagerAPI.crida_PujaFoto(pjr,
+                    new JSoapCallback() {
+                        @Override
+                        public void onSuccess(String result) {
+
+                            File direct = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done");
+
+                            if (!direct.exists()) {
+                                File wallpaperDirectory =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done");
+                                wallpaperDirectory.mkdirs();
+                            }
+
+                            File from =  new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/error/" + file.getName());
+                            File to = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload/done/" + file.getName());
+                            from.renameTo(to);
+
+                            Log.d("Formulari", "Ok PujaFoto: "+file.getName() );
+                            count_ok++;
+                            index++;
+                            result_BOO.setBoo(true);
+                        }
+
+                        @Override
+                        public void onError(int error) {
+                            Log.e("Formulari", "Error PujaFoto: " + error);
+                            count_error++;
+                            index++;
+                            result_BOO.setBoo(true);
+
+                        }
+                    });
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            count_error++;
+            index++;
+            result_BOO.setBoo(true);
+        }
     }
 }

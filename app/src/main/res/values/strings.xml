@@ -339,4 +339,9 @@ secretari/a de l\'Ajuntament.</string>
     <string name="reiniciar_terminal">Reinicia el terminal per completar l\'actualització</string>
     <string name="Offline_Mode">Mode Offline</string>
     <string name="refrescar_dades">Refrescar Dades</string>
+    <string name="pujar_totes">Subir Todas</string>
+    <string name="upload">Subiendo...</string>
+    <string name="correct_upload">Subidas correctas:</string>
+    <string name="upload_error">Error al Subir:</string>
+    <string name="canceled">Cancelando...</string>
 </resources>

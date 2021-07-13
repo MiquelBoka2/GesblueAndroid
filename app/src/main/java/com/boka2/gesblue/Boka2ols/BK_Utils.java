@@ -160,4 +160,41 @@ public class BK_Utils {
             e.printStackTrace();
         }
     }
+
+    public static class BooVariable {
+
+        public Boolean getBoo() {
+            return boo;
+        }
+
+        public Context getContext() {
+            return context;
+        }
+
+        public void setContext(Context context) {
+            this.context = context;
+        }
+
+        public ChangeListener getListener() {
+            return listener;
+        }
+
+        public void setListener(ChangeListener listener) {
+            this.listener = listener;
+        }
+
+        Boolean boo = false;
+        Context context=null;
+        ChangeListener listener = null;
+
+        public void setBoo(Boolean boo) {
+            this.boo = boo;
+            if (listener != null){listener.onChange(); }
+        }
+
+        public interface ChangeListener {
+            void onChange();
+        }
+
+    }
 }
