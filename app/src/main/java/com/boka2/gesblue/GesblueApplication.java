@@ -125,8 +125,8 @@ public class GesblueApplication extends MultiDexApplication {
 						EnviamentDisponible = false;
 						List_To_Upload= DatabaseAPI.getDenunciesPendentsEnviar(aContext);
 						Index=0;
-						Log.i("Num Denuncies A enviar:",List_To_Upload.size()+"");
 						if(List_To_Upload!=null&&List_To_Upload.size()>0) {
+							Log.i("Num Denuncies A enviar:",List_To_Upload.size()+"");
 							enviaDenuncies();
 							pujaFoto();
 						}
