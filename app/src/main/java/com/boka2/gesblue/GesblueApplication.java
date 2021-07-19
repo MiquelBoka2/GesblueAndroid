@@ -33,6 +33,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import pt.joaocruz04.lib.misc.JSoapCallback;
 
@@ -48,13 +49,12 @@ public class GesblueApplication extends MultiDexApplication {
 	private static GesblueApplication instance;
 	private Handler handler = new Handler();
 	public Context aContext = null;
-	private int intentsEnviaDenuncia =0;
 	static Context cont=null;
 
 	public static boolean EnviamentDisponible=true;
 	public static boolean DenunciaEnCurs=false;
-
-
+	private List<Model_Denuncia> List_To_Upload ;
+	private int Index ;
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -123,11 +123,16 @@ public class GesblueApplication extends MultiDexApplication {
 					//Condicional de si algu esta enviant
 					if (EnviamentDisponible) {
 						EnviamentDisponible = false;
-						enviaDenuncia();
-						//enviaLog();
-						//new FTPUpload().execute();
-						pujaFoto();
-
+						List_To_Upload= DatabaseAPI.getDenunciesPendentsEnviar(aContext);
+						Index=0;
+						Log.i("Num Denuncies A enviar:",List_To_Upload.size()+"");
+						if(List_To_Upload!=null&&List_To_Upload.size()>0) {
+							enviaDenuncies();
+							pujaFoto();
+						}
+						else{
+							EnviamentDisponible = true;
+						}
 						//SI HI HA UNA DENUNCIA EN CURS ES DEIXA EN FALSE PER EVITAR ENVIAMENTS
 						if (!DenunciaEnCurs) {
 							EnviamentDisponible = true;
@@ -147,94 +152,126 @@ public class GesblueApplication extends MultiDexApplication {
 		}
 	};
 
-	private void enviaDenuncia(){
-		Model_Denuncia denuncia;
-		denuncia = DatabaseAPI.getDenunciaPendentEnviar(aContext);
-		if(denuncia!=null){
-			intentsEnviaDenuncia++;
+	private void enviaDenuncies(){
+		Model_Denuncia denuncia= List_To_Upload.get(Index);
+
+		if(denuncia!=null) {
+
+
 			final Model_Denuncia den = denuncia;
 			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss");
 
-			Log.d("Enviant denuncia", "" + denuncia.getCodidenuncia());
-			NovaDenunciaRequest ndr = new NovaDenunciaRequest(
-					denuncia.getCodidenuncia(),
-					Long.parseLong(simpleDate.format(denuncia.getFechacreacio())),
-					(long) denuncia.getAgent(),              //-- ID D'AGENT
-					(long) denuncia.getAdrecacarrer(),                //-- CARRER
-					String.valueOf(denuncia.getAdrecanum()),                                     //-- NUMERO CARRER
-					"",                                                     //-- TODO COORDENADES?
-					denuncia.getMatricula(),                                  //-- MATRICULA
-					(long) denuncia.getTipusvehicle(),    //-- CODI TIPUS VEHICLE
-					(long) denuncia.getMarca(),  //-- CODI MARCA
-					(long) denuncia.getModel(),  //-- CODI MODEL
-					(long) denuncia.getColor(),  //-- CODI COLOR
-					(long) denuncia.getInfraccio(),                   //-- MATRICULA
-					(long) denuncia.getEstatcomprovacio(),             //-- HORA ACTUAL
-					"",                //-- IMPORT
-					(long)denuncia.getConcessio(),              //-- CONCESSIO
-					Long.parseLong(PreferencesGesblue.getTerminal(aContext)),//-- TERMINAL ID
-					Utils.getAndroidVersion(),                              //-- SO VERSION
-					Utils.getAppVersion(aContext));                         //-- APP VERSION
+			if (denuncia.getFechacreacio() != null && denuncia.getFechacreacio() != null) {
+				Log.d("Enviant denuncia", "" + denuncia.getCodidenuncia());
+				NovaDenunciaRequest ndr = new NovaDenunciaRequest(
+						denuncia.getCodidenuncia(),
+						Long.parseLong(simpleDate.format(denuncia.getFechacreacio())),
+						(long) denuncia.getAgent(),              //-- ID D'AGENT
+						(long) denuncia.getAdrecacarrer(),                //-- CARRER
+						String.valueOf(denuncia.getAdrecanum()),                                     //-- NUMERO CARRER
+						"",                                                     //-- TODO COORDENADES?
+						denuncia.getMatricula(),                                  //-- MATRICULA
+						(long) denuncia.getTipusvehicle(),    //-- CODI TIPUS VEHICLE
+						(long) denuncia.getMarca(),  //-- CODI MARCA
+						(long) denuncia.getModel(),  //-- CODI MODEL
+						(long) denuncia.getColor(),  //-- CODI COLOR
+						(long) denuncia.getInfraccio(),                   //-- MATRICULA
+						(long) denuncia.getEstatcomprovacio(),             //-- HORA ACTUAL
+						"",                //-- IMPORT
+						(long) denuncia.getConcessio(),              //-- CONCESSIO
+						Long.parseLong(PreferencesGesblue.getTerminal(aContext)),//-- TERMINAL ID
+						Utils.getAndroidVersion(),                              //-- SO VERSION
+						Utils.getAppVersion(aContext));                         //-- APP VERSION
 
 
-			DatamanagerAPI.crida_NovaDenuncia(ndr,
-					new JSoapCallback() {
-						@Override
-						public void onSuccess(String result) {
-							Intent intent = new Intent(aContext, LoginActivity.class);
-							intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+				DatamanagerAPI.crida_NovaDenuncia(ndr,
+						new JSoapCallback() {
+							@Override
+							public void onSuccess(String result) {
+								Intent intent = new Intent(aContext, LoginActivity.class);
+								intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-							final NovaDenunciaResponse response;
-							try {
-								response = DatamanagerAPI.parseJson(result, NovaDenunciaResponse.class);
-							} catch (Exception ex) {
-								Log.e("", "" + ex);
-								onError(PARSE_ERROR);
-								return;
+								final NovaDenunciaResponse response;
+								try {
+									response = DatamanagerAPI.parseJson(result, NovaDenunciaResponse.class);
+								} catch (Exception ex) {
+									Log.e("", "" + ex);
+
+									onError(PARSE_ERROR);
+
+									Log.i("ERROR", "ERROR PARSE");
+									Index++;
+									checkNext();
+									return;
+								}
+
+								switch ((int) response.getResultat()) {
+									case -1:
+										Utils.showCustomDialog(aContext, R.string.atencio, R.string.errorEnDades);
+										break;
+									case -2:
+									case -3:
+										PreferencesGesblue.logout(aContext);
+										startActivity(intent);
+										break;
+									default:
+										//denunciaSent = true;
+										//sendPhotos();
+										DatabaseAPI.updateADenunciaEnviada(aContext, den.getCodidenuncia());
+										DatabaseAPI.addIntent(aContext, den.getCodidenuncia(), den.getIntentsenviar() + 1);//++Intentsenviar
+										Log.i("Denuncia", "Enviada, Intent:"+den.getIntentsenviar());
+										Index++;
+										checkNext();
+
+
+								}
+
+
 							}
 
-							switch ((int) response.getResultat()) {
-								case -1:
-									Utils.showCustomDialog(aContext, R.string.atencio, R.string.errorEnDades);
-									break;
-								case -2:
-								case -3:
-									PreferencesGesblue.logout(aContext);
-									startActivity(intent);
-									break;
-								default:
-									//denunciaSent = true;
-									//sendPhotos();
-									DatabaseAPI.updateADenunciaEnviada(aContext, den.getCodidenuncia());
-									if(intentsEnviaDenuncia<5) {
-										enviaDenuncia();
-									}else{
-										intentsEnviaDenuncia=0;
-										return;
-									}
+							@Override
+							public void onError(int error) {
+								Log.e("Formulari", "Error NovaDenuncia: " + error);
+								checkIfDiscard(den);
+								Index++;
+								checkNext();
 
 							}
-
-
-
 						}
+				);
+			} else {
+				Log.e("Formulari", "Error DATA NULL");
+				checkIfDiscard(den);
+				Index++;
+				checkNext();
 
-						@Override
-						public void onError(int error) {
-							Log.e("Formulari", "Error NovaDenuncia: " + error);
+			}
 
-						}
-					}
-			);
 		}
-		else{
-			intentsEnviaDenuncia=0;
-			return;
-		}
+
+
 
 	}
 
-
+	private void checkNext(){
+		if(Index>=List_To_Upload.size()||DenunciaEnCurs){
+			List_To_Upload=null;
+			Index=0;
+			EnviamentDisponible = true;
+		}
+		else{
+			enviaDenuncies();
+		}
+	}
+	private void checkIfDiscard(Model_Denuncia den){
+		DatabaseAPI.addIntent(aContext, den.getCodidenuncia(), den.getIntentsenviar() + 1);//++Intentsenviar
+		Model_Denuncia den_updated = DatabaseAPI.getDenunciaByID(aContext, den.getCodidenuncia());
+		Log.e("Denuncia", "ERROR, Intent:"+den.getIntentsenviar());
+		if (den_updated != null && den_updated.getIntentsenviar() >= 5) {
+			DatabaseAPI.updateADenunciaFallida(aContext, den.getCodidenuncia());//DESCARTAR
+			Log.e("Denuncia", "Descartada, Intent:"+den.getIntentsenviar());
+		}
+	}
 
 
 	private void pujaFoto(){

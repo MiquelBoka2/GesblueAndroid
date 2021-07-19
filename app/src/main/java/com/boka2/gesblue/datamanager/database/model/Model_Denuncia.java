@@ -86,6 +86,10 @@ public class Model_Denuncia implements Parcelable {
 	@DatabaseField(columnName = "concessio", columnDefinition = "BIGINT")
 	private double concessio;
 
+
+	@DatabaseField(columnName = "intentsenviar", columnDefinition = "BIGINT")
+	private double intentsenviar;
+
 	public Model_Denuncia(long codidenunciaauto, String codidenuncia, Date fechacreacio, double agent, double adrecacarrer, double adrecanum, String posicio, String matricula, double tipusvehicle, long marca, double model, double color, double infraccio, double terminal, String foto1, String foto2, String foto3, String foto4, Date fechaanulacio, double agentanulacio, double tipusanulacio, double zona,double estatcomprovacio,double concessio) {
 		this.codidenunciaauto = codidenunciaauto;
 		this.codidenuncia = codidenuncia;
@@ -111,6 +115,7 @@ public class Model_Denuncia implements Parcelable {
 		this.zona = zona;
 		this.estatcomprovacio = estatcomprovacio;
 		this.concessio=concessio;
+		this.intentsenviar=0;
 	}
 
 
@@ -139,6 +144,7 @@ public class Model_Denuncia implements Parcelable {
 		this.zona = -1;
 		this.estatcomprovacio = 0;
 		this.concessio=0;
+		this.intentsenviar=0;
 	}
 
 	public long getCodidenunciaauto() {
@@ -336,10 +342,19 @@ public class Model_Denuncia implements Parcelable {
 	}
 
 
+	public void setIntentsenviar(double intentsenviar) {
+		this.intentsenviar = intentsenviar;
+	}
+
+	public double getIntentsenviar(){
+		return intentsenviar;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
 	}
+
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
@@ -367,6 +382,7 @@ public class Model_Denuncia implements Parcelable {
 		dest.writeDouble(this.zona);
 		dest.writeDouble(this.estatcomprovacio);
 		dest.writeDouble(this.concessio);
+		dest.writeDouble(this.intentsenviar);
 	}
 
 	protected Model_Denuncia(Parcel in) {
@@ -396,6 +412,7 @@ public class Model_Denuncia implements Parcelable {
 		this.zona = in.readDouble();
 		this.estatcomprovacio = in.readDouble();
 		this.concessio=in.readDouble();
+		this.intentsenviar=in.readDouble();
 	}
 
 	public static final Creator<Model_Denuncia> CREATOR = new Creator<Model_Denuncia>() {

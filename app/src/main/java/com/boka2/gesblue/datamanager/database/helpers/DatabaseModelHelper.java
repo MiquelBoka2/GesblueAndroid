@@ -47,7 +47,7 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_FOLDER = "sdatamanagerdb";
 
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     // the DAO object we use to access the SimpleData table
     private ConcurrentHashMap<Class,RuntimeExceptionDao<? extends BasicWSResult,String>> table_map;
@@ -158,6 +158,9 @@ public class DatabaseModelHelper extends OrmLiteSqliteOpenHelper {
 			db.execSQL("ALTER TABLE llistaAbonats ADD COLUMN zona3 LONG DEFAULT 0");
 			db.execSQL("ALTER TABLE llistaAbonats ADD COLUMN zona4 LONG DEFAULT 0");
 			db.execSQL("ALTER TABLE llistaAbonats ADD COLUMN zona5 LONG DEFAULT 0");
+		}
+		if(oldVersion<8){
+			db.execSQL("ALTER TABLE denuncia ADD COLUMN intentsenviar LONG DEFAULT 0");
 		}
     }
 

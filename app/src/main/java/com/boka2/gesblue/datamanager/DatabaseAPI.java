@@ -209,6 +209,18 @@ public class DatabaseAPI {
 	public static ArrayList<Model_Denuncia> getDenuncies(Context c) {
 		return (ArrayList<Model_Denuncia>) _getDenuncies(c).getArray();
 	}
+
+	private static BasicDBResult _getDenunciaByID(Context c, String id){
+		return executeDatabaseOperation(c, new DenunciaHelper().getField(c,"codidenuncia",id));
+	}
+
+
+	public static Model_Denuncia getDenunciaByID(Context c,String id) {
+
+		return ((ArrayList<Model_Denuncia>) _getDenunciaByID(c,id).getArray()).get(0);
+	}
+
+
 	private static BasicDBResult _getDenunciaPendentEnviar(Context c) {
 		return executeDatabaseOperation(c, new DenunciaHelper().getField(c,"tipusanulacio","0"));
 	}
@@ -255,6 +267,16 @@ public class DatabaseAPI {
 
 	public static BasicDBResult insertDenuncies(Context c, List<Model_Denuncia> list) {
 		return executeDatabaseOperation(c, new DenunciaHelper().create(c, list));
+	}
+
+
+
+	public static void addIntent(Context c, String id,double number){
+		executeDatabaseOperation(c, new DenunciaHelper().update(c,"codidenuncia",id,"intentsenviar",number));
+	}
+
+	public static void updateADenunciaFallida(Context c, String id){
+		executeDatabaseOperation(c, new DenunciaHelper().update(c,"codidenuncia",id,"tipusanulacio",-2));
 	}
 
 	public static void updateADenunciaEnviada(Context c, String id){
