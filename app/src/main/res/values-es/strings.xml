@@ -290,6 +290,22 @@ El/la secretario/a del Ayuntamiento.</string>
     <string name="reiniciar_terminal">" Reinicia el terminal para completar la actualización"</string>
     <string name="Offline_Mode">Modo Offline</string>
     <string name="refrescar_dades">Refrescar Datos</string>
+	<string name="canceled">Cancelando...</string>
+	<string name="upload_error">Error:</string>
+	<string name="correct_upload">Subidas Correctamente:</string>
+	<string name="upload">Subiendo...</string>
+	<string name="pujar_totes">Subir Todas</string>
+	<string name="sendFoto_succesfull_title">Se ha enviado la foto.</string>
+	<string name="sendFoto_failed_title">Se ha producido un error al enviar la foto. Por favor, vuelve a enviarla.</string>
+	<string name="timeout_error">Error al modificar el Tiempo de Espera</string>
+	<string name="timeout_canviat">El Tiempo de Espera ha sido modificado</string>
+	<string name="uuid_canviat">El UUID ha sido modificado</string>
+	<string name="uuid_error">Error al modificar el UUID</string>
+	<string name="uuid_no_especificat">UUID no especificado</string>
+	<string name="uuid_no_caracter_espacials">UUID no puede contener caracteres especiales</string>
+	<string name="error_img">Error al enviar la imagen</string>
+	<string name="PujarImatges">Subir Imagenes</string>
+	<string name="pint_language">Idioma de Impresión:</string>
 
 
 </resources>

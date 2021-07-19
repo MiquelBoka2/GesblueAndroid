@@ -14,7 +14,6 @@ import android.os.Build;
 import androidx.appcompat.app.AlertDialog;
 
 import android.os.Environment;
-import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;

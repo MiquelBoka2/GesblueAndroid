@@ -1,20 +1,22 @@
 package com.boka2.gesblue.Boka2ols;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Environment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.boka2.gesblue.global.PreferencesGesblue;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 public class BK_Utils {
 
@@ -197,4 +199,16 @@ public class BK_Utils {
         }
 
     }
+
+    public static void setLocale(Context context,String nouIdioma) {
+
+        Locale myLocale = new Locale(nouIdioma);
+        Resources res = context.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        PreferencesGesblue.setLocale(context,nouIdioma);
+        res.updateConfiguration(conf, dm);
+    }
+
 }

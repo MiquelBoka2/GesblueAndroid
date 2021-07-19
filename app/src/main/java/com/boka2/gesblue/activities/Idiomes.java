@@ -6,21 +6,19 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
 import com.boka2.gesblue.R;
+import com.boka2.gesblue.Boka2ols.BK_Utils;
 import com.boka2.gesblue.global.PreferencesGesblue;
 
 
 import java.util.Locale;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.util.DisplayMetrics;
 
 public class Idiomes extends AppCompatActivity {
 
@@ -65,7 +63,12 @@ public class Idiomes extends AppCompatActivity {
         localeAntic = Locale.getDefault().getLanguage();
 
 
-        locale=Locale.getDefault().getLanguage();
+
+        locale= PreferencesGesblue.getLocale(this,"");
+        if(locale==""||locale==null){
+            locale=Locale.getDefault().getLanguage();
+        }
+
 
         //Inicialitza els radioButtons
         {
@@ -207,16 +210,16 @@ public class Idiomes extends AppCompatActivity {
 
 
 
-
+        final Context mContext=this;
 
         btn_Confirmar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(click){
 
-                    CanviarIdioma(locale);
+                    BK_Utils.setLocale(mContext,locale);
 
 
-                    MissatgeAlerte();
+                    MissatgeAlerte(mContext);
 
 
                 }
@@ -230,16 +233,6 @@ public class Idiomes extends AppCompatActivity {
         });
 
     }
-    public void CanviarIdioma(String nouIdioma) {
-
-        Locale myLocale = new Locale(nouIdioma);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        PreferencesGesblue.setLocale(iContext,nouIdioma);
-        res.updateConfiguration(conf, dm);
-    }
 
 
     public void Reiniciar() {
@@ -251,7 +244,7 @@ public class Idiomes extends AppCompatActivity {
         startActivity(refresh);
     }
 
-    public void MissatgeAlerte(){
+    public void MissatgeAlerte(final Context context){
 
          AlertDialog builder = new AlertDialog.Builder(iContext)
                 .setTitle(R.string.MistageAvis)
@@ -269,7 +262,7 @@ public class Idiomes extends AppCompatActivity {
                 .setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        CanviarIdioma(localeAntic);
+                        BK_Utils.setLocale(context,localeAntic);
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert).create();
@@ -283,4 +276,6 @@ public class Idiomes extends AppCompatActivity {
 
 
     }
+
+
 }

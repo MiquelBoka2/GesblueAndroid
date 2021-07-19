@@ -12,7 +12,6 @@ import android.content.Intent;
 
 import androidx.databinding.DataBindingUtil;
 
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -22,7 +21,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -33,8 +31,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.boka2.gesblue.Boka2ols.BK_Utils;
 import com.boka2.gesblue.R;
+
+import com.boka2.gesblue.Boka2ols.BK_Utils;
 import com.boka2.gesblue.customstuff.GesblueFragmentActivity;
 import com.boka2.gesblue.databinding.ActivityLoginBinding;
 import com.boka2.gesblue.datamanager.DatabaseAPI;
@@ -98,8 +97,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.net.util.Base64;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -164,6 +161,15 @@ public class LoginActivity extends GesblueFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(R.style.AppTheme);
 		new DatabaseModelHelper(this);
+		String locale=PreferencesGesblue.getLocale(this,"ca");
+		if(locale!=""&&locale!=null){
+			if(locale.equals("es")){
+				BK_Utils.setLocale(this,locale);
+			}
+			else if(locale.equals("ca")){
+				BK_Utils.setLocale(this,locale);
+			}
+		}
 
 		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
 		dir.mkdirs();

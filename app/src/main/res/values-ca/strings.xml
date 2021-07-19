@@ -295,6 +295,22 @@ secretari/a de l\'Ajuntament.</string>
     <string name="reiniciar_terminal">Reinicia el terminal per completar l\'actualització</string>
     <string name="Offline_Mode">Mode Offline</string>
     <string name="refrescar_dades">Refrescar Dades</string>
+    <string name="PujarImatges">Pujar Imatges</string>
+    <string name="error_img">Error al enviar l\'imatge</string>
+    <string name="uuid_no_caracter_espacials">UUID no pot contenir caràcters especials</string>
+    <string name="uuid_no_especificat">UUID no especificat</string>
+    <string name="uuid_error">Error en modificar el UUID</string>
+    <string name="uuid_canviat">El UUID ha sigut modificat</string>
+    <string name="timeout_canviat">El Temps de Espera ha sigut modificat</string>
+    <string name="timeout_error">Error en modificar el Temps de Espera</string>
+    <string name="sendFoto_failed_title">S\'ha produït un error al enviar la foto. Sisplau, torna a enviar-la.</string>
+    <string name="sendFoto_succesfull_title">S\'ha enviat la foto.</string>
+    <string name="pujar_totes">Pujar Totes</string>
+    <string name="upload">Pujant...</string>
+    <string name="correct_upload">Pujades Correctament:</string>
+    <string name="upload_error">Error:</string>
+    <string name="canceled">Cancel·lant...</string>
+    <string name="pint_language">Idioma d\'Impressió:</string>
 
 
 </resources>

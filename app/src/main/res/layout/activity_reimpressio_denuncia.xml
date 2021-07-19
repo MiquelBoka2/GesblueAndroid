@@ -568,14 +568,14 @@
         android:id="@+id/tv_Idioma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Idioma d'Impressió:"
+        android:fontFamily="@font/roboto"
+        android:text="@string/pint_language"
         app:layout_constraintBottom_toTopOf="@+id/spn_idioma"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/spn_idioma"
         app:layout_constraintTop_toTopOf="@+id/btn_Imprimir"
-        app:layout_constraintVertical_bias="0.0"
-        android:fontFamily="@font/roboto" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/spn_idioma"
