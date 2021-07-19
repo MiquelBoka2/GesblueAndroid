@@ -225,8 +225,13 @@ public class DatabaseAPI {
 		return executeDatabaseOperation(c, new DenunciaHelper().getField(c,"tipusanulacio","0"));
 	}
 
+
 	private static BasicDBResult _getDenunciaPendentImprimir(Context c) {
 		return executeDatabaseOperation(c, new DenunciaHelper().getField(c,"tipusanulacio","-1"));
+	}
+
+	private static BasicDBResult _getDenunciaDescartades(Context c) {
+		return executeDatabaseOperation(c, new DenunciaHelper().getField(c,"tipusanulacio","-2"));
 	}
 
 	public static ArrayList<Model_Denuncia> getDenunciesPendentsImprmir(Context c) {
@@ -263,7 +268,16 @@ public class DatabaseAPI {
 			return null;
 		}
 	}
+	public static ArrayList<Model_Denuncia> getDenunciesDescartades(Context c) {
 
+		ArrayList<Model_Denuncia> array= (ArrayList<Model_Denuncia>) _getDenunciaDescartades(c).getArray();
+		if(array !=null && array.size()>0){
+			return array;
+		}
+		else{
+			return null;
+		}
+	}
 
 	public static BasicDBResult insertDenuncies(Context c, List<Model_Denuncia> list) {
 		return executeDatabaseOperation(c, new DenunciaHelper().create(c, list));

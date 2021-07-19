@@ -345,4 +345,5 @@ secretari/a de l\'Ajuntament.</string>
     <string name="upload_error">Error:</string>
     <string name="canceled">" Cancel·lant..."</string>
     <string name="pint_language">Idioma d\'Impressió:</string>
+    <string name="try_send_deny">Intentar enviar descartades</string>
 </resources>

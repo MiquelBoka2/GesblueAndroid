@@ -15,6 +15,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -58,13 +60,13 @@ public class Opcions extends AppCompatActivity {
     private boolean refreshDades;
     LoginResponse responseManual;
     
-    private ConstraintLayout Logout_Refrescar_Dades,Canviar_Concessio,Desconectat, Recarregar_Dades, Reimpressio, Idioma, Enviaments_Pendents,Pujar_Fotos,Admin,E_UUID,E_TimeOut,Extres,Base,Mode_Offline,Capçalera;
-    private TextView txt_Versio,txtNumDenuncies;
+    private ConstraintLayout Logout_Refrescar_Dades,Canviar_Concessio,Desconectat, Recarregar_Dades, Reimpressio, Idioma, Enviaments_Pendents,EnviamentsDenegades,Pujar_Fotos,Admin,E_UUID,E_TimeOut,Extres,Base,Mode_Offline,Capçalera;
+    private TextView txt_Versio,txtNumDenuncies,txtNumDenuncies_Denegades;
     private Button btn_Confirmar;
     private Context oContext=this;
     private String estat="";
     private Boolean adm=false;
-    private ImageView  img_Lock,img_Unlock,save_uuid,save_timeout,imgCercleContador;
+    private ImageView  img_Lock,img_Unlock,save_uuid,save_timeout,imgCercleContador,imgCercleContador_Denegades;
     private EditText edt_uuid,edit_timeout;
     private Switch Switch_Offline;
 
@@ -74,6 +76,7 @@ public class Opcions extends AppCompatActivity {
 
     private ProgressDialog progress, liniar_progress;
     private List<Model_Denuncia> denunciesPendents;
+    private List<Model_Denuncia> denunciesDescartades;
     private int intentsEnviaDenuncia =0;
     private boolean escapador=true;
 
@@ -95,6 +98,7 @@ public class Opcions extends AppCompatActivity {
             Capçalera= (ConstraintLayout) findViewById(R.id.Capçalera);
 
             imgCercleContador= (ImageView) findViewById(R.id.imgCercleContador);
+            imgCercleContador_Denegades= (ImageView) findViewById(R.id.imgCercleContador_Denegades);
 
             Logout_Refrescar_Dades = (ConstraintLayout) findViewById(R.id.lay_Logout_Refrescar_Dades);
             Canviar_Concessio = (ConstraintLayout) findViewById(R.id.lay_canviarConcessio);
@@ -103,6 +107,7 @@ public class Opcions extends AppCompatActivity {
             Reimpressio = (ConstraintLayout) findViewById(R.id.lay_Reimpressio);
             Idioma = (ConstraintLayout) findViewById(R.id.lay_Idioma);
             Enviaments_Pendents = (ConstraintLayout) findViewById(R.id.lay_EnviamentsPendents);
+            EnviamentsDenegades = (ConstraintLayout) findViewById(R.id.lay_EnviamentsDenegades);
             Mode_Offline= (ConstraintLayout) findViewById(R.id.lay_offline);
 
             E_UUID = (ConstraintLayout) findViewById(R.id.lay_edit_uuid);
@@ -123,7 +128,7 @@ public class Opcions extends AppCompatActivity {
             btn_Confirmar = (Button) findViewById(R.id.btn_Confirmar_Opcions);
 
             txtNumDenuncies = (TextView) findViewById(R.id.txt_NumDenuncies);
-
+            txtNumDenuncies_Denegades = (TextView) findViewById(R.id.txt_NumDenuncies_Denegades);
 
             Canviar_Concessio.setVisibility(View.GONE);
             Desconectat.setVisibility(View.GONE);
@@ -131,6 +136,7 @@ public class Opcions extends AppCompatActivity {
             Reimpressio.setVisibility(View.GONE);
             Idioma.setVisibility(View.GONE);
             Enviaments_Pendents.setVisibility(View.GONE);
+            EnviamentsDenegades.setVisibility(View.GONE);
             Mode_Offline.setVisibility(View.GONE);
             E_UUID.setVisibility(View.GONE);
             E_TimeOut.setVisibility(View.GONE);
@@ -206,6 +212,21 @@ public class Opcions extends AppCompatActivity {
                     txtNumDenuncies.setVisibility(View.VISIBLE);
 
                     txtNumDenuncies.setText(denunciesPendents.size()+"");
+
+                }
+
+
+                if(denunciesDescartades==null || denunciesDescartades.size()<=0 || denunciesDescartades.isEmpty()){
+
+                    EnviamentsDenegades.setVisibility(View.GONE);
+                }
+                else{
+
+                    EnviamentsDenegades.setVisibility(View.VISIBLE);
+                    imgCercleContador_Denegades.setVisibility(View.VISIBLE);
+                    txtNumDenuncies_Denegades.setVisibility(View.VISIBLE);
+
+                    txtNumDenuncies_Denegades.setText(denunciesDescartades.size()+"");
 
                 }
 
@@ -399,6 +420,79 @@ public class Opcions extends AppCompatActivity {
 
                                 liniar_progress.dismiss();
                                 Enviaments_Pendents.setVisibility(View.GONE);
+                            }
+
+
+                        } else {
+                            Toast noConexio =
+                                    Toast.makeText(getApplicationContext(),
+                                            getResources().getString(R.string.sense_conexio), Toast.LENGTH_SHORT);
+
+                            noConexio.show();
+                        }
+                    }
+
+
+                }
+            });
+
+
+            EnviamentsDenegades.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if (EnviamentsDenegades.isEnabled()) {
+
+                        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+                            //we are connected to a network
+                            denunciesDescartades=DatabaseAPI.getDenunciesDescartades(oContext);
+                            if (denunciesDescartades!=null && denunciesDescartades.size() > 0) {
+                                liniar_progress.setMax(denunciesDescartades.size());
+
+                                liniar_progress.show();
+                                if (EnviamentDisponible) {
+                                    EnviamentDisponible = false;
+                                    EnviarDenunciesDescartades();
+
+                                } else {
+                                    //aguanta el main fins que s'ha enviat la anterior
+                                    while (!EnviamentDisponible) {
+
+                                        Log.d("ESPERANT","disponibilitat");
+                                    }
+                                    //Tornem a mirar les dades
+                                    ContadorDenuncies(true);
+
+                                    //Bloquejem els demes enviaments
+                                    EnviamentDisponible = false;
+
+                                    if (denunciesDescartades!=null) {
+                                        if (denunciesDescartades.size() > 0) {
+                                            EnviarDenunciesDescartades();
+                                        }
+                                    }
+                                }
+
+                                //Mante el Main activity viu mentres s'envies les denuncies
+
+                                liniar_progress.dismiss();
+                                Enviaments_Pendents.setVisibility(View.GONE);
+                            }
+
+                            if(denunciesDescartades==null || denunciesDescartades.size()<=0 || denunciesDescartades.isEmpty()){
+
+                                EnviamentsDenegades.setVisibility(View.GONE);
+                            }
+                            else{
+
+                                EnviamentsDenegades.setVisibility(View.VISIBLE);
+                                imgCercleContador_Denegades.setVisibility(View.VISIBLE);
+                                txtNumDenuncies_Denegades.setVisibility(View.VISIBLE);
+
+                                txtNumDenuncies_Denegades.setText(denunciesDescartades.size()+"");
+
                             }
 
 
@@ -622,6 +716,95 @@ public class Opcions extends AppCompatActivity {
                 final Model_Denuncia den = denuncia;
                 SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss");
 
+                if(denuncia.getFechacreacio() != null && denuncia.getFechacreacio() != null) {
+                    Log.d("Enviant denuncia", "" + denuncia.getCodidenuncia());
+                    NovaDenunciaRequest ndr = new NovaDenunciaRequest(
+                            denuncia.getCodidenuncia(),
+                            Long.parseLong(simpleDate.format(denuncia.getFechacreacio())),
+                            (long) denuncia.getAgent(),              //-- ID D'AGENT
+                            (long) denuncia.getAdrecacarrer(),                //-- CARRER
+                            String.valueOf(denuncia.getAdrecanum()),                                     //-- NUMERO CARRER
+                            "",                                                     //-- TODO COORDENADES?
+                            denuncia.getMatricula(),                                  //-- MATRICULA
+                            (long) denuncia.getTipusvehicle(),    //-- CODI TIPUS VEHICLE
+                            (long) denuncia.getMarca(),  //-- CODI MARCA
+                            (long) denuncia.getModel(),  //-- CODI MODEL
+                            (long) denuncia.getColor(),  //-- CODI COLOR
+                            (long) denuncia.getInfraccio(),                   //-- MATRICULA
+                            (long) denuncia.getEstatcomprovacio(),             //-- HORA ACTUAL
+                            "",                //-- IMPORT
+                            (long) denuncia.getConcessio(),              //-- CONCESSIO
+                            Long.parseLong(PreferencesGesblue.getTerminal(oContext)),//-- TERMINAL ID
+                            Utils.getAndroidVersion(),                              //-- SO VERSION
+                            Utils.getAppVersion(oContext));                         //-- APP VERSION
+
+
+                    DatamanagerAPI.crida_NovaDenuncia(ndr,
+                            new JSoapCallback() {
+                                @Override
+                                public void onSuccess(String result) {
+                                    Intent intent = new Intent(oContext, LoginActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                                    final NovaDenunciaResponse response;
+                                    try {
+                                        response = DatamanagerAPI.parseJson(result, NovaDenunciaResponse.class);
+                                    } catch (Exception ex) {
+                                        Log.e("", "" + ex);
+                                        onError(PARSE_ERROR);
+                                        return;
+                                    }
+
+                                    switch ((int) response.getResultat()) {
+                                        case -1:
+                                            Utils.showCustomDialog(oContext, R.string.atencio, R.string.errorEnDades);
+                                            break;
+                                        case -2:
+                                        case -3:
+                                            PreferencesGesblue.logout(oContext);
+                                            startActivity(intent);
+                                            break;
+                                        default:
+                                            //denunciaSent = true;
+                                            //sendPhotos();
+                                            DatabaseAPI.updateADenunciaEnviada(oContext, den.getCodidenuncia());
+                                            if (intentsEnviaDenuncia < 5) {
+                                                enviaDenunciaConcreta(denuncia);
+                                            } else {
+                                                intentsEnviaDenuncia = 0;
+                                                return;
+                                            }
+                                    }
+
+                                }
+
+                                @Override
+                                public void onError(int error) {
+                                    Log.e("Formulari", "Error NovaDenuncia: " + error);
+
+                                }
+                            }
+                    );
+                }
+                else {
+
+                }
+
+            } else {
+                intentsEnviaDenuncia = 0;
+                return;
+            }
+
+        }
+
+    private void enviaDenunciaConcretaDescartada ( final Model_Denuncia denuncia){
+
+        if (denuncia != null) {
+            intentsEnviaDenuncia++;
+            final Model_Denuncia den = denuncia;
+            SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss");
+
+            if(denuncia.getFechacreacio() != null && denuncia.getFechacreacio() != null) {
                 Log.d("Enviant denuncia", "" + denuncia.getCodidenuncia());
                 NovaDenunciaRequest ndr = new NovaDenunciaRequest(
                         denuncia.getCodidenuncia(),
@@ -638,7 +821,7 @@ public class Opcions extends AppCompatActivity {
                         (long) denuncia.getInfraccio(),                   //-- MATRICULA
                         (long) denuncia.getEstatcomprovacio(),             //-- HORA ACTUAL
                         "",                //-- IMPORT
-                        (long)denuncia.getConcessio(),              //-- CONCESSIO
+                        (long) denuncia.getConcessio(),              //-- CONCESSIO
                         Long.parseLong(PreferencesGesblue.getTerminal(oContext)),//-- TERMINAL ID
                         Utils.getAndroidVersion(),                              //-- SO VERSION
                         Utils.getAppVersion(oContext));                         //-- APP VERSION
@@ -690,14 +873,20 @@ public class Opcions extends AppCompatActivity {
                             }
                         }
                 );
-            } else {
-                intentsEnviaDenuncia = 0;
-                return;
+            }
+            else {
+
             }
 
+        } else {
+            intentsEnviaDenuncia = 0;
+            return;
         }
 
-        private void pujaFoto () {
+    }
+
+
+    private void pujaFoto () {
 
             File path =new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "/Boka2/upload");
 
@@ -772,35 +961,112 @@ public class Opcions extends AppCompatActivity {
         }
 
 
-        private void EnviarDenuncies () {
+    private void EnviarDenuncies () {
 
 
-            //Crea un nou fil
-            Runnable runnable=new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (int i = 0; i < denunciesPendents.size(); i++) {
-                        try {
-                            enviaDenunciaConcreta(denunciesPendents.get(i));
-                            pujaFoto();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-
-                        liniar_progress.setProgress(i);
+        //Crea un nou fil
+        Runnable runnable=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < denunciesPendents.size(); i++) {
+                    try {
+                        enviaDenunciaConcreta(denunciesPendents.get(i));
+                        pujaFoto();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    denunciesPendents = null;
-                    EnviamentDisponible = true;
 
+
+                    liniar_progress.setProgress(i);
+                }
+                denunciesPendents = null;
+                EnviamentDisponible = true;
+
+
+            }
+        });
+        AsyncTask.execute(runnable);
+
+
+
+    }
+
+
+    private void EnviarDenunciesDescartades() {
+
+
+        //Crea un nou fil
+        Runnable runnable=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < denunciesDescartades.size(); i++) {
+                    try {
+                        enviaDenunciaConcretaDescartada(denunciesDescartades.get(i));
+                        pujaFoto();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    liniar_progress.setProgress(i);
+                }
+                denunciesDescartades = null;
+                EnviamentDisponible = true;
+
+            }
+
+            @Override
+            protected void finalize() throws Throwable {
+                super.finalize();
+                Handler mainThreadHandler = new Handler(Looper.getMainLooper());
+                mainThreadHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        denunciesDescartades = DatabaseAPI.getDenunciesDescartades(oContext);
+                        if (denunciesDescartades == null || denunciesDescartades.size() <= 0 || denunciesDescartades.isEmpty()) {
+
+                            EnviamentsDenegades.setVisibility(View.GONE);
+                        } else {
+
+                            EnviamentsDenegades.setVisibility(View.VISIBLE);
+                            imgCercleContador_Denegades.setVisibility(View.VISIBLE);
+                            txtNumDenuncies_Denegades.setVisibility(View.VISIBLE);
+
+                            txtNumDenuncies_Denegades.setText(denunciesDescartades.size() + "");
+
+                        }
+                    }
+                });
+            }
+        });
+        AsyncTask.execute(runnable);
+
+
+
+        Handler mainThreadHandler = new Handler(Looper.getMainLooper());
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                denunciesDescartades = DatabaseAPI.getDenunciesDescartades(oContext);
+                if (denunciesDescartades == null || denunciesDescartades.size() <= 0 || denunciesDescartades.isEmpty()) {
+
+                    EnviamentsDenegades.setVisibility(View.GONE);
+                } else {
+
+                    EnviamentsDenegades.setVisibility(View.VISIBLE);
+                    imgCercleContador_Denegades.setVisibility(View.VISIBLE);
+                    txtNumDenuncies_Denegades.setVisibility(View.VISIBLE);
+
+                    txtNumDenuncies_Denegades.setText(denunciesDescartades.size() + "");
 
                 }
-            });
-            AsyncTask.execute(runnable);
+            }
+        });
 
 
 
-        }
+    }
+
 
 
 
@@ -818,6 +1084,18 @@ public class Opcions extends AppCompatActivity {
             }
             else{
                 denunciesPendents=null;
+            }
+
+
+            List<Model_Denuncia> descdenunciesDescartadesTemp = DatabaseAPI.getDenunciesDescartades(oContext);
+            if(descdenunciesDescartadesTemp!=null) {
+
+
+                denunciesDescartades = descdenunciesDescartadesTemp.subList(0, descdenunciesDescartadesTemp.size());
+                txtNumDenuncies_Denegades.setText(denunciesDescartades.size()+"");
+            }
+            else{
+                denunciesDescartades=null;
             }
         }
 
