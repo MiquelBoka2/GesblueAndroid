@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.boka2.gesblue.Boka2ols.ImagePicker;
 import com.boka2.gesblue.GesblueApplication;
 import com.boka2.sbaseobjects.tools.ImageTools;
 import com.boka2.sbaseobjects.tools.Preferences;
@@ -641,7 +642,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				if (!recuperada) {
 					String model=Build.MANUFACTURER
 							+ " " + Build.MODEL;
-					if(model.equals("bq Aquaris U")){
+					if(model.equals("bq Aquaris U")) {
 
 						intent = new Intent(mContext, CameraActivity.class);
 
@@ -656,16 +657,165 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 							startActivityForResult(intent, Utils.RESULT_FOTO_3);
 
 						} else if (isEmpty(foto4)) {
-						intent.putExtra("position", "4");
-						startActivityForResult(intent, Utils.RESULT_FOTO_4);
+							intent.putExtra("position", "4");
+							startActivityForResult(intent, Utils.RESULT_FOTO_4);
 
+						} else {
+							intent.putExtra("position", "1");
+							startActivityForResult(intent, Utils.RESULT_FOTO_1);
 						}
-						else {
-								intent.putExtra("position", "1");
-								startActivityForResult(intent, Utils.RESULT_FOTO_1);
+
+					}
+					else if(model.equals("motorola moto g(9) play")) {
+
+
+
+						intent = new Intent(mContext, CameraActivity.class);
+
+						if (isEmpty(foto1)) {
+							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							takePictureIntent.putExtra("position", "1");
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+							}
+							else{
+								Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+								takePhotoIntent.putExtra("type", 1);
+								if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.Q){//IF SDK >= API 29 USE DIFERENT METOTHD
+
+									Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+
+									takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+									takePhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+									takePhotoIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+								}
+								else {
+									Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+									takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+								}
+								startActivityForResult(takePhotoIntent,Utils.REQUEST_IMAGE_CAPTURE_1);
+							}
+						}
+						else if (isEmpty(foto2)) {
+							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							takePictureIntent.putExtra("position", "2");
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto2);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
+							}
+							else{
+								Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+								takePhotoIntent.putExtra("type", 2);
+								if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.Q){//IF SDK >= API 29 USE DIFERENT METOTHD
+
+									Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto2);
+
+									takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+									takePhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+									takePhotoIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+								}
+								else {
+									Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto2);
+									takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+								}
+								startActivityForResult(takePhotoIntent,Utils.REQUEST_IMAGE_CAPTURE_2);
+							}
+						}
+						else if (isEmpty(foto3)) {
+							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							takePictureIntent.putExtra("position", "3");
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto3);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
+							}
+							else{
+								Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+								takePhotoIntent.putExtra("type", 3);
+								if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.Q){//IF SDK >= API 29 USE DIFERENT METOTHD
+
+									Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto3);
+
+									takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+									takePhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+									takePhotoIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+								}
+								else {
+									Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto3);
+									takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+								}
+								startActivityForResult(takePhotoIntent,Utils.REQUEST_IMAGE_CAPTURE_3);
 							}
 
 						}
+						else if (isEmpty(foto4)) {
+							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							takePictureIntent.putExtra("position", "4");
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto4);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
+							}
+							else{
+								Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+								takePhotoIntent.putExtra("type", 4);
+								if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.Q){//IF SDK >= API 29 USE DIFERENT METOTHD
+
+									Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto4);
+
+									takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+									takePhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+									takePhotoIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+								}
+								else {
+									Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto4);
+									takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+								}
+								startActivityForResult(takePhotoIntent,Utils.REQUEST_IMAGE_CAPTURE_4);
+							}
+
+						}
+						else {
+							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							takePictureIntent.putExtra("position", "1");
+							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+								Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+								takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+								startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+							}
+							else{
+								Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+								takePhotoIntent.putExtra("type", 1);
+								if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.Q){//IF SDK >= API 29 USE DIFERENT METOTHD
+
+									Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+
+									takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+									takePhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+									takePhotoIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+								}
+								else {
+									Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+									takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+								}
+								startActivityForResult(takePhotoIntent,Utils.REQUEST_IMAGE_CAPTURE_1);
+							}
+						}
+
+					}
 					else{
 
 						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -758,7 +908,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 
 						}
 					});
-				} else {
+				}
+				else {
 
 					if (!recuperada) {
 						String model=Build.MANUFACTURER
@@ -772,6 +923,35 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 							if (isEmpty(foto1)) {
 								intent.putExtra("position", "1");
 								startActivityForResult(intent, Utils.RESULT_FOTO_1);
+							}
+						}
+						else if(model.equals("motorola moto g(9) play")) {
+							
+							if (isEmpty(foto1)) {
+								Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+								takePictureIntent.putExtra("position", "1");
+								if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+									Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+									takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+									startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+								} else {
+									Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+									takePhotoIntent.putExtra("type", 1);
+									if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {//IF SDK >= API 29 USE DIFERENT METOTHD
+
+										Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+
+										takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+										takePhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+										takePhotoIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+									} else {
+										Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+										takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+									}
+									startActivityForResult(takePhotoIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
+								}
 							}
 						}
 						else{
@@ -799,7 +979,8 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 							checkBotoCamera();
 						}
 					});
-				} else {
+				}
+				else {
 					if (!recuperada) {
 						String model=Build.MANUFACTURER
 								+ " " + Build.MODEL;
@@ -812,6 +993,35 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 							if (isEmpty(foto2)) {
 								intent.putExtra("position", "2");
 								startActivityForResult(intent, Utils.RESULT_FOTO_2);
+							}
+						}
+						else if(model.equals("motorola moto g(9) play")) {
+
+							if (isEmpty(foto2)) {
+								Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+								takePictureIntent.putExtra("position", "2");
+								if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+									Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto2);
+									takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+									startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
+								} else {
+									Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+									takePhotoIntent.putExtra("type", 2);
+									if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {//IF SDK >= API 29 USE DIFERENT METOTHD
+
+										Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto2);
+
+										takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+										takePhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+										takePhotoIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+									} else {
+										Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto2);
+										takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+									}
+									startActivityForResult(takePhotoIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
+								}
 							}
 						}
 						else{
@@ -853,6 +1063,35 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 								startActivityForResult(intent, Utils.RESULT_FOTO_3);
 							}
 						}
+						else if(model.equals("motorola moto g(9) play")) {
+
+							if (isEmpty(foto3)) {
+								Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+								takePictureIntent.putExtra("position", "3");
+								if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+									Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto3);
+									takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+									startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
+								} else {
+									Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+									takePhotoIntent.putExtra("type", 3);
+									if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {//IF SDK >= API 29 USE DIFERENT METOTHD
+
+										Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto3);
+
+										takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+										takePhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+										takePhotoIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+									} else {
+										Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto3);
+										takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+									}
+									startActivityForResult(takePhotoIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
+								}
+							}
+						}
 						else{
 							Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 							if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -891,6 +1130,35 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 							if (isEmpty(foto4)) {
 								intent.putExtra("position", "4");
 								startActivityForResult(intent, Utils.RESULT_FOTO_4);
+							}
+						}
+						else if(model.equals("motorola moto g(9) play")) {
+
+							if (isEmpty(foto4)) {
+								Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+								takePictureIntent.putExtra("position", "4");
+								if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+									Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto4);
+									takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+									startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
+								} else {
+									Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+									takePhotoIntent.putExtra("type", 4);
+									if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {//IF SDK >= API 29 USE DIFERENT METOTHD
+
+										Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto4);
+
+										takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+										takePhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+										takePhotoIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+									} else {
+										Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto4);
+										takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+									}
+									startActivityForResult(takePhotoIntent, Utils.REQUEST_IMAGE_CAPTURE_4);
+								}
 							}
 						}
 						else{
@@ -1003,6 +1271,10 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					}
 					else{
 						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto1);
+						if(loc_foto1!=null&& Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+							imageBitmap=new ImagePicker().rotateImage(this,imageBitmap, loc_foto1);
+
+						}
 					}
 					foto1 = Utils.savePicture(imageBitmap, mContext, "1");
 					pinta(foto1, mBinding.imageViewA);
@@ -1019,6 +1291,10 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					else{
 
 						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto2);
+						if(loc_foto2!=null&& Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+							imageBitmap=new ImagePicker().rotateImage(this,imageBitmap, loc_foto2);
+
+						}
 					}
 					foto2 = Utils.savePicture(imageBitmap, mContext, "2");
 					pinta(foto2, mBinding.imageViewB);
@@ -1034,6 +1310,10 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					}
 					else{
 						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto3);
+						if(loc_foto3!=null&& Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+							imageBitmap=new ImagePicker().rotateImage(this,imageBitmap, loc_foto3);
+
+						}
 					}
 					foto3 = Utils.savePicture(imageBitmap, mContext, "3");
 					pinta(foto3, mBinding.imageViewC);
@@ -1049,6 +1329,10 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 					}
 					else{
 						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto4);
+						if(loc_foto4!=null&& Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+							imageBitmap=new ImagePicker().rotateImage(this,imageBitmap, loc_foto4);
+
+						}
 					}
 					foto4 = Utils.savePicture(imageBitmap, mContext, "4");
 					pinta(foto4, mBinding.imageViewD);

@@ -31,6 +31,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
+import com.boka2.gesblue.Boka2ols.ImagePicker;
 import com.boka2.gesblue.GesblueApplication;
 import com.boka2.gesblue.activities.passosformulari.Pas7NumeroActivity;
 import com.boka2.gesblue.datamanager.database.model.Model_Zona;
@@ -367,6 +370,25 @@ public class MainActivity extends GesblueFragmentActivity {
 							takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_1);
 						}
+						else{
+							Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							takePhotoIntent.putExtra("type", 1);
+							if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.Q){//IF SDK >= API 29 USE DIFERENT METOTHD
+
+								Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+
+								takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+								takePhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+								takePhotoIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+							}
+							else {
+								Uri photoURI =FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", loc_foto1);
+								takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+							}
+							startActivityForResult(takePhotoIntent,Utils.REQUEST_IMAGE_CAPTURE_1);
+						}
 
 					}
 					else{
@@ -633,6 +655,10 @@ public class MainActivity extends GesblueFragmentActivity {
 					}
 					else{
 						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto1);
+						if(loc_foto1!=null&& Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+							imageBitmap=new ImagePicker().rotateImage(this,imageBitmap, loc_foto1);
+
+						}
 					}
 					foto1=Utils.savePicture(imageBitmap,mContext,"1");
 					pinta(foto1, mBinding.imageViewA);
@@ -650,6 +676,10 @@ public class MainActivity extends GesblueFragmentActivity {
 					else{
 
 						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto2);
+						if(loc_foto2!=null&& Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+							imageBitmap=new ImagePicker().rotateImage(this,imageBitmap, loc_foto2);
+
+						}
 					}
 					foto2=Utils.savePicture(imageBitmap,mContext,"2");
 					pinta(foto2, mBinding.imageViewB);
@@ -666,6 +696,10 @@ public class MainActivity extends GesblueFragmentActivity {
 					}
 					else{
 						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto3);
+						if(loc_foto3!=null&& Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+							imageBitmap=new ImagePicker().rotateImage(this,imageBitmap, loc_foto3);
+
+						}
 					}
 					foto3=Utils.savePicture(imageBitmap,mContext,"3");
 					pinta(foto3, mBinding.imageViewC);
@@ -681,6 +715,10 @@ public class MainActivity extends GesblueFragmentActivity {
 					}
 					else{
 						imageBitmap= ImageTools.getBitmapAfterResize(loc_foto4);
+						if(loc_foto4!=null&& Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+							imageBitmap=new ImagePicker().rotateImage(this,imageBitmap, loc_foto4);
+
+						}
 					}
 					foto4=Utils.savePicture(imageBitmap,mContext,"4");
 					pinta(foto4, mBinding.imageViewD);
