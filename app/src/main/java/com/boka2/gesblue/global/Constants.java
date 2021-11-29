@@ -30,11 +30,11 @@ public class Constants {
     // ==================================
     // DATAMANAGER
     // ==================================
-    public static final String DADESBA_URL = "http://www.gesblue.com/app/v2/dadesbasiques.php";
+    public static final String DADESBA_URL = "https://www.gesblue.com/app/v2/dadesbasiques.php";
     public static final String DADESBA_NAMESPACE = WSConstantsGB.NAMESPACE_DADES_BASIQUES;
 
 
-    public static final String OPERATIVA_URL = "http://www.gesblue.com/app/v2/operativa.php";
+    public static final String OPERATIVA_URL = "https://www.gesblue.com/app/v2/operativa.php";
     public static final String OPERATIVA_NAMESPACE = WSConstantsGB.NAMESPACE_OPERATIVA;
 
     public static final String HASH = "#";
