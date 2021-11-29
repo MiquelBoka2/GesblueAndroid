@@ -346,4 +346,12 @@ secretari/a de l\'Ajuntament.</string>
     <string name="canceled">" Cancel·lant..."</string>
     <string name="pint_language">Idioma d\'Impressió:</string>
     <string name="try_send_deny">Intentar enviar descartades</string>
+    <string name="total">Total:</string>
+
+    <string name="denuncia_fallida">Denúncia Fallida</string>
+
+    <string name="min_Pendents_Imprimir">PI</string>
+    <string name="min_Pendents_Enviar">PE</string>
+    <string name="min_Enviades">E</string>
+    <string name="min_Fallides">EF</string>
 </resources>

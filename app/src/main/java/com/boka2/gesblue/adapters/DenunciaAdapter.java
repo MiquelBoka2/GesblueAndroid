@@ -44,12 +44,14 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
 
     //we are storing all the denuncias in a list
     private List<Model_Denuncia> denunciaList;
+    private List<Model_Denuncia> denuncies;
 
     //getting the context and denuncia list with constructor
-    public DenunciaAdapter(Context mCtx, List<Model_Denuncia> denunciaList, CustomButtonListener customButtonListener) {
+    public DenunciaAdapter(Context mCtx, List<Model_Denuncia> denunciaList, List<Model_Denuncia> denuncies, CustomButtonListener customButtonListener) {
         this.mCtx = mCtx;
         this.denunciaList = denunciaList;
         this.customButtonListener = customButtonListener;
+        this.denuncies=denuncies;
     }
 
     @Override
@@ -63,7 +65,7 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
     @Override
     public void onBindViewHolder(DenunciaViewHolder holder, final int position) {
         //getting the denuncia of the specified position
-        Model_Denuncia denuncia = denunciaList.get(position);
+        final Model_Denuncia denuncia = denunciaList.get(position);
 
         //binding the data with the viewholder views
 
@@ -93,6 +95,11 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
 
             holder.textViewEstat.setTextColor(mCtx.getResources().getColor(R.color.verdOK));
         }
+        else if(String.valueOf(denuncia.getTipusanulacio()).equals("-2.0")){
+            text=mCtx.getResources().getString(R.string.denuncia_fallida);
+
+            holder.textViewEstat.setTextColor(mCtx.getResources().getColor(R.color.vermellKO));
+        }
             holder.textViewEstat.setText(text);
 
         holder.cardViewDenuncia.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +108,7 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
                 if(customButtonListener!=null)
                 {
                     if(data!=null) {
-                        customButtonListener.onButtonClickListener(position);
+                        customButtonListener.onButtonClickListener(denuncies.indexOf(denuncia));
                     }
                     else{
 
