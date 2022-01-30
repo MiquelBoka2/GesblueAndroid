@@ -254,13 +254,14 @@ public class GesblueApplication extends MultiDexApplication {
 	}
 
 	private void checkNext(){
-		if(Index>=List_To_Upload.size()||DenunciaEnCurs){
-			List_To_Upload=null;
-			Index=0;
-			EnviamentDisponible = true;
-		}
-		else{
-			enviaDenuncies();
+		if(List_To_Upload!=null) {
+			if (Index >= List_To_Upload.size() || DenunciaEnCurs) {
+				List_To_Upload = null;
+				Index = 0;
+				EnviamentDisponible = true;
+			} else {
+				enviaDenuncies();
+			}
 		}
 	}
 	private void checkIfDiscard(Model_Denuncia den){
