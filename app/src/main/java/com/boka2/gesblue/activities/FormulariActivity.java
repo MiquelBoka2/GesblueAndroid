@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.boka2.gesblue.Boka2ols.ImagePicker;
+import com.boka2.gesblue.Boka2ols.Kotlin_Utils;
 import com.boka2.gesblue.GesblueApplication;
 import com.boka2.sbaseobjects.tools.ImageTools;
 import com.boka2.sbaseobjects.tools.Preferences;
@@ -642,7 +643,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 				if (!recuperada) {
 					String model=Build.MANUFACTURER
 							+ " " + Build.MODEL;
-					if(model.equals("bq Aquaris U")) {
+					if(Kotlin_Utils.Companion.getDevices_type_1().contains(model)) {
 
 						intent = new Intent(mContext, CameraActivity.class);
 
@@ -666,7 +667,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 						}
 
 					}
-					else if(model.equals("motorola moto g(9) play")) {
+					else if(Kotlin_Utils.Companion.getDevices_type_2().contains(model)) {
 
 
 
@@ -916,7 +917,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 								+ " " + Build.MODEL;
 
 
-						if(model.equals("bq Aquaris U")) {
+						if(Kotlin_Utils.Companion.getDevices_type_1().contains(model)) {
 
 							intent = new Intent(mContext, CameraActivity.class);
 
@@ -925,7 +926,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 								startActivityForResult(intent, Utils.RESULT_FOTO_1);
 							}
 						}
-						else if(model.equals("motorola moto g(9) play")) {
+						else if(Kotlin_Utils.Companion.getDevices_type_2().contains(model)) {
 							
 							if (isEmpty(foto1)) {
 								Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -986,7 +987,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 								+ " " + Build.MODEL;
 
 
-						if(model.equals("bq Aquaris U")) {
+						if(Kotlin_Utils.Companion.getDevices_type_1().contains(model)) {
 
 							intent = new Intent(mContext, CameraActivity.class);
 
@@ -995,7 +996,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 								startActivityForResult(intent, Utils.RESULT_FOTO_2);
 							}
 						}
-						else if(model.equals("motorola moto g(9) play")) {
+						else if(Kotlin_Utils.Companion.getDevices_type_2().contains(model)) {
 
 							if (isEmpty(foto2)) {
 								Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -1054,7 +1055,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 								+ " " + Build.MODEL;
 
 
-						if(model.equals("bq Aquaris U")) {
+						if(Kotlin_Utils.Companion.getDevices_type_1().contains(model)) {
 
 							intent = new Intent(mContext, CameraActivity.class);
 
@@ -1063,7 +1064,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 								startActivityForResult(intent, Utils.RESULT_FOTO_3);
 							}
 						}
-						else if(model.equals("motorola moto g(9) play")) {
+						else if(Kotlin_Utils.Companion.getDevices_type_2().contains(model)) {
 
 							if (isEmpty(foto3)) {
 								Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -1123,7 +1124,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 								+ " " + Build.MODEL;
 
 
-						if(model.equals("bq Aquaris U")) {
+						if(Kotlin_Utils.Companion.getDevices_type_1().contains(model)) {
 
 							intent = new Intent(mContext, CameraActivity.class);
 
@@ -1132,7 +1133,7 @@ public class FormulariActivity extends GesblueFragmentActivity implements View.O
 								startActivityForResult(intent, Utils.RESULT_FOTO_4);
 							}
 						}
-						else if(model.equals("motorola moto g(9) play")) {
+						else if(Kotlin_Utils.Companion.getDevices_type_2().contains(model)) {
 
 							if (isEmpty(foto4)) {
 								Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

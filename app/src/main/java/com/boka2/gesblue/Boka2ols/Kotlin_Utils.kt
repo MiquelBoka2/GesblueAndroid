@@ -10,6 +10,13 @@ import java.util.*
 
 class Kotlin_Utils {
     companion object {
+
+
+        val devices_type_1= mutableListOf<String>("bq Aquaris U")//OLD
+        val devices_type_2= mutableListOf<String>("motorola moto g31(w)","motorola moto g(9) play")//NEW
+
+
+
         public fun Denuncies_Filter(
             llistat_denuncies: List<Model_Denuncia>,
             filtre_matricula: String?

@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 
 import com.boka2.gesblue.Boka2ols.ImagePicker;
+import com.boka2.gesblue.Boka2ols.Kotlin_Utils;
 import com.boka2.gesblue.GesblueApplication;
 import com.boka2.gesblue.activities.passosformulari.Pas7NumeroActivity;
 import com.boka2.gesblue.datamanager.database.model.Model_Zona;
@@ -260,6 +261,7 @@ public class MainActivity extends GesblueFragmentActivity {
 					Utils.showFaltenDadesError(mContext);
 				} else {
 					comprovarMatricula(matricula);
+					mBinding.buttonComprovar.setEnabled(false);
 				}
 			}
 		});
@@ -273,7 +275,8 @@ public class MainActivity extends GesblueFragmentActivity {
 
 		mBinding.buttonDenunciar.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view)
+			{
 
 
 				if(PreferencesGesblue.getEstatComprovacio(mContext)==1 || PreferencesGesblue.getEstatComprovacio(mContext)==3|| PreferencesGesblue.getEstatComprovacio(mContext)==4){
@@ -355,14 +358,14 @@ public class MainActivity extends GesblueFragmentActivity {
 
 
 				if (isEmpty(foto1)) {
-					if(model.equals("bq Aquaris U")){
+					if(Kotlin_Utils.Companion.getDevices_type_1().contains(model)){
 
 						Intent intent = new Intent(mContext, CameraActivity.class);
 						intent.putExtra("position", "1");
 						startActivityForResult(intent, Utils.RESULT_FOTO_1);
 
 					}
-					else if(model.equals("motorola moto g(9) play")){
+					else if(Kotlin_Utils.Companion.getDevices_type_2().contains(model)){
 						Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 						takePictureIntent.putExtra("position", "1");
 						if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -401,8 +404,9 @@ public class MainActivity extends GesblueFragmentActivity {
 					}
 
 
-				} else if (isEmpty(foto2)) {
-					if(model.equals("bq Aquaris U")){
+				}
+				else if (isEmpty(foto2)) {
+					if(Kotlin_Utils.Companion.getDevices_type_1().contains(model)){
 
 						Intent intent = new Intent(mContext, CameraActivity.class);
 						intent.putExtra("position", "2");
@@ -417,8 +421,9 @@ public class MainActivity extends GesblueFragmentActivity {
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_2);
 						}
 					}
-				} else if (isEmpty(foto3)) {
-					if(model.equals("bq Aquaris U")){
+				}
+				else if (isEmpty(foto3)) {
+					if(Kotlin_Utils.Companion.getDevices_type_1().contains(model)){
 
 						Intent intent = new Intent(mContext, CameraActivity.class);
 						intent.putExtra("position", "3");
@@ -433,8 +438,9 @@ public class MainActivity extends GesblueFragmentActivity {
 							startActivityForResult(takePictureIntent, Utils.REQUEST_IMAGE_CAPTURE_3);
 						}
 					}
-				} else if (isEmpty(foto4)) {
-					if(model.equals("bq Aquaris U")){
+				}
+				else if (isEmpty(foto4)) {
+					if(Kotlin_Utils.Companion.getDevices_type_1().contains(model)){
 
 						Intent intent = new Intent(mContext, CameraActivity.class);
 						intent.putExtra("position", "4");
@@ -1250,6 +1256,7 @@ public class MainActivity extends GesblueFragmentActivity {
 		mBinding.tvNum.setEnabled(true);
 		mBinding.buttonComprovar.setEnabled(true);
 		mBinding.buttonComprovar.setVisibility(View.VISIBLE);
+
 
 	}
 
