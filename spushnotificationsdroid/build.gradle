@@ -22,6 +22,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.6.2'
     api files('libs/gcm.jar')
     api files('libs/com.mobandme.ada_v2.4.4.jar')
-    implementation 'com.flurry.android:analytics:6.4.2'
+    implementation 'com.flurry.android:analytics:11.5.0'
     implementation project(':sbaseobjects')
 }

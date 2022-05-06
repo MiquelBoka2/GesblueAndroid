@@ -83,7 +83,8 @@ public class SOAPManager {
 
                     if (reslt == null) {
                         return AsynkTaskResult.createSucces(null);
-                    } else {
+                    }
+                    else {
                         if (reslt.toString().equals("")) {
                             Log.e(TAG, "The " + methodName + " webservice returned empty");
                             return AsynkTaskResult.createError(JsoapError.OTHER_ERROR);

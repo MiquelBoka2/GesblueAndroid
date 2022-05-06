@@ -63,6 +63,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -1492,9 +1493,23 @@ public class MainActivity extends GesblueFragmentActivity {
 			}
 		}
 
+		if (root.isDirectory())
+		{
+			File[] childrens = root.listFiles();
+			for (int i = 0; i < childrens.length; i++)
+			{
+
+				boolean res = childrens[i].delete();
+				if(res){
+					Log.d("Clear",childrens[i].getPath().toString());
+				}
+
+			}
+		}
+
 
 		try {
-			loc_foto1= File.createTempFile("foto_temp_1_",".jpg",root);
+			loc_foto1=File.createTempFile("foto_temp_1_",".jpg",root);
 			loc_foto2=File.createTempFile("foto_temp_2_",".jpg",root);
 			loc_foto3=File.createTempFile("foto_temp_3_",".jpg",root);
 			loc_foto4=File.createTempFile("foto_temp_4_",".jpg",root);
@@ -1508,7 +1523,54 @@ public class MainActivity extends GesblueFragmentActivity {
 	}
 
 
+	@Override
+	public void finish() {
+		super.finish();
 
+		boolean result=loc_foto1.delete();
+		if(!result){
+			Log.d("temp","loc_1: no deleted");
+		}
 
+		result=loc_foto2.delete();
+		if(!result){
+			Log.d("temp","loc_2: no deleted");
+		}
+
+		result=loc_foto3.delete();
+		if(!result){
+			Log.d("temp","loc_3: no deleted");
+		}
+
+		result=loc_foto4.delete();
+		if(!result){
+			Log.d("temp","loc_4: no deleted");
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		boolean result=loc_foto1.delete();
+		if(!result){
+			Log.d("temp","loc_1: no deleted");
+		}
+
+		result=loc_foto2.delete();
+		if(!result){
+			Log.d("temp","loc_2: no deleted");
+		}
+
+		result=loc_foto3.delete();
+		if(!result){
+			Log.d("temp","loc_3: no deleted");
+		}
+
+		result=loc_foto4.delete();
+		if(!result){
+			Log.d("temp","loc_4: no deleted");
+		}
+	}
 
 }

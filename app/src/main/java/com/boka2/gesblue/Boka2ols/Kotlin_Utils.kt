@@ -1,5 +1,10 @@
 package com.boka2.gesblue.Boka2ols
 
+import android.Manifest
+import android.app.Activity
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.boka2.gesblue.R
 import com.boka2.gesblue.datamanager.database.model.Model_Denuncia
 import com.boka2.gesblue.model.Model_Group_Denuncies
@@ -117,6 +122,50 @@ class Kotlin_Utils {
         }
 
 
+        class AskPermi {
+
+            companion object {
+
+                abstract class PermissionListener {
+                    abstract fun onPermissionsGranted()
+                    abstract fun onPermissionsDenied()
+                }
+
+                private var mPermissionListener: PermissionListener? = null
+                private val MULTIPLE_PERMISSIONS = 123
+
+                fun askForPermissions(
+                    activity: Activity,
+                    permissions: Array<String?>,
+                    _listener: PermissionListener
+                ) {
+                    var permissions = permissions
+                    val neededPermissions =
+                        java.util.ArrayList<String?>()
+                    for (s in permissions) {
+                        if (ContextCompat.checkSelfPermission(activity,s.toString()) != PackageManager.PERMISSION_GRANTED
+                        ) {
+                            neededPermissions.add(s)
+                        }
+                    }
+                    if (neededPermissions.size == 0) {
+                        _listener.onPermissionsGranted()
+                    } else {
+                        permissions = arrayOfNulls(neededPermissions.size)
+                        for (i in permissions.indices) {
+                            permissions[i] = neededPermissions[i]
+                        }
+                        mPermissionListener = _listener
+                        ActivityCompat.requestPermissions(
+                            activity,
+                            permissions,
+                            MULTIPLE_PERMISSIONS
+                        )
+                    }
+                }
+
+            }
+        }
 
     }
 }
